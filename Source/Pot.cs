@@ -216,11 +216,11 @@ namespace NBagOfUis
 
                 if (e.KeyCode == Keys.Down)
                 {
-                    Value = Value - incr;
+                    Value -= incr;
                 }
                 else if (e.KeyCode == Keys.Up)
                 {
-                    Value = Value + incr;
+                    Value += incr;
                 }
             }
 

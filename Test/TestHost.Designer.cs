@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.vkbd = new NBagOfUis.VirtualKeyboard();
-            this.btnMarkdown = new System.Windows.Forms.Button();
             this.chkRunBars = new System.Windows.Forms.CheckBox();
             this.barBar = new NBagOfUis.BarBar();
             this.clickGrid1 = new NBagOfUis.ClickGrid();
@@ -72,7 +71,6 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.waveViewer2);
             this.splitContainer1.Panel2.Controls.Add(this.waveViewer1);
-            this.splitContainer1.Panel2.Controls.Add(this.btnMarkdown);
             this.splitContainer1.Panel2.Controls.Add(this.chkRunBars);
             this.splitContainer1.Panel2.Controls.Add(this.barBar);
             this.splitContainer1.Panel2.Controls.Add(this.clickGrid1);
@@ -103,16 +101,6 @@
             this.vkbd.Size = new System.Drawing.Size(1436, 142);
             this.vkbd.TabIndex = 0;
             this.vkbd.KeyboardEvent += new System.EventHandler<NBagOfUis.VirtualKeyboard.KeyboardEventArgs>(this.Vkbd_KeyboardEvent);
-            // 
-            // btnMarkdown
-            // 
-            this.btnMarkdown.Location = new System.Drawing.Point(546, 27);
-            this.btnMarkdown.Name = "btnMarkdown";
-            this.btnMarkdown.Size = new System.Drawing.Size(42, 36);
-            this.btnMarkdown.TabIndex = 17;
-            this.btnMarkdown.Text = "md";
-            this.btnMarkdown.UseVisualStyleBackColor = true;
-            this.btnMarkdown.Click += new System.EventHandler(this.BtnMarkdown_Click);
             // 
             // chkRunBars
             // 
@@ -378,7 +366,6 @@
         private UI.ClickGrid clickGrid1;
         private UI.BarBar barBar;
         private System.Windows.Forms.CheckBox chkRunBars;
-        private System.Windows.Forms.Button btnMarkdown;
         private UI.WaveViewer waveViewer2;
         private UI.WaveViewer waveViewer1;
     }

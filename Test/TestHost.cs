@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 using System.Diagnostics;
-// using NBagOfUis;
-using NBagOfUis
+using NBagOfUis;
 
 
 namespace NBagOfUis.Test
@@ -209,14 +208,6 @@ namespace NBagOfUis.Test
         private void TimeBar_CurrentTimeChanged(object sender, EventArgs e)
         {
             //txtInfo.AddLine($"Current time:{timeBar.CurrentTime}");
-        }
-
-        private void BtnMarkdown_Click(object sender, EventArgs e)
-        {
-            // Main help file.
-            var mdText = new List<string>();
-            mdText.AddRange(File.ReadAllLines(@"..\..\README.md"));
-            var htmlText = Tools.MarkdownToHtml(mdText, "lightgreen", "helvetica", true); // arial, helvetica, sans-serif
         }
     }
 }
