@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
-using NBagOfTricks;
 
 
 namespace NBagOfUis
@@ -305,7 +304,7 @@ namespace NBagOfUis
             if(_current.TotalMilliseconds < _length.TotalMilliseconds)
             {
                 msec = x * (int)_length.TotalMilliseconds / Width;
-                msec = MathUtils.Constrain(msec, 0, (int)_length.TotalMilliseconds);
+                msec = InternalHelpers.Constrain(msec, 0, (int)_length.TotalMilliseconds);
                 msec = DoSnap(msec);
             }
             return new TimeSpan(0, 0, 0, 0, msec);
@@ -340,7 +339,7 @@ namespace NBagOfUis
         /// <returns></returns>
         TimeSpan Constrain(TimeSpan val, TimeSpan lower, TimeSpan upper)
         {
-            return TimeSpan.FromMilliseconds(MathUtils.Constrain(val.TotalMilliseconds, lower.TotalMilliseconds, upper.TotalMilliseconds));
+            return TimeSpan.FromMilliseconds(InternalHelpers.Constrain(val.TotalMilliseconds, lower.TotalMilliseconds, upper.TotalMilliseconds));
         }
 
         /// <summary>

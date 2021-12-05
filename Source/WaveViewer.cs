@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using NBagOfTricks;
 
 
 namespace NBagOfUis
@@ -51,10 +50,10 @@ namespace NBagOfUis
         public DrawMode Mode { get; set; } = DrawMode.Envelope;
 
         /// <summary>Marker 1.</summary>
-        public int Marker1 { get { return _marker1; } set { _marker1 = value < 0 ? -1 : MathUtils.Constrain(value, 0, _rawVals.Length); } }
+        public int Marker1 { get { return _marker1; } set { _marker1 = value < 0 ? -1 : InternalHelpers.Constrain(value, 0, _rawVals.Length); } }
 
         /// <summary>Marker 2.</summary>
-        public int Marker2 { get { return _marker2; } set { _marker2 = value < 0 ? -1 : MathUtils.Constrain(value, 0, _rawVals.Length); } }
+        public int Marker2 { get { return _marker2; } set { _marker2 = value < 0 ? -1 : InternalHelpers.Constrain(value, 0, _rawVals.Length); } }
         #endregion
 
         #region Lifecycle
@@ -143,15 +142,15 @@ namespace NBagOfUis
                     switch(Mode)
                     {
                         case DrawMode.Envelope:
-                            float y1 = (float)MathUtils.Map(val, -_rawMax, _rawMax, Height, 0);
+                            float y1 = (float)InternalHelpers.Map(val, -_rawMax, _rawMax, Height, 0);
                             //float y2 = Height / 2; // Line from val to 0
-                            float y2 = (float)MathUtils.Map(val, -_rawMax, _rawMax, 0, Height); // Line from +val to -val
+                            float y2 = (float)InternalHelpers.Map(val, -_rawMax, _rawMax, 0, Height); // Line from +val to -val
                             pe.Graphics.DrawLine(_penDraw, i, y1, i, y2);
                             break;
 
                         case DrawMode.Raw:
                             // Simple dot
-                            float y = (float)MathUtils.Map(val, -_rawMax, _rawMax, Height, 0);
+                            float y = (float)InternalHelpers.Map(val, -_rawMax, _rawMax, Height, 0);
                             pe.Graphics.DrawRectangle(_penDraw, i, y, 1, 1);
                             break;
                     }
@@ -182,7 +181,9 @@ namespace NBagOfUis
                     int r = 0; // index into raw
                     for (int i = 0; i < fitWidth; i++)
                     {
-                        var rms = MathUtils.RMS(_rawVals.Subset(r, _smplPerPixel));
+                        float[] subset = new float[_smplPerPixel];
+                        Array.Copy(_rawVals, r, subset, 0, _smplPerPixel);
+                        var rms = InternalHelpers.RMS(subset);
                         _buff[i] = rms;
                         r += _smplPerPixel;
                     }

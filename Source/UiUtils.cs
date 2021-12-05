@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-using NBagOfTricks;
 
 
 namespace NBagOfUis
@@ -83,7 +82,7 @@ namespace NBagOfUis
                 };
                 _service = provider.GetService(typeof(IWindowsFormsEditorService)) as IWindowsFormsEditorService;
                 _service.DropDownControl(tb);
-                ls = tb.Text.SplitByTokens(Environment.NewLine);
+                ls = tb.Text.SplitByToken(Environment.NewLine);
             }
 
             return ls;

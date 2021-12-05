@@ -20,12 +20,6 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.11.0" />
   </ItemGroup>
 
-<!--   <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
-    <Compile Remove="submodules/NBagOfTricks/Core/Converters.cs" />
-    <Compile Remove="submodules/NBagOfTricks/ScriptCompiler/ScriptCompilerCore.cs" />
-    <Compile Remove="submodules/NBagOfTricks/ScriptCompiler/ScriptCompilerCommon.cs" />
-  </ItemGroup>
- -->
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
     <NoWarn>CS1591,CA1837,IDE0063,IDE0090</NoWarn>
     <!--<Nullable>enable</Nullable>-->

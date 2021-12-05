@@ -348,25 +348,25 @@
 
         #endregion
 
-        private UI.VirtualKeyboard vkbd;
-        private UI.Pot pot1;
-        private UI.Slider slider1;
-        private UI.Meter meter1;
+        private NBagOfUis.VirtualKeyboard vkbd;
+        private NBagOfUis.Pot pot1;
+        private NBagOfUis.Slider slider1;
+        private NBagOfUis.Meter meter1;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private UI.TextViewer txtInfo;
-        private UI.Pan pan1;
-        private UI.Slider slider2;
-        private UI.CpuMeter cpuMeter1;
-        private UI.Meter meter2;
-        private UI.Meter meter3;
-        private UI.FilTree ftree;
+        private NBagOfUis.TextViewer txtInfo;
+        private NBagOfUis.Pan pan1;
+        private NBagOfUis.Slider slider2;
+        private NBagOfUis.CpuMeter cpuMeter1;
+        private NBagOfUis.Meter meter2;
+        private NBagOfUis.Meter meter3;
+        private NBagOfUis.FilTree ftree;
         private System.Windows.Forms.CheckBox chkCpu;
-        private UI.TimeBar timeBar;
+        private NBagOfUis.TimeBar timeBar;
         private System.Windows.Forms.Timer timer1;
-        private UI.ClickGrid clickGrid1;
-        private UI.BarBar barBar;
+        private NBagOfUis.ClickGrid clickGrid1;
+        private NBagOfUis.BarBar barBar;
         private System.Windows.Forms.CheckBox chkRunBars;
-        private UI.WaveViewer waveViewer2;
-        private UI.WaveViewer waveViewer1;
+        private NBagOfUis.WaveViewer waveViewer2;
+        private NBagOfUis.WaveViewer waveViewer1;
     }
 }

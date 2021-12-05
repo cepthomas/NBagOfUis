@@ -1,7 +1,6 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using NBagOfTricks;
 
 
 namespace NBagOfUis
@@ -32,7 +31,7 @@ namespace NBagOfUis
             }
             set
             {
-                _value = Math.Round(MathUtils.Constrain(value, -1.0, 1.0), 2);
+                _value = Math.Round(InternalHelpers.Constrain(value, -1.0, 1.0), 2);
                 ValueChanged?.Invoke(this, EventArgs.Empty);
                 Invalidate();
             }

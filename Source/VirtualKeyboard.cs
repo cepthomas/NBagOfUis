@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Linq;
-using NBagOfTricks;
 
 
 namespace NBagOfUis
@@ -169,7 +168,7 @@ namespace NBagOfUis
 
             foreach (string l in keyDefs)
             {
-                List<string> parts = l.SplitByToken(" ");
+                var parts = l.SplitByToken(" ");
 
                 if (parts.Count >= 2 && parts[0] != ";")
                 {

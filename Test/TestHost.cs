@@ -38,7 +38,7 @@ namespace NBagOfUis.Test
             ///// Filter tree.
             string root = $@"C:\Dev\repos\NBagOfUis\Test"; //TODO fix xxx bad paths
             ftree.RootDirs = new List<string>() { root };
-            ftree.FilterExts = ".txt;.md;.xml;.cs".SplitByToken(";");
+            ftree.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" };
             ftree.AllTags = new Dictionary<string, bool>() { { "abc", true }, { "123", false }, { "xyz", true } };
             ftree.DoubleClickSelect = false;
 
@@ -61,7 +61,7 @@ namespace NBagOfUis.Test
             float[] data1 = new float[150];
             for (int i = 0; i < data1.Length; i++)
             {
-                data1[i] = (float)Math.Sin(MathUtils.DegreesToRadians(i));
+                data1[i] = (float)Math.Sin(Math.PI * i / 180.0);
             }
             waveViewer1.Mode = WaveViewer.DrawMode.Raw;
             waveViewer1.DrawColor = Color.Green;
