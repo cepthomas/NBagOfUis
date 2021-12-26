@@ -24,10 +24,13 @@ namespace NBagOfUis
         float _rawMax = 1.0f;
 
         /// <summary>Storage for display.</summary>
-        float[] _buff = null;
+        float[] _scaledBuff = null;
 
         /// <summary>For drawing.</summary>
         readonly Pen _penDraw = new Pen(Color.Black, 1);
+
+        /// <summary>For drawing.</summary>
+        readonly Pen _penMarker = new Pen(Color.Black, 1);
 
         /// <summary>For drawing text.</summary>
         readonly Font _textFont = new Font("Cascadia", 12, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -46,14 +49,53 @@ namespace NBagOfUis
         /// <summary>For styling.</summary>
         public Color DrawColor { get { return _penDraw.Color; } set { _penDraw.Color = value; } }
 
+        /// <summary>For styling.</summary>
+        public Color MarkerColor { get { return _penMarker.Color; } set { _penMarker.Color = value; } }
+
         /// <summary>How to draw.</summary>
         public DrawMode Mode { get; set; } = DrawMode.Envelope;
 
-        /// <summary>Marker 1.</summary>
-        public int Marker1 { get { return _marker1; } set { _marker1 = value < 0 ? -1 : InternalHelpers.Constrain(value, 0, _rawVals.Length); } }
+        /// <summary>Marker 1 data index or -1 to disable.</summary>
+        public int Marker1
+        {
+            get
+            {
+                return _marker1;
+            }
+            set
+            {
+                if (value < 0 || _rawVals == null)
+                {
+                    _marker1 = -1;
+                }
+                else
+                {
+                    _marker1 = InternalHelpers.Constrain(value, 0, _rawVals.Length);
+                }
+                Invalidate();
+            }
+        }
 
-        /// <summary>Marker 2.</summary>
-        public int Marker2 { get { return _marker2; } set { _marker2 = value < 0 ? -1 : InternalHelpers.Constrain(value, 0, _rawVals.Length); } }
+        /// <summary>Marker 2 data index or -1 to disable.</summary>
+        public int Marker2
+        {
+            get
+            {
+                return _marker2;
+            }
+            set
+            {
+                if (value < 0 || _rawVals == null)
+                {
+                    _marker2 = -1;
+                }
+                else
+                {
+                    _marker2 = InternalHelpers.Constrain(value, 0, _rawVals.Length);
+                }
+                Invalidate();
+            }
+        }
         #endregion
 
         #region Lifecycle
@@ -102,6 +144,8 @@ namespace NBagOfUis
             //Dump(vals, "raw.csv");
             _rawVals = vals;
             _rawMax = max;
+            _marker1 = -1;
+            _marker2 = -1;
 
             Rescale();
             //Dump(_buff, "buff.csv");
@@ -114,7 +158,7 @@ namespace NBagOfUis
         public void Reset()
         {
             _rawVals = null;
-            _buff = null;
+            _scaledBuff = null;
             _rawMax = 0;
             Invalidate();
         }
@@ -129,31 +173,48 @@ namespace NBagOfUis
             // Setup.
             pe.Graphics.Clear(BackColor);
 
-            if (_buff is null)
+            if (_scaledBuff is null)
             {
                 pe.Graphics.DrawString("No data", _textFont, Brushes.Gray, ClientRectangle, _format);
             }
             else
             {
-                for (int i = 0; i < _buff.Length; i++)
+                // Draw data points.
+                for (int i = 0; i < _scaledBuff.Length; i++)
                 {
-                    double val = _buff[i];
+                    float val = _scaledBuff[i];
 
-                    switch(Mode)
+                    if(!float.IsNaN(val))
                     {
-                        case DrawMode.Envelope:
-                            float y1 = (float)InternalHelpers.Map(val, -_rawMax, _rawMax, Height, 0);
-                            //float y2 = Height / 2; // Line from val to 0
-                            float y2 = (float)InternalHelpers.Map(val, -_rawMax, _rawMax, 0, Height); // Line from +val to -val
-                            pe.Graphics.DrawLine(_penDraw, i, y1, i, y2);
-                            break;
+                        switch (Mode)
+                        {
+                            case DrawMode.Envelope:
+                                float y1 = (float)InternalHelpers.Map(val, -_rawMax, _rawMax, Height, 0);
+                                //float y2 = Height / 2; // Line from val to 0
+                                float y2 = (float)InternalHelpers.Map(val, -_rawMax, _rawMax, 0, Height); // Line from +val to -val
+                                pe.Graphics.DrawLine(_penDraw, i, y1, i, y2);
+                                break;
 
-                        case DrawMode.Raw:
-                            // Simple dot
-                            float y = (float)InternalHelpers.Map(val, -_rawMax, _rawMax, Height, 0);
-                            pe.Graphics.DrawRectangle(_penDraw, i, y, 1, 1);
-                            break;
+                            case DrawMode.Raw:
+                                // Simple dot
+                                float y = (float)InternalHelpers.Map(val, -_rawMax, _rawMax, Height, 0);
+                                pe.Graphics.DrawRectangle(_penDraw, i, y, 1, 1);
+                                break;
+                        }
                     }
+                }
+
+                // Draw  markers.
+                if (_marker1 > 0)
+                {
+                    int x = _smplPerPixel > 0 ? _marker1 / _smplPerPixel : _marker1;
+                    pe.Graphics.DrawLine(_penMarker, x, 0, x, Height);
+                }
+
+                if (_marker2 > 0)
+                {
+                    int x = _smplPerPixel > 0 ? _marker2 / _smplPerPixel : _marker2;
+                    pe.Graphics.DrawLine(_penMarker, x, 0, x, Height);
                 }
             }
         }
@@ -167,33 +228,31 @@ namespace NBagOfUis
         {
             if(_rawVals is null)
             {
-                _buff = null;
+                _scaledBuff = null;
             }
             else
             {
                 int fitWidth = Width;
                 _smplPerPixel = _rawVals.Length / fitWidth;
+                _scaledBuff = new float[fitWidth];
 
-                if(_smplPerPixel > 0)
+                if (_smplPerPixel > 0)
                 {
-                    _buff = new float[fitWidth];
-
                     int r = 0; // index into raw
                     for (int i = 0; i < fitWidth; i++)
                     {
                         float[] subset = new float[_smplPerPixel];
                         Array.Copy(_rawVals, r, subset, 0, _smplPerPixel);
                         var rms = InternalHelpers.RMS(subset);
-                        _buff[i] = rms;
+                        _scaledBuff[i] = rms;
                         r += _smplPerPixel;
                     }
                 }
                 else
                 {
-                    _buff = new float[fitWidth];
-                    for (int i = 0; i < _rawVals.Length; i++)
+                    for (int i = 0; i < _scaledBuff.Length; i++)
                     {
-                        _buff[i] = _rawVals[i];
+                        _scaledBuff[i] = i < _rawVals.Length ? _rawVals[i] : float.NaN;
                     }
                 }
             }

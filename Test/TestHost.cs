@@ -66,6 +66,8 @@ namespace NBagOfUis.Test
             waveViewer1.Mode = WaveViewer.DrawMode.Raw;
             waveViewer1.DrawColor = Color.Green;
             waveViewer1.Init(data1, 1.0f);
+            waveViewer1.Marker1 = 20;
+            waveViewer1.Marker2 = 130;
 
             // Real data.
             string[] sdata = File.ReadAllLines(@"C:\Dev\repos\NBagOfUis\Test\Files\wav.txt");
@@ -77,6 +79,8 @@ namespace NBagOfUis.Test
             waveViewer2.Mode = WaveViewer.DrawMode.Envelope;
             waveViewer2.DrawColor = Color.Green;
             waveViewer2.Init(data2, 1.0f);
+            waveViewer2.Marker1 = -1; // hide
+            waveViewer2.Marker2 = data2.Length / 2;
 
             ///// Click grid.
             clickGrid1.AddStateType(10, Color.Blue, Color.AliceBlue);
