@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.vkbd = new NBagOfUis.VirtualKeyboard();
+            this.waveViewer2 = new NBagOfUis.WaveViewer();
+            this.waveViewer1 = new NBagOfUis.WaveViewer();
             this.chkRunBars = new System.Windows.Forms.CheckBox();
             this.barBar = new NBagOfUis.BarBar();
             this.clickGrid1 = new NBagOfUis.ClickGrid();
@@ -47,8 +49,6 @@
             this.pot1 = new NBagOfUis.Pot();
             this.slider1 = new NBagOfUis.Slider();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.waveViewer1 = new NBagOfUis.WaveViewer();
-            this.waveViewer2 = new NBagOfUis.WaveViewer();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -59,7 +59,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -86,21 +86,49 @@
             this.splitContainer1.Panel2.Controls.Add(this.meter1);
             this.splitContainer1.Panel2.Controls.Add(this.pot1);
             this.splitContainer1.Panel2.Controls.Add(this.slider1);
-            this.splitContainer1.Size = new System.Drawing.Size(1436, 720);
-            this.splitContainer1.SplitterDistance = 142;
-            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.Size = new System.Drawing.Size(1436, 900);
+            this.splitContainer1.SplitterDistance = 177;
+            this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 4;
             // 
             // vkbd
             // 
             this.vkbd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.vkbd.Location = new System.Drawing.Point(0, 0);
-            this.vkbd.Margin = new System.Windows.Forms.Padding(5);
+            this.vkbd.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.vkbd.Name = "vkbd";
             this.vkbd.ShowNoteNames = false;
-            this.vkbd.Size = new System.Drawing.Size(1436, 142);
+            this.vkbd.Size = new System.Drawing.Size(1436, 177);
             this.vkbd.TabIndex = 0;
             this.vkbd.KeyboardEvent += new System.EventHandler<NBagOfUis.VirtualKeyboard.KeyboardEventArgs>(this.Vkbd_KeyboardEvent);
+            // 
+            // waveViewer2
+            // 
+            this.waveViewer2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.waveViewer2.DrawColor = System.Drawing.Color.Orange;
+            this.waveViewer2.Location = new System.Drawing.Point(546, 352);
+            this.waveViewer2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.waveViewer2.Marker1 = -1;
+            this.waveViewer2.Marker2 = -1;
+            this.waveViewer2.MarkerColor = System.Drawing.Color.Black;
+            this.waveViewer2.Mode = NBagOfUis.WaveViewer.DrawMode.Envelope;
+            this.waveViewer2.Name = "waveViewer2";
+            this.waveViewer2.Size = new System.Drawing.Size(254, 87);
+            this.waveViewer2.TabIndex = 19;
+            // 
+            // waveViewer1
+            // 
+            this.waveViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.waveViewer1.DrawColor = System.Drawing.Color.Orange;
+            this.waveViewer1.Location = new System.Drawing.Point(546, 245);
+            this.waveViewer1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.waveViewer1.Marker1 = -1;
+            this.waveViewer1.Marker2 = -1;
+            this.waveViewer1.MarkerColor = System.Drawing.Color.Black;
+            this.waveViewer1.Mode = NBagOfUis.WaveViewer.DrawMode.Envelope;
+            this.waveViewer1.Name = "waveViewer1";
+            this.waveViewer1.Size = new System.Drawing.Size(254, 87);
+            this.waveViewer1.TabIndex = 18;
             // 
             // chkRunBars
             // 
@@ -108,9 +136,11 @@
             this.chkRunBars.AutoSize = true;
             this.chkRunBars.Checked = true;
             this.chkRunBars.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRunBars.Location = new System.Drawing.Point(840, 174);
+            this.chkRunBars.Font = new System.Drawing.Font("Cooper Black", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.chkRunBars.Location = new System.Drawing.Point(840, 218);
+            this.chkRunBars.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkRunBars.Name = "chkRunBars";
-            this.chkRunBars.Size = new System.Drawing.Size(77, 27);
+            this.chkRunBars.Size = new System.Drawing.Size(89, 27);
             this.chkRunBars.TabIndex = 16;
             this.chkRunBars.Text = "Run Bars";
             this.chkRunBars.UseVisualStyleBackColor = true;
@@ -119,13 +149,14 @@
             // 
             this.barBar.BeatsPerBar = 4;
             this.barBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.barBar.FontLarge = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.barBar.FontSmall = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.barBar.Location = new System.Drawing.Point(943, 242);
+            this.barBar.FontLarge = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.barBar.FontSmall = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.barBar.Location = new System.Drawing.Point(943, 302);
+            this.barBar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.barBar.MarkerColor = System.Drawing.Color.Black;
             this.barBar.Name = "barBar";
             this.barBar.ProgressColor = System.Drawing.Color.White;
-            this.barBar.Size = new System.Drawing.Size(353, 51);
+            this.barBar.Size = new System.Drawing.Size(353, 63);
             this.barBar.Snap = NBagOfUis.BarBar.SnapType.Subdiv;
             this.barBar.SubdivsPerBeat = 8;
             this.barBar.TabIndex = 15;
@@ -133,21 +164,23 @@
             // clickGrid1
             // 
             this.clickGrid1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.clickGrid1.Location = new System.Drawing.Point(12, 436);
+            this.clickGrid1.Location = new System.Drawing.Point(12, 545);
+            this.clickGrid1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clickGrid1.Name = "clickGrid1";
-            this.clickGrid1.Size = new System.Drawing.Size(484, 125);
+            this.clickGrid1.Size = new System.Drawing.Size(484, 156);
             this.clickGrid1.TabIndex = 1;
             // 
             // timeBar
             // 
             this.timeBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.timeBar.FontLarge = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeBar.FontSmall = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeBar.Location = new System.Drawing.Point(943, 174);
+            this.timeBar.FontLarge = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.timeBar.FontSmall = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.timeBar.Location = new System.Drawing.Point(943, 218);
+            this.timeBar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.timeBar.MarkerColor = System.Drawing.Color.Black;
             this.timeBar.Name = "timeBar";
             this.timeBar.ProgressColor = System.Drawing.Color.Orange;
-            this.timeBar.Size = new System.Drawing.Size(353, 52);
+            this.timeBar.Size = new System.Drawing.Size(353, 64);
             this.timeBar.SnapMsec = 0;
             this.timeBar.TabIndex = 13;
             // 
@@ -155,9 +188,10 @@
             // 
             this.chkCpu.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkCpu.AutoSize = true;
-            this.chkCpu.Location = new System.Drawing.Point(633, 27);
+            this.chkCpu.Location = new System.Drawing.Point(633, 34);
+            this.chkCpu.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkCpu.Name = "chkCpu";
-            this.chkCpu.Size = new System.Drawing.Size(41, 27);
+            this.chkCpu.Size = new System.Drawing.Size(43, 30);
             this.chkCpu.TabIndex = 12;
             this.chkCpu.Text = "cpu";
             this.chkCpu.UseVisualStyleBackColor = true;
@@ -166,9 +200,10 @@
             // ftree
             // 
             this.ftree.DoubleClickSelect = false;
-            this.ftree.Location = new System.Drawing.Point(12, 16);
+            this.ftree.Location = new System.Drawing.Point(12, 20);
+            this.ftree.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.ftree.Name = "ftree";
-            this.ftree.Size = new System.Drawing.Size(484, 414);
+            this.ftree.Size = new System.Drawing.Size(484, 518);
             this.ftree.TabIndex = 11;
             this.ftree.FileSelectedEvent += new System.EventHandler<string>(this.FilTree_FileSelectedEvent);
             // 
@@ -177,14 +212,14 @@
             this.meter3.BackColor = System.Drawing.Color.Gainsboro;
             this.meter3.DrawColor = System.Drawing.Color.Violet;
             this.meter3.Label = "meter dots";
-            this.meter3.Location = new System.Drawing.Point(875, 25);
-            this.meter3.Margin = new System.Windows.Forms.Padding(4);
+            this.meter3.Location = new System.Drawing.Point(875, 31);
+            this.meter3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.meter3.Maximum = 10D;
             this.meter3.MeterType = NBagOfUis.MeterType.ContinuousDots;
             this.meter3.Minimum = -10D;
             this.meter3.Name = "meter3";
             this.meter3.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.meter3.Size = new System.Drawing.Size(180, 48);
+            this.meter3.Size = new System.Drawing.Size(180, 60);
             this.meter3.TabIndex = 10;
             // 
             // meter2
@@ -192,14 +227,14 @@
             this.meter2.BackColor = System.Drawing.Color.Gainsboro;
             this.meter2.DrawColor = System.Drawing.Color.Azure;
             this.meter2.Label = "meter log";
-            this.meter2.Location = new System.Drawing.Point(875, 108);
-            this.meter2.Margin = new System.Windows.Forms.Padding(4);
+            this.meter2.Location = new System.Drawing.Point(875, 135);
+            this.meter2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.meter2.Maximum = 3D;
             this.meter2.MeterType = NBagOfUis.MeterType.Log;
             this.meter2.Minimum = -60D;
             this.meter2.Name = "meter2";
             this.meter2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.meter2.Size = new System.Drawing.Size(180, 48);
+            this.meter2.Size = new System.Drawing.Size(180, 60);
             this.meter2.TabIndex = 9;
             // 
             // cpuMeter1
@@ -208,9 +243,10 @@
             this.cpuMeter1.DrawColor = System.Drawing.Color.DarkOrange;
             this.cpuMeter1.Enable = false;
             this.cpuMeter1.Label = "cpu";
-            this.cpuMeter1.Location = new System.Drawing.Point(680, 25);
+            this.cpuMeter1.Location = new System.Drawing.Point(680, 31);
+            this.cpuMeter1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cpuMeter1.Name = "cpuMeter1";
-            this.cpuMeter1.Size = new System.Drawing.Size(175, 56);
+            this.cpuMeter1.Size = new System.Drawing.Size(175, 70);
             this.cpuMeter1.TabIndex = 7;
             // 
             // slider2
@@ -219,14 +255,14 @@
             this.slider2.DecPlaces = 1;
             this.slider2.DrawColor = System.Drawing.Color.SlateBlue;
             this.slider2.Label = "Vertical";
-            this.slider2.Location = new System.Drawing.Point(1254, 25);
-            this.slider2.Margin = new System.Windows.Forms.Padding(4);
+            this.slider2.Location = new System.Drawing.Point(1254, 31);
+            this.slider2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.slider2.Maximum = 10D;
             this.slider2.Minimum = 0D;
             this.slider2.Name = "slider2";
             this.slider2.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.slider2.ResetValue = 0D;
-            this.slider2.Size = new System.Drawing.Size(42, 131);
+            this.slider2.Size = new System.Drawing.Size(42, 164);
             this.slider2.TabIndex = 6;
             this.slider2.Value = 5.4D;
             // 
@@ -234,36 +270,37 @@
             // 
             this.pan1.BackColor = System.Drawing.Color.Gainsboro;
             this.pan1.DrawColor = System.Drawing.Color.Crimson;
-            this.pan1.Location = new System.Drawing.Point(692, 108);
-            this.pan1.Margin = new System.Windows.Forms.Padding(4);
+            this.pan1.Location = new System.Drawing.Point(692, 135);
+            this.pan1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pan1.Name = "pan1";
-            this.pan1.Size = new System.Drawing.Size(146, 48);
+            this.pan1.Size = new System.Drawing.Size(146, 60);
             this.pan1.TabIndex = 5;
             this.pan1.Value = 0D;
             // 
             // txtInfo
             // 
-            this.txtInfo.Location = new System.Drawing.Point(546, 369);
-            this.txtInfo.Margin = new System.Windows.Forms.Padding(4);
+            this.txtInfo.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtInfo.Location = new System.Drawing.Point(546, 461);
+            this.txtInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtInfo.MaxText = 5000;
             this.txtInfo.Name = "txtInfo";
-            this.txtInfo.Size = new System.Drawing.Size(754, 184);
+            this.txtInfo.Size = new System.Drawing.Size(754, 229);
             this.txtInfo.TabIndex = 4;
-            this.txtInfo.WordWrap = true;
+            this.txtInfo.Text = "";
             // 
             // meter1
             // 
             this.meter1.BackColor = System.Drawing.Color.Gainsboro;
             this.meter1.DrawColor = System.Drawing.Color.Orange;
             this.meter1.Label = "meter xyz";
-            this.meter1.Location = new System.Drawing.Point(1081, 108);
-            this.meter1.Margin = new System.Windows.Forms.Padding(4);
+            this.meter1.Location = new System.Drawing.Point(1081, 135);
+            this.meter1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.meter1.Maximum = 100D;
             this.meter1.MeterType = NBagOfUis.MeterType.Linear;
             this.meter1.Minimum = 0D;
             this.meter1.Name = "meter1";
             this.meter1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.meter1.Size = new System.Drawing.Size(153, 48);
+            this.meter1.Size = new System.Drawing.Size(153, 60);
             this.meter1.TabIndex = 3;
             // 
             // pot1
@@ -273,12 +310,12 @@
             this.pot1.DrawColor = System.Drawing.Color.Green;
             this.pot1.ForeColor = System.Drawing.Color.Black;
             this.pot1.Label = "p99";
-            this.pot1.Location = new System.Drawing.Point(546, 83);
-            this.pot1.Margin = new System.Windows.Forms.Padding(5);
+            this.pot1.Location = new System.Drawing.Point(546, 104);
+            this.pot1.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.pot1.Maximum = 1D;
             this.pot1.Minimum = 0D;
             this.pot1.Name = "pot1";
-            this.pot1.Size = new System.Drawing.Size(81, 73);
+            this.pot1.Size = new System.Drawing.Size(81, 91);
             this.pot1.TabIndex = 1;
             this.pot1.Taper = NBagOfUis.Taper.Linear;
             this.pot1.Value = 0.5D;
@@ -290,14 +327,14 @@
             this.slider1.DecPlaces = 2;
             this.slider1.DrawColor = System.Drawing.Color.Orange;
             this.slider1.Label = "Horizontal";
-            this.slider1.Location = new System.Drawing.Point(1081, 25);
-            this.slider1.Margin = new System.Windows.Forms.Padding(4);
+            this.slider1.Location = new System.Drawing.Point(1081, 31);
+            this.slider1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.slider1.Maximum = 1D;
             this.slider1.Minimum = 0D;
             this.slider1.Name = "slider1";
             this.slider1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             this.slider1.ResetValue = 0D;
-            this.slider1.Size = new System.Drawing.Size(153, 48);
+            this.slider1.Size = new System.Drawing.Size(153, 60);
             this.slider1.TabIndex = 2;
             this.slider1.Value = 0.3D;
             // 
@@ -305,33 +342,13 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
-            // waveViewer1
-            // 
-            this.waveViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.waveViewer1.DrawColor = System.Drawing.Color.Orange;
-            this.waveViewer1.Location = new System.Drawing.Point(546, 196);
-            this.waveViewer1.Mode = NBagOfUis.WaveViewer.DrawMode.Envelope;
-            this.waveViewer1.Name = "waveViewer1";
-            this.waveViewer1.Size = new System.Drawing.Size(254, 70);
-            this.waveViewer1.TabIndex = 18;
-            // 
-            // waveViewer2
-            // 
-            this.waveViewer2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.waveViewer2.DrawColor = System.Drawing.Color.Orange;
-            this.waveViewer2.Location = new System.Drawing.Point(546, 282);
-            this.waveViewer2.Mode = NBagOfUis.WaveViewer.DrawMode.Envelope;
-            this.waveViewer2.Name = "waveViewer2";
-            this.waveViewer2.Size = new System.Drawing.Size(254, 70);
-            this.waveViewer2.TabIndex = 19;
-            // 
             // TestHost
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1436, 720);
+            this.ClientSize = new System.Drawing.Size(1436, 900);
             this.Controls.Add(this.splitContainer1);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "TestHost";
             this.Text = "TestHost";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TestHost_FormClosing);
