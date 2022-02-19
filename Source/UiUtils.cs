@@ -71,7 +71,7 @@ namespace NBagOfUis
         {
             List<string> ls = value as List<string>;
 
-            if (ls != null && ls.Count > 0)
+            if (ls != null)
             {
                 TextBox tb = new TextBox
                 {
@@ -79,7 +79,7 @@ namespace NBagOfUis
                     ReadOnly = false,
                     AcceptsReturn = true,
                     ScrollBars = ScrollBars.Both,
-                    Height = ls.Count * 30,
+                    Height = (ls.Count + 1) * 30,
                     Text = string.Join(Environment.NewLine, ls)
                 };
                 _service = provider.GetService(typeof(IWindowsFormsEditorService)) as IWindowsFormsEditorService;

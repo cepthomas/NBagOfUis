@@ -9,19 +9,21 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Drawing.Design;
 using NBagOfUis;
-
 
 namespace NBagOfUis.Test
 {
     public partial class TestHost : Form
     {
+        TestClass _testClass = new TestClass();
+
         public TestHost()
         {
             InitializeComponent();
         }
 
-        private void TestHost_Load(object sender, EventArgs e)
+        void TestHost_Load(object sender, EventArgs e)
         {
             ///// Misc controls.
             txtInfo.Colors.Add("note:7", Color.Purple);
@@ -118,8 +120,24 @@ namespace NBagOfUis.Test
             barBar.BackColor = Color.LawnGreen;
             //barBar.Test();
 
+            ///// Type editor host.
+            propGrid.SelectedObject = _testClass;
+
             // Go-go-go.
             timer1.Enabled = true;
+        }
+
+        void TestHost_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Inspect.
+            var at = ftree.AllTags;
+            var tp = ftree.TaggedPaths;
+            var po = _testClass;
+        }
+
+        void TestHost_Shown(object sender, EventArgs e)
+        {
+
         }
 
         void Timer1_Tick(object sender, EventArgs e)
@@ -142,29 +160,17 @@ namespace NBagOfUis.Test
             }
         }
 
-        private void TimeBar_CurrentTimeChanged1(object sender, EventArgs e)
+        void TimeBar_CurrentTimeChanged1(object sender, EventArgs e)
         {
         }
 
-        private void BarBar1_CurrentTimeChanged(object sender, EventArgs e)
+        void BarBar1_CurrentTimeChanged(object sender, EventArgs e)
         {
         }
 
-        private void ClickGrid_IndicatorEvent(object sender, IndicatorEventArgs e)
+        void ClickGrid_IndicatorEvent(object sender, IndicatorEventArgs e)
         {
             clickGrid1.SetIndicator(e.Id, (e.State + 10) % 40);
-        }
-
-        private void TestHost_Shown(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TestHost_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            // Inspect.
-            var at = ftree.AllTags;
-            var tp = ftree.TaggedPaths;
         }
 
         void FilTree_FileSelectedEvent(object sender, string fn)
@@ -172,31 +178,31 @@ namespace NBagOfUis.Test
             txtInfo.AddLine($"Selected file: {fn}");
         }
 
-        private void Pot1_ValueChanged(object sender, EventArgs e)
+        void Pot1_ValueChanged(object sender, EventArgs e)
         {
             // 0 -> 1
             meter2.AddValue(pot1.Value);
         }
 
-        private void Slider1_ValueChanged(object sender, EventArgs e)
+        void Slider1_ValueChanged(object sender, EventArgs e)
         {
             // 0 -> 1
             meter1.AddValue(slider1.Value * 100.0);
         }
 
-        private void Slider2_ValueChanged(object sender, EventArgs e)
+        void Slider2_ValueChanged(object sender, EventArgs e)
         {
             // 0 -> 10
             meter1.AddValue(slider2.Value * 10.0);
         }
 
-        private void Pan1_ValueChanged(object sender, EventArgs e)
+        void Pan1_ValueChanged(object sender, EventArgs e)
         {
             // -1 -> +1
             meter1.AddValue(pan1.Value * 50.0 + 50.0);
         }
 
-        private void Vkbd_KeyboardEvent(object sender, VirtualKeyboard.KeyboardEventArgs e)
+        void Vkbd_KeyboardEvent(object sender, VirtualKeyboard.KeyboardEventArgs e)
         {
             string s = $"note:{e.NoteId} vel:{e.Velocity}";
             txtInfo.AddLine(s);
@@ -204,14 +210,23 @@ namespace NBagOfUis.Test
             meter3.AddValue(e.NoteId / 8.0 - 10.0);
         }
 
-        private void ChkCpu_CheckedChanged(object sender, EventArgs e)
+        void ChkCpu_CheckedChanged(object sender, EventArgs e)
         {
             cpuMeter1.Enable = chkCpu.Checked;
         }
 
-        private void TimeBar_CurrentTimeChanged(object sender, EventArgs e)
+        void TimeBar_CurrentTimeChanged(object sender, EventArgs e)
         {
             //txtInfo.AddLine($"Current time:{timeBar.CurrentTime}");
         }
+    }
+
+    public class TestClass
+    {
+        [Editor(typeof(ListEditor), typeof(UITypeEditor))]
+        public List<string> TestList { get; set; } = new List<string>();
+
+        [Editor(typeof(MonospaceFontEditor), typeof(UITypeEditor))]
+        public Font TestFont { get; set; }
     }
 }

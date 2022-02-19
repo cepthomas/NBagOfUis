@@ -49,6 +49,7 @@
             this.pot1 = new NBagOfUis.Pot();
             this.slider1 = new NBagOfUis.Slider();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.propGrid = new System.Windows.Forms.PropertyGrid();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -69,6 +70,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.propGrid);
             this.splitContainer1.Panel2.Controls.Add(this.waveViewer2);
             this.splitContainer1.Panel2.Controls.Add(this.waveViewer1);
             this.splitContainer1.Panel2.Controls.Add(this.chkRunBars);
@@ -284,7 +286,7 @@
             this.txtInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtInfo.MaxText = 5000;
             this.txtInfo.Name = "txtInfo";
-            this.txtInfo.Size = new System.Drawing.Size(754, 229);
+            this.txtInfo.Size = new System.Drawing.Size(579, 229);
             this.txtInfo.TabIndex = 4;
             this.txtInfo.Text = "";
             // 
@@ -342,6 +344,13 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
+            // propGrid
+            // 
+            this.propGrid.Location = new System.Drawing.Point(1162, 400);
+            this.propGrid.Name = "propGrid";
+            this.propGrid.Size = new System.Drawing.Size(199, 290);
+            this.propGrid.TabIndex = 20;
+            // 
             // TestHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -385,5 +394,6 @@
         private System.Windows.Forms.CheckBox chkRunBars;
         private NBagOfUis.WaveViewer waveViewer2;
         private NBagOfUis.WaveViewer waveViewer1;
+        private System.Windows.Forms.PropertyGrid propGrid;
     }
 }
