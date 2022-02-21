@@ -121,7 +121,7 @@ namespace NBagOfUis
             pe.Graphics.Clear(BackColor);
 
             // Draw data. FUTURE: for each process?
-            if(_cpuBuff != null)
+            if(_cpuBuff is not null)
             {
                 for (int i = 0; i < _cpuBuff.Length; i++)
                 {

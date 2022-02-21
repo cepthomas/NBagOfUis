@@ -23,7 +23,7 @@ namespace NBagOfUis
         /// <param name="action">The action to execute on each element</param>
         public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
         {
-            if (source != null)
+            if (source is not null)
             {
                 foreach (var element in source)
                 {

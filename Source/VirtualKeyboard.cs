@@ -251,7 +251,7 @@ namespace NBagOfUis
         /// <param name="e"></param>
         void Keyboard_VKeyEvent(object? sender, VirtualKey.VKeyEventArgs e)
         {
-            if (KeyboardEvent != null)
+            if (KeyboardEvent is not null)
             {
                 KeyboardEvent.Invoke(this, new KeyboardEventArgs()
                 {

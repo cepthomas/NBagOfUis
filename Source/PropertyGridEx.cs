@@ -12,8 +12,20 @@ using System.Diagnostics;
 namespace NBagOfUis
 {
     /// <summary>Extends the PropertyGrid to add some features.</summary>
-    public class PropertyGridEx : PropertyGrid // TODO broken in .NET5
+    public class PropertyGridEx : PropertyGrid
     {
+        #region Properties
+        /// <summary>Edited flag.</summary>
+        [Browsable(false)]
+        public bool Dirty { get; set; } = false;
+        #endregion
+
+        #region Internal PropertyGrid control fields
+        readonly Control? _propertyGridView;
+        readonly Control? _docComment;
+        readonly ToolStrip? _toolstrip;
+        #endregion
+
         #region Events
         /// <summary>The property grid is reporting something.</summary>
         public event EventHandler<PropertyGridExEventArgs>? PropertyGridExEvent;
@@ -35,246 +47,136 @@ namespace NBagOfUis
         }
         #endregion
 
-        #region Properties
-        /// <summary>Gets the tool strip.</summary>
-        [Category("Appearance")]
-        [DisplayName("Toolstrip")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Description("Toolbar object")]
-        [Browsable(true)]
-        public ToolStrip? ToolStrip { get { return _toolstrip; } }
-
-        /// <summary>Gets the doc comment.</summary>
-        [Category("Appearance")]
-        [DisplayName("Doc")]
-        [Description("DocComment object. Represent the comments area of the PropertyGrid.")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [Browsable(false)]
-        public Control? DocComment { get { return _docComment is null ? null : (Control)_docComment; } }
-
-        /// <summary>Gets the doc comment title.</summary>
-        [Category("Appearance")]
-        [DisplayName("HelpTitle")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Description("Doc Title Label.")]
-        [Browsable(true)]
-        public Label? DocCommentTitle { get { return _docCommentTitle; } }
-
-        /// <summary>Gets the doc comment description.</summary>
-        [Category("Appearance")]
-        [DisplayName("DocDescription")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Description("Doc Description Label.")]
-        [Browsable(true)]
-        public Label? DocCommentDescription { get { return _docCommentDescription; } }
-
-        /// <summary>Gets or sets the help comment image.</summary>
-        [Category("Appearance")]
-        [DisplayName("DocImageBackground")]
-        [Description("Doc Image Background.")]
-        public Image? DocCommentImage
-        {
-            get { return ((Control)_docComment).BackgroundImage; }
-            set { ((Control)_docComment).BackgroundImage = value; }
-        }
-
-        /// <summary>Edited flag.</summary>
-        [Browsable(false)]
-        public bool Dirty { get; set; } = false;
-        #endregion
-
-        #region Private fields
-        // Internal PropertyGrid Controls
-        readonly object? _propertyGridView;
-        readonly object? _hotCommands;
-        readonly object? _docComment;
-
-        readonly ToolStrip? _toolstrip = null;
-        readonly Label? _docCommentTitle = null;
-        readonly Label? _docCommentDescription = null;
-        readonly FieldInfo? _propertyGridEntries = null;
-        #endregion
-
         /// <summary>Initializes a new instance of the class.</summary>
         public PropertyGridEx()
         {
             // Add any initialization after the InitializeComponent() call.
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
 
-
-            var b1 = GetType();
-            var b2 = b1.BaseType;
-            var b3 = b2.BaseType;
-
-            var mmm = b2.GetMembers();
-            foreach (var m in mmm)
-            {
-              //  Debug.WriteLine(m.Name);
-            }
-
-
-            //public new ControlCollection Controls
             foreach (var c in Controls)
             {
-                //Debug.WriteLine(c.ToString());
-
                 string sc = c.ToString()!;
 
                 if (sc.Contains("PropertyGridInternal.DocComment"))
                 {
-                    _docComment = c;
-                    //foreach (var d in c.Controls)
-                    {
-
-                    }
-                }
-                else if (sc.Contains("PropertyGridInternal.HotCommands"))
-                {
-                    _hotCommands = c;
+                    _docComment = (Control?)c;
+                    // Magical knowledge.
+                    //var _docCommentTitle = _docComment.Controls[0] as Label;
+                    //_docCommentTitle.BackColor = Color.Green;
+                    //var _docCommentDescription = _docComment.Controls[1] as Label;
+                    //_docCommentDescription.BackColor = Color.Orange;
                 }
                 else if (sc.Contains("PropertyGridInternal.PropertyGridView"))
                 {
-                    _propertyGridView = c;
+                    _propertyGridView = (Control?)c;
                 }
                 else if (sc.Contains("PropertyGridToolStrip"))
                 {
-                    _propertyGridView = c;
+                    _toolstrip = (ToolStrip?)c;
                 }
-
             }
 
-            //System.Windows.Forms.PropertyGridInternal.DocComment
-            //System.Windows.Forms.PropertyGridInternal.HotCommands
-            //System.Windows.Forms.PropertyGridInternal.PropertyGridView
-            //System.Windows.Forms.PropertyGridToolStrip, Name: , Items: 5
-
-
-
-
-
-            //_propertyGridView = GetType().BaseType.InvokeMember("gridView", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance, null, this, null);
-            //_hotCommands = GetType().BaseType.InvokeMember("hotcommands", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance, null, this, null);
-            //_toolstrip = (ToolStrip)GetType().BaseType.InvokeMember("toolStrip", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance, null, this, null);
-            //_docComment = GetType().BaseType.InvokeMember("doccomment", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance, null, this, null);
-            
-
-
-            if (_docComment != null)
-            {
-                var ff = 
-                _docCommentTitle = (Label)_docComment.GetType().InvokeMember("m_labelTitle", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance, null, _docComment, null);
-                _docCommentDescription = (Label)_docComment.GetType().InvokeMember("m_labelDesc", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance, null, _docComment, null);
-            }
-
-            if (_propertyGridView != null)
-            {
-                _propertyGridEntries = _propertyGridView.GetType().GetField("allGridEntries", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-            }
-
-            PropertyValueChanged += Edit_PropertyValueChanged;
+            // Capture user edits.
+            PropertyValueChanged += (_, __) => { Dirty = true; };
 
             Dirty = false;
         }
 
-        /// <summary>User edited something.</summary>
-        private void Edit_PropertyValueChanged(object? s, PropertyValueChangedEventArgs e)
-        {
-            Dirty = true;
-        }
-
         /// <summary>Add a custom button to the property grid.</summary>
-        public void AddButton(string text, Image? image, string tooltip, EventHandler onClick)
+        /// <param name="text"></param>
+        /// <param name="image"></param>
+        /// <param name="tooltip"></param>
+        /// <param name="onClick"></param>
+        /// <returns>The button or null if failed.</returns>
+        public ToolStripButton? AddButton(string text, Image? image, string tooltip, EventHandler onClick)
         {
-            foreach (Control control in Controls)
+            ToolStripButton? btn = null;
+
+            if(_toolstrip is not null)
             {
-                if (control is ToolStrip)
-                {
-                    // Found toolstrip - add our stuff.
-                    (control as ToolStrip).Items.Add(new ToolStripSeparator());
-                    ToolStripButton btn = (text != "") ? new ToolStripButton(text, null, onClick) : new ToolStripButton("", image, onClick);
-                    btn.ToolTipText = tooltip;
-                    (control as ToolStrip).Items.Add(btn);
-                    break;
-                }
+                btn = new ToolStripButton(text, image, onClick) { ToolTipText = tooltip };
+                _toolstrip.Items.Add(btn);
             }
+
+            return btn;
         }
 
         /// <summary>Add a label to the property grid.</summary>
-        public ToolStripLabel AddLabel(string text, Image? image, string tooltip)
+        /// <param name="text"></param>
+        /// <param name="image"></param>
+        /// <param name="tooltip"></param>
+        /// <returns>The label or null if failed.</returns>
+        public ToolStripLabel? AddLabel(string text, Image? image, string tooltip)
         {
-            ToolStripLabel lbl = null;
+            ToolStripLabel? lbl = null;
 
-            foreach (Control control in Controls)
+            if (_toolstrip is not null)
             {
-                if (control is ToolStrip)
-                {
-                    // Found toolstrip - add our stuff.
-                    (control as ToolStrip).Items.Add(new ToolStripSeparator());
-                    lbl = (text != "") ? new ToolStripLabel(text, null) : new ToolStripLabel("", image);
-                    lbl.ToolTipText = tooltip;
-                    (control as ToolStrip).Items.Add(lbl);
-                    break;
-                }
+                lbl = new(text, image) { ToolTipText = tooltip };
+                _toolstrip.Items.Add(lbl);
             }
 
             return lbl;
         }
 
-        /// <summary>Moves the vertical splitter.</summary>
-        public void MoveSplitter(int x)
+        /// <summary>Add a separator to the property grid.</summary>
+        /// <returns>The separator or null if failed.</returns>
+        public ToolStripSeparator? AddSeparator()
         {
-            // Go up in hierarchy until found real property grid type.
-            var realType = GetType();
-            while (realType != null && realType != typeof(PropertyGrid))
+            ToolStripSeparator? sep = null;
+
+            if (_toolstrip is not null)
             {
-                realType = realType.BaseType;
+                sep = new ToolStripSeparator();
+                _toolstrip.Items.Add(sep);
             }
 
-            var gvf = realType.GetField("gridView", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance);
-            var gv = gvf.GetValue(this);
+            return sep;
+        }
 
-            var mtf = gv.GetType().GetMethod("MoveSplitterTo", BindingFlags.NonPublic | BindingFlags.InvokeMethod | BindingFlags.Instance);
-            mtf.Invoke(gv, new object[] { (int)x });
+        /// <summary>Moves the vertical splitter.</summary>
+        /// <param name="x"></param>
+        public void MoveSplitter(int x)
+        {
+            if(_propertyGridView is not null)
+            {
+                var mtf = _propertyGridView.GetType().GetMethod("MoveSplitterTo",
+                    BindingFlags.NonPublic | BindingFlags.InvokeMethod | BindingFlags.Instance);
+                mtf!.Invoke(_propertyGridView, new object[] { (int)x });
+            }
         }
 
         /// <summary>Alter the bottom description area.</summary>
+        /// <param name="x">Number of lines to show.</param>
         public void ResizeDescriptionArea(int x)
         {
-            var info = GetType().GetProperty("Controls");
-            var collection = (Control.ControlCollection)info.GetValue(this, null);
-
-            foreach (var control in collection)
+            if(_docComment is not null)
             {
-                var type = control.GetType();
+                var field = _docComment.GetType().BaseType!.GetField("userSized", BindingFlags.Instance | BindingFlags.NonPublic);
+                field!.SetValue(_docComment, true);
 
-                if ("DocComment" == type.Name)
-                {
-                    const BindingFlags Flags = BindingFlags.Instance | BindingFlags.NonPublic;
-                    var field = type.BaseType.GetField("userSized", Flags);
-                    field.SetValue(control, true);
+                var info = _docComment.GetType().GetProperty("Lines");
+                info!.SetValue(_docComment, x, null);
 
-                    info = type.GetProperty("Lines");
-                    info.SetValue(control, x, null);
-
-                    HelpVisible = true;
-                    break;
-                }
+                HelpVisible = true;
             }
         }
         
         /// <summary>Expand or collapse the group.</summary>
+        /// <param name="groupName">Name of the group to act on.</param>
+        /// <param name="expand">Expand or collapse.</param>
         public void ExpandGroup(string groupName, bool expand)
         {
-            GridItem root = SelectedGridItem;
-
-            // Get the parent
-            while (root.Parent != null)
+            if(SelectedGridItem is not null)
             {
-                root = root.Parent;
-            }
+                GridItem root = SelectedGridItem;
 
-            if (root != null)
-            {
+                // Get the parent
+                while (root.Parent is not null)
+                {
+                    root = root.Parent;
+                }
+
                 foreach (GridItem g in root.GridItems)
                 {
                     if (g.GridItemType == GridItemType.Category && g.Label.Trim() == groupName.Trim())
@@ -287,25 +189,23 @@ namespace NBagOfUis
         }
 
         /// <summary>Show or hide a named property.</summary>
+        /// <param name="which">Name of the property.</param>
+        /// <param name="visible">True or false.</param>
         public void ShowProperty(string which, bool visible)
         {
-            // http://www.codeproject.com/Articles/152945/Enabling-disabling-properties-at-runtime-in-the-Pr
-            // It is important to add the RefreshProperties attribute to the Country property. That will force the PropertyGrid control to refresh 
-            //   all its properties every time the value of Country changes, reflecting the changes we made to the attributes of State.
-            // In order for all this to work properly, it is important to statically define the ReadOnly attribute of every property of the 
-            //   class to whatever value you want. If not, changing the attribute at runtime that way will wrongly modify the attributes of 
-            //   every property of the class.
-
+            // Manipulate the browsable attribute.
             PropertyDescriptorCollection pdc = TypeDescriptor.GetProperties(SelectedObject);
-
             PropertyDescriptor descriptor = pdc[which];
 
-            if (descriptor != null)
+            if (descriptor is not null)
             {
+                // Get the backing field because the property has no setter.
                 BrowsableAttribute attribute = (BrowsableAttribute)descriptor.Attributes[typeof(BrowsableAttribute)];
-                FieldInfo fieldToChange = attribute.GetType().GetField("browsable", BindingFlags.NonPublic | BindingFlags.Instance);
+                //var ff = attribute.GetType().GetRuntimeFields();
+                FieldInfo fieldToChange = attribute.GetType().GetField("<Browsable>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance)!;
                 fieldToChange.SetValue(attribute, visible);
 
+                // Force an update.
                 Refresh();
             }
         }

@@ -64,7 +64,7 @@ namespace NBagOfUis
             }
             set
             {
-                if (value < 0 || _rawVals == null)
+                if (value < 0 || _rawVals is null)
                 {
                     _marker1 = -1;
                 }
@@ -85,7 +85,7 @@ namespace NBagOfUis
             }
             set
             {
-                if (value < 0 || _rawVals == null)
+                if (value < 0 || _rawVals is null)
                 {
                     _marker2 = -1;
                 }
@@ -275,7 +275,7 @@ namespace NBagOfUis
         /// <param name="fn"></param>
         void Dump(float[] data, string fn)
         {
-            if (data != null)
+            if (data is not null)
             {
                 List<string> ss = new List<string>();
                 for (int i = 0; i < data.Length; i++)

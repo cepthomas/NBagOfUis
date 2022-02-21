@@ -209,7 +209,7 @@ namespace NBagOfUis
 
                         if (show)
                         {
-                            var item = new ListViewItem(new[] { file.Name, (file.Length / 1024).ToString(), stags != null ? string.Join(" ", stags) : "" })
+                            var item = new ListViewItem(new[] { file.Name, (file.Length / 1024).ToString(), stags is not null ? string.Join(" ", stags) : "" })
                             {
                                 Tag = file.FullName
                             };
@@ -227,7 +227,7 @@ namespace NBagOfUis
         /// <param name="e"></param>
         void ListFiles_MouseClick(object? sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && !DoubleClickSelect && FileSelectedEvent != null)
+            if (e.Button == MouseButtons.Left && !DoubleClickSelect && FileSelectedEvent is not null)
             {
                 FileSelectedEvent.Invoke(this, lvFiles.SelectedItems[0].Tag.ToString()!);
             }
@@ -240,7 +240,7 @@ namespace NBagOfUis
         /// <param name="e"></param>
         void ListFiles_MouseDoubleClick(object? sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && DoubleClickSelect && FileSelectedEvent != null)
+            if (e.Button == MouseButtons.Left && DoubleClickSelect && FileSelectedEvent is not null)
             {
                 FileSelectedEvent.Invoke(this, lvFiles.SelectedItems[0].Tag.ToString()!);
             }

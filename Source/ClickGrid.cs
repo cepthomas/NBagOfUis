@@ -112,7 +112,7 @@ namespace NBagOfUis
         {
             var ind = _indicators.Find(i => i.Id == id);
 
-            if (ind != null && _stateTypes.ContainsKey(state))
+            if (ind is not null && _stateTypes.ContainsKey(state))
             {
                 ind.State = state;
                 Invalidate();
