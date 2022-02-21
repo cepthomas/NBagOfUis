@@ -58,6 +58,7 @@
             // 
             // splitContainer1
             // 
+            this.splitContainer1.Cursor = System.Windows.Forms.Cursors.HSplit;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -89,7 +90,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.pot1);
             this.splitContainer1.Panel2.Controls.Add(this.slider1);
             this.splitContainer1.Size = new System.Drawing.Size(1436, 900);
-            this.splitContainer1.SplitterDistance = 177;
+            this.splitContainer1.SplitterDistance = 123;
             this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 4;
             // 
@@ -100,32 +101,16 @@
             this.vkbd.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.vkbd.Name = "vkbd";
             this.vkbd.ShowNoteNames = false;
-            this.vkbd.Size = new System.Drawing.Size(1436, 177);
+            this.vkbd.Size = new System.Drawing.Size(1436, 123);
             this.vkbd.TabIndex = 0;
             this.vkbd.KeyboardEvent += new System.EventHandler<NBagOfUis.VirtualKeyboard.KeyboardEventArgs>(this.Vkbd_KeyboardEvent);
             // 
             // propGrid
             // 
             this.propGrid.Dirty = false;
-            // 
-            // 
-            // 
-            this.propGrid.DocCommentDescription.Location = new System.Drawing.Point(4, 26);
-            this.propGrid.DocCommentDescription.Name = "";
-            this.propGrid.DocCommentDescription.Size = new System.Drawing.Size(354, 43);
-            this.propGrid.DocCommentDescription.TabIndex = 1;
-            this.propGrid.DocCommentImage = null;
-            // 
-            // 
-            // 
-            this.propGrid.DocCommentTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.propGrid.DocCommentTitle.Location = new System.Drawing.Point(4, 4);
-            this.propGrid.DocCommentTitle.Name = "";
-            this.propGrid.DocCommentTitle.Size = new System.Drawing.Size(354, 22);
-            this.propGrid.DocCommentTitle.TabIndex = 0;
-            this.propGrid.Location = new System.Drawing.Point(1062, 400);
+            this.propGrid.Location = new System.Drawing.Point(1081, 400);
             this.propGrid.Name = "propGrid";
-            this.propGrid.Size = new System.Drawing.Size(362, 290);
+            this.propGrid.Size = new System.Drawing.Size(337, 290);
             this.propGrid.TabIndex = 20;
             // 
             // waveViewer2
@@ -379,7 +364,6 @@
             this.Text = "TestHost";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TestHost_FormClosing);
             this.Load += new System.EventHandler(this.TestHost_Load);
-            this.Shown += new System.EventHandler(this.TestHost_Shown);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();

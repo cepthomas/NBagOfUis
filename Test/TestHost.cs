@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Drawing.Design;
 using NBagOfUis;
 
+
 namespace NBagOfUis.Test
 {
     public partial class TestHost : Form
@@ -20,36 +21,13 @@ namespace NBagOfUis.Test
 
         public TestHost()
         {
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
             InitializeComponent();
         }
 
-        void Recent_Click(object? sender, EventArgs e)
+        void TestHost_Load(object? sender, EventArgs e)
         {
-            //string? fn = sender!.ToString();
-            //string sopen = OpenScriptFile(fn!);
-            //if (sopen != "")
-            //{
-            //    _logger.Error(sopen);
-            //}
-        }
-
-
-        void TestHost_Load(object sender, EventArgs e)
-        {
-            propGrid.AddLabel("Blue", null, "The sky is blue");
-            propGrid.AddButton("Red", null, "Blood is red", new EventHandler(Recent_Click));
-            propGrid.MoveSplitter(20);
-            propGrid.ResizeDescriptionArea(30);
-            propGrid.ExpandGroup("Cat1", false);
-            propGrid.ShowProperty("TestString", false);
-
-
-            //        public void MoveSplitter(int x)
-            //        public void ResizeDescriptionArea(int x)
-            //        public void ExpandGroup(string groupName, bool expand)
-            //        public void ShowProperty(string which, bool visible)
-
-
+            Location = new(20, 20);
 
             ///// Misc controls.
             txtInfo.Colors.Add("note:7", Color.Purple);
@@ -146,14 +124,22 @@ namespace NBagOfUis.Test
             barBar.BackColor = Color.LawnGreen;
             //barBar.Test();
 
-            ///// Type editor host.
+            ///// PropertyGridEx and UiType editor host.
+            Image img = Bitmap.FromFile("Files\\morito.png");
             propGrid.SelectedObject = _testClass;
+            var lbl = propGrid.AddLabel("Blue", null, "The sky is blue");
+            propGrid.AddButton("Red", null, "Blood is red", (_, __) => lbl!.Text = "->Red");
+            propGrid.AddButton("", img, "Image is red", (_, __) => lbl!.Text = "->IRed");
+            //propGrid.MoveSplitter(100);
+            propGrid.ResizeDescriptionArea(4);
+            //propGrid.ExpandGroup("Cat1", false);
+            //propGrid.ShowProperty("TestString", false);
 
             // Go-go-go.
             timer1.Enabled = true;
         }
 
-        void TestHost_FormClosing(object sender, FormClosingEventArgs e)
+        void TestHost_FormClosing(object? sender, FormClosingEventArgs e)
         {
             // Inspect.
             //var at = ftree.AllTags;
@@ -161,12 +147,7 @@ namespace NBagOfUis.Test
             //var po = _testClass;
         }
 
-        void TestHost_Shown(object sender, EventArgs e)
-        {
-
-        }
-
-        void Timer1_Tick(object sender, EventArgs e)
+        void Timer1_Tick(object? sender, EventArgs e)
         {
             if (chkRunBars.Checked)
             {
@@ -186,49 +167,49 @@ namespace NBagOfUis.Test
             }
         }
 
-        void TimeBar_CurrentTimeChanged1(object sender, EventArgs e)
+        void TimeBar_CurrentTimeChanged1(object? sender, EventArgs e)
         {
         }
 
-        void BarBar1_CurrentTimeChanged(object sender, EventArgs e)
+        void BarBar1_CurrentTimeChanged(object? sender, EventArgs e)
         {
         }
 
-        void ClickGrid_IndicatorEvent(object sender, IndicatorEventArgs e)
+        void ClickGrid_IndicatorEvent(object? sender, IndicatorEventArgs e)
         {
             clickGrid1.SetIndicator(e.Id, (e.State + 10) % 40);
         }
 
-        void FilTree_FileSelectedEvent(object sender, string fn)
+        void FilTree_FileSelectedEvent(object? sender, string fn)
         {
             txtInfo.AddLine($"Selected file: {fn}");
         }
 
-        void Pot1_ValueChanged(object sender, EventArgs e)
+        void Pot1_ValueChanged(object? sender, EventArgs e)
         {
             // 0 -> 1
             meter2.AddValue(pot1.Value);
         }
 
-        void Slider1_ValueChanged(object sender, EventArgs e)
+        void Slider1_ValueChanged(object? sender, EventArgs e)
         {
             // 0 -> 1
             meter1.AddValue(slider1.Value * 100.0);
         }
 
-        void Slider2_ValueChanged(object sender, EventArgs e)
+        void Slider2_ValueChanged(object? sender, EventArgs e)
         {
             // 0 -> 10
             meter1.AddValue(slider2.Value * 10.0);
         }
 
-        void Pan1_ValueChanged(object sender, EventArgs e)
+        void Pan1_ValueChanged(object? sender, EventArgs e)
         {
             // -1 -> +1
             meter1.AddValue(pan1.Value * 50.0 + 50.0);
         }
 
-        void Vkbd_KeyboardEvent(object sender, VirtualKeyboard.KeyboardEventArgs e)
+        void Vkbd_KeyboardEvent(object? sender, VirtualKeyboard.KeyboardEventArgs e)
         {
             string s = $"note:{e.NoteId} vel:{e.Velocity}";
             txtInfo.AddLine(s);
@@ -236,12 +217,12 @@ namespace NBagOfUis.Test
             meter3.AddValue(e.NoteId / 8.0 - 10.0);
         }
 
-        void ChkCpu_CheckedChanged(object sender, EventArgs e)
+        void ChkCpu_CheckedChanged(object? sender, EventArgs e)
         {
             cpuMeter1.Enable = chkCpu.Checked;
         }
 
-        void TimeBar_CurrentTimeChanged(object sender, EventArgs e)
+        void TimeBar_CurrentTimeChanged(object? sender, EventArgs e)
         {
             //txtInfo.AddLine($"Current time:{timeBar.CurrentTime}");
         }
@@ -254,7 +235,7 @@ namespace NBagOfUis.Test
         [Category("Cat1")]
         [Browsable(true)]
         [Editor(typeof(ListEditor), typeof(UITypeEditor))]
-        public List<string>? TestList { get; set; } //= new List<string>();
+        public List<string>? TestList { get; set; }
 
         [DisplayName("Test Font")]
         [Description("Describe Test Font.")]
@@ -267,6 +248,7 @@ namespace NBagOfUis.Test
         [Description("Describe Test Color.")]
         [Category("Cat2")]
         [Browsable(true)]
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         public Color? TestColor { get; set; }
 
         [DisplayName("Test String")]
@@ -274,7 +256,5 @@ namespace NBagOfUis.Test
         [Category("Cat2")]
         [Browsable(true)]
         public string? TestString { get; set; }
-
-
     }
 }
