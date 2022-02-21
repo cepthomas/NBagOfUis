@@ -6,6 +6,7 @@ using System.Windows.Forms.Design;
 using System.Reflection;
 using System.Drawing;
 using System.Drawing.Design;
+using System.Diagnostics;
 
 
 namespace NBagOfUis
@@ -15,33 +16,33 @@ namespace NBagOfUis
     {
         #region Events
         /// <summary>The property grid is reporting something.</summary>
-        public event EventHandler<PropertyGridExEventArgs> PropertyGridExEvent;
+        public event EventHandler<PropertyGridExEventArgs>? PropertyGridExEvent;
 
         /// <summary>General event for raising events not natively supported by the property grid.</summary>
         public class PropertyGridExEventArgs : EventArgs
         {
             /// <summary>General info.</summary>
-            public string EventType { get; set; }
+            public string EventType { get; set; } = "";
 
             /// <summary>General data.</summary>
-            public object EventData { get; set; }
+            public object? EventData { get; set; } = null;
         }
 
         /// <summary>Children can call this to send something back to the host.</summary>
-        public void RaisePropertyGridExEvent(string eventType, object ps = null)
+        public void RaisePropertyGridExEvent(string eventType, object? ps = null)
         {
             PropertyGridExEvent?.Invoke(this, new PropertyGridExEventArgs() { EventType = eventType, EventData = ps });
         }
         #endregion
 
-        #region Propertie]
+        #region Properties
         /// <summary>Gets the tool strip.</summary>
         [Category("Appearance")]
         [DisplayName("Toolstrip")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Description("Toolbar object")]
         [Browsable(true)]
-        public ToolStrip ToolStrip { get { return _toolstrip; } }
+        public ToolStrip? ToolStrip { get { return _toolstrip; } }
 
         /// <summary>Gets the doc comment.</summary>
         [Category("Appearance")]
@@ -49,7 +50,7 @@ namespace NBagOfUis
         [Description("DocComment object. Represent the comments area of the PropertyGrid.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
-        public Control DocComment { get { return (Control)_docComment; } }
+        public Control? DocComment { get { return _docComment is null ? null : (Control)_docComment; } }
 
         /// <summary>Gets the doc comment title.</summary>
         [Category("Appearance")]
@@ -57,7 +58,7 @@ namespace NBagOfUis
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Description("Doc Title Label.")]
         [Browsable(true)]
-        public Label DocCommentTitle { get { return _docCommentTitle; } }
+        public Label? DocCommentTitle { get { return _docCommentTitle; } }
 
         /// <summary>Gets the doc comment description.</summary>
         [Category("Appearance")]
@@ -65,13 +66,13 @@ namespace NBagOfUis
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Description("Doc Description Label.")]
         [Browsable(true)]
-        public Label DocCommentDescription { get { return _docCommentDescription; } }
+        public Label? DocCommentDescription { get { return _docCommentDescription; } }
 
         /// <summary>Gets or sets the help comment image.</summary>
         [Category("Appearance")]
         [DisplayName("DocImageBackground")]
         [Description("Doc Image Background.")]
-        public Image DocCommentImage
+        public Image? DocCommentImage
         {
             get { return ((Control)_docComment).BackgroundImage; }
             set { ((Control)_docComment).BackgroundImage = value; }
@@ -84,14 +85,14 @@ namespace NBagOfUis
 
         #region Private fields
         // Internal PropertyGrid Controls
-        private object _propertyGridView;
-        private object _hotCommands;
-        private object _docComment;
+        readonly object? _propertyGridView;
+        readonly object? _hotCommands;
+        readonly object? _docComment;
 
-        private ToolStrip _toolstrip = null;
-        private Label _docCommentTitle = null;
-        private Label _docCommentDescription = null;
-        private FieldInfo _propertyGridEntries = null;
+        readonly ToolStrip? _toolstrip = null;
+        readonly Label? _docCommentTitle = null;
+        readonly Label? _docCommentDescription = null;
+        readonly FieldInfo? _propertyGridEntries = null;
         #endregion
 
         /// <summary>Initializes a new instance of the class.</summary>
@@ -99,14 +100,68 @@ namespace NBagOfUis
         {
             // Add any initialization after the InitializeComponent() call.
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
+
+
+            var b1 = GetType();
+            var b2 = b1.BaseType;
+            var b3 = b2.BaseType;
+
+            var mmm = b2.GetMembers();
+            foreach (var m in mmm)
+            {
+              //  Debug.WriteLine(m.Name);
+            }
+
+
+            //public new ControlCollection Controls
+            foreach (var c in Controls)
+            {
+                //Debug.WriteLine(c.ToString());
+
+                string sc = c.ToString()!;
+
+                if (sc.Contains("PropertyGridInternal.DocComment"))
+                {
+                    _docComment = c;
+                    //foreach (var d in c.Controls)
+                    {
+
+                    }
+                }
+                else if (sc.Contains("PropertyGridInternal.HotCommands"))
+                {
+                    _hotCommands = c;
+                }
+                else if (sc.Contains("PropertyGridInternal.PropertyGridView"))
+                {
+                    _propertyGridView = c;
+                }
+                else if (sc.Contains("PropertyGridToolStrip"))
+                {
+                    _propertyGridView = c;
+                }
+
+            }
+
+            //System.Windows.Forms.PropertyGridInternal.DocComment
+            //System.Windows.Forms.PropertyGridInternal.HotCommands
+            //System.Windows.Forms.PropertyGridInternal.PropertyGridView
+            //System.Windows.Forms.PropertyGridToolStrip, Name: , Items: 5
+
+
+
+
+
+            //_propertyGridView = GetType().BaseType.InvokeMember("gridView", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance, null, this, null);
+            //_hotCommands = GetType().BaseType.InvokeMember("hotcommands", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance, null, this, null);
+            //_toolstrip = (ToolStrip)GetType().BaseType.InvokeMember("toolStrip", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance, null, this, null);
+            //_docComment = GetType().BaseType.InvokeMember("doccomment", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance, null, this, null);
             
-            _propertyGridView = GetType().BaseType.InvokeMember("gridView", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance, null, this, null);
-            _hotCommands = GetType().BaseType.InvokeMember("hotcommands", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance, null, this, null);
-            _toolstrip = (ToolStrip)GetType().BaseType.InvokeMember("toolStrip", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance, null, this, null);
-            _docComment = GetType().BaseType.InvokeMember("doccomment", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance, null, this, null);
-            
+
+
             if (_docComment != null)
             {
+                var ff = 
                 _docCommentTitle = (Label)_docComment.GetType().InvokeMember("m_labelTitle", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance, null, _docComment, null);
                 _docCommentDescription = (Label)_docComment.GetType().InvokeMember("m_labelDesc", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance, null, _docComment, null);
             }
@@ -122,13 +177,13 @@ namespace NBagOfUis
         }
 
         /// <summary>User edited something.</summary>
-        private void Edit_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        private void Edit_PropertyValueChanged(object? s, PropertyValueChangedEventArgs e)
         {
             Dirty = true;
         }
 
         /// <summary>Add a custom button to the property grid.</summary>
-        public void AddButton(string text, Image image, string tooltip, EventHandler onClick)
+        public void AddButton(string text, Image? image, string tooltip, EventHandler onClick)
         {
             foreach (Control control in Controls)
             {
@@ -145,7 +200,7 @@ namespace NBagOfUis
         }
 
         /// <summary>Add a label to the property grid.</summary>
-        public ToolStripLabel AddLabel(string text, Image image, string tooltip)
+        public ToolStripLabel AddLabel(string text, Image? image, string tooltip)
         {
             ToolStripLabel lbl = null;
 
