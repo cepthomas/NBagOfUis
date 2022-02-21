@@ -16,15 +16,41 @@ namespace NBagOfUis.Test
 {
     public partial class TestHost : Form
     {
-        TestClass _testClass = new TestClass();
+        readonly TestClass _testClass = new();
 
         public TestHost()
         {
             InitializeComponent();
         }
 
+        void Recent_Click(object? sender, EventArgs e)
+        {
+            //string? fn = sender!.ToString();
+            //string sopen = OpenScriptFile(fn!);
+            //if (sopen != "")
+            //{
+            //    _logger.Error(sopen);
+            //}
+        }
+
+
         void TestHost_Load(object sender, EventArgs e)
         {
+            propGrid.AddLabel("Blue", null, "The sky is blue");
+            propGrid.AddButton("Red", null, "Blood is red", new EventHandler(Recent_Click));
+            propGrid.MoveSplitter(20);
+            propGrid.ResizeDescriptionArea(30);
+            propGrid.ExpandGroup("Cat1", false);
+            propGrid.ShowProperty("TestString", false);
+
+
+            //        public void MoveSplitter(int x)
+            //        public void ResizeDescriptionArea(int x)
+            //        public void ExpandGroup(string groupName, bool expand)
+            //        public void ShowProperty(string which, bool visible)
+
+
+
             ///// Misc controls.
             txtInfo.Colors.Add("note:7", Color.Purple);
             txtInfo.Colors.Add("vel:10", Color.Green);
@@ -130,9 +156,9 @@ namespace NBagOfUis.Test
         void TestHost_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Inspect.
-            var at = ftree.AllTags;
-            var tp = ftree.TaggedPaths;
-            var po = _testClass;
+            //var at = ftree.AllTags;
+            //var tp = ftree.TaggedPaths;
+            //var po = _testClass;
         }
 
         void TestHost_Shown(object sender, EventArgs e)
@@ -223,10 +249,32 @@ namespace NBagOfUis.Test
 
     public class TestClass
     {
+        [DisplayName("Test List")]
+        [Description("Describe Test List.")]
+        [Category("Cat1")]
+        [Browsable(true)]
         [Editor(typeof(ListEditor), typeof(UITypeEditor))]
-        public List<string> TestList { get; set; } = new List<string>();
+        public List<string>? TestList { get; set; } //= new List<string>();
 
+        [DisplayName("Test Font")]
+        [Description("Describe Test Font.")]
+        [Category("Cat1")]
+        [Browsable(true)]
         [Editor(typeof(MonospaceFontEditor), typeof(UITypeEditor))]
-        public Font TestFont { get; set; }
+        public Font? TestFont { get; set; }
+
+        [DisplayName("Test Color")]
+        [Description("Describe Test Color.")]
+        [Category("Cat2")]
+        [Browsable(true)]
+        public Color? TestColor { get; set; }
+
+        [DisplayName("Test String")]
+        [Description("Describe Test String.")]
+        [Category("Cat2")]
+        [Browsable(true)]
+        public string? TestString { get; set; }
+
+
     }
 }

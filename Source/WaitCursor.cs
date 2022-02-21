@@ -8,13 +8,10 @@ namespace NBagOfUis
     public class WaitCursor : IDisposable
     {
         /// <summary>Restore original cursor</summary>
-        Cursor m_cursorOld;
-
-        /// <summary>To detect redundant call</summary>
-        bool _disposedValue = false;
+        readonly Cursor? m_cursorOld = null;
 
         /// <summary>For metrics</summary>
-        DateTime _start;
+        readonly DateTime _start;
 
         /// <summary>Constructor</summary>
         public WaitCursor()
@@ -27,21 +24,7 @@ namespace NBagOfUis
         /// <summary>Dispose</summary>
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-            TimeSpan dur = DateTime.Now - _start;
-        }
-
-        /// <summary>Dispose</summary>
-        /// <param name="disposing"></param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposedValue)
-            {
-                Cursor.Current = m_cursorOld;
-            }
-
-            _disposedValue = true;
+            Cursor.Current = m_cursorOld;
             TimeSpan dur = DateTime.Now - _start;
         }
     }

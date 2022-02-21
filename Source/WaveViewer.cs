@@ -18,25 +18,25 @@ namespace NBagOfUis
 
         #region Fields
         /// <summary>From client.</summary>
-        float[] _rawVals = null;
+        float[]? _rawVals = null;
 
         /// <summary>Maximum value of _rawVals (+-).</summary>
         float _rawMax = 1.0f;
 
         /// <summary>Storage for display.</summary>
-        float[] _scaledBuff = null;
+        float[]? _scaledBuff = null;
 
         /// <summary>For drawing.</summary>
-        readonly Pen _penDraw = new Pen(Color.Black, 1);
+        readonly Pen _penDraw = new(Color.Black, 1);
 
         /// <summary>For drawing.</summary>
-        readonly Pen _penMarker = new Pen(Color.Black, 1);
+        readonly Pen _penMarker = new(Color.Black, 1);
 
         /// <summary>For drawing text.</summary>
-        readonly Font _textFont = new Font("Cascadia", 12, FontStyle.Regular, GraphicsUnit.Point, 0);
+        readonly Font _textFont = new("Cascadia", 12, FontStyle.Regular, GraphicsUnit.Point, 0);
 
         /// <summary>For drawing text.</summary>
-        readonly StringFormat _format = new StringFormat() { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center };
+        readonly StringFormat _format = new() { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center };
 
         /// <summary>Ratio of data point to visual point.</summary>
         int _smplPerPixel;
@@ -113,7 +113,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void WaveViewer_Load(object sender, EventArgs e)
+        void WaveViewer_Load(object? sender, EventArgs e)
         {
         }
 

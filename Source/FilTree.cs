@@ -19,17 +19,17 @@ namespace NBagOfUis
     {
         #region Fields
         /// <summary>Key is file or dir path, value is associated tags.</summary>
-        Dictionary<string, List<string>> _taggedPaths = new Dictionary<string, List<string>>();
+        readonly Dictionary<string, List<string>> _taggedPaths = new();
 
         /// <summary>Filter by these tags.</summary>
-        HashSet<string> _activeFilters = new HashSet<string>();
+        readonly HashSet<string> _activeFilters = new();
         #endregion
 
         #region Properties
         /// <summary>Key is path to file or directory, value is space separated associated tags.</summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
-        public Dictionary<string, string> TaggedPaths //TODO broken? Simplify.
+        public Dictionary<string, string> TaggedPaths // TODO broken? Simplify.
         {
             get { return GetTaggedPaths(); }
             set { SetTaggedPaths(value); }
@@ -38,17 +38,17 @@ namespace NBagOfUis
         /// <summary>All possible tags and whether they are active.</summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
-        public Dictionary<string, bool> AllTags { get; set; } = new Dictionary<string, bool>();
+        public Dictionary<string, bool> AllTags { get; set; } = new();
 
         /// <summary>Base path(s) for the tree.</summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
-        public List<string> RootDirs { get; set; } = new List<string>();
+        public List<string> RootDirs { get; set; } = new();
 
         /// <summary>Show only these file types.</summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
-        public List<string> FilterExts { get; set; } = new List<string>();
+        public List<string> FilterExts { get; set; } = new();
 
         /// <summary>Generate event with single or double click.</summary>
         public bool DoubleClickSelect { get; set; } = false;
@@ -56,7 +56,7 @@ namespace NBagOfUis
 
         #region Events
         /// <summary>User has selected a file.</summary>
-        public event EventHandler<string> FileSelectedEvent = null;
+        public event EventHandler<string>? FileSelectedEvent = null;
         #endregion
 
         #region Lifecycle
@@ -73,7 +73,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void FilTree_Load(object sender, EventArgs e)
+        void FilTree_Load(object? sender, EventArgs e)
         {
             treeView.HideSelection = false;
             treeView.DrawMode = TreeViewDrawMode.OwnerDrawText;
@@ -106,7 +106,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void TreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        void TreeView_NodeMouseClick(object? sender, TreeNodeMouseClickEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -184,34 +184,37 @@ namespace NBagOfUis
             lvFiles.Items.Clear();
             var nodeDirInfo = clickedNode.Tag as DirectoryInfo;
 
-            foreach (FileInfo file in nodeDirInfo.GetFiles())
+            if(nodeDirInfo is not null)
             {
-                if (FilterExts.Contains(Path.GetExtension(file.Name).ToLower()))
+                foreach (FileInfo file in nodeDirInfo.GetFiles())
                 {
-                    bool show = false;
-                    List<string> stags = _taggedPaths.Where(p => p.Key == file.FullName).FirstOrDefault().Value;
-
-                    // Filters on?
-                    if (_activeFilters.Count > 0)
+                    if (FilterExts.Contains(Path.GetExtension(file.Name).ToLower()))
                     {
-                        if(stags != null)
+                        bool show = false;
+                        List<string> stags = _taggedPaths.Where(p => p.Key == file.FullName).FirstOrDefault().Value;
+
+                        // Filters on?
+                        if (_activeFilters.Count > 0)
                         {
-                            var match = stags.Where(p => _activeFilters.Contains(p));
-                            show = match.Count() > 0;
+                            if (stags != null)
+                            {
+                                var match = stags.Where(p => _activeFilters.Contains(p));
+                                show = match.Any();
+                            }
                         }
-                    }
-                    else // no filters, show all.
-                    {
-                        show = true;
-                    }
-
-                    if (show)
-                    {
-                        var item = new ListViewItem(new[] { file.Name, (file.Length / 1024).ToString(), stags != null ? string.Join(" ", stags ) : ""})
+                        else // no filters, show all.
                         {
-                            Tag = file.FullName
-                        };
-                        lvFiles.Items.Add(item);
+                            show = true;
+                        }
+
+                        if (show)
+                        {
+                            var item = new ListViewItem(new[] { file.Name, (file.Length / 1024).ToString(), stags != null ? string.Join(" ", stags) : "" })
+                            {
+                                Tag = file.FullName
+                            };
+                            lvFiles.Items.Add(item);
+                        }
                     }
                 }
             }
@@ -222,11 +225,11 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void ListFiles_MouseClick(object sender, MouseEventArgs e)
+        void ListFiles_MouseClick(object? sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left && !DoubleClickSelect && FileSelectedEvent != null)
             {
-                FileSelectedEvent.Invoke(this, lvFiles.SelectedItems[0].Tag.ToString());
+                FileSelectedEvent.Invoke(this, lvFiles.SelectedItems[0].Tag.ToString()!);
             }
         }
 
@@ -235,11 +238,11 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void ListFiles_MouseDoubleClick(object sender, MouseEventArgs e)
+        void ListFiles_MouseDoubleClick(object? sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left && DoubleClickSelect && FileSelectedEvent != null)
             {
-                FileSelectedEvent.Invoke(this, lvFiles.SelectedItems[0].Tag.ToString());
+                FileSelectedEvent.Invoke(this, lvFiles.SelectedItems[0].Tag.ToString()!);
             }
         }
 
@@ -248,7 +251,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void MenuFiles_Opening(object sender, CancelEventArgs e)
+        void MenuFiles_Opening(object? sender, CancelEventArgs e)
         {
             menuFiles.Items.Clear();
             menuFiles.Items.Add("Edit Tags", null, MenuFiles_Click);
@@ -260,53 +263,56 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void MenuFiles_Click(object sender, EventArgs e)
+        void MenuFiles_Click(object? sender, EventArgs e)
         {
-            ToolStripMenuItem item = sender as ToolStripMenuItem;
-            string fn = lvFiles.SelectedItems[0].Tag.ToString();
-
-            switch (sender.ToString())
+            if(sender is not null)
             {
-                case "Edit Tags":
-                    // Make a collection of all tags associated with this file.
-                    var pathTags = _taggedPaths.ContainsKey(fn) ? _taggedPaths[fn] : new List<string>();
-                    var options = new Dictionary<string, bool>();
-                    AllTags.ForEach(kv => { options[kv.Key] = pathTags.Contains(kv.Key); });
+                ToolStripMenuItem item = (ToolStripMenuItem)sender;
+                string fn = lvFiles.SelectedItems[0].Tag.ToString()!;
 
-                    OptionsEditor oped = new OptionsEditor()
-                    {
-                        Title = "Edit Tags",
-                        AllowEdit = false, // select only
-                        Values = options
-                    };
+                switch (sender.ToString())
+                {
+                    case "Edit Tags":
+                        // Make a collection of all tags associated with this file.
+                        var pathTags = _taggedPaths.ContainsKey(fn) ? _taggedPaths[fn] : new List<string>();
+                        var options = new Dictionary<string, bool>();
+                        AllTags.ForEach(kv => { options[kv.Key] = pathTags.Contains(kv.Key); });
 
-                    if (oped.ShowDialog() == DialogResult.OK)
-                    {
-                        // Process the user selections.
-                        if(oped.Values.Count == 0) // None.
+                        OptionsEditor oped = new OptionsEditor()
                         {
-                            // None selected.
-                            _taggedPaths.Remove(fn);
-                            lvFiles.SelectedItems[0].SubItems[2].Text = "";
-                        }
-                        else // One or more selected.
+                            Title = "Edit Tags",
+                            AllowEdit = false, // select only
+                            Values = options
+                        };
+
+                        if (oped.ShowDialog() == DialogResult.OK)
                         {
-                            // Update the tags for this file selection.
-                            List<string> tags = new List<string>();
-                            foreach(var v in oped.Values)
+                            // Process the user selections.
+                            if (oped.Values.Count == 0) // None.
                             {
-                                if(v.Value)
-                                {
-                                    tags.Add(v.Key);
-                                }
+                                // None selected.
+                                _taggedPaths.Remove(fn);
+                                lvFiles.SelectedItems[0].SubItems[2].Text = "";
                             }
-                            _taggedPaths[fn] = tags;
-                            string stags = string.Join(" ", tags);
-                            lvFiles.SelectedItems[0].SubItems[2].Text = stags;
+                            else // One or more selected.
+                            {
+                                // Update the tags for this file selection.
+                                List<string> tags = new List<string>();
+                                foreach (var v in oped.Values)
+                                {
+                                    if (v.Value)
+                                    {
+                                        tags.Add(v.Key);
+                                    }
+                                }
+                                _taggedPaths[fn] = tags;
+                                string stags = string.Join(" ", tags);
+                                lvFiles.SelectedItems[0].SubItems[2].Text = stags;
+                            }
                         }
-                    }
-                    //else never mind
-                    break;
+                        //else never mind
+                        break;
+                }
             }
         }
         #endregion
@@ -335,7 +341,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void ActiveFilters_Click(object sender, EventArgs e)
+        void ActiveFilters_Click(object? sender, EventArgs e)
         {
             OptionsEditor oped = new OptionsEditor()
             {
@@ -366,7 +372,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void TreeView_DrawNode(object sender, DrawTreeNodeEventArgs e)
+        void TreeView_DrawNode(object? sender, DrawTreeNodeEventArgs e)
         {
             e.DrawDefault = true;
         }
@@ -376,7 +382,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void FilTree_Resize(object sender, EventArgs e)
+        void FilTree_Resize(object? sender, EventArgs e)
         {
             lvFiles.Columns[0].Width = lvFiles.Width / 2;
             lvFiles.Columns[1].Width = -2;

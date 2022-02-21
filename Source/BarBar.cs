@@ -33,16 +33,16 @@ namespace NBagOfUis
         int _lastXPos = 0;
 
         /// <summary>Tooltip for mousing.</summary>
-        readonly ToolTip _toolTip = new ToolTip();
+        readonly ToolTip _toolTip = new();
 
         /// <summary>The brush.</summary>
-        readonly SolidBrush _brush = new SolidBrush(Color.White);
+        readonly SolidBrush _brush = new(Color.White);
 
         /// <summary>The pen.</summary>
-        readonly Pen _penMarker = new Pen(Color.Black, 1);
+        readonly Pen _penMarker = new(Color.Black, 1);
 
         /// <summary>For drawing text.</summary>
-        readonly StringFormat _format = new StringFormat() { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center };
+        readonly StringFormat _format = new() { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center };
         #endregion
 
         #region Properties
@@ -78,15 +78,15 @@ namespace NBagOfUis
         public Color MarkerColor { get { return _penMarker.Color; } set { _penMarker.Color = value; } }
 
         /// <summary>Big font.</summary>
-        public Font FontLarge { get; set; } = new Font("Microsoft Sans Serif", 20, FontStyle.Regular, GraphicsUnit.Point, 0);
+        public Font FontLarge { get; set; } = new("Microsoft Sans Serif", 20, FontStyle.Regular, GraphicsUnit.Point, 0);
 
         /// <summary>Baby font.</summary>
-        public Font FontSmall { get; set; } = new Font("Microsoft Sans Serif", 10, FontStyle.Regular, GraphicsUnit.Point, 0);
+        public Font FontSmall { get; set; } = new("Microsoft Sans Serif", 10, FontStyle.Regular, GraphicsUnit.Point, 0);
         #endregion
 
         #region Events
         /// <summary>Value changed by user.</summary>
-        public event EventHandler CurrentTimeChanged;
+        public event EventHandler? CurrentTimeChanged;
         #endregion
 
         #region Lifecycle
@@ -191,7 +191,7 @@ namespace NBagOfUis
             }
             else if (e.X != _lastXPos)
             {
-                BarSpan bs = new BarSpan();
+                BarSpan bs = new();
                 bs.DoSnap(GetSubdivFromMouse(e.X));
                 _toolTip.SetToolTip(this, bs.ToString());
                 _lastXPos = e.X;
@@ -437,9 +437,9 @@ namespace NBagOfUis
         #endregion
 
         #region Standard IComparable stuff
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            return obj is BarSpan span && span.TotalSubdivs == TotalSubdivs;
+            return obj is not null && obj is BarSpan span && span.TotalSubdivs == TotalSubdivs;
         }
 
         public override int GetHashCode()

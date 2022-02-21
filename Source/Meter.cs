@@ -16,19 +16,19 @@ namespace NBagOfUis
     {
         #region Fields
         /// <summary>Storage.</summary>
-        double[] _buff = { };
+        double[] _buff = Array.Empty<double>();
 
         /// <summary>Storage.</summary>
         int _buffIndex = 0;
 
         /// <summary>The pen.</summary>
-        readonly Pen _pen = new Pen(Color.Black, 1);
+        readonly Pen _pen = new(Color.Black, 1);
 
         /// <summary>The brush.</summary>
-        readonly SolidBrush _brush = new SolidBrush(Color.White);
+        readonly SolidBrush _brush = new(Color.White);
 
         /// <summary>For drawing text.</summary>
-        StringFormat _format = new StringFormat() { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center };
+        readonly StringFormat _format = new() { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center };
         #endregion
 
         #region Properties
@@ -65,7 +65,7 @@ namespace NBagOfUis
         /// <summary>
         /// Init stuff.
         /// </summary>
-        private void Meter_Load(object sender, EventArgs e)
+        private void Meter_Load(object? sender, EventArgs e)
         {
         }
 

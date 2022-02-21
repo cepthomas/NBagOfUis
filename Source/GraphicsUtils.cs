@@ -49,7 +49,7 @@ namespace NBagOfUis
         /// <returns></returns>
         public static Bitmap ColorizeBitmap(Image original, Color newcol)
         {
-            Bitmap origbmp = original as Bitmap;
+            Bitmap origbmp = (Bitmap)original;
             Bitmap newbmp = new Bitmap(original.Width, original.Height);
 
             for (int y = 0; y < newbmp.Height; y++) // This is not very effecient! Use a buffer...

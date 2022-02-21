@@ -13,31 +13,31 @@ namespace NBagOfUis
     {
         #region Fields
         /// <summary>Total length.</summary>
-        TimeSpan _length = new TimeSpan();
+        TimeSpan _length = new();
 
         /// <summary>Current time/position.</summary>
-        TimeSpan _current = new TimeSpan();
+        TimeSpan _current = new();
 
         /// <summary>One marker.</summary>
-        TimeSpan _start = new TimeSpan();
+        TimeSpan _start = new();
 
         /// <summary>Other marker.</summary>
-        TimeSpan _end = new TimeSpan();
+        TimeSpan _end = new();
 
         /// <summary>For tracking mouse moves.</summary>
         int _lastXPos = 0;
 
         /// <summary>Tooltip for mousing.</summary>
-        readonly ToolTip _toolTip = new ToolTip();
+        readonly ToolTip _toolTip = new();
 
         /// <summary>The brush.</summary>
-        readonly SolidBrush _brush = new SolidBrush(Color.White);
+        readonly SolidBrush _brush = new(Color.White);
 
         /// <summary>The pen.</summary>
-        readonly Pen _penMarker = new Pen(Color.Black, 1);
+        readonly Pen _penMarker = new(Color.Black, 1);
 
         /// <summary>For drawing text.</summary>
-        readonly StringFormat _format = new StringFormat() { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center };
+        readonly StringFormat _format = new() { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center };
 
         /// <summary>Constant.</summary>
         static readonly int LARGE_CHANGE = 1000;
@@ -76,15 +76,15 @@ namespace NBagOfUis
         public Color MarkerColor { get { return _penMarker.Color; } set { _penMarker.Color = value; } }
 
         /// <summary>Big font.</summary>
-        public Font FontLarge { get; set; } = new Font("Microsoft Sans Serif", 20, FontStyle.Regular, GraphicsUnit.Point, 0);
+        public Font FontLarge { get; set; } = new("Microsoft Sans Serif", 20, FontStyle.Regular, GraphicsUnit.Point, 0);
 
         /// <summary>Baby font.</summary>
-        public Font FontSmall { get; set; } = new Font("Microsoft Sans Serif", 10, FontStyle.Regular, GraphicsUnit.Point, 0);
+        public Font FontSmall { get; set; } = new("Microsoft Sans Serif", 10, FontStyle.Regular, GraphicsUnit.Point, 0);
         #endregion
 
         #region Events
         /// <summary>Value changed by user.</summary>
-        public event EventHandler CurrentTimeChanged;
+        public event EventHandler? CurrentTimeChanged;
         #endregion
 
         #region Lifecycle

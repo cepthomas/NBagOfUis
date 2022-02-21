@@ -30,7 +30,7 @@ namespace NBagOfUis
             /// <summary>Midi velocity. 0 means note off.</summary>
             public int Velocity { get; set; } = 0;
         }
-        public event EventHandler<KeyboardEventArgs> KeyboardEvent;
+        public event EventHandler<KeyboardEventArgs>? KeyboardEvent;
         #endregion
 
         #region Constants
@@ -42,10 +42,10 @@ namespace NBagOfUis
 
         #region Fields
         /// <summary>All the created piano keys.</summary>
-        List<VirtualKey> _keys = new List<VirtualKey>();
+        readonly List<VirtualKey> _keys = new();
 
         /// <summary>Map from Keys value to the index in _keys.</summary>
-        Dictionary<Keys, int> _keyMap = new Dictionary<Keys, int>();
+        readonly Dictionary<Keys, int> _keyMap = new();
 
         /// <summary>Known bug?</summary>
         bool _keyDown = false;
@@ -76,7 +76,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void Keyboard_Load(object sender, EventArgs e)
+        void Keyboard_Load(object? sender, EventArgs e)
         {
             CreateKeys();
             CreateKeyMap();
@@ -88,7 +88,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void Keyboard_Resize(object sender, EventArgs e)
+        void Keyboard_Resize(object? sender, EventArgs e)
         {
             DrawKeys();
             Invalidate();
@@ -209,7 +209,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void Keyboard_KeyDown(object sender, KeyEventArgs e)
+        void Keyboard_KeyDown(object? sender, KeyEventArgs e)
         {
             if (!_keyDown)
             {
@@ -232,7 +232,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void Keyboard_KeyUp(object sender, KeyEventArgs e)
+        void Keyboard_KeyUp(object? sender, KeyEventArgs e)
         {
             _keyDown = false;
 
@@ -249,7 +249,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void Keyboard_VKeyEvent(object sender, VirtualKey.VKeyEventArgs e)
+        void Keyboard_VKeyEvent(object? sender, VirtualKey.VKeyEventArgs e)
         {
             if (KeyboardEvent != null)
             {
@@ -336,10 +336,10 @@ namespace NBagOfUis
     {
         #region Fields
         /// <summary>Hook to owner.</summary>
-        VirtualKeyboard _owner;
+        readonly VirtualKeyboard _owner;
 
         /// <summary>For showing names.</summary>
-        static string[] _noteNames = { "C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B" };
+        static readonly string[] _noteNames = { "C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B" };
         #endregion
 
         #region Properties
@@ -355,12 +355,12 @@ namespace NBagOfUis
 
         #region Events
         /// <summary>Notify handlers of key change.</summary>
-        public event EventHandler<VKeyEventArgs> VKeyEvent;
         public class VKeyEventArgs : EventArgs
         {
             public int NoteId { get; set; }
             public int Velocity { get; set; }
         }
+        public event EventHandler<VKeyEventArgs>? VKeyEvent;
         #endregion
 
         #region Lifecycle

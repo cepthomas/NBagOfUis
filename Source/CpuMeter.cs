@@ -16,28 +16,28 @@ namespace NBagOfUis
     {
         #region Fields
         /// <summary>Total usage.</summary>
-        PerformanceCounter _cpuPerf = null;
+        PerformanceCounter? _cpuPerf = null;
 
         /// <summary>Logical processes.</summary>
-        PerformanceCounter[] _processesPerf = null;
+        PerformanceCounter[]? _processesPerf = null;
 
         /// <summary> </summary>
         bool _inited = false;
 
         /// <summary> </summary>
-        Timer _timer = new Timer();
+        readonly Timer _timer = new Timer();
 
         /// <summary> </summary>
-        int _min = 0;
+        readonly int _min = 0;
 
         /// <summary> </summary>
-        int _max = 100;
+        readonly int _max = 100;
 
         /// <summary>Storage.</summary>
-        double[][] _processesBuffs = null;
+        double[][]? _processesBuffs = null;
 
         /// <summary>Storage.</summary>
-        double[] _cpuBuff = null;
+        double[]? _cpuBuff = null;
 
         /// <summary>Storage.</summary>
         int _buffIndex = 0;
@@ -52,10 +52,10 @@ namespace NBagOfUis
         int _logicalProcessors = 0;
 
         /// <summary>The pen.</summary>
-        readonly Pen _pen = new Pen(Color.Black, 1);
+        readonly Pen _pen = new(Color.Black, 1);
 
         /// <summary>For drawing text.</summary>
-        StringFormat _format = new StringFormat() { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center };
+        readonly StringFormat _format = new() { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center };
         #endregion
 
         #region Properties
@@ -88,7 +88,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CpuMeter_Load(object sender, EventArgs e)
+        private void CpuMeter_Load(object? sender, EventArgs e)
         {
             _timer.Tick += Timer_Tick;
             _timer.Interval = 500;
@@ -159,15 +159,18 @@ namespace NBagOfUis
         /// </summary>
         void SetBuffs()
         {
-            int size = Width;
-            for (int i = 0; i < _processesBuffs.Count(); i++)
+            if(_processesBuffs is not null)
             {
-                _processesBuffs[i] = new double[size];
+                int size = Width;
+                for (int i = 0; i < _processesBuffs.Length; i++)
+                {
+                    _processesBuffs[i] = new double[size];
+                }
+
+                _cpuBuff = new double[size];
+
+                _buffIndex = 0;
             }
-
-            _cpuBuff = new double[size];
-
-            _buffIndex = 0;
         }
 
         /// <summary>
@@ -175,7 +178,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object? sender, EventArgs e)
         {
             if(Enable)
             {
@@ -183,11 +186,11 @@ namespace NBagOfUis
                 {
                     InitPerf();
                 }
-                else
+                else if (_cpuBuff is not null && _processesPerf is not null && _processesBuffs is not null)
                 {
                     _cpuBuff[_buffIndex] = 0;
 
-                    for (int i = 0; i < _processesPerf.Count(); i++)
+                    for (int i = 0; i < _processesPerf.Length; i++)
                     {
                         float val = _processesPerf[i].NextValue();
                         _processesBuffs[i][_buffIndex] = val;
@@ -196,7 +199,7 @@ namespace NBagOfUis
                     _cpuBuff[_buffIndex] = _cpuPerf.NextValue();
 
                     _buffIndex++;
-                    if (_buffIndex >= _cpuBuff.Count())
+                    if (_buffIndex >= _cpuBuff.Length)
                     {
                         _buffIndex = 0;
                     }

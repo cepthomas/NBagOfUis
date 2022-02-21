@@ -39,10 +39,10 @@ namespace NBagOfUis
         bool _dragging = false;
 
         /// <summary>For drawing.</summary>
-        Pen _pen = new Pen(Color.Black, 3.0f) { LineJoin = System.Drawing.Drawing2D.LineJoin.Round };
+        readonly Pen _pen = new(Color.Black, 3.0f) { LineJoin = System.Drawing.Drawing2D.LineJoin.Round };
 
         /// <summary>For drawing text.</summary>
-        StringFormat _format = new StringFormat() { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center };
+        readonly StringFormat _format = new() { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center };
         #endregion
 
         #region Properties
@@ -87,7 +87,7 @@ namespace NBagOfUis
 
         #region Events
         /// <summary>Value changed event.</summary>
-        public event EventHandler ValueChanged;
+        public event EventHandler? ValueChanged;
         #endregion
 
         #region Lifecycle
@@ -109,7 +109,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void Pot_Load(object sender, EventArgs e)
+        void Pot_Load(object? sender, EventArgs e)
         {
         }
 
@@ -193,7 +193,7 @@ namespace NBagOfUis
             {
                 int ydiff = _beginDragY - e.Y; // pixels
 
-                double val = Taper == Taper.Log ? Math.Log10(_value) : _value;
+                //double val = Taper == Taper.Log ? Math.Log10(_value) : _value;
                 double min = Taper == Taper.Log ? Math.Log10(_minimum) : _minimum;
                 double max = Taper == Taper.Log ? Math.Log10(_maximum) : _maximum;
                 double delta = (max - min) * (ydiff / 100.0);

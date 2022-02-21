@@ -12,13 +12,13 @@ namespace NBagOfUis
     {
         #region Fields
         /// <summary> </summary>
-        private double _value;
+        double _value;
 
         /// <summary>The brush.</summary>
-        readonly SolidBrush _brush = new SolidBrush(Color.White);
+        readonly SolidBrush _brush = new(Color.White);
 
         /// <summary>For drawing text.</summary>
-        StringFormat _format = new StringFormat() { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center };
+        readonly StringFormat _format = new() { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center };
         #endregion
 
         #region Properties
@@ -43,7 +43,7 @@ namespace NBagOfUis
 
         #region Events
         /// <summary>True when pan value changed.</summary>
-        public event EventHandler ValueChanged;
+        public event EventHandler? ValueChanged;
         #endregion
 
         #region Lifecycle
@@ -61,7 +61,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void Pan_Load(object sender, EventArgs e)
+        void Pan_Load(object? sender, EventArgs e)
         {
         }
 

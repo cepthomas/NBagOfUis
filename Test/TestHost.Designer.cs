@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.vkbd = new NBagOfUis.VirtualKeyboard();
+            this.propGrid = new NBagOfUis.PropertyGridEx();
             this.waveViewer2 = new NBagOfUis.WaveViewer();
             this.waveViewer1 = new NBagOfUis.WaveViewer();
             this.chkRunBars = new System.Windows.Forms.CheckBox();
@@ -49,7 +50,6 @@
             this.pot1 = new NBagOfUis.Pot();
             this.slider1 = new NBagOfUis.Slider();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.propGrid = new System.Windows.Forms.PropertyGrid();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -104,11 +104,35 @@
             this.vkbd.TabIndex = 0;
             this.vkbd.KeyboardEvent += new System.EventHandler<NBagOfUis.VirtualKeyboard.KeyboardEventArgs>(this.Vkbd_KeyboardEvent);
             // 
+            // propGrid
+            // 
+            this.propGrid.Dirty = false;
+            // 
+            // 
+            // 
+            this.propGrid.DocCommentDescription.Location = new System.Drawing.Point(4, 26);
+            this.propGrid.DocCommentDescription.Name = "";
+            this.propGrid.DocCommentDescription.Size = new System.Drawing.Size(354, 43);
+            this.propGrid.DocCommentDescription.TabIndex = 1;
+            this.propGrid.DocCommentImage = null;
+            // 
+            // 
+            // 
+            this.propGrid.DocCommentTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.propGrid.DocCommentTitle.Location = new System.Drawing.Point(4, 4);
+            this.propGrid.DocCommentTitle.Name = "";
+            this.propGrid.DocCommentTitle.Size = new System.Drawing.Size(354, 22);
+            this.propGrid.DocCommentTitle.TabIndex = 0;
+            this.propGrid.Location = new System.Drawing.Point(1062, 400);
+            this.propGrid.Name = "propGrid";
+            this.propGrid.Size = new System.Drawing.Size(362, 290);
+            this.propGrid.TabIndex = 20;
+            // 
             // waveViewer2
             // 
             this.waveViewer2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.waveViewer2.DrawColor = System.Drawing.Color.Orange;
-            this.waveViewer2.Location = new System.Drawing.Point(546, 352);
+            this.waveViewer2.Location = new System.Drawing.Point(546, 313);
             this.waveViewer2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.waveViewer2.Marker1 = -1;
             this.waveViewer2.Marker2 = -1;
@@ -122,7 +146,7 @@
             // 
             this.waveViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.waveViewer1.DrawColor = System.Drawing.Color.Orange;
-            this.waveViewer1.Location = new System.Drawing.Point(546, 245);
+            this.waveViewer1.Location = new System.Drawing.Point(546, 218);
             this.waveViewer1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.waveViewer1.Marker1 = -1;
             this.waveViewer1.Marker2 = -1;
@@ -282,11 +306,11 @@
             // txtInfo
             // 
             this.txtInfo.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtInfo.Location = new System.Drawing.Point(546, 461);
+            this.txtInfo.Location = new System.Drawing.Point(546, 409);
             this.txtInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtInfo.MaxText = 5000;
             this.txtInfo.Name = "txtInfo";
-            this.txtInfo.Size = new System.Drawing.Size(579, 229);
+            this.txtInfo.Size = new System.Drawing.Size(509, 281);
             this.txtInfo.TabIndex = 4;
             this.txtInfo.Text = "";
             // 
@@ -344,13 +368,6 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
-            // propGrid
-            // 
-            this.propGrid.Location = new System.Drawing.Point(1162, 400);
-            this.propGrid.Name = "propGrid";
-            this.propGrid.Size = new System.Drawing.Size(199, 290);
-            this.propGrid.TabIndex = 20;
-            // 
             // TestHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -394,6 +411,6 @@
         private System.Windows.Forms.CheckBox chkRunBars;
         private NBagOfUis.WaveViewer waveViewer2;
         private NBagOfUis.WaveViewer waveViewer1;
-        private System.Windows.Forms.PropertyGrid propGrid;
+        private PropertyGridEx propGrid;
     }
 }

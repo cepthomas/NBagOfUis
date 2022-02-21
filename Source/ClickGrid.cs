@@ -13,10 +13,10 @@ namespace NBagOfUis
     {
         #region Fields
         /// <summary>State enumeration.</summary>
-        Dictionary<int, IndicatorStateType> _stateTypes = new Dictionary<int, IndicatorStateType>();
+        Dictionary<int, IndicatorStateType> _stateTypes = new();
 
         /// <summary>All the indicators.</summary>
-        List<Indicator> _indicators = new List<Indicator>();
+        readonly List<Indicator> _indicators = new();
 
         /// <summary>Number of columns.</summary>
         int _cols = 2;
@@ -31,15 +31,15 @@ namespace NBagOfUis
         int _indHeight = 25;
 
         /// <summary>Used for unspecified states.</summary>
-        SolidBrush _defaultForeBrush = new SolidBrush(Color.Black);
+        readonly SolidBrush _defaultForeBrush = new(Color.Black);
 
         /// <summary>Used for unspecified states.</summary>
-        SolidBrush _defaultBackBrush = new SolidBrush(Color.White);
+        readonly SolidBrush _defaultBackBrush = new(Color.White);
         #endregion
 
         #region Events
         /// <summary>ClickGrid value changed event.</summary>
-        public event EventHandler<IndicatorEventArgs> IndicatorEvent;
+        public event EventHandler<IndicatorEventArgs>? IndicatorEvent;
         #endregion
 
         #region Lifecycle
@@ -57,7 +57,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void ClickGrid_Load(object sender, EventArgs e)
+        void ClickGrid_Load(object? sender, EventArgs e)
         {
             BorderStyle = BorderStyle.FixedSingle;
 
@@ -258,9 +258,9 @@ namespace NBagOfUis
     class IndicatorStateType
     {
         /// <summary>The foreground brush/pen.</summary>
-        public SolidBrush ForeBrush { get; set; } = null;
+        public SolidBrush ForeBrush { get; set; } = new(Color.Black);
 
         /// <summary>The background brush.</summary>
-        public SolidBrush BackBrush { get; set; } = null;
+        public SolidBrush BackBrush { get; set; } = new(Color.White);
     }
 }

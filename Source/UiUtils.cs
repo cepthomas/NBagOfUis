@@ -26,11 +26,9 @@ namespace NBagOfUis
         /// <param name="e"></param>
         protected override void OnRenderButtonBackground(ToolStripItemRenderEventArgs e)
         {
-            var btn = e.Item as ToolStripButton;
-
-            if (!(btn is null) && btn.CheckOnClick && btn.Checked)
+            if (!(e.Item is not ToolStripButton btn) && btn.CheckOnClick && btn.Checked)
             {
-                Rectangle bounds = new Rectangle(Point.Empty, e.Item.Size);
+                Rectangle bounds = new(Point.Empty, e.Item.Size);
                 e.Graphics.FillRectangle(new SolidBrush(SelectedColor), bounds);
             }
             else
@@ -65,27 +63,24 @@ namespace NBagOfUis
     /// <summary>Generic property editor for lists of strings.</summary>
     public class ListEditor : UITypeEditor
     {
-        private IWindowsFormsEditorService _service = null;
+        private IWindowsFormsEditorService? _service = null;
 
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
-            List<string> ls = value as List<string>;
+            List<string> ls = value is null ? new() : (List<string>)value;
 
-            if (ls != null)
+            TextBox tb = new TextBox
             {
-                TextBox tb = new TextBox
-                {
-                    Multiline = true,
-                    ReadOnly = false,
-                    AcceptsReturn = true,
-                    ScrollBars = ScrollBars.Both,
-                    Height = (ls.Count + 1) * 30,
-                    Text = string.Join(Environment.NewLine, ls)
-                };
-                _service = provider.GetService(typeof(IWindowsFormsEditorService)) as IWindowsFormsEditorService;
-                _service.DropDownControl(tb);
-                ls = tb.Text.SplitByToken(Environment.NewLine);
-            }
+                Multiline = true,
+                ReadOnly = false,
+                AcceptsReturn = true,
+                ScrollBars = ScrollBars.Both,
+                Height = (ls.Count + 1) * 30,
+                Text = string.Join(Environment.NewLine, ls)
+            };
+            _service = provider.GetService(typeof(IWindowsFormsEditorService)) as IWindowsFormsEditorService;
+            _service?.DropDownControl(tb);
+            ls = tb.Text.SplitByToken(Environment.NewLine);
 
             return ls;
         }
@@ -98,13 +93,14 @@ namespace NBagOfUis
     {
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
-            FontDialog dlg = new FontDialog()
+            FontDialog dlg = new()
             {
                 FixedPitchOnly = true,
                 Font = value as Font
             };
 
-            return dlg.ShowDialog() == DialogResult.OK ? dlg.Font : base.EditValue(context, provider, value);
+
+            return dlg.ShowDialog() == DialogResult.OK ? dlg.Font! : value;
         }
 
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context) { return UITypeEditorEditStyle.Modal; }

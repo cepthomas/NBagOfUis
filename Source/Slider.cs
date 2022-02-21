@@ -18,10 +18,10 @@ namespace NBagOfUis
         double _resetVal = 0.0;
 
         /// <summary>The brush.</summary>
-        readonly SolidBrush _brush = new SolidBrush(Color.White);
+        readonly SolidBrush _brush = new(Color.White);
 
         /// <summary>For drawing text.</summary>
-        StringFormat _format = new StringFormat() { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center };
+        readonly StringFormat _format = new() { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center };
         #endregion
 
         #region Properties
@@ -67,7 +67,7 @@ namespace NBagOfUis
         /// <summary>
         /// Slider value changed event.
         /// </summary>
-        public event EventHandler ValueChanged;
+        public event EventHandler? ValueChanged;
         #endregion
 
         #region Lifecycle
@@ -85,7 +85,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void Slider_Load(object sender, EventArgs e)
+        void Slider_Load(object? sender, EventArgs e)
         {
         }
 

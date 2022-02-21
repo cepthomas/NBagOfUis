@@ -15,7 +15,7 @@ namespace NBagOfUis
     {
         #region Fields
         /// <summary>Working values so we don't destroy originals.</summary>
-        Dictionary<string, bool> _values;
+        Dictionary<string, bool> _values = new();
         #endregion
 
         #region Properties
@@ -46,7 +46,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void OptionsEditor_Load(object sender, EventArgs e)
+        void OptionsEditor_Load(object? sender, EventArgs e)
         {
             if(!AllowEdit)
             {
@@ -61,7 +61,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void Add_Click(object sender, EventArgs e)
+        void Add_Click(object? sender, EventArgs e)
         {
             // If textbox is not empty, add to collection.
             string s = txtAdd.Text.Trim().Replace(" ", "_");
@@ -76,7 +76,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void Values_KeyDown(object sender, KeyEventArgs e)
+        void Values_KeyDown(object? sender, KeyEventArgs e)
         {
             if(AllowEdit && e.KeyCode == Keys.Delete)
             {
@@ -90,13 +90,13 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void OptionsEditor_FormClosing(object sender, FormClosingEventArgs e)
+        void OptionsEditor_FormClosing(object? sender, FormClosingEventArgs e)
         {
             _values.Clear();
 
             for(int i = 0; i < lbValues.Items.Count; i++)
             {
-                _values[lbValues.Items[i].ToString()] = lbValues.GetItemChecked(i);
+                _values[lbValues.Items[i].ToString()!] = lbValues.GetItemChecked(i);
             }
         }
     }
