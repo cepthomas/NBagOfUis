@@ -42,7 +42,7 @@ namespace NBagOfUis.Test
             slider2.ValueChanged += Slider2_ValueChanged;
 
             ///// Filter tree.
-            string root = $@"C:\Dev\repos\NBagOfUis\Test"; //TODO fix xxx bad paths
+            string root = $@"C:\Dev\repos\NBagOfUis";
             ftree.RootDirs = new List<string>() { root };
             ftree.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" };
             ftree.AllTags = new Dictionary<string, bool>() { { "abc", true }, { "123", false }, { "xyz", true } };
