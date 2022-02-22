@@ -139,7 +139,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="vals"></param>
         /// <param name="max"></param>
-        public void Init(float[] vals, float max)
+        public void Init(float[]? vals, float max)
         {
             //Dump(vals, "raw.csv");
             _rawVals = vals;
