@@ -1,7 +1,7 @@
 # NBagOfUis
 WinForms controls collected over the years. Companion to [NBagOfTricks](https://github.com/cepthomas/NBagOfTricks).
 
-Targets .NET Framework 4.7.2 and .NET5.
+Requires VS2019 and .NET5.
 
 No dependencies on third party components.
 

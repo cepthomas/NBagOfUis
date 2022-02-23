@@ -45,20 +45,20 @@ namespace NBagOfUis.Test
             string root = $@"C:\Dev\repos\NBagOfUis";
             ftree.RootDirs = new List<string>() { root };
             ftree.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" };
-            ftree.AllTags = new Dictionary<string, bool>() { { "abc", true }, { "123", false }, { "xyz", true } };
+            //ftree.AllTags = new Dictionary<string, bool>() { { "abc", true }, { "123", false }, { "xyz", true } };
             ftree.DoubleClickSelect = false;
 
             // Good files
-            ftree.TaggedPaths[$@"{root}\Test_CMD.cs"] = "";
-            ftree.TaggedPaths[$@"{root}\Test_PNUT.cs"] = "abc";
-            ftree.TaggedPaths[$@"{root}\bin\Debug\testout.txt"] = "123 xyz";
+            //ftree.TaggedPaths[$@"{root}\Test_CMD.cs"] = "";
+            //ftree.TaggedPaths[$@"{root}\Test_PNUT.cs"] = "abc";
+            //ftree.TaggedPaths[$@"{root}\bin\Debug\testout.txt"] = "123 xyz";
 
             // Bad paths.
             //ftree.TaggedPaths.Add(($@"{root}\bad_file.txt", "xyz"));
             //ftree.TaggedPaths.Add(($@"{root}\bin\bad_path", ""));
 
             // Bad tags.
-            ftree.TaggedPaths[$@"{root}\bin\Debug\NBagOfUis.xml"] = "333333 abc";
+            //ftree.TaggedPaths[$@"{root}\bin\Debug\NBagOfUis.xml"] = "333333 abc";
 
             ftree.Init();
 

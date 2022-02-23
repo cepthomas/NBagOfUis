@@ -96,7 +96,7 @@
             // 
             // dvcolTags
             // 
-            this.dvcolTags.Text = "Tags";
+            this.dvcolTags.Text = "TODO";
             this.dvcolTags.Width = 365;
             // 
             // toolStrip1
@@ -115,7 +115,6 @@
             this.lblActiveFilters.Name = "lblActiveFilters";
             this.lblActiveFilters.Size = new System.Drawing.Size(93, 22);
             this.lblActiveFilters.Text = "Active Filters";
-            this.lblActiveFilters.Click += new System.EventHandler(this.ActiveFilters_Click);
             // 
             // splitContainer2
             // 
