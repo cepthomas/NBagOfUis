@@ -13,7 +13,8 @@ using System.IO;
 namespace NBagOfUis
 {
     /// <summary>
-    /// Tree control with filters.
+    /// Tree control with file type filters.
+    /// TODO: limit/lazy L/R population, filter pattern matching, include/exclude, filter specs global/local.
     /// </summary>
     public partial class FilTree : UserControl
     {
@@ -29,7 +30,7 @@ namespace NBagOfUis
         public List<string> FilterExts { get; set; } = new();
 
         /// <summary>Generate event with single or double click.</summary>
-        public bool DoubleClickSelect { get; set; } = false;
+        public bool SingleClickSelect { get; set; } = false;
         #endregion
 
         #region Events
@@ -93,7 +94,7 @@ namespace NBagOfUis
         }
 
         /// <summary>
-        /// 
+        /// Fill the tree.
         /// </summary>
         void PopulateTreeView()
         {
@@ -185,7 +186,7 @@ namespace NBagOfUis
         /// <param name="e"></param>
         void ListFiles_MouseClick(object? sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && !DoubleClickSelect && FileSelectedEvent is not null)
+            if (e.Button == MouseButtons.Left && SingleClickSelect && FileSelectedEvent is not null)
             {
                 FileSelectedEvent.Invoke(this, lvFiles.SelectedItems[0].Tag.ToString()!);
             }
@@ -198,7 +199,7 @@ namespace NBagOfUis
         /// <param name="e"></param>
         void ListFiles_MouseDoubleClick(object? sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && DoubleClickSelect && FileSelectedEvent is not null)
+            if (e.Button == MouseButtons.Left && !SingleClickSelect && FileSelectedEvent is not null)
             {
                 FileSelectedEvent.Invoke(this, lvFiles.SelectedItems[0].Tag.ToString()!);
             }
@@ -225,8 +226,8 @@ namespace NBagOfUis
         {
             if(sender is not null)
             {
-                ToolStripMenuItem item = (ToolStripMenuItem)sender;
-                string fn = lvFiles.SelectedItems[0].Tag.ToString()!;
+                //ToolStripMenuItem item = (ToolStripMenuItem)sender;
+                //string fn = lvFiles.SelectedItems[0].Tag.ToString()!;
 
                 switch (sender.ToString())
                 {

@@ -34,7 +34,7 @@
             this.lvFiles = new System.Windows.Forms.ListView();
             this.dvcolFile = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.dvcolSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.dvcolTags = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.dvcolOther = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.lblActiveFilters = new System.Windows.Forms.ToolStripLabel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -70,7 +70,7 @@
             this.lvFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.dvcolFile,
             this.dvcolSize,
-            this.dvcolTags});
+            this.dvcolOther});
             this.lvFiles.ContextMenuStrip = this.menuFiles;
             this.lvFiles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvFiles.FullRowSelect = true;
@@ -94,10 +94,10 @@
             this.dvcolSize.Text = "Size (kb)";
             this.dvcolSize.Width = 70;
             // 
-            // dvcolTags
+            // dvcolOther
             // 
-            this.dvcolTags.Text = "TODO";
-            this.dvcolTags.Width = 365;
+            this.dvcolOther.Text = "other";
+            this.dvcolOther.Width = 365;
             // 
             // toolStrip1
             // 
@@ -159,7 +159,7 @@
         private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.ListView lvFiles;
         private System.Windows.Forms.ColumnHeader dvcolFile;
-        private System.Windows.Forms.ColumnHeader dvcolTags;
+        private System.Windows.Forms.ColumnHeader dvcolOther;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.ColumnHeader dvcolSize;

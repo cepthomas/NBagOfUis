@@ -13,7 +13,7 @@ using System.Windows.Forms.Design;
 namespace NBagOfUis
 {
     /// <summary>Generic property editor for lists of strings.</summary>
-    public class ListEditor : UITypeEditor
+    public class StringListEditor : UITypeEditor
     {
         IWindowsFormsEditorService? _service = null;
 
@@ -21,7 +21,7 @@ namespace NBagOfUis
         {
             List<string> ls = value is null ? new() : (List<string>)value;
 
-            TextBox tb = new TextBox
+            TextBox tb = new()
             {
                 Multiline = true,
                 ReadOnly = false,
@@ -30,6 +30,7 @@ namespace NBagOfUis
                 Height = 100,
                 Text = string.Join(Environment.NewLine, ls)
             };
+            tb.Select(0, 0);
 
             _service = provider.GetService(typeof(IWindowsFormsEditorService)) as IWindowsFormsEditorService;
             _service?.DropDownControl(tb);
@@ -56,5 +57,75 @@ namespace NBagOfUis
         }
 
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context) { return UITypeEditorEditStyle.Modal; }
+    }
+
+    public class PathListEditor : UITypeEditor
+    {
+        IWindowsFormsEditorService? _service = null;
+
+        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
+        {
+            List<string> ls = value is null ? new() : (List<string>)value;
+
+            ListBox lb = new();
+            lb.DataSource = ls;
+
+            lb.ContextMenuStrip = new();
+
+            lb.ContextMenuStrip.Opening += (sender, _) =>
+            {
+                lb.ContextMenuStrip.Items.Clear();
+                lb.ContextMenuStrip.Items.Add("Add");
+                if (lb.Items.Count > 0)
+                {
+                    lb.ContextMenuStrip.Items.Add("Remove");
+
+                    if (lb.SelectedIndex > 0)
+                    {
+                        lb.ContextMenuStrip.Items.Add("Up");
+                    }
+
+                    if (lb.SelectedIndex < lb.Items.Count - 1)
+                    {
+                        lb.ContextMenuStrip.Items.Add("Down");
+                    }
+                }
+            };
+
+            lb.ContextMenuStrip.ItemClicked += (sender, args) =>
+            {
+                switch (args.ClickedItem.Text)
+                {
+                    case "Add":
+                        FolderBrowserDialog dlg = new FolderBrowserDialog();
+                        dlg.Description = "Select the folder to add.";
+                        dlg.ShowNewFolderButton = false;
+                        //dlg.SelectedPath = init?
+
+                        if (dlg.ShowDialog() == DialogResult.OK) // UI locks here!!
+                        {
+                            var f = dlg.SelectedPath;
+                            lb.Items.Insert(lb.SelectedIndex, f);
+                        }
+                        break;
+
+                    case "Remove":
+                        int i = lb.SelectedIndex;
+                        lb.Items.RemoveAt(i);
+                        break;
+
+                    case "Up":
+                    case "Down":
+                        break;
+                }
+            };
+
+            _service = provider.GetService(typeof(IWindowsFormsEditorService)) as IWindowsFormsEditorService;
+            _service?.DropDownControl(lb);
+
+            return ls;
+        }
+
+        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context) { return UITypeEditorEditStyle.DropDown; }
     }
 }

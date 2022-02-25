@@ -45,21 +45,7 @@ namespace NBagOfUis.Test
             string root = $@"C:\Dev\repos\NBagOfUis";
             ftree.RootDirs = new List<string>() { root };
             ftree.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" };
-            //ftree.AllTags = new Dictionary<string, bool>() { { "abc", true }, { "123", false }, { "xyz", true } };
-            ftree.DoubleClickSelect = false;
-
-            // Good files
-            //ftree.TaggedPaths[$@"{root}\Test_CMD.cs"] = "";
-            //ftree.TaggedPaths[$@"{root}\Test_PNUT.cs"] = "abc";
-            //ftree.TaggedPaths[$@"{root}\bin\Debug\testout.txt"] = "123 xyz";
-
-            // Bad paths.
-            //ftree.TaggedPaths.Add(($@"{root}\bad_file.txt", "xyz"));
-            //ftree.TaggedPaths.Add(($@"{root}\bin\bad_path", ""));
-
-            // Bad tags.
-            //ftree.TaggedPaths[$@"{root}\bin\Debug\NBagOfUis.xml"] = "333333 abc";
-
+            ftree.SingleClickSelect = true;
             ftree.Init();
 
             ///// Wave viewer.
@@ -94,7 +80,6 @@ namespace NBagOfUis.Test
             clickGrid1.AddStateType(30, Color.Red, Color.Salmon);
 
             string[] names = { "dignissim", "cras", "tincidunt", "lobortis", "feugiat", "vivamus", "at", "augue", "eget" };
-
             for (int i = 0; i < names.Length; i++)
             {
                 clickGrid1.AddIndicator(names[i], 10 + i);
@@ -125,6 +110,12 @@ namespace NBagOfUis.Test
             //barBar.Test();
 
             ///// PropertyGridEx and UiType editor host.
+            for(int i = 0; i < 5; i++)
+            {
+                _testClass.TestList.Add($"List{i}");
+                _testClass.TestPaths.Add($"Path{i}");
+
+            }
             Image img = Bitmap.FromFile("Files\\morito.png");
             propGrid.SelectedObject = _testClass;
             var lbl = propGrid.AddLabel("Blue", null, "The sky is blue");
@@ -230,12 +221,19 @@ namespace NBagOfUis.Test
 
     public class TestClass
     {
+        [DisplayName("Test Paths")]
+        [Description("Describe Path List.")]
+        [Category("Cat1")]
+        [Browsable(true)]
+        [Editor(typeof(PathListEditor), typeof(UITypeEditor))]
+        public List<string> TestPaths { get; set; } = new();
+
         [DisplayName("Test List")]
         [Description("Describe Test List.")]
         [Category("Cat1")]
         [Browsable(true)]
-        [Editor(typeof(ListEditor), typeof(UITypeEditor))]
-        public List<string>? TestList { get; set; }
+        [Editor(typeof(StringListEditor), typeof(UITypeEditor))]
+        public List<string> TestList { get; set; } = new();
 
         [DisplayName("Test Font")]
         [Description("Describe Test Font.")]
@@ -255,6 +253,6 @@ namespace NBagOfUis.Test
         [Description("Describe Test String.")]
         [Category("Cat2")]
         [Browsable(true)]
-        public string? TestString { get; set; }
+        public string TestString { get; set; } = "";
     }
 }
