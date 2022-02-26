@@ -58,7 +58,6 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Cursor = System.Windows.Forms.Cursors.HSplit;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -186,7 +185,7 @@
             // clickGrid1
             // 
             this.clickGrid1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.clickGrid1.Location = new System.Drawing.Point(12, 545);
+            this.clickGrid1.Location = new System.Drawing.Point(12, 470);
             this.clickGrid1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clickGrid1.Name = "clickGrid1";
             this.clickGrid1.Size = new System.Drawing.Size(484, 156);
@@ -225,7 +224,7 @@
             this.ftree.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.ftree.Name = "ftree";
             this.ftree.SingleClickSelect = true;
-            this.ftree.Size = new System.Drawing.Size(484, 518);
+            this.ftree.Size = new System.Drawing.Size(484, 441);
             this.ftree.TabIndex = 11;
             this.ftree.FileSelectedEvent += new System.EventHandler<string>(this.FilTree_FileSelectedEvent);
             // 
@@ -394,7 +393,7 @@
         private System.Windows.Forms.CheckBox chkRunBars;
         private NBagOfUis.WaveViewer waveViewer2;
         private NBagOfUis.WaveViewer waveViewer1;
-        private PropertyGridEx propGrid;
+        private NBagOfUis.PropertyGridEx propGrid;
         private TextViewer txtInfo;
     }
 }
