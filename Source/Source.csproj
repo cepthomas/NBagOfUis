@@ -16,6 +16,10 @@
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <SatelliteResourceLanguages>none</SatelliteResourceLanguages> <!-- en none -->
+    <!-- nuget properties -->
+    <PackageId>NBagOfUis</PackageId>
+    <Authors>TODO</Authors>
+    <Company>Ephemera</Company>
   </PropertyGroup>
 
   <ItemGroup>
