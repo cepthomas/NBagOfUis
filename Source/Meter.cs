@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using NBagOfTricks;
 
 
 namespace NBagOfUis
@@ -98,12 +99,12 @@ namespace NBagOfUis
                 switch (MeterType)
                 {
                     case MeterType.Log:
-                        double db = InternalHelpers.Constrain(20 * Math.Log10(val), Minimum, Maximum);
+                        double db = MathUtils.Constrain(20 * Math.Log10(val), Minimum, Maximum);
                         _buff[0] = db;
                         break;
 
                     case MeterType.Linear:
-                        double lval = InternalHelpers.Constrain(val, Minimum, Maximum);
+                        double lval = MathUtils.Constrain(val, Minimum, Maximum);
                         _buff[0] = lval;
                         break;
 
@@ -112,7 +113,7 @@ namespace NBagOfUis
                         // Bump ring index.
                         _buffIndex++;
                         _buffIndex %= _buff.Length;
-                        _buff[_buffIndex] = InternalHelpers.Constrain(val, Minimum, Maximum);
+                        _buff[_buffIndex] = MathUtils.Constrain(val, Minimum, Maximum);
                         break;
                 }
 
@@ -160,7 +161,7 @@ namespace NBagOfUis
                         double val = _buff[index];
 
                         // Draw data point.
-                        double y = InternalHelpers.Map(val, Minimum, Maximum, ClientRectangle.Height, 0);
+                        double y = MathUtils.Map(val, Minimum, Maximum, ClientRectangle.Height, 0);
 
                         if (MeterType == MeterType.ContinuousLine)
                         {

@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using NBagOfTricks;
 
 
 namespace NBagOfUis
@@ -47,7 +48,7 @@ namespace NBagOfUis
         public double ResetValue
         {
             get { return _resetVal; }
-            set { _resetVal = Math.Round(InternalHelpers.Constrain(value, Minimum, Maximum), DecPlaces); }
+            set { _resetVal = Math.Round(MathUtils.Constrain(value, Minimum, Maximum), DecPlaces); }
         }
 
         /// <summary>The value for this slider.</summary>
@@ -56,7 +57,7 @@ namespace NBagOfUis
             get { return _value; }
             set
             {
-                _value = Math.Round(InternalHelpers.Constrain(value, Minimum, Maximum), DecPlaces);
+                _value = Math.Round(MathUtils.Constrain(value, Minimum, Maximum), DecPlaces);
                 ValueChanged?.Invoke(this, EventArgs.Empty);
                 Invalidate();
             }

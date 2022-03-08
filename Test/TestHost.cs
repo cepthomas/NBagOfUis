@@ -138,6 +138,11 @@ namespace NBagOfUis.Test
             //var po = _testClass;
         }
 
+        void Graphics_Click(object sender, EventArgs e)
+        {
+            new Graphics().ShowDialog();
+        }
+
         void Timer1_Tick(object? sender, EventArgs e)
         {
             if (chkRunBars.Checked)

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
+using NBagOfTricks;
 
 
 namespace NBagOfUis
@@ -97,10 +98,12 @@ namespace NBagOfUis
                 switch (args.ClickedItem.Text)
                 {
                     case "Add":
-                        FolderBrowserDialog dlg = new FolderBrowserDialog();
-                        dlg.Description = "Select the folder to add.";
-                        dlg.ShowNewFolderButton = false;
-                        //dlg.SelectedPath = init?
+                        FolderBrowserDialog dlg = new()
+                        {
+                            Description = "Select the folder to add.",
+                            ShowNewFolderButton = false
+                            //SelectedPath = init?
+                        };
 
                         if (dlg.ShowDialog() == DialogResult.OK) // UI locks here!!
                         {

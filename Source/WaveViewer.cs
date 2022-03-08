@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using NBagOfTricks;
 
 
 namespace NBagOfUis
@@ -70,7 +71,7 @@ namespace NBagOfUis
                 }
                 else
                 {
-                    _marker1 = InternalHelpers.Constrain(value, 0, _rawVals.Length);
+                    _marker1 = MathUtils.Constrain(value, 0, _rawVals.Length);
                 }
                 Invalidate();
             }
@@ -91,7 +92,7 @@ namespace NBagOfUis
                 }
                 else
                 {
-                    _marker2 = InternalHelpers.Constrain(value, 0, _rawVals.Length);
+                    _marker2 = MathUtils.Constrain(value, 0, _rawVals.Length);
                 }
                 Invalidate();
             }
@@ -189,15 +190,15 @@ namespace NBagOfUis
                         switch (Mode)
                         {
                             case DrawMode.Envelope:
-                                float y1 = (float)InternalHelpers.Map(val, -_rawMax, _rawMax, Height, 0);
+                                float y1 = (float)MathUtils.Map(val, -_rawMax, _rawMax, Height, 0);
                                 //float y2 = Height / 2; // Line from val to 0
-                                float y2 = (float)InternalHelpers.Map(val, -_rawMax, _rawMax, 0, Height); // Line from +val to -val
+                                float y2 = (float)MathUtils.Map(val, -_rawMax, _rawMax, 0, Height); // Line from +val to -val
                                 pe.Graphics.DrawLine(_penDraw, i, y1, i, y2);
                                 break;
 
                             case DrawMode.Raw:
                                 // Simple dot
-                                float y = (float)InternalHelpers.Map(val, -_rawMax, _rawMax, Height, 0);
+                                float y = (float)MathUtils.Map(val, -_rawMax, _rawMax, Height, 0);
                                 pe.Graphics.DrawRectangle(_penDraw, i, y, 1, 1);
                                 break;
                         }
@@ -243,7 +244,7 @@ namespace NBagOfUis
                     {
                         float[] subset = new float[_smplPerPixel];
                         Array.Copy(_rawVals, r, subset, 0, _smplPerPixel);
-                        var rms = InternalHelpers.RMS(subset);
+                        var rms = MathUtils.RMS(subset);
                         _scaledBuff[i] = rms;
                         r += _smplPerPixel;
                     }

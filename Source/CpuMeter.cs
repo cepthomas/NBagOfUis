@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Linq;
+using NBagOfTricks;
 
 
 namespace NBagOfUis
@@ -131,7 +132,7 @@ namespace NBagOfUis
                     double val = _cpuBuff[index];
 
                     // Draw data point.
-                    double y = InternalHelpers.Map(val, _min, _max, Height, 0);
+                    double y = MathUtils.Map(val, _min, _max, Height, 0);
                     pe.Graphics.DrawLine(_pen, (float)i, (float)y, (float)i, Height);
                 }
             }

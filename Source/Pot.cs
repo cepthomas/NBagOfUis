@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NBagOfTricks;
 
 
 namespace NBagOfUis
@@ -78,7 +79,7 @@ namespace NBagOfUis
             get { return _value; }
             set
             {
-                _value = Math.Round(InternalHelpers.Constrain(value, Minimum, Maximum), DecPlaces);
+                _value = Math.Round(MathUtils.Constrain(value, Minimum, Maximum), DecPlaces);
                 ValueChanged?.Invoke(this, EventArgs.Empty);
                 Invalidate();
             }
@@ -197,7 +198,7 @@ namespace NBagOfUis
                 double min = Taper == Taper.Log ? Math.Log10(_minimum) : _minimum;
                 double max = Taper == Taper.Log ? Math.Log10(_maximum) : _maximum;
                 double delta = (max - min) * (ydiff / 100.0);
-                double newValue = InternalHelpers.Constrain(_beginDragValue + delta, min, max);
+                double newValue = MathUtils.Constrain(_beginDragValue + delta, min, max);
                 Value = Taper == Taper.Log ? Math.Pow(newValue, 10) : newValue;
             }
             base.OnMouseMove(e);

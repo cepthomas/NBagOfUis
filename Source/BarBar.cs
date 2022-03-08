@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using NBagOfTricks;
 
 
 namespace NBagOfUis
@@ -268,7 +269,7 @@ namespace NBagOfUis
             if(_current < _length)
             {
                 subdiv = x * _length.TotalSubdivs / Width;
-                subdiv = InternalHelpers.Constrain(subdiv, 0, _length.TotalSubdivs);
+                subdiv = MathUtils.Constrain(subdiv, 0, _length.TotalSubdivs);
             }
 
             return subdiv;
@@ -366,7 +367,7 @@ namespace NBagOfUis
         /// <param name="upper"></param>
         public void Constrain(BarSpan lower, BarSpan upper)
         {
-            TotalSubdivs = InternalHelpers.Constrain(TotalSubdivs, lower.TotalSubdivs, upper.TotalSubdivs);
+            TotalSubdivs = MathUtils.Constrain(TotalSubdivs, lower.TotalSubdivs, upper.TotalSubdivs);
         }
 
         /// <summary>
