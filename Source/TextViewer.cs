@@ -61,7 +61,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="text">The message.</param>
         /// <param name="trim">True to truncate continuous displays.</param>
-        public void Add(string text, bool trim = true)
+        public void Add(string text, bool trim = true) //TODO should override default AppendText.
         {
             if (trim && TextLength > MaxText)
             {
