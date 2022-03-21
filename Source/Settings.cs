@@ -11,40 +11,6 @@ using System.Windows.Forms;
 using NBagOfTricks;
 
 
-
-
-// one way.
-//TestClass _settings = TestClass.Load(appDir, typeof(TestClass)) as TestClass;
-// another way. >>>>>
-//TestClass _settings = (TestClass)Settings.Load(appDir, typeof(TestClass));
-
-
-// Fix all these:
-// C:\Dev\repos\ClipExplorer\MainForm.cs:
-//    55:             UserSettings.Load(appDir);
-// C:\Dev\repos\ClipPlayer\Transport.cs:
-//    68:             UserSettings.Load(appDir);
-// C:\Dev\repos\WinBagOfTricks\MainForm.cs:
-//    45:             _settings = UserSettings.Load(appDir);
-// C:\Dev\repos\NDraw\MainForm.cs:
-//    56:             _settings = UserSettings.Load(appDir);
-// C:\Dev\repos\NebScope\ScopeForm.cs:
-//    61:                 Common.Settings = UserSettings.Load(appDir);
-// C:\Dev\repos\Nebulator\App\MainForm.cs:
-//    92:             UserSettings.TheSettings = UserSettings.Load(appDir);
-// C:\Dev\repos\NProcessing\App\MainForm.cs:
-//    89:             _settings = UserSettings.Load(appDir);
-// C:\Dev\repos\WPFPlayground\MainWindow.xaml.cs:
-//    42:             _settings = UserSettings.Load(System.IO.Path.Combine(Utils.GetSourcePath(), "settings.json"));
-// C:\Dev\repos\MidiStyleExplorer\MainForm.cs:
-//    61:             Common.Settings = UserSettings.Load(appDir);
-
-
-// these:
-// _settings.RecentFiles.ForEach(f =>
-
-
-
 namespace NBagOfUis
 {
     public class Settings
@@ -125,7 +91,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="title">To show.</param>
         /// <returns>The names of modified properties.</returns>
-        public HashSet<string> Edit(string title)
+        public List<(string name, string cat)> Edit(string title)
         {
             using Form f = new()
             {
@@ -148,8 +114,9 @@ namespace NBagOfUis
             };
 
             // Detect changes of interest.
-            HashSet<string> changes = new();
-            pg.PropertyValueChanged += (sdr, args) => changes.Add(args.ChangedItem.PropertyDescriptor.Name);
+            List<(string name, string cat)> changes = new();
+
+            pg.PropertyValueChanged += (sdr, args) => changes.Add((args.ChangedItem.PropertyDescriptor.Category, args.ChangedItem.PropertyDescriptor.Name));
 
             f.Controls.Add(pg);
             f.ShowDialog();
