@@ -12,7 +12,7 @@ namespace NBagOfUis.Test
         static void Main(string[] args)
         {
             // Use test host for debugging UI components.
-            TestHost w = new TestHost();
+            TestHost w = new();
             w.ShowDialog();
         }
     }

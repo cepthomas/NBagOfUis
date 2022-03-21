@@ -19,6 +19,7 @@ Probably I should make this into a nuget package at some point.
 
 ## General purpose UI components
 - PropertyGridEx: Added a few features for custom buttons and labels.
+- Settings: Base class for custom settings with persistence and editing.
 - FilTree: Folder/file tree control with tags/filters and notifications.
 - OptionsEditor: User can select from a list of strings, or add/delete elements.
 - ClickGrid: Essentially a grid array of buttons.

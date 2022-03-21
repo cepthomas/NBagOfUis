@@ -10,7 +10,8 @@ using System.IO;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Drawing.Design;
-using NBagOfUis;
+using System.Text.Json.Serialization;
+using NBagOfTricks;
 
 
 namespace NBagOfUis.Test
@@ -113,10 +114,9 @@ namespace NBagOfUis.Test
             for(int i = 0; i < 5; i++)
             {
                 _testClass.TestList.Add($"List{i}");
-                _testClass.TestPaths.Add($"Path{i}");
-
             }
-            Image img = Bitmap.FromFile("Files\\morito.png");
+
+            Image img = Image.FromFile(@"Files\glyphicons-22-snowflake.png");
             propGrid.SelectedObject = _testClass;
             var lbl = propGrid.AddLabel("Blue", null, "The sky is blue");
             propGrid.AddButton("Red", null, "Blood is red", (_, __) => lbl!.Text = "->Red");
@@ -141,6 +141,26 @@ namespace NBagOfUis.Test
         void Graphics_Click(object sender, EventArgs e)
         {
             new Graphics().ShowDialog();
+        }
+
+        void Settings_Click(object sender, EventArgs e)
+        {
+            // Get the settings.
+            TestClass set = (TestClass)Settings.Load(@".\Files", typeof(TestClass), "test-settings.json");
+
+            // Edit them.
+            set.Edit("Edit me!!!");
+
+            // Mod and save.
+            //_settings.Abool = chk1.Checked;
+            set.FormGeometry = new Rectangle(Location.X, Location.Y, Size.Width, Size.Height);
+
+            set.RecentFiles.Add(@"C:\Dev\WinFormsApp1\obj\Debug\net5.0-windows\WinFormsApp1.AssemblyInfo.cs");
+            set.RecentFiles.Add("bad_path");
+
+            set.Save();
+
+            // Check recent file list. Should just one.
         }
 
         void Timer1_Tick(object? sender, EventArgs e)
@@ -224,15 +244,8 @@ namespace NBagOfUis.Test
         }
     }
 
-    public class TestClass
+    public class TestClass : Settings
     {
-        [DisplayName("Test Paths")]
-        [Description("Describe Path List.")]
-        [Category("Cat1")]
-        [Browsable(true)]
-        [Editor(typeof(PathListEditor), typeof(UITypeEditor))]
-        public List<string> TestPaths { get; set; } = new();
-
         [DisplayName("Test List")]
         [Description("Describe Test List.")]
         [Category("Cat1")]
@@ -244,6 +257,7 @@ namespace NBagOfUis.Test
         [Description("Describe Test Font.")]
         [Category("Cat1")]
         [Browsable(true)]
+        [JsonConverter(typeof(JsonFontConverter))]
         [Editor(typeof(MonospaceFontEditor), typeof(UITypeEditor))]
         public Font? TestFont { get; set; }
 
@@ -251,6 +265,7 @@ namespace NBagOfUis.Test
         [Description("Describe Test Color.")]
         [Category("Cat2")]
         [Browsable(true)]
+        [JsonConverter(typeof(JsonColorConverter))]
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         public Color? TestColor { get; set; }
 

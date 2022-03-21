@@ -60,7 +60,8 @@ namespace NBagOfUis
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context) { return UITypeEditorEditStyle.Modal; }
     }
 
-    public class PathListEditor : UITypeEditor
+    /// <summary>Broken - don't use.</summary>
+    public class PathListEditor_Future : UITypeEditor
     {
         IWindowsFormsEditorService? _service = null;
 

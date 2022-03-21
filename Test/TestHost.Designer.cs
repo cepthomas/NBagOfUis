@@ -32,6 +32,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.txtInfo = new NBagOfUis.TextViewer();
             this.vkbd = new NBagOfUis.VirtualKeyboard();
+            this.btnGraphics = new System.Windows.Forms.Button();
             this.propGrid = new NBagOfUis.PropertyGridEx();
             this.waveViewer2 = new NBagOfUis.WaveViewer();
             this.waveViewer1 = new NBagOfUis.WaveViewer();
@@ -50,7 +51,7 @@
             this.pot1 = new NBagOfUis.Pot();
             this.slider1 = new NBagOfUis.Slider();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btnGraphics = new System.Windows.Forms.Button();
+            this.btnSettings = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -72,6 +73,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.btnSettings);
             this.splitContainer1.Panel2.Controls.Add(this.btnGraphics);
             this.splitContainer1.Panel2.Controls.Add(this.propGrid);
             this.splitContainer1.Panel2.Controls.Add(this.waveViewer2);
@@ -116,6 +118,16 @@
             this.vkbd.Size = new System.Drawing.Size(1436, 106);
             this.vkbd.TabIndex = 0;
             this.vkbd.KeyboardEvent += new System.EventHandler<NBagOfUis.VirtualKeyboard.KeyboardEventArgs>(this.Vkbd_KeyboardEvent);
+            // 
+            // btnGraphics
+            // 
+            this.btnGraphics.Location = new System.Drawing.Point(509, 20);
+            this.btnGraphics.Name = "btnGraphics";
+            this.btnGraphics.Size = new System.Drawing.Size(61, 60);
+            this.btnGraphics.TabIndex = 21;
+            this.btnGraphics.Text = "Run GFX";
+            this.btnGraphics.UseVisualStyleBackColor = true;
+            this.btnGraphics.Click += new System.EventHandler(this.Graphics_Click);
             // 
             // propGrid
             // 
@@ -354,15 +366,15 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
-            // btnGraphics
+            // btnSettings
             // 
-            this.btnGraphics.Location = new System.Drawing.Point(509, 20);
-            this.btnGraphics.Name = "btnGraphics";
-            this.btnGraphics.Size = new System.Drawing.Size(61, 60);
-            this.btnGraphics.TabIndex = 21;
-            this.btnGraphics.Text = "Run GFX";
-            this.btnGraphics.UseVisualStyleBackColor = true;
-            this.btnGraphics.Click += new System.EventHandler(this.Graphics_Click);
+            this.btnSettings.Location = new System.Drawing.Point(509, 91);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(61, 60);
+            this.btnSettings.TabIndex = 22;
+            this.btnSettings.Text = "Settings";
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.Settings_Click);
             // 
             // TestHost
             // 
@@ -408,5 +420,6 @@
         private NBagOfUis.PropertyGridEx propGrid;
         private TextViewer txtInfo;
         private System.Windows.Forms.Button btnGraphics;
+        private System.Windows.Forms.Button btnSettings;
     }
 }
