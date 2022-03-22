@@ -64,9 +64,7 @@
     <Compile Update="Slider.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="TextViewer.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="TextViewer.cs" />
     <Compile Update="TimeBar.cs">
       <SubType>UserControl</SubType>
     </Compile>

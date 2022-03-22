@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace NBagOfUis
 {
-    public class TextViewer : RichTextBox
+    public class TextViewer : UserControl
     {
         #region Properties
         /// <summary>The colors to display when text is matched.</summary>
@@ -19,8 +19,16 @@ namespace NBagOfUis
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Dictionary<string, Color> Colors { get; set; } = new Dictionary<string, Color>();
 
-        /// <summary>Limit the size.</summary>
+        /// <summary>Limit the size. Set to 0 to disable.</summary>
         public int MaxText { get; set; } = 50000;
+
+        /// <summary>Cosmetics.</summary>
+        public override Color BackColor { get { return _rtb.BackColor; } set { _rtb.BackColor = value; } }
+        #endregion
+
+        #region Fields
+        /// <summary>Contained control.</summary>
+        readonly RichTextBox _rtb;
         #endregion
 
         /// <summary>
@@ -28,60 +36,51 @@ namespace NBagOfUis
         /// </summary>
         public TextViewer()
         {
-            Font = new Font("Consolas", 10);
-        }
-
-        /// <summary>
-        /// Initialize everything.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TextViewer_Load(object sender, EventArgs e)
-        {
-            Text = "";
-            BorderStyle = BorderStyle.None;
-            ForeColor = Color.Black;
-            Dock = DockStyle.Fill;
-            ReadOnly = true;
-            ScrollBars = RichTextBoxScrollBars.Both;
+            _rtb = new()
+            {
+                Dock = DockStyle.Fill,
+                Font = new Font("Consolas", 10),
+                BorderStyle = BorderStyle.None,
+                ForeColor = Color.Black,
+                ReadOnly = true,
+                ScrollBars = RichTextBoxScrollBars.Both
+            };
         }
 
         /// <summary>
         /// A message to display to the user. Adds EOL.
         /// </summary>
         /// <param name="text">The message.</param>
-        /// <param name="trim">True to truncate continuous displays.</param>
-        public void AddLine(string text, bool trim = true)
+        public void AppendLine(string text)
         {
-            Add($"{text}{Environment.NewLine}", trim);
+            AppendText($"{text}{Environment.NewLine}");
         }
 
         /// <summary>
         /// A message to display to the user. Doesn't add EOL.
         /// </summary>
         /// <param name="text">The message.</param>
-        /// <param name="trim">True to truncate continuous displays.</param>
-        public void Add(string text, bool trim = true) //TODO should override default AppendText.
+        public void AppendText(string text)
         {
-            if (trim && TextLength > MaxText)
+            if (MaxText > 0 && _rtb.TextLength > MaxText)
             {
-                Select(0, MaxText / 5);
-                SelectedText = "";
+                _rtb.Select(0, MaxText / 5);
+                _rtb.SelectedText = "";
             }
 
-            SelectionBackColor = BackColor; // default
+            _rtb.SelectionBackColor = BackColor; // default
 
             foreach (string s in Colors.Keys)
             {
                 if (text.Contains(s))
                 {
-                    SelectionBackColor = Colors[s];
+                    _rtb.SelectionBackColor = Colors[s];
                     break;
                 }
             }
 
-            AppendText(text);
-            ScrollToCaret();
+            _rtb.AppendText(text);
+            _rtb.ScrollToCaret();
         }
     }
 }

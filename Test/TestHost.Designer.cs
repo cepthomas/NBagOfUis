@@ -32,8 +32,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.txtInfo = new NBagOfUis.TextViewer();
             this.vkbd = new NBagOfUis.VirtualKeyboard();
+            this.btnSettings = new System.Windows.Forms.Button();
             this.btnGraphics = new System.Windows.Forms.Button();
-            this.propGrid = new NBagOfUis.PropertyGridEx();
             this.waveViewer2 = new NBagOfUis.WaveViewer();
             this.waveViewer1 = new NBagOfUis.WaveViewer();
             this.chkRunBars = new System.Windows.Forms.CheckBox();
@@ -51,7 +51,7 @@
             this.pot1 = new NBagOfUis.Pot();
             this.slider1 = new NBagOfUis.Slider();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btnSettings = new System.Windows.Forms.Button();
+            this.propGrid = new NBagOfUis.PropertyGridEx();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -106,7 +106,6 @@
             this.txtInfo.Name = "txtInfo";
             this.txtInfo.Size = new System.Drawing.Size(592, 106);
             this.txtInfo.TabIndex = 5;
-            this.txtInfo.Text = "";
             // 
             // vkbd
             // 
@@ -119,6 +118,16 @@
             this.vkbd.TabIndex = 0;
             this.vkbd.KeyboardEvent += new System.EventHandler<NBagOfUis.VirtualKeyboard.KeyboardEventArgs>(this.Vkbd_KeyboardEvent);
             // 
+            // btnSettings
+            // 
+            this.btnSettings.Location = new System.Drawing.Point(509, 91);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(61, 60);
+            this.btnSettings.TabIndex = 22;
+            this.btnSettings.Text = "Settings";
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.Settings_Click);
+            // 
             // btnGraphics
             // 
             this.btnGraphics.Location = new System.Drawing.Point(509, 20);
@@ -128,14 +137,6 @@
             this.btnGraphics.Text = "Run GFX";
             this.btnGraphics.UseVisualStyleBackColor = true;
             this.btnGraphics.Click += new System.EventHandler(this.Graphics_Click);
-            // 
-            // propGrid
-            // 
-            this.propGrid.Dirty = false;
-            this.propGrid.Location = new System.Drawing.Point(580, 188);
-            this.propGrid.Name = "propGrid";
-            this.propGrid.Size = new System.Drawing.Size(337, 385);
-            this.propGrid.TabIndex = 20;
             // 
             // waveViewer2
             // 
@@ -366,15 +367,13 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
-            // btnSettings
+            // propGrid
             // 
-            this.btnSettings.Location = new System.Drawing.Point(509, 91);
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(61, 60);
-            this.btnSettings.TabIndex = 22;
-            this.btnSettings.Text = "Settings";
-            this.btnSettings.UseVisualStyleBackColor = true;
-            this.btnSettings.Click += new System.EventHandler(this.Settings_Click);
+            this.propGrid.Dirty = false;
+            this.propGrid.Location = new System.Drawing.Point(580, 188);
+            this.propGrid.Name = "propGrid";
+            this.propGrid.Size = new System.Drawing.Size(337, 385);
+            this.propGrid.TabIndex = 20;
             // 
             // TestHost
             // 
@@ -417,9 +416,9 @@
         private System.Windows.Forms.CheckBox chkRunBars;
         private NBagOfUis.WaveViewer waveViewer2;
         private NBagOfUis.WaveViewer waveViewer1;
-        private NBagOfUis.PropertyGridEx propGrid;
         private TextViewer txtInfo;
         private System.Windows.Forms.Button btnGraphics;
         private System.Windows.Forms.Button btnSettings;
+        private PropertyGridEx propGrid;
     }
 }

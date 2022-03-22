@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -13,7 +14,7 @@ using NBagOfTricks;
 
 namespace NBagOfUis
 {
-    public class Settings
+    public class Settings// : ICloneable
     {
         #region Persisted Common Non-editable Properties
         [Browsable(false)]
@@ -77,53 +78,57 @@ namespace NBagOfUis
         #endregion
 
         /// <summary>
-        /// Remove duplicates and invalid file names.
+        /// Edit the properties in a dialog.
+        /// </summary>
+        /// <param name="title">To show.</param>
+        /// <returns>List of tuples of name,ccategory.</returns>
+        public List<(string name, string cat)> Edit(string title)
+        {
+            // Make a copy for possible restoration.
+            Type t = GetType();
+            JsonSerializerOptions opts = new();
+            string original = JsonSerializer.Serialize(this, t, opts);
+
+            PropertyGridEx pg = new()
+            {
+                Dock = DockStyle.Fill,
+                Location = new(14, 14),
+                Size = new(350, 350),
+                PropertySort = PropertySort.Categorized,
+                SelectedObject = this
+            };
+
+            using Form f = new()
+            {
+                Text = title,
+                ClientSize = new(450, 450),
+                AutoScaleMode = AutoScaleMode.None, //???
+                Location = Cursor.Position,
+                StartPosition = FormStartPosition.Manual,
+                FormBorderStyle = FormBorderStyle.SizableToolWindow,
+                ShowIcon = false,
+                ShowInTaskbar = false
+            };
+
+            // Detect changes of interest.
+            List<(string name, string cat)> changes = new();
+            pg.PropertyValueChanged += (sdr, args) => { changes.Add((args.ChangedItem.PropertyDescriptor.Name, args.ChangedItem.PropertyDescriptor.Category)); };
+
+            f.Controls.Add(pg);
+
+            f.ShowDialog();
+
+            return changes;
+        }
+
+        /// <summary>
+        /// Remove duplicate and invalid file names.
         /// </summary>
         void Cleanup()
         {
             // Clean up any bad file names.
             RecentFiles.RemoveAll(f => !File.Exists(f));
             RecentFiles = RecentFiles.Distinct().ToList();
-        }
-
-        /// <summary>
-        /// Edit the properties in a dialog.
-        /// </summary>
-        /// <param name="title">To show.</param>
-        /// <returns>The names of modified properties.</returns>
-        public List<(string name, string cat)> Edit(string title)
-        {
-            using Form f = new()
-            {
-                Text = title,
-                Size = new Size(450, 450),
-                //Location = new Point(200, 200),
-                //StartPosition = FormStartPosition.Manual,
-                StartPosition = FormStartPosition.WindowsDefaultLocation,
-                FormBorderStyle = FormBorderStyle.SizableToolWindow,
-                //FormBorderStyle = FormBorderStyle.FixedToolWindow,
-                ShowIcon = false,
-                ShowInTaskbar = false
-            };
-
-            PropertyGridEx pg = new()
-            {
-                Dock = DockStyle.Fill,
-                PropertySort = PropertySort.Categorized,
-                SelectedObject = this
-            };
-
-            // Detect changes of interest.
-            List<(string name, string cat)> changes = new();
-
-            pg.PropertyValueChanged += (sdr, args) => changes.Add((args.ChangedItem.PropertyDescriptor.Category, args.ChangedItem.PropertyDescriptor.Name));
-
-            f.Controls.Add(pg);
-            f.ShowDialog();
-
-            Save();
-
-            return changes;
         }
     }
 }

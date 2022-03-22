@@ -12,13 +12,13 @@ using System.Diagnostics;
 using System.Drawing.Design;
 using System.Text.Json.Serialization;
 using NBagOfTricks;
-
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace NBagOfUis.Test
 {
     public partial class TestHost : Form
     {
-        readonly TestClass _testClass = new();
+        readonly TestSettings _testClass = new();
 
         public TestHost()
         {
@@ -76,14 +76,14 @@ namespace NBagOfUis.Test
             waveViewer2.Marker2 = data2.Length / 2;
 
             ///// Click grid.
-            clickGrid1.AddStateType(10, Color.Blue, Color.AliceBlue);
-            clickGrid1.AddStateType(20, Color.AliceBlue, Color.Blue);
-            clickGrid1.AddStateType(30, Color.Red, Color.Salmon);
+            clickGrid1.AddStateType(0, Color.Blue, Color.AliceBlue);
+            clickGrid1.AddStateType(1, Color.AliceBlue, Color.Blue);
+            clickGrid1.AddStateType(2, Color.Red, Color.Salmon);
 
             string[] names = { "dignissim", "cras", "tincidunt", "lobortis", "feugiat", "vivamus", "at", "augue", "eget" };
             for (int i = 0; i < names.Length; i++)
             {
-                clickGrid1.AddIndicator(names[i], 10 + i);
+                clickGrid1.AddIndicator(names[i], i);
             }
 
             clickGrid1.IndicatorEvent += ClickGrid_IndicatorEvent;
@@ -146,7 +146,8 @@ namespace NBagOfUis.Test
         void Settings_Click(object sender, EventArgs e)
         {
             // Get the settings.
-            TestClass set = (TestClass)Settings.Load(@".\Files", typeof(TestClass), "test-settings.json");
+            TestSettings set = (TestSettings)Settings.Load(@".\Files", typeof(TestSettings), "test-settings.json");
+
 
             // Edit them.
             set.Edit("Edit me!!!");
@@ -193,12 +194,13 @@ namespace NBagOfUis.Test
 
         void ClickGrid_IndicatorEvent(object? sender, IndicatorEventArgs e)
         {
-            clickGrid1.SetIndicator(e.Id, (e.State + 10) % 40);
+            int state = ++e.State % 3;
+            clickGrid1.SetIndicator(e.Id, state);
         }
 
         void FilTree_FileSelectedEvent(object? sender, string fn)
         {
-            txtInfo.AddLine($"Selected file: {fn}");
+            txtInfo.AppendLine($"Selected file: {fn}");
         }
 
         void Pot1_ValueChanged(object? sender, EventArgs e)
@@ -228,7 +230,7 @@ namespace NBagOfUis.Test
         void Vkbd_KeyboardEvent(object? sender, VirtualKeyboard.KeyboardEventArgs e)
         {
             string s = $"note:{e.NoteId} vel:{e.Velocity}";
-            txtInfo.AddLine(s);
+            txtInfo.AppendLine(s);
 
             meter3.AddValue(e.NoteId / 8.0 - 10.0);
         }
@@ -244,7 +246,7 @@ namespace NBagOfUis.Test
         }
     }
 
-    public class TestClass : Settings
+    public class TestSettings : Settings
     {
         [DisplayName("Test List")]
         [Description("Describe Test List.")]
