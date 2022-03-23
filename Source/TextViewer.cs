@@ -24,6 +24,9 @@ namespace NBagOfUis
 
         /// <summary>Cosmetics.</summary>
         public override Color BackColor { get { return _rtb.BackColor; } set { _rtb.BackColor = value; } }
+
+        /// <summary></summary>
+        public bool WordWrap { get { return _rtb.WordWrap; } set { _rtb.WordWrap = value; } }
         #endregion
 
         #region Fields
@@ -45,6 +48,12 @@ namespace NBagOfUis
                 ReadOnly = true,
                 ScrollBars = RichTextBoxScrollBars.Both
             };
+        }
+
+        /// <summary></summary>
+        public void Clear()
+        {
+            _rtb.Clear();
         }
 
         /// <summary>
