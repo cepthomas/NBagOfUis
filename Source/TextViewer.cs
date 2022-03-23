@@ -48,6 +48,7 @@ namespace NBagOfUis
                 ReadOnly = true,
                 ScrollBars = RichTextBoxScrollBars.Both
             };
+            Controls.Add(_rtb);
         }
 
         /// <summary></summary>
