@@ -81,7 +81,7 @@ namespace NBagOfUis
         /// Edit the properties in a dialog.
         /// </summary>
         /// <param name="title">To show.</param>
-        /// <returns>List of tuples of name,ccategory.</returns>
+        /// <returns>List of tuples of name, category.</returns>
         public List<(string name, string cat)> Edit(string title)
         {
             // Make a copy for possible restoration.
@@ -102,7 +102,7 @@ namespace NBagOfUis
             {
                 Text = title,
                 ClientSize = new(450, 450),
-                AutoScaleMode = AutoScaleMode.None, //???
+                AutoScaleMode = AutoScaleMode.None,
                 Location = Cursor.Position,
                 StartPosition = FormStartPosition.Manual,
                 FormBorderStyle = FormBorderStyle.SizableToolWindow,

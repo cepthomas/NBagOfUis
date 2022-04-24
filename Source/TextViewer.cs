@@ -25,6 +25,9 @@ namespace NBagOfUis
         /// <summary>Cosmetics.</summary>
         public override Color BackColor { get { return _rtb.BackColor; } set { _rtb.BackColor = value; } }
 
+        /// <summary>Cosmetics.</summary>
+        public override Font Font { get { return _rtb.Font; } set { _rtb.Font = value; } }
+
         /// <summary></summary>
         public bool WordWrap { get { return _rtb.WordWrap; } set { _rtb.WordWrap = value; } }
         #endregion
