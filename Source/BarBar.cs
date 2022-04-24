@@ -47,6 +47,9 @@ namespace NBagOfUis
         #endregion
 
         #region Properties
+        /// <summary>Option for engineers, not musicians.</summary>
+        public bool ZeroBased { get; set; } = false;
+
         /// <summary>Our signature. Only tested with 4.</summary>
         public int BeatsPerBar { get { return BarSpan._beatsPerBar; } set { BarSpan._beatsPerBar = value; } }
 
@@ -132,11 +135,6 @@ namespace NBagOfUis
             _end.Constrain(_start, _length);
             _current.Constrain(_start, _end);
 
-            //if (_start == BarSpan.Zero)
-            //{
-            //    _end = _length;
-            //}
-
             // Draw the bar.
             if (_current < _length)
             {
@@ -156,11 +154,11 @@ namespace NBagOfUis
 
             // Text.
             _format.Alignment = StringAlignment.Center;
-            pe.Graphics.DrawString(_current.ToString(), FontLarge, Brushes.Black, ClientRectangle, _format);
+            pe.Graphics.DrawString(_current.Format(ZeroBased), FontLarge, Brushes.Black, ClientRectangle, _format);
             _format.Alignment = StringAlignment.Near;
-            pe.Graphics.DrawString(_start.ToString(), FontSmall, Brushes.Black, ClientRectangle, _format);
+            pe.Graphics.DrawString(_start.Format(ZeroBased), FontSmall, Brushes.Black, ClientRectangle, _format);
             _format.Alignment = StringAlignment.Far;
-            pe.Graphics.DrawString(_end.ToString(), FontSmall, Brushes.Black, ClientRectangle, _format);
+            pe.Graphics.DrawString(_end.Format(ZeroBased), FontSmall, Brushes.Black, ClientRectangle, _format);
         }
         #endregion
 
@@ -194,7 +192,7 @@ namespace NBagOfUis
             {
                 BarSpan bs = new();
                 bs.DoSnap(GetSubdivFromMouse(e.X));
-                _toolTip.SetToolTip(this, bs.ToString());
+                _toolTip.SetToolTip(this, bs.Format(ZeroBased));
                 _lastXPos = e.X;
             }
 
@@ -230,6 +228,7 @@ namespace NBagOfUis
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="num">Subdivs/ticks.</param>
         public bool IncrementCurrent(int num)
         {
             bool done = false;
@@ -373,7 +372,7 @@ namespace NBagOfUis
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="num"></param>
+        /// <param name="num">Subdivs/ticks.</param>
         public void Increment(int num)
         {
             TotalSubdivs += num;
@@ -428,12 +427,23 @@ namespace NBagOfUis
         }
 
         /// <summary>
-        /// 
+        /// Format a readable string.
+        /// </summary>
+        /// <param name="zeroBased"></param>
+        /// <returns></returns>
+        public string Format(bool zeroBased)
+        {
+            int inc = zeroBased ? 0 : 1;
+            return $"{Bar + inc}.{Beat + inc}.{Subdiv + inc:00}";
+        }
+
+        /// <summary>
+        /// Format a readable string.
         /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
-            return $"{Bar + 1}.{Beat + 1}.{Subdiv + 1:00}";
+            return Format(true);
         }
         #endregion
 

@@ -99,6 +99,7 @@ namespace NBagOfUis.Test
             timeBar.BackColor = Color.Salmon;
 
             ///// Bar bar.
+            barBar.ZeroBased = true;
             barBar.BeatsPerBar = 4;
             barBar.SubdivsPerBeat = 16;
             barBar.Snap = BarBar.SnapType.Bar;

@@ -34,6 +34,7 @@
             this.vkbd = new NBagOfUis.VirtualKeyboard();
             this.btnSettings = new System.Windows.Forms.Button();
             this.btnGraphics = new System.Windows.Forms.Button();
+            this.propGrid = new NBagOfUis.PropertyGridEx();
             this.waveViewer2 = new NBagOfUis.WaveViewer();
             this.waveViewer1 = new NBagOfUis.WaveViewer();
             this.chkRunBars = new System.Windows.Forms.CheckBox();
@@ -51,7 +52,6 @@
             this.pot1 = new NBagOfUis.Pot();
             this.slider1 = new NBagOfUis.Slider();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.propGrid = new NBagOfUis.PropertyGridEx();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -99,13 +99,13 @@
             // 
             // txtInfo
             // 
-            this.txtInfo.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtInfo.Location = new System.Drawing.Point(840, 0);
             this.txtInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtInfo.MaxText = 5000;
             this.txtInfo.Name = "txtInfo";
             this.txtInfo.Size = new System.Drawing.Size(592, 106);
             this.txtInfo.TabIndex = 5;
+            this.txtInfo.WordWrap = true;
             // 
             // vkbd
             // 
@@ -138,6 +138,14 @@
             this.btnGraphics.UseVisualStyleBackColor = true;
             this.btnGraphics.Click += new System.EventHandler(this.Graphics_Click);
             // 
+            // propGrid
+            // 
+            this.propGrid.Dirty = false;
+            this.propGrid.Location = new System.Drawing.Point(580, 188);
+            this.propGrid.Name = "propGrid";
+            this.propGrid.Size = new System.Drawing.Size(337, 385);
+            this.propGrid.TabIndex = 20;
+            // 
             // waveViewer2
             // 
             this.waveViewer2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -168,18 +176,18 @@
             // 
             // chkRunBars
             // 
-            this.chkRunBars.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkRunBars.AutoSize = true;
+            this.chkRunBars.BackColor = System.Drawing.Color.Pink;
             this.chkRunBars.Checked = true;
             this.chkRunBars.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRunBars.Font = new System.Drawing.Font("Cooper Black", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.chkRunBars.Location = new System.Drawing.Point(943, 183);
             this.chkRunBars.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkRunBars.Name = "chkRunBars";
-            this.chkRunBars.Size = new System.Drawing.Size(89, 27);
+            this.chkRunBars.Size = new System.Drawing.Size(101, 21);
             this.chkRunBars.TabIndex = 16;
             this.chkRunBars.Text = "Run Bars";
-            this.chkRunBars.UseVisualStyleBackColor = true;
+            this.chkRunBars.UseVisualStyleBackColor = false;
             // 
             // barBar
             // 
@@ -366,14 +374,6 @@
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
-            // 
-            // propGrid
-            // 
-            this.propGrid.Dirty = false;
-            this.propGrid.Location = new System.Drawing.Point(580, 188);
-            this.propGrid.Name = "propGrid";
-            this.propGrid.Size = new System.Drawing.Size(337, 385);
-            this.propGrid.TabIndex = 20;
             // 
             // TestHost
             // 
