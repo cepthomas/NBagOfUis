@@ -32,7 +32,7 @@ namespace NBagOfUis
             }
             set
             {
-                _value = Math.Round(MathUtils.Constrain(value, -1.0, 1.0), 2);
+                _value = MathUtils.Constrain(value, -1.0, 1.0, 0.01);
                 ValueChanged?.Invoke(this, EventArgs.Empty);
                 Invalidate();
             }

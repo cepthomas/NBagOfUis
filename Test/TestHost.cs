@@ -38,8 +38,11 @@ namespace NBagOfUis.Test
             vkbd.ShowNoteNames = true;
 
             pot1.ValueChanged += Pot1_ValueChanged;
+
             pan1.ValueChanged += Pan1_ValueChanged;
+
             slider1.ValueChanged += Slider1_ValueChanged;
+
             slider2.ValueChanged += Slider2_ValueChanged;
 
             ///// Filter tree.

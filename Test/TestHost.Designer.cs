@@ -204,6 +204,7 @@
             this.barBar.Snap = NBagOfUis.BarBar.SnapType.Subdiv;
             this.barBar.SubdivsPerBeat = 8;
             this.barBar.TabIndex = 15;
+            this.barBar.ZeroBased = false;
             // 
             // clickGrid1
             // 
@@ -296,7 +297,6 @@
             // slider2
             // 
             this.slider2.BackColor = System.Drawing.Color.Gainsboro;
-            this.slider2.DecPlaces = 1;
             this.slider2.DrawColor = System.Drawing.Color.SlateBlue;
             this.slider2.Label = "Vertical";
             this.slider2.Location = new System.Drawing.Point(1251, 20);
@@ -305,7 +305,7 @@
             this.slider2.Minimum = 0D;
             this.slider2.Name = "slider2";
             this.slider2.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.slider2.ResetValue = 0D;
+            this.slider2.Resolution = 0.1D;
             this.slider2.Size = new System.Drawing.Size(42, 133);
             this.slider2.TabIndex = 6;
             this.slider2.Value = 5.4D;
@@ -339,25 +339,24 @@
             // pot1
             // 
             this.pot1.BackColor = System.Drawing.Color.Gainsboro;
-            this.pot1.DecPlaces = 2;
             this.pot1.DrawColor = System.Drawing.Color.Green;
             this.pot1.ForeColor = System.Drawing.Color.Black;
             this.pot1.Label = "p99";
             this.pot1.Location = new System.Drawing.Point(580, 60);
             this.pot1.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.pot1.Maximum = 1D;
-            this.pot1.Minimum = 0D;
+            this.pot1.Maximum = 50D;
+            this.pot1.Minimum = 25D;
             this.pot1.Name = "pot1";
+            this.pot1.Resolution = 0.5D;
             this.pot1.Size = new System.Drawing.Size(81, 91);
             this.pot1.TabIndex = 1;
             this.pot1.Taper = NBagOfUis.Taper.Linear;
-            this.pot1.Value = 0.5D;
+            this.pot1.Value = 35D;
             // 
             // slider1
             // 
             this.slider1.BackColor = System.Drawing.Color.Gainsboro;
             this.slider1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.slider1.DecPlaces = 2;
             this.slider1.DrawColor = System.Drawing.Color.Orange;
             this.slider1.Label = "Horizontal";
             this.slider1.Location = new System.Drawing.Point(1078, 20);
@@ -366,7 +365,7 @@
             this.slider1.Minimum = 0D;
             this.slider1.Name = "slider1";
             this.slider1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.slider1.ResetValue = 0D;
+            this.slider1.Resolution = 0.05D;
             this.slider1.Size = new System.Drawing.Size(153, 60);
             this.slider1.TabIndex = 2;
             this.slider1.Value = 0.3D;

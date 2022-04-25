@@ -30,6 +30,12 @@ namespace NBagOfUis
         /// <summary> </summary>
         double _value = 0.5;
 
+        /// <summary>Restrict to discrete steps.</summary>
+        double _resolution = 0.1;
+
+        /// <summary>If user resets. This is the first value assigned to Value.</summary>
+        double _resetVal = double.NaN;
+
         /// <summary> </summary>
         double _beginDragValue = 0.0;
 
@@ -56,33 +62,32 @@ namespace NBagOfUis
         /// <summary>Taper.</summary>
         public Taper Taper { get; set; } = Taper.Linear;
 
-        /// <summary>Number of decimal places to display.</summary>
-        public int DecPlaces { get; set; } = 1;
+        /// <summary>Per step resolution of this slider.</summary>
+        public double Resolution
+        {
+            get { return _resolution; }
+            set { _resolution = value; Rescale(); }
+        }
 
-        /// <summary>Minimum Value of the Pot.</summary>
+        /// <summary>Minimum Value of the slider.</summary>
         public double Minimum
         {
             get { return _minimum; }
-            set { _minimum = Math.Min(value, _maximum); Invalidate(); }
+            set { _minimum = value; Rescale(); }
         }
 
-        /// <summary>Maximum Value of the Pot.</summary>
+        /// <summary>Maximum Value of the slider.</summary>
         public double Maximum
         {
             get { return _maximum; }
-            set { _maximum = Math.Max(value, _minimum); Invalidate(); }
+            set { _maximum = value; Rescale(); }
         }
 
-        /// <summary>The current value of the pot.</summary>
+        /// <summary>The current value of the slider.</summary>
         public double Value
         {
             get { return _value; }
-            set
-            {
-                _value = Math.Round(MathUtils.Constrain(value, Minimum, Maximum), DecPlaces);
-                ValueChanged?.Invoke(this, EventArgs.Empty);
-                Invalidate();
-            }
+            set { _value = MathUtils.Constrain(value, _minimum, _maximum, _resolution); if (double.IsNaN(_resetVal)) _resetVal = value; Invalidate(); }
         }
         #endregion
 
@@ -129,6 +134,19 @@ namespace NBagOfUis
         }
         #endregion
 
+        #region Calcs
+        /// <summary>
+        /// If min or max or resolution changed by client.
+        /// </summary>
+        void Rescale()
+        {
+            _minimum = MathUtils.Constrain(_minimum, _minimum, _maximum, _resolution);
+            _maximum = MathUtils.Constrain(_maximum, _minimum, _maximum, _resolution);
+            _value = MathUtils.Constrain(_value, _minimum, _maximum, _resolution);
+            Invalidate();
+        }
+        #endregion
+
         #region Event handlers
         /// <summary>
         /// Draws the control.
@@ -155,8 +173,8 @@ namespace NBagOfUis
             e.Graphics.DrawLine(_pen, 0, 0, (float)x, (float)y);
 
             Rectangle srect = new Rectangle(0, 7, 0, 0);
-            string sValue = _value.ToString("#." + new string('0', DecPlaces));
-            e.Graphics.DrawString(sValue, Font, Brushes.Black, srect, _format);
+            string sval = _value.ToString("#0." + new string('0', MathUtils.DecPlaces(_resolution)));
+            e.Graphics.DrawString(sval, Font, Brushes.Black, srect, _format);
 
             srect = new Rectangle(0, 20, 0, 0);
             e.Graphics.DrawString(Label, Font, Brushes.Black, srect, _format);
@@ -198,7 +216,7 @@ namespace NBagOfUis
                 double min = Taper == Taper.Log ? Math.Log10(_minimum) : _minimum;
                 double max = Taper == Taper.Log ? Math.Log10(_maximum) : _maximum;
                 double delta = (max - min) * (ydiff / 100.0);
-                double newValue = MathUtils.Constrain(_beginDragValue + delta, min, max);
+                double newValue = MathUtils.Constrain(_beginDragValue + delta, min, max, _resolution);
                 Value = Taper == Taper.Log ? Math.Pow(newValue, 10) : newValue;
             }
             base.OnMouseMove(e);
@@ -212,15 +230,13 @@ namespace NBagOfUis
         {
             if (e.Control)
             {
-                double incr = Math.Pow(10, -DecPlaces);
-
                 if (e.KeyCode == Keys.Down)
                 {
-                    Value -= incr;
+                    Value -= _resolution;
                 }
                 else if (e.KeyCode == Keys.Up)
                 {
-                    Value += incr;
+                    Value += _resolution;
                 }
             }
 
