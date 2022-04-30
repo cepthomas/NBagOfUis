@@ -14,6 +14,7 @@ namespace NBagOfUis
     public partial class BarBar : UserControl
     {
         #region Enums
+        /// <summary>User selection options.</summary>
         public enum SnapType { Subdiv, Beat, Bar }
         #endregion
 
@@ -27,7 +28,7 @@ namespace NBagOfUis
         /// <summary>Last valid point.</summary>
         BarSpan _end;
 
-        /// <summary>Current.</summary>
+        /// <summary>Current time.</summary>
         BarSpan _current;
 
         /// <summary>For tracking mouse moves.</summary>
@@ -47,7 +48,7 @@ namespace NBagOfUis
         #endregion
 
         #region Properties
-        /// <summary>Option for engineers, not musicians.</summary>
+        /// <summary>Option for engineers instead of musicians.</summary>
         public bool ZeroBased { get; set; } = false;
 
         /// <summary>Our signature. Only tested with 4.</summary>
@@ -164,7 +165,7 @@ namespace NBagOfUis
 
         #region UI handlers
         /// <summary>
-        /// 
+        /// Handle selection operations.
         /// </summary>
         /// <param name="e"></param>
         protected override void OnKeyDown(KeyEventArgs e)
@@ -226,7 +227,7 @@ namespace NBagOfUis
 
         #region Public functions
         /// <summary>
-        /// 
+        /// Change current time. 
         /// </summary>
         /// <param name="num">Subdivs/ticks.</param>
         public bool IncrementCurrent(int num)
@@ -352,7 +353,7 @@ namespace NBagOfUis
 
         #region Public functions
         /// <summary>
-        /// 
+        /// Hard reset.
         /// </summary>
         public void Reset()
         {
@@ -360,7 +361,7 @@ namespace NBagOfUis
         }
 
         /// <summary>
-        /// 
+        /// Utility helper function.
         /// </summary>
         /// <param name="lower"></param>
         /// <param name="upper"></param>
@@ -370,12 +371,12 @@ namespace NBagOfUis
         }
 
         /// <summary>
-        /// 
+        /// Update current value.
         /// </summary>
-        /// <param name="num">Subdivs/ticks.</param>
-        public void Increment(int num)
+        /// <param name="subdivs">Number of subdivs.</param>
+        public void Increment(int subdivs)
         {
-            TotalSubdivs += num;
+            TotalSubdivs += subdivs;
             if (TotalSubdivs < 0)
             {
                 TotalSubdivs = 0;

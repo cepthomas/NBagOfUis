@@ -116,7 +116,7 @@ namespace NBagOfUis
 
         #region Public functions
         /// <summary>
-        /// Offset current by msec.
+        /// Update current time.
         /// </summary>
         /// <param name="msec"></param>
         public void IncrementCurrent(int msec)
@@ -196,7 +196,7 @@ namespace NBagOfUis
 
         #region UI handlers
         /// <summary>
-        /// 
+        /// Handle selection operations.
         /// </summary>
         /// <param name="e"></param>
         protected override void OnKeyDown(KeyEventArgs e)
@@ -231,7 +231,7 @@ namespace NBagOfUis
         }
 
         /// <summary>
-        /// 
+        /// Hook to intercept keys.
         /// </summary>
         /// <param name="e"></param>
         protected override void OnPreviewKeyDown(PreviewKeyDownEventArgs e)
@@ -312,7 +312,7 @@ namespace NBagOfUis
         }
 
         /// <summary>
-        /// 
+        /// Snap to user preference.
         /// </summary>
         /// <param name="msec"></param>
         /// <returns></returns>
@@ -332,7 +332,7 @@ namespace NBagOfUis
         }
 
         /// <summary>
-        /// 
+        /// Utility helper function.
         /// </summary>
         /// <param name="val"></param>
         /// <param name="lower"></param>
