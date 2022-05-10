@@ -10,11 +10,12 @@ using System.Windows.Forms;
 using System.IO;
 
 
+// TODO: limit/lazy L/R population, filter pattern matching, include/exclude, filter specs global/local.
+
 namespace NBagOfUis
 {
     /// <summary>
     /// Tree control with file type filters.
-    /// TODO: limit/lazy L/R population, filter pattern matching, include/exclude, filter specs global/local.
     /// </summary>
     public partial class FilTree : UserControl
     {
