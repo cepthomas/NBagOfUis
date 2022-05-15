@@ -149,7 +149,6 @@ namespace NBagOfUis.Test
         /// <summary>
         /// For debug purposes.
         /// </summary>
-        /// <param name="cat"></param>
         /// <param name="msg"></param>
         void LogMessage(string msg)
         {
