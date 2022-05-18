@@ -35,16 +35,6 @@ namespace NBagOfUis.Test
             txtInfo.Colors.Add("vel:10", Color.Green);
             txtInfo.BackColor = Color.Cornsilk;
 
-            vkbd.ShowNoteNames = true;
-
-            pot1.ValueChanged += Pot1_ValueChanged;
-
-            pan1.ValueChanged += Pan1_ValueChanged;
-
-            slider1.ValueChanged += Slider1_ValueChanged;
-
-            slider2.ValueChanged += Slider2_ValueChanged;
-
             ///// Filter tree.
             string root = $@"C:\Dev\repos\NBagOfUis";
             ftree.RootDirs = new List<string>() { root };
@@ -52,31 +42,6 @@ namespace NBagOfUis.Test
             ftree.SingleClickSelect = true;
             ftree.Init();
 
-            ///// Wave viewer.
-            // Simple sin.
-            float[] data1 = new float[150];
-            for (int i = 0; i < data1.Length; i++)
-            {
-                data1[i] = (float)Math.Sin(Math.PI * i / 180.0);
-            }
-            waveViewer1.Mode = WaveViewer.DrawMode.Raw;
-            waveViewer1.DrawColor = Color.Green;
-            waveViewer1.Init(data1, 1.0f);
-            waveViewer1.Marker1 = 20;
-            waveViewer1.Marker2 = 130;
-
-            // Real data.
-            string[] sdata = File.ReadAllLines(@"C:\Dev\repos\NBagOfUis\Test\Files\wav.txt");
-            float[] data2 = new float[sdata.Length];
-            for (int i = 0; i < sdata.Length; i++)
-            {
-                data2[i] = float.Parse(sdata[i]);
-            }
-            waveViewer2.Mode = WaveViewer.DrawMode.Envelope;
-            waveViewer2.DrawColor = Color.Green;
-            waveViewer2.Init(data2, 1.0f);
-            waveViewer2.Marker1 = -1; // hide
-            waveViewer2.Marker2 = data2.Length / 2;
 
             ///// Click grid.
             clickGrid1.AddStateType(0, Color.Blue, Color.AliceBlue);
@@ -91,28 +56,6 @@ namespace NBagOfUis.Test
 
             clickGrid1.IndicatorEvent += ClickGrid_IndicatorEvent;
             clickGrid1.Show(4, 60, 20);
-
-            ///// Time bar.
-            timeBar.SnapMsec = 10;
-            timeBar.Length = new TimeSpan(0, 0, 1, 23, 456);
-            timeBar.Start = new TimeSpan(0, 0, 0, 10, 333);
-            timeBar.End = new TimeSpan(0, 0, 0, 44, 777);
-            timeBar.CurrentTimeChanged += TimeBar_CurrentTimeChanged1;
-            timeBar.ProgressColor = Color.CornflowerBlue;
-            timeBar.BackColor = Color.Salmon;
-
-            ///// Bar bar.
-            barBar.ZeroBased = true;
-            barBar.BeatsPerBar = 4;
-            barBar.SubdivsPerBeat = 16;
-            barBar.Snap = BarBar.SnapType.Bar;
-            barBar.Length = new BarSpan(16, 0, 0);
-            barBar.Start = new BarSpan(2, 1, 11);
-            barBar.End = new BarSpan(11, 3, 6);
-            barBar.CurrentTimeChanged += BarBar1_CurrentTimeChanged;
-            barBar.ProgressColor = Color.MediumPurple;
-            barBar.BackColor = Color.LawnGreen;
-            //barBar.Test();
 
             ///// PropertyGridEx and UiType editor host.
             for(int i = 0; i < 5; i++)
@@ -165,34 +108,10 @@ namespace NBagOfUis.Test
 
             set.Save();
 
-            // Check recent file list. Should just one.
+            // Check recent file list. Should be just one.
         }
 
         void Timer1_Tick(object? sender, EventArgs e)
-        {
-            if (chkRunBars.Checked)
-            {
-                // Update time bar.
-                timeBar.IncrementCurrent(timer1.Interval + 3); // not-real time for testing
-                if (timeBar.Current >= timeBar.End) // done/reset
-                {
-                    timeBar.Current = timeBar.Start;
-                }
-
-                // Update bar bar.
-                barBar.IncrementCurrent(1);
-                if (barBar.Current >= barBar.End) // done/reset
-                {
-                    barBar.Current = barBar.Start;
-                }
-            }
-        }
-
-        void TimeBar_CurrentTimeChanged1(object? sender, EventArgs e)
-        {
-        }
-
-        void BarBar1_CurrentTimeChanged(object? sender, EventArgs e)
         {
         }
 
@@ -207,46 +126,9 @@ namespace NBagOfUis.Test
             txtInfo.AppendLine($"Selected file: {fn}");
         }
 
-        void Pot1_ValueChanged(object? sender, EventArgs e)
-        {
-            // 0 -> 1
-            meter2.AddValue(pot1.Value);
-        }
-
-        void Slider1_ValueChanged(object? sender, EventArgs e)
-        {
-            // 0 -> 1
-            meter1.AddValue(slider1.Value * 100.0);
-        }
-
-        void Slider2_ValueChanged(object? sender, EventArgs e)
-        {
-            // 0 -> 10
-            meter1.AddValue(slider2.Value * 10.0);
-        }
-
-        void Pan1_ValueChanged(object? sender, EventArgs e)
-        {
-            // -1 -> +1
-            meter1.AddValue(pan1.Value * 50.0 + 50.0);
-        }
-
-        void Vkbd_KeyboardEvent(object? sender, VirtualKeyboard.KeyboardEventArgs e)
-        {
-            string s = $"note:{e.NoteId} vel:{e.Velocity}";
-            txtInfo.AppendLine(s);
-
-            meter3.AddValue(e.NoteId / 8.0 - 10.0);
-        }
-
         void ChkCpu_CheckedChanged(object? sender, EventArgs e)
         {
             cpuMeter1.Enable = chkCpu.Checked;
-        }
-
-        void TimeBar_CurrentTimeChanged(object? sender, EventArgs e)
-        {
-            //txtInfo.AddLine($"Current time:{timeBar.CurrentTime}");
         }
     }
 
