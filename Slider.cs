@@ -10,7 +10,7 @@ namespace NBagOfUis
     /// <summary>
     /// Slider control.
     /// </summary>
-    public partial class Slider : UserControl
+    public class Slider : UserControl
     {
         #region Fields
         /// <summary>Current value.</summary>

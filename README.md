@@ -20,6 +20,7 @@ Probably I should make this into a nuget package at some point.
 - CpuMeter: Standalone display control.
 - TextViewer: With colorizing.
 - WaitCursor: Easy to use cursor.
+- Generic slider control.
 
 ## Various utilities and extensions
 - KeyUtils: Keyboard input.
