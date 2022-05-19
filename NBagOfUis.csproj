@@ -40,9 +40,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="BarBar.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Update="ClickGrid.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -52,34 +49,13 @@
     <Compile Update="FilTree.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Meter.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Update="OptionsEditor.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Pan.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Pot.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="PropertyGridEx.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Slider.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Update="TextViewer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="TimeBar.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="VirtualKeyboard.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="WaveViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>

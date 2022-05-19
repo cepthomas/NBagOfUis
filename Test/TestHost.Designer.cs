@@ -38,16 +38,17 @@
             this.ftree = new NBagOfUis.FilTree();
             this.cpuMeter1 = new NBagOfUis.CpuMeter();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.slider1 = new NBagOfUis.Slider();
             this.SuspendLayout();
             // 
             // txtInfo
             // 
             this.txtInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtInfo.Location = new System.Drawing.Point(1, 522);
+            this.txtInfo.Location = new System.Drawing.Point(841, 401);
             this.txtInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtInfo.MaxText = 5000;
             this.txtInfo.Name = "txtInfo";
-            this.txtInfo.Size = new System.Drawing.Size(837, 159);
+            this.txtInfo.Size = new System.Drawing.Size(386, 391);
             this.txtInfo.TabIndex = 5;
             this.txtInfo.WordWrap = true;
             // 
@@ -69,33 +70,31 @@
             this.btnGraphics.TabIndex = 21;
             this.btnGraphics.Text = "Run GFX";
             this.btnGraphics.UseVisualStyleBackColor = true;
-            this.btnGraphics.Click += new System.EventHandler(this.Graphics_Click);
             // 
             // propGrid
             // 
             this.propGrid.Dirty = false;
             this.propGrid.Location = new System.Drawing.Point(501, 14);
             this.propGrid.Name = "propGrid";
-            this.propGrid.Size = new System.Drawing.Size(337, 448);
+            this.propGrid.Size = new System.Drawing.Size(337, 364);
             this.propGrid.TabIndex = 20;
             // 
             // clickGrid1
             // 
             this.clickGrid1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.clickGrid1.Location = new System.Drawing.Point(856, 44);
+            this.clickGrid1.Location = new System.Drawing.Point(857, 14);
             this.clickGrid1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clickGrid1.Name = "clickGrid1";
-            this.clickGrid1.Size = new System.Drawing.Size(365, 156);
+            this.clickGrid1.Size = new System.Drawing.Size(275, 156);
             this.clickGrid1.TabIndex = 1;
             // 
             // chkCpu
             // 
-            this.chkCpu.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkCpu.AutoSize = true;
-            this.chkCpu.Location = new System.Drawing.Point(966, 219);
+            this.chkCpu.Location = new System.Drawing.Point(857, 178);
             this.chkCpu.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkCpu.Name = "chkCpu";
-            this.chkCpu.Size = new System.Drawing.Size(43, 30);
+            this.chkCpu.Size = new System.Drawing.Size(55, 24);
             this.chkCpu.TabIndex = 12;
             this.chkCpu.Text = "cpu";
             this.chkCpu.UseVisualStyleBackColor = true;
@@ -107,27 +106,44 @@
             this.ftree.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.ftree.Name = "ftree";
             this.ftree.SingleClickSelect = true;
-            this.ftree.Size = new System.Drawing.Size(483, 498);
+            this.ftree.Size = new System.Drawing.Size(483, 364);
             this.ftree.TabIndex = 11;
             this.ftree.FileSelectedEvent += new System.EventHandler<string>(this.FilTree_FileSelectedEvent);
             // 
             // cpuMeter1
             // 
             this.cpuMeter1.BackColor = System.Drawing.Color.Gainsboro;
+            this.cpuMeter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cpuMeter1.DrawColor = System.Drawing.Color.DarkOrange;
             this.cpuMeter1.Enable = false;
             this.cpuMeter1.Label = "cpu";
-            this.cpuMeter1.Location = new System.Drawing.Point(1025, 219);
+            this.cpuMeter1.Location = new System.Drawing.Point(935, 178);
             this.cpuMeter1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cpuMeter1.Name = "cpuMeter1";
-            this.cpuMeter1.Size = new System.Drawing.Size(175, 60);
+            this.cpuMeter1.Size = new System.Drawing.Size(197, 60);
             this.cpuMeter1.TabIndex = 7;
+            // 
+            // slider1
+            // 
+            this.slider1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.slider1.DrawColor = System.Drawing.Color.White;
+            this.slider1.Label = "";
+            this.slider1.Location = new System.Drawing.Point(935, 245);
+            this.slider1.Maximum = 10D;
+            this.slider1.Minimum = 0D;
+            this.slider1.Name = "slider1";
+            this.slider1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.slider1.Resolution = 0.1D;
+            this.slider1.Size = new System.Drawing.Size(197, 60);
+            this.slider1.TabIndex = 23;
+            this.slider1.Value = 5D;
             // 
             // TestHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1240, 696);
+            this.ClientSize = new System.Drawing.Size(1240, 799);
+            this.Controls.Add(this.slider1);
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.clickGrid1);
             this.Controls.Add(this.btnGraphics);
@@ -157,5 +173,6 @@
         private FilTree ftree;
         private CpuMeter cpuMeter1;
         private System.Windows.Forms.Timer timer1;
+        private Slider slider1;
     }
 }
