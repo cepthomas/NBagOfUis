@@ -100,7 +100,6 @@
             this.Name = "OptionsEditor";
             this.Text = "Option Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OptionsEditor_FormClosing);
-            this.Load += new System.EventHandler(this.OptionsEditor_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

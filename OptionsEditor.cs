@@ -40,15 +40,7 @@ namespace NBagOfUis
         public OptionsEditor()
         {
             InitializeComponent();
-        }
 
-        /// <summary>
-        /// Initialization. If editing not allowed, adjust the ui.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void OptionsEditor_Load(object? sender, EventArgs e)
-        {
             if(!AllowEdit)
             {
                 btnAdd.Visible = false;

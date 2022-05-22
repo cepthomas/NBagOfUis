@@ -1,4 +1,4 @@
-# NBagOfUis TODOX
+# NBagOfUis
 WinForms controls collected over the years. Companion to [NBagOfTricks](https://github.com/cepthomas/NBagOfTricks/blob/main/README.md).
 
 Requires VS2019 and .NET5.
@@ -20,9 +20,9 @@ Probably I should make this into a nuget package at some point.
 - CpuMeter: Standalone display control.
 - TextViewer: With colorizing.
 - WaitCursor: Easy to use cursor.
-- Generic slider control.
+- Slider: Generic slider control.
 
-## Various utilities and extensions
+## Utilities
 - KeyUtils: Keyboard input.
 - UiUtils: Control helpers, formatters, etc.
 

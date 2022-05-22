@@ -46,15 +46,7 @@ namespace NBagOfUis
         public FilTree()
         {
             InitializeComponent();
-        }
 
-        /// <summary>
-        /// Initialize controls.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void FilTree_Load(object? sender, EventArgs e)
-        {
             treeView.HideSelection = false;
             treeView.DrawMode = TreeViewDrawMode.OwnerDrawText;
         }

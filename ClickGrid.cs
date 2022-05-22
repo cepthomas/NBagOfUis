@@ -50,16 +50,7 @@ namespace NBagOfUis
         public ClickGrid()
         {
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
-            Load += ClickGrid_Load;
-        }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void ClickGrid_Load(object? sender, EventArgs e)
-        {
             BorderStyle = BorderStyle.FixedSingle;
 
             // Init the statuses.

@@ -27,10 +27,7 @@ namespace NBagOfUis.Test
         {
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
             InitializeComponent();
-        }
 
-        void TestHost_Load(object? sender, EventArgs e)
-        {
             Location = new(20, 20);
 
             ///// Misc controls.

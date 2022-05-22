@@ -81,16 +81,7 @@ namespace NBagOfUis
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
             Name = "CpuMeter";
-            Load += CpuMeter_Load;
-        }
 
-        /// <summary>
-        /// Initialize everything.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CpuMeter_Load(object? sender, EventArgs e)
-        {
             _timer.Tick += Timer_Tick;
             _timer.Interval = 500;
             _timer.Start();
