@@ -10,8 +10,6 @@ using System.Windows.Forms;
 using System.IO;
 
 
-// TODO: limit/lazy L/R population, filter pattern matching, include/exclude, filter specs global/local.
-
 namespace NBagOfUis
 {
     /// <summary>
@@ -25,7 +23,7 @@ namespace NBagOfUis
         [Browsable(false)]
         public List<string> RootDirs { get; set; } = new();
 
-        /// <summary>Show only these file types.</summary>
+        /// <summary>Show only these file types. Empty is valid for files without extensions.</summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
         public List<string> FilterExts { get; set; } = new();
@@ -158,9 +156,12 @@ namespace NBagOfUis
 
             if(nodeDirInfo is not null)
             {
-                foreach (FileInfo file in nodeDirInfo.GetFiles())
+                EnumerationOptions opts = new() { };
+                foreach (var file in nodeDirInfo.EnumerateFiles("*", opts).OrderBy(f => char.IsLetterOrDigit(f.Name[0])))
                 {
-                    if (FilterExts.Contains(Path.GetExtension(file.Name).ToLower()))
+                    var ext = Path.GetExtension(file.Name).ToLower();
+
+                    if (FilterExts.Contains(ext))
                     {
                         var item = new ListViewItem(new[] { file.Name, (file.Length / 1024).ToString(), "" })
                         {

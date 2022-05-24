@@ -36,9 +36,10 @@ namespace NBagOfUis.Test
             txtInfo.BackColor = Color.Cornsilk;
 
             ///// Filter tree.
-            string root = $@"C:\Dev\repos\NBagOfUis";
-            ftree.RootDirs = new List<string>() { root };
-            ftree.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" };
+            // ftree.RootDirs = new List<string>() { $@"C:\Dev\repos\NBagOfUis" };
+            // ftree.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" };
+            ftree.RootDirs = new List<string>() { $@"C:\Dev\repos\TestAudioFiles" };
+            ftree.FilterExts = new List<string> { ".wav", ".mid", ".txt", "" };
             ftree.SingleClickSelect = true;
             ftree.Init();
 
