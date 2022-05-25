@@ -141,7 +141,6 @@
             this.Controls.Add(this.toolStrip1);
             this.Name = "FilTree";
             this.Size = new System.Drawing.Size(588, 612);
-            this.Resize += new System.EventHandler(this.FilTree_Resize);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);

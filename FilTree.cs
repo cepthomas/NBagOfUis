@@ -248,7 +248,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void FilTree_Resize(object? sender, EventArgs e)
+        protected override void OnResize(EventArgs e)
         {
             lvFiles.Columns[0].Width = lvFiles.Width / 2;
             lvFiles.Columns[1].Width = -2;

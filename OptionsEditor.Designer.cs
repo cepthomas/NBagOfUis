@@ -99,7 +99,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "OptionsEditor";
             this.Text = "Option Editor";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OptionsEditor_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

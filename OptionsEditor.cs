@@ -83,7 +83,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void OptionsEditor_FormClosing(object? sender, FormClosingEventArgs e)
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
             _values.Clear();
 
