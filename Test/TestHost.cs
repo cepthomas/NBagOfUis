@@ -140,9 +140,8 @@ namespace NBagOfUis.Test
         {
             string inputDir;
             string outputDir;
-            _boxX = 5;
-            _boxY = ftree.Bottom + 5;
-
+            _boxX = lblGfx.Left;
+            _boxY = lblGfx.Bottom + 5;
 
             var dir = MiscUtils.GetSourcePath();
             inputDir = Path.Join(dir, "files");
@@ -157,7 +156,7 @@ namespace NBagOfUis.Test
             var ico = GraphicsUtils.CreateIcon(bmp, 32);
             GraphicsUtils.SaveIcon(ico, Path.Join(outputDir, "snowflake_32.ico")); // just 32.
 
-            var bbb = new Icon(ico, 48, 48);
+            //var bbb = new Icon(ico, 48, 48);
 
             ico = GraphicsUtils.CreateIcon(bmp);
             GraphicsUtils.SaveIcon(ico, Path.Join(outputDir, "snowflake_all.ico")); // all sizes

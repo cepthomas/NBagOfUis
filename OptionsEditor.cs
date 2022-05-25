@@ -81,7 +81,6 @@ namespace NBagOfUis
         /// <summary>
         /// Collect list contents.
         /// </summary>
-        /// <param name="sender"></param>
         /// <param name="e"></param>
         protected override void OnFormClosing(FormClosingEventArgs e)
         {

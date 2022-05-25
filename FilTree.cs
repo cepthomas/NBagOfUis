@@ -246,7 +246,6 @@ namespace NBagOfUis
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
         /// <param name="e"></param>
         protected override void OnResize(EventArgs e)
         {

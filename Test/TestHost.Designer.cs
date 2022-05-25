@@ -39,6 +39,7 @@
             this.cpuMeter1 = new NBagOfUis.CpuMeter();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.slider1 = new NBagOfUis.Slider();
+            this.lblGfx = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtInfo
@@ -82,7 +83,7 @@
             // clickGrid1
             // 
             this.clickGrid1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.clickGrid1.Location = new System.Drawing.Point(857, 14);
+            this.clickGrid1.Location = new System.Drawing.Point(857, 13);
             this.clickGrid1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clickGrid1.Name = "clickGrid1";
             this.clickGrid1.Size = new System.Drawing.Size(275, 156);
@@ -138,11 +139,21 @@
             this.slider1.TabIndex = 23;
             this.slider1.Value = 5D;
             // 
+            // lblGfx
+            // 
+            this.lblGfx.AutoSize = true;
+            this.lblGfx.Location = new System.Drawing.Point(9, 385);
+            this.lblGfx.Name = "lblGfx";
+            this.lblGfx.Size = new System.Drawing.Size(68, 20);
+            this.lblGfx.TabIndex = 24;
+            this.lblGfx.Text = "GFX here";
+            // 
             // TestHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1240, 799);
+            this.Controls.Add(this.lblGfx);
             this.Controls.Add(this.slider1);
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.clickGrid1);
@@ -172,5 +183,6 @@
         private CpuMeter cpuMeter1;
         private System.Windows.Forms.Timer timer1;
         private Slider slider1;
+        private System.Windows.Forms.Label lblGfx;
     }
 }
