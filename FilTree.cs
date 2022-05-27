@@ -163,7 +163,7 @@ namespace NBagOfUis
 
                     if (FilterExts.Contains(ext))
                     {
-                        var item = new ListViewItem(new[] { file.Name, (file.Length / 1024).ToString(), "" })
+                        var item = new ListViewItem(new[] { file.Name, (file.Length / 1024).ToString() })
                         {
                             Tag = file.FullName
                         };

@@ -32,9 +32,8 @@
             this.treeView = new System.Windows.Forms.TreeView();
             this.menuFiles = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.lvFiles = new System.Windows.Forms.ListView();
-            this.dvcolFile = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.dvcolSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.dvcolOther = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.dvcolFile = new System.Windows.Forms.ColumnHeader();
+            this.dvcolSize = new System.Windows.Forms.ColumnHeader();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.lblActiveFilters = new System.Windows.Forms.ToolStripLabel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -51,8 +50,9 @@
             this.treeView.ContextMenuStrip = this.menuFiles;
             this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView.Location = new System.Drawing.Point(0, 0);
+            this.treeView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(257, 587);
+            this.treeView.Size = new System.Drawing.Size(257, 740);
             this.treeView.TabIndex = 0;
             this.treeView.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.TreeView_DrawNode);
             this.treeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.TreeView_NodeMouseClick);
@@ -69,15 +69,15 @@
             this.lvFiles.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lvFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.dvcolFile,
-            this.dvcolSize,
-            this.dvcolOther});
+            this.dvcolSize});
             this.lvFiles.ContextMenuStrip = this.menuFiles;
             this.lvFiles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvFiles.FullRowSelect = true;
             this.lvFiles.HideSelection = false;
             this.lvFiles.Location = new System.Drawing.Point(0, 0);
+            this.lvFiles.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lvFiles.Name = "lvFiles";
-            this.lvFiles.Size = new System.Drawing.Size(327, 587);
+            this.lvFiles.Size = new System.Drawing.Size(327, 740);
             this.lvFiles.TabIndex = 1;
             this.lvFiles.UseCompatibleStateImageBehavior = false;
             this.lvFiles.View = System.Windows.Forms.View.Details;
@@ -93,11 +93,6 @@
             // 
             this.dvcolSize.Text = "Size (kb)";
             this.dvcolSize.Width = 70;
-            // 
-            // dvcolOther
-            // 
-            this.dvcolOther.Text = "other";
-            this.dvcolOther.Width = 365;
             // 
             // toolStrip1
             // 
@@ -120,6 +115,7 @@
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 25);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
@@ -129,18 +125,19 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.lvFiles);
-            this.splitContainer2.Size = new System.Drawing.Size(588, 587);
+            this.splitContainer2.Size = new System.Drawing.Size(588, 740);
             this.splitContainer2.SplitterDistance = 257;
             this.splitContainer2.TabIndex = 4;
             // 
             // FilTree
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer2);
             this.Controls.Add(this.toolStrip1);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FilTree";
-            this.Size = new System.Drawing.Size(588, 612);
+            this.Size = new System.Drawing.Size(588, 765);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);
@@ -157,7 +154,6 @@
         private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.ListView lvFiles;
         private System.Windows.Forms.ColumnHeader dvcolFile;
-        private System.Windows.Forms.ColumnHeader dvcolOther;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.ColumnHeader dvcolSize;
