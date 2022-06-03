@@ -26,6 +26,3 @@ Probably I should make this into a nuget package at some point.
 - KeyUtils: Keyboard input.
 - UiUtils: Control helpers, formatters, etc.
 
-
-# License
-https://github.com/cepthomas/NBagOfUis/blob/master/LICENSE
