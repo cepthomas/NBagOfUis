@@ -68,7 +68,7 @@ namespace NBagOfUis.Test
             slider1.Resolution = 5;
             slider1.Value = 40;
             slider1.Label = "|-|-|";
-            slider1.ValueChanged += (_, __) => LogMessage($"INF Slider value: {slider1.Value}");
+            slider1.ValueChanged += (_, __) => Tell($"INF Slider value: {slider1.Value}");
 
             ///// Property grid.
             Image img = Image.FromFile(@"Files\glyphicons-22-snowflake.png");
@@ -128,7 +128,7 @@ namespace NBagOfUis.Test
 
         void FilTree_FileSelectedEvent(object? sender, string fn)
         {
-            LogMessage($"INF Selected file: {fn}");
+            Tell($"INF Selected file: {fn}");
         }
 
         void ChkCpu_CheckedChanged(object? sender, EventArgs e)
@@ -228,7 +228,7 @@ namespace NBagOfUis.Test
         /// <param name="info"></param>
         void DumpBitmap(Bitmap bmp, int firstRow, int numRows, string info)
         {
-            LogMessage($"Dump Bitmap: {info}");
+            Tell($"Dump Bitmap: {info}");
 
             if (firstRow >= 0 && firstRow < bmp.Height && numRows > 0)
             {
@@ -238,13 +238,13 @@ namespace NBagOfUis.Test
                     {
                         // Get the pixel from the image.
                         Color acol = bmp.GetPixel(x, y);
-                        LogMessage($"r:{y} c:{x} {acol}");
+                        Tell($"r:{y} c:{x} {acol}");
                     }
                 }
             }
             else
             {
-                LogMessage("ERR Bad rows!");
+                Tell("ERR Bad rows!");
             }
         }
 
@@ -252,11 +252,9 @@ namespace NBagOfUis.Test
         /// For debug purposes.
         /// </summary>
         /// <param name="msg"></param>
-        void LogMessage(string msg)
+        void Tell(string msg)
         {
-            string s = $"{msg}{Environment.NewLine}";
-            //string s = $"{DateTime.Now:mm\\:ss\\.fff} {msg}{Environment.NewLine}";
-            txtInfo.AppendText(s);
+            txtInfo.AppendText($"{msg}{Environment.NewLine}");
         }
     }
 

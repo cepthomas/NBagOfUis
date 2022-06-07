@@ -95,7 +95,7 @@ namespace NBagOfUis
             {
                 TreeNode rootNode;
 
-                DirectoryInfo info = new DirectoryInfo(path);
+                DirectoryInfo info = new(path);
                 if (info.Exists)
                 {
                     rootNode = new TreeNode(info.Name)
@@ -128,7 +128,7 @@ namespace NBagOfUis
         {
             foreach (DirectoryInfo dir in dirs)
             {
-                TreeNode subDirNode = new TreeNode(dir.Name, 0, 0)
+                TreeNode subDirNode = new(dir.Name, 0, 0)
                 {
                     Tag = dir,
                     ImageKey = "folder"
