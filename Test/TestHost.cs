@@ -11,9 +11,10 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Drawing.Design;
 using System.Text.Json.Serialization;
-using NBagOfTricks;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Drawing.Imaging;
+using NBagOfTricks;
+
 
 namespace NBagOfUis.Test
 {
@@ -35,11 +36,9 @@ namespace NBagOfUis.Test
             txtInfo.Colors.Add("55", Color.Green);
             txtInfo.BackColor = Color.Cornsilk;
 
-            ///// Filter tree.
-            // ftree.RootDirs = new List<string>() { $@"C:\Dev\repos\NBagOfUis" };
-            // ftree.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" };
-            ftree.RootDirs = new List<string>() { $@"C:\Dev\repos\TestAudioFiles" };
-            ftree.FilterExts = new List<string> { ".wav", ".mid", ".txt", "" };
+            ///// Filter tree. Adjust to taste.
+            ftree.RootDirs = new List<string>() { $@"..\..\NBagOfUis" };
+            ftree.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" };
             ftree.SingleClickSelect = true;
             ftree.Init();
 
@@ -68,7 +67,7 @@ namespace NBagOfUis.Test
             slider1.Resolution = 5;
             slider1.Value = 40;
             slider1.Label = "|-|-|";
-            slider1.ValueChanged += (_, __) => Tell($"INF Slider value: {slider1.Value}");
+            slider1.ValueChanged += (_, __) => Tell($"Slider value: {slider1.Value}");
 
             ///// Property grid.
             Image img = Image.FromFile(@"Files\glyphicons-22-snowflake.png");
@@ -94,6 +93,7 @@ namespace NBagOfUis.Test
             //var at = ftree.AllTags;
             //var tp = ftree.TaggedPaths;
             //var po = _testClass;
+            base.OnFormClosing(e);
         }
 
         void Settings_Click(object sender, EventArgs e)
@@ -108,8 +108,8 @@ namespace NBagOfUis.Test
             //_settings.Abool = chk1.Checked;
             set.FormGeometry = new Rectangle(Location.X, Location.Y, Size.Width, Size.Height);
 
-            set.RecentFiles.Add(@"C:\Dev\WinFormsApp1\obj\Debug\net5.0-windows\WinFormsApp1.AssemblyInfo.cs");
-            set.RecentFiles.Add("bad_path");
+            set.RecentFiles.Add(File.GetPath("NBagOfUis.xml"));
+            set.RecentFiles.Add(@"C:\bad\path\file.xyz");
 
             set.Save();
 
@@ -128,7 +128,7 @@ namespace NBagOfUis.Test
 
         void FilTree_FileSelectedEvent(object? sender, string fn)
         {
-            Tell($"INF Selected file: {fn}");
+            Tell($"Selected file: {fn}");
         }
 
         void ChkCpu_CheckedChanged(object? sender, EventArgs e)
@@ -244,7 +244,7 @@ namespace NBagOfUis.Test
             }
             else
             {
-                Tell("ERR Bad rows!");
+                Tell("Bad rows!");
             }
         }
 

@@ -1264,7 +1264,7 @@
             <summary>Internal log entry data container.</summary>
         </member>
         <member name="T:NBagOfTricks.Slog.LogEventArgs">
-            <summary>Log event for  log entry data container.</summary>
+            <summary>Log event for notification.</summary>
         </member>
         <member name="F:NBagOfTricks.Slog.Definitions.TIME_FORMAT">
             <summary>Verbose timestamp.</summary>
@@ -1278,20 +1278,14 @@
         <member name="P:NBagOfTricks.Slog.Logger.Name">
             <summary>ID for this logger.</summary>
         </member>
+        <member name="P:NBagOfTricks.Slog.Logger.Enable">
+            <summary>Turn logger on or off.</summary>
+        </member>
         <member name="M:NBagOfTricks.Slog.Logger.#ctor(System.String)">
             <summary>
             Constructor.
             </summary>
             <param name="name">Client assigned name.</param>
-        </member>
-        <member name="M:NBagOfTricks.Slog.Logger.Log(NBagOfTricks.Slog.Level,System.String,System.String,System.Int32)">
-            <summary>
-            Basic log function.
-            </summary>
-            <param name="level">Specific level.</param>
-            <param name="msg">Content.</param>
-            <param name="file">Ignore - compiler use.</param>
-            <param name="line">Ignore - compiler use.</param>
         </member>
         <member name="M:NBagOfTricks.Slog.Logger.LogTrace(System.String,System.String,System.Int32)">
             <summary>
@@ -1333,7 +1327,7 @@
             <param name="file">Ignore - compiler use.</param>
             <param name="line">Ignore - compiler use.</param>
         </member>
-        <member name="M:NBagOfTricks.Slog.Logger.Log(System.Exception,System.String,System.String,System.Int32)">
+        <member name="M:NBagOfTricks.Slog.Logger.LogException(System.Exception,System.String,System.String,System.Int32)">
             <summary>
             Log an exception.
             </summary>
@@ -1357,9 +1351,6 @@
         <member name="F:NBagOfTricks.Slog.LogManager._instance">
             <summary>Lazy singleton. https://csharpindepth.com/Articles/Singleton.</summary>
         </member>
-        <member name="P:NBagOfTricks.Slog.LogManager.Instance">
-            <summary>Singleton accessor.</summary>
-        </member>
         <member name="F:NBagOfTricks.Slog.LogManager._loggers">
             <summary>All loggers. Key is client supplied name.</summary>
         </member>
@@ -1372,8 +1363,14 @@
         <member name="F:NBagOfTricks.Slog.LogManager._levelNames">
             <summary>Constant width strings for visual aid.</summary>
         </member>
+        <member name="F:NBagOfTricks.Slog.LogManager._running">
+            <summary>Queue management.</summary>
+        </member>
         <member name="F:NBagOfTricks.Slog.LogManager._tokenSource">
             <summary>Queue management.</summary>
+        </member>
+        <member name="P:NBagOfTricks.Slog.LogManager.Instance">
+            <summary>Singleton accessor.</summary>
         </member>
         <member name="P:NBagOfTricks.Slog.LogManager.MinLevelFile">
             <summary>Event filter for file.</summary>

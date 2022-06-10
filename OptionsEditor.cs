@@ -90,6 +90,7 @@ namespace NBagOfUis
             {
                 _values[lbValues.Items[i].ToString()!] = lbValues.GetItemChecked(i);
             }
+            base.OnFormClosing(e);
         }
     }
 }
