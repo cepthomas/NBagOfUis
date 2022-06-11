@@ -37,7 +37,7 @@ namespace NBagOfUis.Test
             txtInfo.BackColor = Color.Cornsilk;
 
             ///// Filter tree. Adjust to taste.
-            ftree.RootDirs = new List<string>() { $@"..\..\NBagOfUis" };
+            ftree.RootDirs = new List<string>() { $@"..\..\..\" };
             ftree.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" };
             ftree.SingleClickSelect = true;
             ftree.Init();
@@ -108,7 +108,7 @@ namespace NBagOfUis.Test
             //_settings.Abool = chk1.Checked;
             set.FormGeometry = new Rectangle(Location.X, Location.Y, Size.Width, Size.Height);
 
-            set.RecentFiles.Add(File.GetPath("NBagOfUis.xml"));
+            set.RecentFiles.Add(Path.GetFullPath("NBagOfUis.xml"));
             set.RecentFiles.Add(@"C:\bad\path\file.xyz");
 
             set.Save();
