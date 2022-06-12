@@ -184,8 +184,18 @@ namespace NBagOfUis.Test
             box = MakePicBox(bmp.Size, $"colorize");
             box.Image = bmp;
 
-            //var t = _msgs.Count > 0 ? string.Join(Environment.NewLine, _msgs) : "Nothing to report";
-            //Clipboard.SetText(t);
+            // Pixel bitmap.
+            int size = 128;
+            PixelBitmap pbmp = new PixelBitmap(size, size);
+            foreach (var y in Enumerable.Range(0, size))
+            {
+                foreach (var x in Enumerable.Range(0, size))
+                {
+                    pbmp.SetPixel(x, y, 255, x*2, y*2, 150);
+                }
+            }
+            box = MakePicBox(pbmp.Bitmap.Size, $"pixels");
+            box.Image = pbmp.Bitmap;
         }
 
         /// <summary>
