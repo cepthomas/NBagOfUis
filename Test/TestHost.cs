@@ -150,7 +150,7 @@ namespace NBagOfUis.Test
 
             // Read bmp and convert to icon.
             var bmp = (Bitmap)Image.FromFile(Path.Join(inputDir, "glyphicons-22-snowflake.png")); // 26x26
-            //DumpBitmap(bmp, 10, 1, "raw snowflake");
+            DumpBitmap(bmp, 10, 1, "raw snowflake");
 
             // Save icon.
             var ico = GraphicsUtils.CreateIcon(bmp, 32);
@@ -186,7 +186,7 @@ namespace NBagOfUis.Test
 
             // Pixel bitmap.
             int size = 128;
-            PixelBitmap pbmp = new PixelBitmap(size, size);
+            PixelBitmap pbmp = new(size, size);
             foreach (var y in Enumerable.Range(0, size))
             {
                 foreach (var x in Enumerable.Range(0, size))

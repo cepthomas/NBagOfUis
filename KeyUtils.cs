@@ -65,7 +65,7 @@ namespace NBagOfUis
         public static (char ch, List<Keys> keyCodes) KeyToChar(Keys key, Keys modifiers)
         {
             char ch = (char)0;
-            List<Keys> keyCodes = new List<Keys>();
+            List<Keys> keyCodes = new();
 
             bool shift = modifiers.HasFlag(Keys.Shift);
             bool iscap = (Console.CapsLock && !shift) || (!Console.CapsLock && shift);
@@ -132,7 +132,7 @@ namespace NBagOfUis
                     if (key >= Keys.A && key <= Keys.Z)
                     {
                         // UC is 65-90  LC is 97-122
-                        ch = iscap ? ch = (char)(int)key : (char)(int)(key + 32);
+                        ch = iscap ? (char)(int)key : (char)(int)(key + 32);
                     }
                     break;
             }

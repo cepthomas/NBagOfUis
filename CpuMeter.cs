@@ -26,7 +26,7 @@ namespace NBagOfUis
         bool _inited = false;
 
         /// <summary> </summary>
-        readonly Timer _timer = new Timer();
+        readonly Timer _timer = new();
 
         /// <summary> </summary>
         readonly int _min = 0;
@@ -128,7 +128,7 @@ namespace NBagOfUis
                 }
             }
 
-            Rectangle r = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height / 2);
+            Rectangle r = new(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height / 2);
             pe.Graphics.DrawString(Label, Font, Brushes.Black, r, _format);
         }
 

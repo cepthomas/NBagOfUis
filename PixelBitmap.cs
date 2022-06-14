@@ -16,7 +16,7 @@ namespace NBagOfUis
     /// <summary>
     /// Borrowed from https://stackoverflow.com/a/34801225
     /// </summary>
-    public class PixelBitmap : IDisposable
+    public sealed class PixelBitmap : IDisposable
     {
         #region Fields
         /// <summary>Unmanaged buffer.</summary>

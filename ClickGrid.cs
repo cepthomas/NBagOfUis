@@ -14,7 +14,7 @@ namespace NBagOfUis
     {
         #region Fields
         /// <summary>State enumeration.</summary>
-        Dictionary<int, IndicatorStateType> _stateTypes = new();
+        readonly Dictionary<int, IndicatorStateType> _stateTypes = new();
 
         /// <summary>All the indicators.</summary>
         readonly List<Indicator> _indicators = new();
@@ -164,7 +164,7 @@ namespace NBagOfUis
 
                         int x = col * _indWidth;
                         int y = row * _indHeight;
-                        Rectangle r = new Rectangle(x, y, _indWidth, _indHeight);
+                        Rectangle r = new(x, y, _indWidth, _indHeight);
                         pe.Graphics.FillRectangle(bb, r);
 
                         // Text
