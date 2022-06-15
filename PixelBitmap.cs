@@ -24,6 +24,9 @@ namespace NBagOfUis
 
         /// <summary>Unmanaged buffer handle.</summary>
         GCHandle _hBuff;
+
+        /// <summary>Resource management.</summary>
+        bool _disposed = false;
         #endregion
 
         #region Properties
@@ -31,6 +34,7 @@ namespace NBagOfUis
         public Bitmap Bitmap { get; init; }
         #endregion
 
+        #region Lifecycle
         /// <summary>
         /// Normal constructor.
         /// </summary>
@@ -42,6 +46,46 @@ namespace NBagOfUis
             _hBuff = GCHandle.Alloc(_buff, GCHandleType.Pinned);
             Bitmap = new Bitmap(width, height, width * 4, PixelFormat.Format32bppPArgb, _hBuff.AddrOfPinnedObject());
         }
+
+        /// <summary>
+        /// Override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources.
+        /// </summary>
+        ~PixelBitmap()
+        {
+            Dispose(false);
+        }
+
+        /// <summary>
+        /// Boilerplate.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Boilerplate.
+        /// </summary>
+        public void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    // called via myClass.Dispose(). 
+                    // OK to use any private object references
+                    // Dispose managed state (managed objects).
+                    Bitmap.Dispose();
+                }
+
+                // Release unmanaged resources.
+                _hBuff.Free();
+
+                _disposed = true;
+            }
+        }
+        #endregion
 
         /// <summary>
         /// 
@@ -88,15 +132,6 @@ namespace NBagOfUis
             Color result = Color.FromArgb(col);
 
             return result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public void Dispose()
-        {
-            Bitmap.Dispose();
-            _hBuff.Free();
         }
     }
 }
