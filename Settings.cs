@@ -14,7 +14,7 @@ using NBagOfTricks;
 
 namespace NBagOfUis
 {
-    public class Settings// : ICloneable
+    public class Settings
     {
         #region Persisted Common Non-editable Properties
         [Browsable(false)]
