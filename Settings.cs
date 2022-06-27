@@ -81,8 +81,9 @@ namespace NBagOfUis
         /// Edit the properties in a dialog.
         /// </summary>
         /// <param name="title">To show.</param>
+        /// <param name="height">Adjustable.</param>
         /// <returns>List of tuples of name, category.</returns>
-        public List<(string name, string cat)> Edit(string title)
+        public List<(string name, string cat)> Edit(string title, int height)
         {
             // Make a copy for possible restoration.
             Type t = GetType();
@@ -92,8 +93,6 @@ namespace NBagOfUis
             PropertyGridEx pg = new()
             {
                 Dock = DockStyle.Fill,
-                Location = new(14, 14),
-                Size = new(350, 350),
                 PropertySort = PropertySort.Categorized,
                 SelectedObject = this
             };
@@ -101,7 +100,7 @@ namespace NBagOfUis
             using Form f = new()
             {
                 Text = title,
-                ClientSize = new(450, 450),
+                ClientSize = new(450, height),
                 AutoScaleMode = AutoScaleMode.None,
                 Location = Cursor.Position,
                 StartPosition = FormStartPosition.Manual,
@@ -113,6 +112,7 @@ namespace NBagOfUis
             // Detect changes of interest.
             List<(string name, string cat)> changes = new();
             pg.PropertyValueChanged += (sdr, args) => { changes.Add((args.ChangedItem.PropertyDescriptor.Name, args.ChangedItem.PropertyDescriptor.Category)); };
+            pg.ExpandAllGridItems();
 
             f.Controls.Add(pg);
 

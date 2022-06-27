@@ -102,7 +102,7 @@ namespace NBagOfUis.Test
             TestSettings set = (TestSettings)Settings.Load(@".\Files", typeof(TestSettings), "test-settings.json");
 
             // Edit them.
-            set.Edit("Edit me!!!");
+            set.Edit("Edit me!!!", 400);
 
             // Mod and save.
             //_settings.Abool = chk1.Checked;
