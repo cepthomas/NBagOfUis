@@ -1,7 +1,7 @@
 # NBagOfUis
 WinForms controls collected over the years. Companion to [NBagOfTricks](https://github.com/cepthomas/NBagOfTricks/blob/main/README.md).
 
-Requires VS2019 and .NET5.
+Requires VS2019 and .NET6.
 
 No dependencies on third party components.
 
