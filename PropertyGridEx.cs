@@ -179,7 +179,7 @@ namespace NBagOfUis
 
                 foreach (GridItem g in root.GridItems)
                 {
-                    if (g.GridItemType == GridItemType.Category && g.Label.Trim() == groupName.Trim())
+                    if (g.GridItemType == GridItemType.Category && g.Label is not null && g.Label.Trim() == groupName.Trim())
                     {
                         g.Expanded = expand;
                         break;
@@ -195,12 +195,12 @@ namespace NBagOfUis
         {
             // Manipulate the browsable attribute.
             PropertyDescriptorCollection pdc = TypeDescriptor.GetProperties(SelectedObject);
-            PropertyDescriptor descriptor = pdc[which];
+            PropertyDescriptor descriptor = pdc[which]!;
 
             if (descriptor is not null)
             {
                 // Get the backing field because the property has no setter.
-                BrowsableAttribute attribute = (BrowsableAttribute)descriptor.Attributes[typeof(BrowsableAttribute)];
+                BrowsableAttribute attribute = (BrowsableAttribute)descriptor.Attributes[typeof(BrowsableAttribute)]!;
                 //var ff = attribute.GetType().GetRuntimeFields();
                 FieldInfo fieldToChange = attribute.GetType().GetField("<Browsable>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance)!;
                 fieldToChange.SetValue(attribute, visible);

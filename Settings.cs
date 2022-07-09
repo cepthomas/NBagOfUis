@@ -111,7 +111,7 @@ namespace NBagOfUis
 
             // Detect changes of interest.
             List<(string name, string cat)> changes = new();
-            pg.PropertyValueChanged += (sdr, args) => { changes.Add((args.ChangedItem.PropertyDescriptor.Name, args.ChangedItem.PropertyDescriptor.Category)); };
+            pg.PropertyValueChanged += (sdr, args) => { changes.Add((args.ChangedItem!.PropertyDescriptor!.Name, args.ChangedItem.PropertyDescriptor.Category)); };
             pg.ExpandAllGridItems();
 
             f.Controls.Add(pg);
