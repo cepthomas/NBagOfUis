@@ -61,7 +61,7 @@ namespace NBagOfUis
     }
 
     /// <summary>Broken - don't use.</summary>
-    public class PathListEditor_Future : UITypeEditor
+    public class PathListEditor_TODO : UITypeEditor
     {
         IWindowsFormsEditorService? _service = null;
 
