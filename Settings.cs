@@ -45,8 +45,9 @@ namespace NBagOfUis
             string fp = Path.Combine(dir, fn);
             if (File.Exists(fp))
             {
+                JsonSerializerOptions opts = new() { AllowTrailingCommas = true };
                 string json = File.ReadAllText(fp);
-                set = JsonSerializer.Deserialize(json, t);
+                set = JsonSerializer.Deserialize(json, t, opts);
             }
 
             if(set is null)

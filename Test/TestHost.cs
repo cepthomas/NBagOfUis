@@ -31,10 +31,12 @@ namespace NBagOfUis.Test
 
             Location = new(20, 20);
 
-            ///// Misc controls.
+            ///// Text control.
             txtInfo.Colors.Add("50", Color.Purple);
             txtInfo.Colors.Add("55", Color.Green);
             txtInfo.BackColor = Color.Cornsilk;
+            txtInfo.Prompt = ">>> ";
+
 
             ///// Filter tree. Adjust to taste.
             ftree.RootDirs = new List<string>() { $@"..\..\..\" };
@@ -76,7 +78,7 @@ namespace NBagOfUis.Test
             propGrid.AddButton("Red", null, "Blood is red", (_, __) => lbl!.Text = "->Red");
             propGrid.AddButton("", img, "Image is red", (_, __) => lbl!.Text = "->IRed");
             //propGrid.MoveSplitter(100);
-            propGrid.ResizeDescriptionArea(4);
+            propGrid.ResizeDescriptionArea(6);
             //propGrid.ExpandGroup("Cat1", false);
             //propGrid.ShowProperty("TestString", false);
 

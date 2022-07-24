@@ -148,18 +148,18 @@ namespace NBagOfUis
 
         /// <summary>Alter the bottom description area.</summary>
         /// <param name="x">Number of lines to show.</param>
-        public void ResizeDescriptionArea(int x)
+        public void ResizeDescriptionArea(int x) //TODO stopped working...
         {
-            if(_docComment is not null)
-            {
-                var field = _docComment.GetType().BaseType!.GetField("userSized", BindingFlags.Instance | BindingFlags.NonPublic);
-                field!.SetValue(_docComment, true);
+            //if(_docComment is not null)
+            //{
+            //    var field = _docComment.GetType().BaseType!.GetField("userSized", BindingFlags.Instance | BindingFlags.NonPublic);
+            //    field!.SetValue(_docComment, true);
 
-                var info = _docComment.GetType().GetProperty("Lines");
-                info!.SetValue(_docComment, x, null);
+            //    var info = _docComment.GetType().GetProperty("Lines");
+            //    info!.SetValue(_docComment, x, null);
 
-                HelpVisible = true;
-            }
+            //    HelpVisible = true;
+            //}
         }
         
         /// <summary>Expand or collapse the group.</summary>

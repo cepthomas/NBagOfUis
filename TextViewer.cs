@@ -28,8 +28,11 @@ namespace NBagOfUis
         /// <summary>Cosmetics.</summary>
         public override Font Font { get { return _rtb.Font; } set { _rtb.Font = value; } }
 
-        /// <summary></summary>
+        /// <summary>Word wrap toggle.</summary>
         public bool WordWrap { get { return _rtb.WordWrap; } set { _rtb.WordWrap = value; } }
+
+        /// <summary>Optional prompt.</summary>
+        public string Prompt { get; set; } = "";
         #endregion
 
         #region Fields
@@ -51,10 +54,33 @@ namespace NBagOfUis
                 ReadOnly = true,
                 ScrollBars = RichTextBoxScrollBars.Both
             };
+            _rtb.KeyDown += Rtb_KeyDown;
             Controls.Add(_rtb);
         }
 
-        /// <summary></summary>
+        /// <summary>
+        /// Ready to see.
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnLoad(EventArgs e)
+        {
+            AppendLine("Hello. C clears the display and W toggles word wrap");
+            base.OnLoad(e);
+        }
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _rtb.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+       /// <summary></summary>
         public void Clear()
         {
             _rtb.Clear();
@@ -66,7 +92,7 @@ namespace NBagOfUis
         /// <param name="text">The message.</param>
         public void AppendLine(string text)
         {
-            AppendText($"{text}{Environment.NewLine}");
+            AppendText($"{Prompt}{text}{Environment.NewLine}");
         }
 
         /// <summary>
@@ -94,6 +120,33 @@ namespace NBagOfUis
 
             _rtb.AppendText(text);
             _rtb.ScrollToCaret();
+        }
+
+        /// <summary>
+        /// Catch a few keys.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void Rtb_KeyDown(object? sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.C:
+                    if (e.Modifiers == 0)
+                    {
+                        Clear();
+                        e.Handled = true;
+                    }
+                    break;
+
+                case Keys.W:
+                    if (e.Modifiers == 0)
+                    {
+                        WordWrap = !WordWrap;
+                        e.Handled = true;
+                    }
+                    break;
+            }
         }
     }
 }
