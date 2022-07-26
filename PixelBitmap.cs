@@ -14,7 +14,7 @@ using System.Windows.Forms;
 namespace NBagOfUis
 {
     /// <summary>
-    /// Borrowed from https://stackoverflow.com/a/34801225
+    /// Fast pixel read/write. Borrowed from https://stackoverflow.com/a/34801225.
     /// </summary>
     public sealed class PixelBitmap : IDisposable
     {
