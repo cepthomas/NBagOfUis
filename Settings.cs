@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using NBagOfTricks;
 
 
+// TODO separate settings edit from settings?
+
 namespace NBagOfUis
 {
     public class Settings

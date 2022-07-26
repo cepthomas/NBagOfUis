@@ -12,19 +12,9 @@ namespace NBagOfUis
     /// </summary>
     public class Slider : UserControl
     {
+        // TODO log/db for volume use.
+
         #region Fields
-        /// <summary>Current value.</summary>
-        double _value = 5.0;
-
-        /// <summary>Min value.</summary>
-        double _minimum = 0.0;
-
-        /// <summary>Max value.</summary>
-        double _maximum = 10.0;
-
-        /// <summary>Restrict to discrete steps.</summary>
-        double _resolution = 0.1;
-
         /// <summary>If user resets. This is the first value assigned to Value.</summary>
         double _resetVal = double.NaN;
 
@@ -51,6 +41,7 @@ namespace NBagOfUis
             get { return _resolution; }
             set { _resolution = value; Rescale(); }
         }
+        double _resolution = 0.1;
 
         /// <summary>Minimum Value of the slider.</summary>
         public double Minimum
@@ -58,6 +49,7 @@ namespace NBagOfUis
             get { return _minimum; }
             set { _minimum = value; Rescale(); }
         }
+        double _minimum = 0.0;
 
         /// <summary>Maximum Value of the slider.</summary>
         public double Maximum
@@ -65,6 +57,7 @@ namespace NBagOfUis
             get { return _maximum; }
             set { _maximum = value; Rescale(); }
         }
+        double _maximum = 10.0;
 
         /// <summary>The current value of the slider.</summary>
         public double Value
@@ -72,6 +65,7 @@ namespace NBagOfUis
             get { return _value; }
             set { _value = MathUtils.Constrain(value, _minimum, _maximum, _resolution); if (double.IsNaN(_resetVal)) _resetVal = value; Invalidate(); }
         }
+        double _value = 5.0;
         #endregion
 
         #region Events

@@ -17,7 +17,7 @@ namespace NBagOfUis
         /// <summary>The colors to display when text is matched.</summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Dictionary<string, Color> Colors { get; set; } = new Dictionary<string, Color>();
+        public Dictionary<string, Color> MatchColors { get; set; } = new Dictionary<string, Color>();
 
         /// <summary>Limit the size. Set to 0 to disable.</summary>
         public int MaxText { get; set; } = 50000;
@@ -109,11 +109,11 @@ namespace NBagOfUis
 
             _rtb.SelectionBackColor = BackColor; // default
 
-            foreach (string s in Colors.Keys)
+            foreach (string s in MatchColors.Keys)
             {
                 if (text.Contains(s))
                 {
-                    _rtb.SelectionBackColor = Colors[s];
+                    _rtb.SelectionBackColor = MatchColors[s];
                     break;
                 }
             }
