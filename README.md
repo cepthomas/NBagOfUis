@@ -1,9 +1,9 @@
 # NBagOfUis
-WinForms controls collected over the years. Companion to [NBagOfTricks](https://github.com/cepthomas/NBagOfTricks/blob/main/README.md).
+WinForms controls collected over the years.
 
 Requires VS2022 and .NET6.
 
-No dependencies on third party components.
+No dependencies on external components. Does use my NBagOfTricks.
 
 Probably I should make this into a nuget package at some point.
 
@@ -21,6 +21,10 @@ Probably I should make this into a nuget package at some point.
 - TextViewer: With colorizing.
 - WaitCursor: Easy to use cursor.
 - Slider: Generic slider control.
+- Meter: Linear or log.
+- Pot: Just like on your guitar.
+- Pan: Just like on your hifi.
+
 
 ## Utilities
 - KeyUtils: Keyboard input.
