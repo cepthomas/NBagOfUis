@@ -52,6 +52,8 @@
             this.slider2 = new NBagOfUis.Slider();
             this.pan1 = new NBagOfUis.Pan();
             this.pot1 = new NBagOfUis.Pot();
+            this.toolStripSlider1 = new NBagOfUis.ToolStripSlider();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -132,10 +134,12 @@
             this.btnSettings,
             this.toolStripSeparator2,
             this.btnCpu,
-            this.toolStripSeparator3});
+            this.toolStripSeparator3,
+            this.toolStripSlider1,
+            this.toolStripSeparator4});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1000, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(1000, 33);
             this.toolStrip1.TabIndex = 25;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -144,26 +148,26 @@
             this.btnGfx.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnGfx.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnGfx.Name = "btnGfx";
-            this.btnGfx.Size = new System.Drawing.Size(34, 24);
+            this.btnGfx.Size = new System.Drawing.Size(34, 30);
             this.btnGfx.Text = "gfx";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 33);
             // 
             // btnSettings
             // 
             this.btnSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(64, 24);
+            this.btnSettings.Size = new System.Drawing.Size(64, 30);
             this.btnSettings.Text = "settings";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 33);
             // 
             // btnCpu
             // 
@@ -171,13 +175,13 @@
             this.btnCpu.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnCpu.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnCpu.Name = "btnCpu";
-            this.btnCpu.Size = new System.Drawing.Size(37, 24);
+            this.btnCpu.Size = new System.Drawing.Size(37, 30);
             this.btnCpu.Text = "cpu";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 33);
             // 
             // meterDots
             // 
@@ -266,6 +270,33 @@
             this.pot1.Taper = NBagOfUis.Taper.Linear;
             this.pot1.Value = 50D;
             // 
+            // toolStripSlider1
+            // 
+            this.toolStripSlider1.AutoSize = false;
+            this.toolStripSlider1.Name = "toolStripSlider1";
+            this.toolStripSlider1.Size = new System.Drawing.Size(150, 30);
+            // 
+            // toolStripSlider1
+            // 
+            this.toolStripSlider1.Slider.AccessibleName = "toolStripSlider1";
+            this.toolStripSlider1.Slider.DrawColor = System.Drawing.Color.White;
+            this.toolStripSlider1.Slider.Label = "";
+            this.toolStripSlider1.Slider.Location = new System.Drawing.Point(163, 1);
+            this.toolStripSlider1.Slider.Maximum = 10D;
+            this.toolStripSlider1.Slider.Minimum = 0D;
+            this.toolStripSlider1.Slider.Name = "Slider";
+            this.toolStripSlider1.Slider.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.toolStripSlider1.Slider.Resolution = 0.1D;
+            this.toolStripSlider1.Slider.Size = new System.Drawing.Size(150, 30);
+            this.toolStripSlider1.Slider.TabIndex = 1;
+            this.toolStripSlider1.Slider.Value = 5D;
+            this.toolStripSlider1.Text = "toolStripSlider1";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 33);
+            // 
             // TestHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -316,5 +347,7 @@
         private Slider slider2;
         private Pan pan1;
         private Pot pot1;
+        private ToolStripSlider toolStripSlider1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
     }
 }

@@ -1,7 +1,9 @@
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Windows.Forms.Design;
 using NBagOfTricks;
 
 
@@ -80,6 +82,7 @@ namespace NBagOfUis
         public Slider()
         {
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
+            InitializeComponent();
         }
 
         /// <summary>
@@ -93,6 +96,20 @@ namespace NBagOfUis
                 _format.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        /// <summary>
+        /// Designer.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // Slider
+            // 
+            this.Name = "Slider";
+            this.Size = new System.Drawing.Size(150, 30);
+            this.ResumeLayout(false);
         }
         #endregion
 
@@ -223,5 +240,21 @@ namespace NBagOfUis
             base.OnKeyDown(e);
         }
         #endregion
+    }
+
+
+    /// <summary>Simple toolstrip container for the slider.</summary>
+    [ToolStripItemDesignerAvailability(ToolStripItemDesignerAvailability.ToolStrip | ToolStripItemDesignerAvailability.StatusStrip)]
+    public class ToolStripSlider : ToolStripControlHost
+    {
+        public ToolStripSlider() : base(new Slider())
+        {
+            AutoSize = false;
+            Width = Slider.Width;
+        }
+
+        /// <summary>Contained control exposed.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public Slider Slider { get { return (Control as Slider)!; } }
     }
 }

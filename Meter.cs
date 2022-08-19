@@ -59,6 +59,7 @@ namespace NBagOfUis
         public Meter()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
+            InitializeComponent();
             Name = "Meter";
         }
 
@@ -75,6 +76,20 @@ namespace NBagOfUis
                 _format.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        /// <summary>
+        /// Designer.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // Meter
+            // 
+            this.Name = "Meter";
+            this.Size = new System.Drawing.Size(150, 30);
+            this.ResumeLayout(false);
         }
         #endregion
 

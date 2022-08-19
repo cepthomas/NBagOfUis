@@ -96,6 +96,7 @@ namespace NBagOfUis
         public Pot()
         {
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
+            InitializeComponent();
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
             Name = "Pot";
@@ -114,6 +115,21 @@ namespace NBagOfUis
                 _format.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        /// <summary>
+        /// Designer.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // Pot
+            // 
+            this.Name = "Pot";
+            this.Size = new System.Drawing.Size(60, 60);
+            this.ResumeLayout(false);
+
         }
         #endregion
 

@@ -54,6 +54,7 @@ namespace NBagOfUis
         public Pan()
         {
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
+            InitializeComponent();
         }
 
         /// <summary>
@@ -68,6 +69,20 @@ namespace NBagOfUis
                 _format.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        /// <summary>
+        /// Designer.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // Pan
+            // 
+            this.Name = "Pan";
+            this.Size = new System.Drawing.Size(150, 30);
+            this.ResumeLayout(false);
         }
         #endregion
 
