@@ -247,14 +247,48 @@ namespace NBagOfUis
     [ToolStripItemDesignerAvailability(ToolStripItemDesignerAvailability.ToolStrip | ToolStripItemDesignerAvailability.StatusStrip)]
     public class ToolStripSlider : ToolStripControlHost
     {
+        /// <summary>Contained control.</summary>
+        Slider _slider;
+
+        #region Properties mapped to contained control.
+        /// <summary>Optional label.</summary>
+        public string Label { get { return _slider.Label; } set { _slider.Label = value; } }
+
+        /// <summary>For styling.</summary>
+        public Color DrawColor { get { return _slider.DrawColor; } set { _slider.DrawColor = value; } }
+
+        /// <summary>Fader orientation</summary>
+        public Orientation Orientation { get { return _slider.Orientation; } set { _slider.Orientation = value; } }
+
+        /// <summary>Per step resolution of this slider.</summary>
+        public double Resolution { get { return _slider.Resolution; } set { _slider.Resolution = value; } }
+
+        /// <summary>Minimum Value of the slider.</summary>
+        public double Minimum { get { return _slider.Minimum; } set { _slider.Minimum = value; } }
+
+        /// <summary>Maximum Value of the slider.</summary>
+        public double Maximum { get { return _slider.Maximum; } set { _slider.Maximum = value; } }
+
+        /// <summary>The current value of the slider.</summary>
+        public double Value { get { return _slider.Value; } set { _slider.Value = value; } }
+        #endregion
+
+        #region Events
+        /// <summary>Slider value changed event.</summary>
+        public event EventHandler? ValueChanged;
+        #endregion
+
+
         public ToolStripSlider() : base(new Slider())
         {
+            _slider = (Slider)Control;
             AutoSize = false;
-            Width = Slider.Width;
+            Width = _slider.Width;
+            _slider.ValueChanged += (_, __) => { ValueChanged?.Invoke(this, EventArgs.Empty); };
         }
 
-        /// <summary>Contained control exposed.</summary>
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public Slider Slider { get { return (Control as Slider)!; } }
+        // /// <summary>Contained control exposed.</summary>
+        // [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        // public Slider Slider { get { return (Control as Slider)!; } }
     }
 }

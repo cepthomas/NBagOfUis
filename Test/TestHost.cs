@@ -92,6 +92,8 @@ namespace NBagOfUis.Test
             // sl2 2 -> 19
             slider2.ValueChanged += (_, __) => { meterDots.AddValue(slider2.Value); };
 
+            toolStripSlider1.ValueChanged += (_, __) => { Tell($"toolStripSlider1:{toolStripSlider1.Value}"); };
+
             // Go-go-go.
             timer1.Enabled = true;
         }

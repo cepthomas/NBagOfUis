@@ -278,18 +278,16 @@
             // 
             // toolStripSlider1
             // 
-            this.toolStripSlider1.Slider.AccessibleName = "toolStripSlider1";
-            this.toolStripSlider1.Slider.DrawColor = System.Drawing.Color.White;
-            this.toolStripSlider1.Slider.Label = "";
-            this.toolStripSlider1.Slider.Location = new System.Drawing.Point(163, 1);
-            this.toolStripSlider1.Slider.Maximum = 10D;
-            this.toolStripSlider1.Slider.Minimum = 0D;
-            this.toolStripSlider1.Slider.Name = "Slider";
-            this.toolStripSlider1.Slider.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.toolStripSlider1.Slider.Resolution = 0.1D;
-            this.toolStripSlider1.Slider.Size = new System.Drawing.Size(150, 30);
-            this.toolStripSlider1.Slider.TabIndex = 1;
-            this.toolStripSlider1.Slider.Value = 5D;
+            this.toolStripSlider1.AccessibleName = "toolStripSlider1";
+            this.toolStripSlider1.DrawColor = System.Drawing.Color.White;
+            this.toolStripSlider1.Label = "";
+            this.toolStripSlider1.Maximum = 10D;
+            this.toolStripSlider1.Minimum = 0D;
+            this.toolStripSlider1.Name = "Slider";
+            this.toolStripSlider1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.toolStripSlider1.Resolution = 0.1D;
+            this.toolStripSlider1.Size = new System.Drawing.Size(150, 30);
+            this.toolStripSlider1.Value = 5D;
             this.toolStripSlider1.Text = "toolStripSlider1";
             // 
             // toolStripSeparator4
