@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Windows.Forms.Design;
 using NBagOfTricks;
 
 
@@ -205,5 +206,53 @@ namespace NBagOfUis
             Invalidate();
         }
         #endregion
+    }
+
+
+    /// <summary>Simple toolstrip container for the meter.</summary>
+    [ToolStripItemDesignerAvailability(ToolStripItemDesignerAvailability.ToolStrip | ToolStripItemDesignerAvailability.StatusStrip)]
+    public class ToolStripMeter : ToolStripControlHost
+    {
+        #region Fields
+        /// <summary>Contained control.</summary>
+        Meter _meter;
+        #endregion
+
+        #region Properties mapped to contained control
+        /// <summary>Optional label.</summary>
+        public string Label { get { return _meter.Label; } set { _meter.Label = value; } }
+
+        /// <summary>For styling.</summary>
+        public Color DrawColor { get { return _meter.DrawColor; } set { _meter.DrawColor = value; } }
+
+        /// <summary>How the meter responds.</summary>
+        public MeterType MeterType { get { return _meter.MeterType; } set { _meter.MeterType = value; } }
+
+        /// <summary>Minimum Value of the slider.</summary>
+        public double Minimum { get { return _meter.Minimum; } set { _meter.Minimum = value; } }
+
+        /// <summary>Maximum Value of the slider.</summary>
+        public double Maximum { get { return _meter.Maximum; } set { _meter.Maximum = value; } }
+
+        /// <summary>Optional border.</summary>
+        public BorderStyle BorderStyle { get { return _meter.BorderStyle; } set { _meter.BorderStyle = value; } }
+        #endregion
+
+        /// <summary>
+        /// Make one.
+        /// </summary>
+        public ToolStripMeter() : base(new Meter())
+        {
+            _meter = (Meter)Control;
+            AutoSize = false;
+            Width = _meter.Width;
+            _meter.Orientation = Orientation.Horizontal;
+        }
+
+        /// <summary>
+        /// Add a new data point. If Log, this will convert for you.
+        /// </summary>
+        /// <param name="val"></param>
+        public void AddValue(double val) { _meter.AddValue(val); }
     }
 }

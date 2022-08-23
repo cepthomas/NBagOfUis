@@ -21,6 +21,7 @@ namespace NBagOfUis
 
         #region Properties
         /// <summary>The values to edit. Key is text, value is bool enable. Clone in case user cancels.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), Browsable(false)]
         public Dictionary<string, bool> Values
         { 
             get { return _values; }

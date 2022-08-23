@@ -46,14 +46,16 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnCpu = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSlider1 = new NBagOfUis.ToolStripSlider();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMeter1 = new NBagOfUis.ToolStripMeter();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.meterDots = new NBagOfUis.Meter();
             this.meterLog = new NBagOfUis.Meter();
             this.meterLinear = new NBagOfUis.Meter();
             this.slider2 = new NBagOfUis.Slider();
             this.pan1 = new NBagOfUis.Pan();
             this.pot1 = new NBagOfUis.Pot();
-            this.toolStripSlider1 = new NBagOfUis.ToolStripSlider();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,7 +73,6 @@
             // 
             // propGrid
             // 
-            this.propGrid.Dirty = false;
             this.propGrid.Location = new System.Drawing.Point(491, 309);
             this.propGrid.Name = "propGrid";
             this.propGrid.Size = new System.Drawing.Size(274, 358);
@@ -136,10 +137,12 @@
             this.btnCpu,
             this.toolStripSeparator3,
             this.toolStripSlider1,
-            this.toolStripSeparator4});
+            this.toolStripSeparator4,
+            this.toolStripMeter1,
+            this.toolStripSeparator5});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1000, 33);
+            this.toolStrip1.Size = new System.Drawing.Size(1000, 43);
             this.toolStrip1.TabIndex = 25;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -148,26 +151,26 @@
             this.btnGfx.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnGfx.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnGfx.Name = "btnGfx";
-            this.btnGfx.Size = new System.Drawing.Size(34, 30);
+            this.btnGfx.Size = new System.Drawing.Size(34, 40);
             this.btnGfx.Text = "gfx";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 33);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 43);
             // 
             // btnSettings
             // 
             this.btnSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(64, 30);
+            this.btnSettings.Size = new System.Drawing.Size(64, 40);
             this.btnSettings.Text = "settings";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 33);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 43);
             // 
             // btnCpu
             // 
@@ -175,13 +178,51 @@
             this.btnCpu.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnCpu.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnCpu.Name = "btnCpu";
-            this.btnCpu.Size = new System.Drawing.Size(37, 30);
+            this.btnCpu.Size = new System.Drawing.Size(37, 40);
             this.btnCpu.Text = "cpu";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 33);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 43);
+            // 
+            // toolStripSlider1
+            // 
+            this.toolStripSlider1.AccessibleName = "toolStripSlider1";
+            this.toolStripSlider1.AutoSize = false;
+            this.toolStripSlider1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.toolStripSlider1.DrawColor = System.Drawing.Color.LightSeaGreen;
+            this.toolStripSlider1.Label = "HOOHAA";
+            this.toolStripSlider1.Maximum = 10D;
+            this.toolStripSlider1.Minimum = 0D;
+            this.toolStripSlider1.Name = "toolStripSlider1";
+            this.toolStripSlider1.Resolution = 0.1D;
+            this.toolStripSlider1.Size = new System.Drawing.Size(150, 40);
+            this.toolStripSlider1.Text = "toolStripSlider1";
+            this.toolStripSlider1.Value = 5D;
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 43);
+            // 
+            // toolStripMeter1
+            // 
+            this.toolStripMeter1.AutoSize = false;
+            this.toolStripMeter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.toolStripMeter1.DrawColor = System.Drawing.Color.GreenYellow;
+            this.toolStripMeter1.Label = "dotty";
+            this.toolStripMeter1.Maximum = 100D;
+            this.toolStripMeter1.MeterType = NBagOfUis.MeterType.ContinuousDots;
+            this.toolStripMeter1.Minimum = 0D;
+            this.toolStripMeter1.Name = "toolStripMeter1";
+            this.toolStripMeter1.Size = new System.Drawing.Size(150, 40);
+            this.toolStripMeter1.Text = "toolStripMeter1";
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 43);
             // 
             // meterDots
             // 
@@ -270,31 +311,6 @@
             this.pot1.Taper = NBagOfUis.Taper.Linear;
             this.pot1.Value = 50D;
             // 
-            // toolStripSlider1
-            // 
-            this.toolStripSlider1.AutoSize = false;
-            this.toolStripSlider1.Name = "toolStripSlider1";
-            this.toolStripSlider1.Size = new System.Drawing.Size(150, 30);
-            // 
-            // toolStripSlider1
-            // 
-            this.toolStripSlider1.AccessibleName = "toolStripSlider1";
-            this.toolStripSlider1.DrawColor = System.Drawing.Color.White;
-            this.toolStripSlider1.Label = "";
-            this.toolStripSlider1.Maximum = 10D;
-            this.toolStripSlider1.Minimum = 0D;
-            this.toolStripSlider1.Name = "Slider";
-            this.toolStripSlider1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.toolStripSlider1.Resolution = 0.1D;
-            this.toolStripSlider1.Size = new System.Drawing.Size(150, 30);
-            this.toolStripSlider1.Value = 5D;
-            this.toolStripSlider1.Text = "toolStripSlider1";
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 33);
-            // 
             // TestHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -347,5 +363,7 @@
         private Pot pot1;
         private ToolStripSlider toolStripSlider1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private ToolStripMeter toolStripMeter1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
     }
 }

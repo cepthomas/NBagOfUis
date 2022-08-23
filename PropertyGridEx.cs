@@ -16,7 +16,7 @@ namespace NBagOfUis
     {
         #region Properties
         /// <summary>Edited flag.</summary>
-        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), Browsable(false)]
         public bool Dirty { get; set; } = false;
         #endregion
 

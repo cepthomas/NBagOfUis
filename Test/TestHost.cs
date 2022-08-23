@@ -93,6 +93,8 @@ namespace NBagOfUis.Test
             slider2.ValueChanged += (_, __) => { meterDots.AddValue(slider2.Value); };
 
             toolStripSlider1.ValueChanged += (_, __) => { Tell($"toolStripSlider1:{toolStripSlider1.Value}"); };
+            
+            pan1.ValueChanged += (_, __) => { toolStripMeter1.AddValue(pan1.Value * 50.0 + 50.0); };
 
             // Go-go-go.
             timer1.Enabled = true;

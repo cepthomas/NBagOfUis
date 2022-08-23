@@ -27,6 +27,13 @@ namespace NBagOfUis
         readonly StringFormat _format = new() { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center };
         #endregion
 
+        #region Backing fields
+        double _resolution = 0.1;
+        double _minimum = 0.0;
+        double _maximum = 10.0;
+        double _value = 5.0;
+        #endregion
+
         #region Properties
         /// <summary>Optional label.</summary>
         public string Label { get; set; } = "";
@@ -43,7 +50,6 @@ namespace NBagOfUis
             get { return _resolution; }
             set { _resolution = value; Rescale(); }
         }
-        double _resolution = 0.1;
 
         /// <summary>Minimum Value of the slider.</summary>
         public double Minimum
@@ -51,7 +57,6 @@ namespace NBagOfUis
             get { return _minimum; }
             set { _minimum = value; Rescale(); }
         }
-        double _minimum = 0.0;
 
         /// <summary>Maximum Value of the slider.</summary>
         public double Maximum
@@ -59,7 +64,6 @@ namespace NBagOfUis
             get { return _maximum; }
             set { _maximum = value; Rescale(); }
         }
-        double _maximum = 10.0;
 
         /// <summary>The current value of the slider.</summary>
         public double Value
@@ -67,7 +71,6 @@ namespace NBagOfUis
             get { return _value; }
             set { _value = MathUtils.Constrain(value, _minimum, _maximum, _resolution); if (double.IsNaN(_resetVal)) _resetVal = value; Invalidate(); }
         }
-        double _value = 5.0;
         #endregion
 
         #region Events
@@ -247,18 +250,17 @@ namespace NBagOfUis
     [ToolStripItemDesignerAvailability(ToolStripItemDesignerAvailability.ToolStrip | ToolStripItemDesignerAvailability.StatusStrip)]
     public class ToolStripSlider : ToolStripControlHost
     {
+        #region Fields
         /// <summary>Contained control.</summary>
         Slider _slider;
+        #endregion
 
-        #region Properties mapped to contained control.
+        #region Properties mapped to contained control
         /// <summary>Optional label.</summary>
         public string Label { get { return _slider.Label; } set { _slider.Label = value; } }
 
         /// <summary>For styling.</summary>
         public Color DrawColor { get { return _slider.DrawColor; } set { _slider.DrawColor = value; } }
-
-        /// <summary>Fader orientation</summary>
-        public Orientation Orientation { get { return _slider.Orientation; } set { _slider.Orientation = value; } }
 
         /// <summary>Per step resolution of this slider.</summary>
         public double Resolution { get { return _slider.Resolution; } set { _slider.Resolution = value; } }
@@ -271,6 +273,9 @@ namespace NBagOfUis
 
         /// <summary>The current value of the slider.</summary>
         public double Value { get { return _slider.Value; } set { _slider.Value = value; } }
+
+        /// <summary>Optional border.</summary>
+        public BorderStyle BorderStyle { get { return _slider.BorderStyle; } set { _slider.BorderStyle = value; } }
         #endregion
 
         #region Events
@@ -278,17 +283,16 @@ namespace NBagOfUis
         public event EventHandler? ValueChanged;
         #endregion
 
-
+        /// <summary>
+        /// Make one.
+        /// </summary>
         public ToolStripSlider() : base(new Slider())
         {
             _slider = (Slider)Control;
             AutoSize = false;
             Width = _slider.Width;
+            _slider.Orientation = Orientation.Horizontal;
             _slider.ValueChanged += (_, __) => { ValueChanged?.Invoke(this, EventArgs.Empty); };
         }
-
-        // /// <summary>Contained control exposed.</summary>
-        // [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        // public Slider Slider { get { return (Control as Slider)!; } }
     }
 }

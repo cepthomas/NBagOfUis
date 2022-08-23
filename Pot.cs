@@ -40,6 +40,13 @@ namespace NBagOfUis
         readonly StringFormat _format = new() { LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Center };
         #endregion
 
+        #region Backing fields
+        double _resolution = 5.0;
+        double _minimum = 0.0;
+        double _maximum = 100.0;
+        double _value = 50.0;
+        #endregion
+
         #region Properties
         /// <summary>For styling.</summary>
         public Color DrawColor { get { return _pen.Color; } set { _pen.Color = value; } }
@@ -56,8 +63,6 @@ namespace NBagOfUis
             get { return _resolution; }
             set { _resolution = value; Rescale(); }
         }
-        double _resolution = 5.0;
-
 
         /// <summary>Minimum Value of the pot.</summary>
         public double Minimum
@@ -65,7 +70,6 @@ namespace NBagOfUis
             get { return _minimum; }
             set { _minimum = value; Rescale(); }
         }
-        double _minimum = 0.0;
 
         /// <summary>Maximum Value of the pot.</summary>
         public double Maximum
@@ -73,7 +77,6 @@ namespace NBagOfUis
             get { return _maximum; }
             set { _maximum = value; Rescale(); }
         }
-        double _maximum = 100.0;
 
         /// <summary>The current value of the pot.</summary>
         public double Value
@@ -81,7 +84,6 @@ namespace NBagOfUis
             get { return _value; }
             set { _value = MathUtils.Constrain(value, _minimum, _maximum, _resolution); if (double.IsNaN(_resetVal)) _resetVal = value; Invalidate(); }
         }
-        double _value = 50.0;
         #endregion
 
         #region Events
