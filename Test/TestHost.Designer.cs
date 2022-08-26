@@ -61,19 +61,20 @@
             // 
             // txtInfo
             // 
+            this.txtInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtInfo.Location = new System.Drawing.Point(1, 445);
+            this.txtInfo.Location = new System.Drawing.Point(491, 660);
             this.txtInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtInfo.MaxText = 5000;
             this.txtInfo.Name = "txtInfo";
             this.txtInfo.Prompt = "** ";
-            this.txtInfo.Size = new System.Drawing.Size(483, 222);
+            this.txtInfo.Size = new System.Drawing.Size(483, 124);
             this.txtInfo.TabIndex = 5;
             this.txtInfo.WordWrap = true;
             // 
             // propGrid
             // 
-            this.propGrid.Location = new System.Drawing.Point(491, 309);
+            this.propGrid.Location = new System.Drawing.Point(489, 294);
             this.propGrid.Name = "propGrid";
             this.propGrid.Size = new System.Drawing.Size(274, 358);
             this.propGrid.TabIndex = 20;
@@ -81,7 +82,7 @@
             // clickGrid1
             // 
             this.clickGrid1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.clickGrid1.Location = new System.Drawing.Point(491, 40);
+            this.clickGrid1.Location = new System.Drawing.Point(491, 53);
             this.clickGrid1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.clickGrid1.Name = "clickGrid1";
             this.clickGrid1.Size = new System.Drawing.Size(274, 143);
@@ -89,11 +90,11 @@
             // 
             // ftree
             // 
-            this.ftree.Location = new System.Drawing.Point(1, 40);
+            this.ftree.Location = new System.Drawing.Point(1, 51);
             this.ftree.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.ftree.Name = "ftree";
             this.ftree.SingleClickSelect = true;
-            this.ftree.Size = new System.Drawing.Size(483, 395);
+            this.ftree.Size = new System.Drawing.Size(483, 601);
             this.ftree.TabIndex = 11;
             this.ftree.FileSelectedEvent += new System.EventHandler<string>(this.FilTree_FileSelectedEvent);
             // 
@@ -116,7 +117,7 @@
             this.slider1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.slider1.DrawColor = System.Drawing.Color.Orange;
             this.slider1.Label = "slider1";
-            this.slider1.Location = new System.Drawing.Point(787, 40);
+            this.slider1.Location = new System.Drawing.Point(785, 53);
             this.slider1.Maximum = 1D;
             this.slider1.Minimum = 0D;
             this.slider1.Name = "slider1";
@@ -142,7 +143,7 @@
             this.toolStripSeparator5});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1000, 43);
+            this.toolStrip1.Size = new System.Drawing.Size(1026, 43);
             this.toolStrip1.TabIndex = 25;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -229,7 +230,7 @@
             this.meterDots.BackColor = System.Drawing.Color.Gainsboro;
             this.meterDots.DrawColor = System.Drawing.Color.White;
             this.meterDots.Label = "meterDots";
-            this.meterDots.Location = new System.Drawing.Point(787, 289);
+            this.meterDots.Location = new System.Drawing.Point(785, 302);
             this.meterDots.Maximum = 10D;
             this.meterDots.MeterType = NBagOfUis.MeterType.ContinuousDots;
             this.meterDots.Minimum = 0D;
@@ -243,7 +244,7 @@
             this.meterLog.BackColor = System.Drawing.Color.Gainsboro;
             this.meterLog.DrawColor = System.Drawing.Color.Azure;
             this.meterLog.Label = "meter log";
-            this.meterLog.Location = new System.Drawing.Point(787, 369);
+            this.meterLog.Location = new System.Drawing.Point(785, 382);
             this.meterLog.Maximum = 3D;
             this.meterLog.MeterType = NBagOfUis.MeterType.Log;
             this.meterLog.Minimum = -60D;
@@ -257,7 +258,7 @@
             this.meterLinear.BackColor = System.Drawing.Color.Gainsboro;
             this.meterLinear.DrawColor = System.Drawing.Color.White;
             this.meterLinear.Label = "meterLinear";
-            this.meterLinear.Location = new System.Drawing.Point(787, 445);
+            this.meterLinear.Location = new System.Drawing.Point(785, 458);
             this.meterLinear.Maximum = 100D;
             this.meterLinear.MeterType = NBagOfUis.MeterType.Linear;
             this.meterLinear.Minimum = 0D;
@@ -272,7 +273,7 @@
             this.slider2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.slider2.DrawColor = System.Drawing.Color.SlateBlue;
             this.slider2.Label = "SL2";
-            this.slider2.Location = new System.Drawing.Point(787, 99);
+            this.slider2.Location = new System.Drawing.Point(785, 112);
             this.slider2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.slider2.Maximum = 19D;
             this.slider2.Minimum = 2D;
@@ -287,7 +288,7 @@
             // 
             this.pan1.BackColor = System.Drawing.Color.Gainsboro;
             this.pan1.DrawColor = System.Drawing.Color.Crimson;
-            this.pan1.Location = new System.Drawing.Point(862, 216);
+            this.pan1.Location = new System.Drawing.Point(860, 229);
             this.pan1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pan1.Name = "pan1";
             this.pan1.Size = new System.Drawing.Size(122, 46);
@@ -300,7 +301,7 @@
             this.pot1.DrawColor = System.Drawing.Color.Green;
             this.pot1.ForeColor = System.Drawing.Color.Black;
             this.pot1.Label = "p99";
-            this.pot1.Location = new System.Drawing.Point(862, 99);
+            this.pot1.Location = new System.Drawing.Point(860, 112);
             this.pot1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pot1.Maximum = 100D;
             this.pot1.Minimum = 0D;
@@ -315,7 +316,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1000, 674);
+            this.ClientSize = new System.Drawing.Size(1026, 795);
             this.Controls.Add(this.pot1);
             this.Controls.Add(this.pan1);
             this.Controls.Add(this.slider2);

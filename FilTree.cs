@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
 
 namespace NBagOfUis
@@ -247,10 +248,15 @@ namespace NBagOfUis
         /// 
         /// </summary>
         /// <param name="e"></param>
-        protected override void OnResize(EventArgs e)
+        protected override void OnResize(EventArgs e) // TODO resizing and anchors of components not working.
         {
+            //lvFiles.Size = new Size(lvFiles.Width, Height - toolStrip1.Height);
+            //treeView.Size = new Size(treeView.Width, Height - toolStrip1.Height);
+
             lvFiles.Columns[0].Width = lvFiles.Width / 2;
             lvFiles.Columns[1].Width = -2;
+
+            Invalidate();
         }
         #endregion
     }
