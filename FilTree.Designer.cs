@@ -48,10 +48,11 @@
             // 
             this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.treeView.ContextMenuStrip = this.menuFiles;
+            this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView.Location = new System.Drawing.Point(0, 0);
             this.treeView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(257, 571);
+            this.treeView.Size = new System.Drawing.Size(262, 404);
             this.treeView.TabIndex = 0;
             this.treeView.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.TreeView_DrawNode);
             this.treeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.TreeView_NodeMouseClick);
@@ -70,11 +71,12 @@
             this.dvcolFile,
             this.dvcolSize});
             this.lvFiles.ContextMenuStrip = this.menuFiles;
+            this.lvFiles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvFiles.FullRowSelect = true;
             this.lvFiles.Location = new System.Drawing.Point(0, 0);
             this.lvFiles.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lvFiles.Name = "lvFiles";
-            this.lvFiles.Size = new System.Drawing.Size(327, 571);
+            this.lvFiles.Size = new System.Drawing.Size(334, 404);
             this.lvFiles.TabIndex = 1;
             this.lvFiles.UseCompatibleStateImageBehavior = false;
             this.lvFiles.View = System.Windows.Forms.View.Details;
@@ -122,7 +124,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.lvFiles);
-            this.splitContainer2.Size = new System.Drawing.Size(600, 575);
+            this.splitContainer2.Size = new System.Drawing.Size(600, 404);
             this.splitContainer2.SplitterDistance = 262;
             this.splitContainer2.TabIndex = 4;
             // 
@@ -134,7 +136,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FilTree";
-            this.Size = new System.Drawing.Size(600, 600);
+            this.Size = new System.Drawing.Size(600, 429);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);

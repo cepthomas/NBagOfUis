@@ -48,6 +48,8 @@ namespace NBagOfUis
 
             treeView.HideSelection = false;
             treeView.DrawMode = TreeViewDrawMode.OwnerDrawText;
+
+            OnResize(EventArgs.Empty);
         }
 
         /// <summary>
@@ -245,18 +247,17 @@ namespace NBagOfUis
         }
 
         /// <summary>
-        /// 
+        /// Resize.
         /// </summary>
         /// <param name="e"></param>
-        protected override void OnResize(EventArgs e) // TODO resizing and anchors of components not working.
+        protected override void OnResize(EventArgs e)
         {
-            //lvFiles.Size = new Size(lvFiles.Width, Height - toolStrip1.Height);
-            //treeView.Size = new Size(treeView.Width, Height - toolStrip1.Height);
-
+            // TODO not quite right yet. It's a mystery.
             lvFiles.Columns[0].Width = lvFiles.Width / 2;
             lvFiles.Columns[1].Width = -2;
 
-            Invalidate();
+            var v = lvFiles.Columns;
+            base.OnResize(e);
         }
         #endregion
     }

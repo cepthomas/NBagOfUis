@@ -63,7 +63,7 @@
             // 
             this.txtInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtInfo.Location = new System.Drawing.Point(491, 660);
+            this.txtInfo.Location = new System.Drawing.Point(1, 582);
             this.txtInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtInfo.MaxText = 5000;
             this.txtInfo.Name = "txtInfo";
@@ -90,11 +90,13 @@
             // 
             // ftree
             // 
+            this.ftree.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.ftree.Location = new System.Drawing.Point(1, 51);
             this.ftree.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.ftree.Name = "ftree";
             this.ftree.SingleClickSelect = true;
-            this.ftree.Size = new System.Drawing.Size(483, 601);
+            this.ftree.Size = new System.Drawing.Size(483, 402);
             this.ftree.TabIndex = 11;
             this.ftree.FileSelectedEvent += new System.EventHandler<string>(this.FilTree_FileSelectedEvent);
             // 
@@ -316,7 +318,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1026, 795);
+            this.ClientSize = new System.Drawing.Size(1026, 709);
             this.Controls.Add(this.pot1);
             this.Controls.Add(this.pan1);
             this.Controls.Add(this.slider2);
