@@ -77,7 +77,7 @@ namespace NBagOfUis
             }
 
             // Capture user edits.
-            PropertyValueChanged += (_, __) => { Dirty = true; };
+            PropertyValueChanged += (_, __) => Dirty = true;
 
             Dirty = false;
         }

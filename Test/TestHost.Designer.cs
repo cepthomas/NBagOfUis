@@ -96,7 +96,7 @@
             this.ftree.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.ftree.Name = "ftree";
             this.ftree.SingleClickSelect = true;
-            this.ftree.Size = new System.Drawing.Size(483, 402);
+            this.ftree.Size = new System.Drawing.Size(483, 521);
             this.ftree.TabIndex = 11;
             this.ftree.FileSelectedEvent += new System.EventHandler<string>(this.FilTree_FileSelectedEvent);
             // 

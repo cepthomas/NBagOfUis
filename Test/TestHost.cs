@@ -80,21 +80,21 @@ namespace NBagOfUis.Test
             //propGrid.ShowProperty("TestString", false);
 
             ///// Other stuff.
-            btnSettings.Click += (_, __) => { DoSettings(); };
+            btnSettings.Click += (_, __) => DoSettings();
             btnGfx.Click += (_, __) => { new GraphicsForm().ShowDialog(); };
-            btnCpu.CheckedChanged += (_, __) => { cpuMeter1.Enable = btnCpu.Checked; };
+            btnCpu.CheckedChanged += (_, __) => cpuMeter1.Enable = btnCpu.Checked;
             // pot1 0 -> 100
-            pot1.ValueChanged += (_, __) => { Tell($"pot1:{pot1.Value}"); };
+            pot1.ValueChanged += (_, __) => Tell($"pot1:{pot1.Value}");
             //pan -1 -> 1
-            pan1.ValueChanged += (_, __) => { meterLog.AddValue(pan1.Value * 50.0 + 50.0); };
+            pan1.ValueChanged += (_, __) => meterLog.AddValue(pan1.Value * 50.0 + 50.0);
             // sl1 0 -> 100
-            slider1.ValueChanged += (_, __) => { meterLinear.AddValue(slider1.Value); };
+            slider1.ValueChanged += (_, __) => meterLinear.AddValue(slider1.Value);
             // sl2 2 -> 19
-            slider2.ValueChanged += (_, __) => { meterDots.AddValue(slider2.Value); };
+            slider2.ValueChanged += (_, __) => meterDots.AddValue(slider2.Value);
 
-            toolStripSlider1.ValueChanged += (_, __) => { Tell($"toolStripSlider1:{toolStripSlider1.Value}"); };
+            toolStripSlider1.ValueChanged += (_, __) => Tell($"toolStripSlider1:{toolStripSlider1.Value}");
             
-            pan1.ValueChanged += (_, __) => { toolStripMeter1.AddValue(pan1.Value * 50.0 + 50.0); };
+            pan1.ValueChanged += (_, __) => toolStripMeter1.AddValue(pan1.Value * 50.0 + 50.0);
 
             // Go-go-go.
             timer1.Enabled = true;

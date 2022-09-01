@@ -292,7 +292,7 @@ namespace NBagOfUis
             AutoSize = false;
             Width = _slider.Width;
             _slider.Orientation = Orientation.Horizontal;
-            _slider.ValueChanged += (_, __) => { ValueChanged?.Invoke(this, EventArgs.Empty); };
+            _slider.ValueChanged += (_, __) => ValueChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }
