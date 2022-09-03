@@ -11,6 +11,18 @@ using System.IO;
 using System.Diagnostics;
 
 
+// TODO new features:
+// - hide subdirs (.git ...).
+// - Recent files section.
+// ? close, closeall, save, saveas.
+// - add/remove filter
+// - add/remove userdir
+// - add/remove/clear recentfile
+// ? copy file name/path
+// ? delete/copy/move
+// - info/hover: filters, fullpath, size, thumbnail
+
+
 namespace NBagOfUis
 {
     /// <summary>
