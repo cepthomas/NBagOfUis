@@ -102,7 +102,7 @@ namespace NBagOfUis
         }
 
         /// <summary>
-        /// Designer.
+        /// From Designer.
         /// </summary>
         private void InitializeComponent()
         {

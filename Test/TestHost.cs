@@ -14,6 +14,7 @@ using System.Text.Json.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Drawing.Imaging;
 using NBagOfTricks;
+using System.Buffers.Text;
 
 
 namespace NBagOfUis.Test
@@ -131,6 +132,23 @@ namespace NBagOfUis.Test
 
         void Timer1_Tick(object? sender, EventArgs e)
         {
+        }
+
+        void Choice_Click(object sender, EventArgs e)
+        {
+            MultipleChoiceSelector sel = new() { Text = "Test choice" };
+            sel.SetOptions(new() { "Apple", "Orange", "Peach" });
+            var dlgres = sel.ShowDialog();
+            if (dlgres == DialogResult.OK)
+            {
+                var selopt = sel.SelectedOption;
+
+                Tell($"You choosed {selopt}");
+            }
+            else
+            {
+                Tell($"You canceled");
+            }
         }
 
         void ClickGrid_IndicatorEvent(object? sender, IndicatorEventArgs e)

@@ -56,6 +56,8 @@
             this.slider2 = new NBagOfUis.Slider();
             this.pan1 = new NBagOfUis.Pan();
             this.pot1 = new NBagOfUis.Pot();
+            this.btnChoice = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -142,7 +144,9 @@
             this.toolStripSlider1,
             this.toolStripSeparator4,
             this.toolStripMeter1,
-            this.toolStripSeparator5});
+            this.toolStripSeparator5,
+            this.btnChoice,
+            this.toolStripSeparator6});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1026, 43);
@@ -314,6 +318,20 @@
             this.pot1.Taper = NBagOfUis.Taper.Linear;
             this.pot1.Value = 50D;
             // 
+            // btnChoice
+            // 
+            this.btnChoice.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnChoice.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnChoice.Name = "btnChoice";
+            this.btnChoice.Size = new System.Drawing.Size(56, 40);
+            this.btnChoice.Text = "choice";
+            this.btnChoice.Click += new System.EventHandler(this.Choice_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 43);
+            // 
             // TestHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -368,5 +386,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private ToolStripMeter toolStripMeter1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripButton btnChoice;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
     }
 }
