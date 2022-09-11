@@ -183,6 +183,7 @@ namespace NBagOfUis
         protected override void OnResize(EventArgs e)
         {
             Invalidate();
+            base.OnResize(e);
         }
         #endregion
 

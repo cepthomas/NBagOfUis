@@ -142,8 +142,8 @@ namespace NBagOfUis
                 SetBuffs();
             }
 
-            base.OnResize(e);
             Invalidate();
+            base.OnResize(e);
         }
 
         /// <summary>

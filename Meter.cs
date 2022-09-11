@@ -202,8 +202,8 @@ namespace NBagOfUis
                 _buff[i] = Minimum;
             }
             _buffIndex = 0;
-            base.OnResize(e);
             Invalidate();
+            base.OnResize(e);
         }
         #endregion
     }

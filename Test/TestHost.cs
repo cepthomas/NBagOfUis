@@ -39,7 +39,7 @@ namespace NBagOfUis.Test
             ///// Filter tree. Adjust to taste.
             ftree.RootDirs = new List<string>() { $@"..\..\..\" };
             ftree.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" };
-            ftree.SingleClickSelect = true;
+            ftree.SingleClickSelect = false;
             ftree.Init();
 
             ///// Click grid.

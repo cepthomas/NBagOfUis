@@ -139,7 +139,6 @@ namespace NBagOfUis
 
             return (ch, keyCodes);
         }
-        //        public enum KeyState { NotPressed, Pressed, Toggled }
 
         /// <summary>Key state query. Based on https://stackoverflow.com/a/9356006. </summary>
         /// <param name="key">Which key.</param>

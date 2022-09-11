@@ -50,14 +50,14 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMeter1 = new NBagOfUis.ToolStripMeter();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnChoice = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.meterDots = new NBagOfUis.Meter();
             this.meterLog = new NBagOfUis.Meter();
             this.meterLinear = new NBagOfUis.Meter();
             this.slider2 = new NBagOfUis.Slider();
             this.pan1 = new NBagOfUis.Pan();
             this.pot1 = new NBagOfUis.Pot();
-            this.btnChoice = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,7 +97,7 @@
             this.ftree.Location = new System.Drawing.Point(1, 51);
             this.ftree.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.ftree.Name = "ftree";
-            this.ftree.SingleClickSelect = true;
+            this.ftree.SingleClickSelect = false;
             this.ftree.Size = new System.Drawing.Size(483, 521);
             this.ftree.TabIndex = 11;
             this.ftree.FileSelectedEvent += new System.EventHandler<string>(this.FilTree_FileSelectedEvent);
@@ -231,6 +231,20 @@
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 43);
             // 
+            // btnChoice
+            // 
+            this.btnChoice.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnChoice.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnChoice.Name = "btnChoice";
+            this.btnChoice.Size = new System.Drawing.Size(56, 40);
+            this.btnChoice.Text = "choice";
+            this.btnChoice.Click += new System.EventHandler(this.Choice_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 43);
+            // 
             // meterDots
             // 
             this.meterDots.BackColor = System.Drawing.Color.Gainsboro;
@@ -317,20 +331,6 @@
             this.pot1.TabIndex = 31;
             this.pot1.Taper = NBagOfUis.Taper.Linear;
             this.pot1.Value = 50D;
-            // 
-            // btnChoice
-            // 
-            this.btnChoice.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnChoice.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnChoice.Name = "btnChoice";
-            this.btnChoice.Size = new System.Drawing.Size(56, 40);
-            this.btnChoice.Text = "choice";
-            this.btnChoice.Click += new System.EventHandler(this.Choice_Click);
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 43);
             // 
             // TestHost
             // 
