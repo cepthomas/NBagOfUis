@@ -23,7 +23,7 @@ namespace NBagOfUis
         }
 
         /// <summary>
-        /// Generic UI helper. Allows user to enter only integer or double values.
+        /// Generic UI helper. Allows user to enter only integer or floating point values.
         /// s</summary>
         /// <param name="sender">Sender control.</param>
         /// <param name="e">Event args.</param>
@@ -41,7 +41,7 @@ namespace NBagOfUis
         /// <param name="e">Event args.</param>
         public static void TestForInteger_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Determine whether the keystroke is a number.
+            // Determine whether the keystroke is an integer.
             char c = e.KeyChar;
             e.Handled = !((c >= '0' && c <= '9') || (c == '\b') || (c == '-'));
         }
@@ -53,7 +53,7 @@ namespace NBagOfUis
         /// <param name="e">Event args.</param>
         public static void TestForAlphanumeric_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Determine whether the keystroke is a number.
+            // Determine whether the keystroke is alphanumeric.
             char c = e.KeyChar;
             e.Handled = !(char.IsLetterOrDigit(c) || (c == '\b') || (c == ' '));
         }
