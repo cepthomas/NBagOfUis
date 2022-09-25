@@ -197,7 +197,7 @@ namespace NBagOfUis
         {
             Bitmap newbmp = new(original.Width, original.Height);
 
-            for (int y = 0; y < newbmp.Height; y++) // This is not very efficient.
+            for (int y = 0; y < newbmp.Height; y++) // This is not very efficient. Use a matrix instead.
             {
                 for (int x = 0; x < newbmp.Width; x++)
                 {
