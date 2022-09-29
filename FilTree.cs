@@ -11,7 +11,7 @@ using System.IO;
 using System.Diagnostics;
 
 
-// TODO new features:
+// TODO1 new features:
 // - hide subdirs (.git ...).
 // - Recent files section.
 // ? close, closeall, save, saveas.
