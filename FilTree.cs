@@ -13,13 +13,11 @@ using System.Diagnostics;
 
 // TODO1 new features:
 // - hide subdirs (.git ...).
-// - Recent files section.
-// ? close, closeall, save, saveas.
 // - add/remove filter
 // - add/remove userdir
+// - recent files section.
 // - add/remove/clear recentfile
 // ? copy file name/path
-// ? delete/copy/move
 // - info/hover: filters, fullpath, size, thumbnail
 
 
@@ -264,7 +262,7 @@ namespace NBagOfUis
         /// <param name="e"></param>
         protected override void OnResize(EventArgs e)
         {
-            // TODO not quite right yet. It's a mystery.
+            // TODO1 not quite right yet. It's a mystery.
             lvFiles.Columns[0].Width = lvFiles.Width / 2;
             lvFiles.Columns[1].Width = -2;
 
