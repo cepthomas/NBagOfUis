@@ -21,7 +21,7 @@ namespace NBagOfUis.Test
 {
     public partial class TestHost : Form
     {
-        readonly TestSettings _testClass = new();
+        readonly TestSettings _settings = new();
 
         public TestHost()
         {
@@ -39,8 +39,8 @@ namespace NBagOfUis.Test
             ///// Filter tree. Adjust to taste.
             ftree.RootDirs = new List<string>() { $@"..\..\..\" };
             ftree.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" };
-            ftree.IgnoreDirs = new List<string> { ".vs", ".git", ".bin", ".obj" };
-            ftree.RecentFiles = new List<string> { @"path1\file1.txt", @"path2\file2.txt", @"path3\file3.txt" };
+            ftree.IgnoreDirs = new List<string> { ".vs", ".git", "bin", "obj", "lib" };
+            ftree.RecentFiles = new List<string> { @"C:\Dev\repos\TestAudioFiles\one-sec.txt", @"C:\Dev\repos\repos_common\audio_file_info.txt" };
             ftree.SingleClickSelect = false;
             ftree.Init();
 
@@ -59,7 +59,7 @@ namespace NBagOfUis.Test
             ///// PropertyGridEx and UiType editor host.
             for(int i = 0; i < 5; i++)
             {
-                _testClass.TestList.Add($"ListItem{i}");
+                _settings.TestList.Add($"ListItem{i}");
             }
 
             ///// Slider.
@@ -73,7 +73,7 @@ namespace NBagOfUis.Test
 
             ///// Property grid.
             Image img = Image.FromFile(@"Files\glyphicons-22-snowflake.png");
-            propGrid.SelectedObject = _testClass;
+            propGrid.SelectedObject = _settings;
             var lbl = propGrid.AddLabel("Blue", null, "The sky is blue");
             propGrid.AddButton("Red", null, "Blood is red", (_, __) => lbl!.Text = "->Red");
             propGrid.AddButton("", img, "Image is red", (_, __) => lbl!.Text = "->IRed");

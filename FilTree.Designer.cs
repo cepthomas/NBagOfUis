@@ -31,9 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.treeView = new System.Windows.Forms.TreeView();
             this.menuFiles = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.lvFiles = new System.Windows.Forms.ListView();
-            this.dvcolFile = new System.Windows.Forms.ColumnHeader();
-            this.dvcolSize = new System.Windows.Forms.ColumnHeader();
+            this.lbFiles = new System.Windows.Forms.ListBox();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.lblActiveFilters = new System.Windows.Forms.ToolStripLabel();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
@@ -54,7 +52,6 @@
             this.treeView.Name = "treeView";
             this.treeView.Size = new System.Drawing.Size(262, 404);
             this.treeView.TabIndex = 0;
-            this.treeView.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.TreeView_DrawNode);
             this.treeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.TreeView_NodeMouseClick);
             // 
             // menuFiles
@@ -64,34 +61,16 @@
             this.menuFiles.Size = new System.Drawing.Size(61, 4);
             this.menuFiles.Opening += new System.ComponentModel.CancelEventHandler(this.MenuFiles_Opening);
             // 
-            // lvFiles
+            // lbFiles
             // 
-            this.lvFiles.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lvFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.dvcolFile,
-            this.dvcolSize});
-            this.lvFiles.ContextMenuStrip = this.menuFiles;
-            this.lvFiles.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvFiles.FullRowSelect = true;
-            this.lvFiles.Location = new System.Drawing.Point(0, 0);
-            this.lvFiles.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.lvFiles.Name = "lvFiles";
-            this.lvFiles.Size = new System.Drawing.Size(334, 404);
-            this.lvFiles.TabIndex = 1;
-            this.lvFiles.UseCompatibleStateImageBehavior = false;
-            this.lvFiles.View = System.Windows.Forms.View.Details;
-            this.lvFiles.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ListFiles_MouseClick);
-            this.lvFiles.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ListFiles_MouseDoubleClick);
-            // 
-            // dvcolFile
-            // 
-            this.dvcolFile.Text = "File";
-            this.dvcolFile.Width = 377;
-            // 
-            // dvcolSize
-            // 
-            this.dvcolSize.Text = "Size (kb)";
-            this.dvcolSize.Width = 70;
+            this.lbFiles.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbFiles.ContextMenuStrip = this.menuFiles;
+            this.lbFiles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbFiles.Location = new System.Drawing.Point(0, 0);
+            this.lbFiles.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.lbFiles.Name = "lbFiles";
+            this.lbFiles.Size = new System.Drawing.Size(334, 404);
+            this.lbFiles.TabIndex = 1;
             // 
             // toolStrip
             // 
@@ -123,7 +102,7 @@
             // 
             // splitContainer.Panel2
             // 
-            this.splitContainer.Panel2.Controls.Add(this.lvFiles);
+            this.splitContainer.Panel2.Controls.Add(this.lbFiles);
             this.splitContainer.Size = new System.Drawing.Size(600, 404);
             this.splitContainer.SplitterDistance = 262;
             this.splitContainer.TabIndex = 4;
@@ -156,9 +135,7 @@
         private System.Windows.Forms.ContextMenuStrip menuFiles;
 
         private System.Windows.Forms.TreeView treeView;
-        private System.Windows.Forms.ListView lvFiles;
-        private System.Windows.Forms.ColumnHeader dvcolFile;
-        private System.Windows.Forms.ColumnHeader dvcolSize;
+        private System.Windows.Forms.ListBox lbFiles;
 
         private System.Windows.Forms.SplitContainer splitContainer;
     }

@@ -9,13 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
+using static System.Net.WebRequestMethods;
 
 
 // TODO1 new features:
-// ? ui add/remove filter
-// ? ui add/remove userdir
-// - recent files section.
-// - ui add/remove/clear recentfile
+// ? ui add/remove filter, userdir
+// ? ui add/remove/clear recentfile
 // ? copy file name/path
 // - info/hover: filters, fullpath, size, thumbnail
 
@@ -27,34 +26,46 @@ namespace NBagOfUis
     /// </summary>
     public partial class FilTree : UserControl
     {
-        // - hide subdirs (.git, .obj, .bin, .vs, ...).
-        public List<string> IgnoreDirs { get; set; } = new();
-
-
-        public List<string> RecentFiles { get; set; } = new();
-
-
-
-
-
         #region Properties
         /// <summary>Base path(s) for the tree.</summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
         public List<string> RootDirs { get; set; } = new();
 
+        /// <summary>Ignore these noisy directories.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [Browsable(false)]
+        public List<string> IgnoreDirs { get; set; } = new();
+
         /// <summary>Show only these file types. Empty is valid for files without extensions.</summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
         public List<string> FilterExts { get; set; } = new();
 
+        /// <summary>Client supplied recent files.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [Browsable(false)]
+        public List<string> RecentFiles { get; set; } = new();
+
         /// <summary>Generate event with single or double click.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [Browsable(false)]
         public bool SingleClickSelect { get; set; } = false;
         #endregion
 
         #region Events
         /// <summary>User has selected a file.</summary>
         public event EventHandler<string>? FileSelectedEvent = null;
+        #endregion
+
+        #region Types
+        /// <summary>Convenience container.</summary>
+        class ListFileInfo
+        {
+            public string VisibleName { get; set; } = "";
+            public string FullName { get; set; } = "";
+            public override string ToString() { return VisibleName; }
+        }
         #endregion
 
         #region Lifecycle
@@ -66,9 +77,8 @@ namespace NBagOfUis
             InitializeComponent();
 
             treeView.HideSelection = false;
-            treeView.DrawMode = TreeViewDrawMode.OwnerDrawText;
-
-            OnResize(EventArgs.Empty);
+            //treeView.DrawMode = TreeViewDrawMode.OwnerDrawText;
+            //OnResize(EventArgs.Empty);
         }
 
         /// <summary>
@@ -79,16 +89,15 @@ namespace NBagOfUis
             // Show what we have.
             lblActiveFilters.Text = "Filters: " + (FilterExts.Count == 0 ? "None" : string.Join(" ", FilterExts));
 
+            lbFiles.MouseClick += (object? sender, MouseEventArgs e) => SetClickSelection(e);
+            lbFiles.MouseDoubleClick += (object? sender, MouseEventArgs e) => SetClickSelection(e);
+
             PopulateTreeView();
 
             if(treeView.Nodes.Count > 0)
             {
                 treeView.SelectedNode = treeView.Nodes[0];
                 PopulateFiles(treeView.Nodes[0]);
-            }
-            else
-            {
-                throw new DirectoryNotFoundException($"No root directories");
             }
         }
         #endregion
@@ -114,7 +123,8 @@ namespace NBagOfUis
         {
             treeView.Nodes.Clear();
 
-            // Recent files.
+            // Recent files first.
+            treeView.Nodes.Add(new TreeNode("Recent"));
 
             foreach (string path in RootDirs)
             {
@@ -137,11 +147,11 @@ namespace NBagOfUis
                 }
             }
 
-            // Open them up a bit.
-            foreach (TreeNode n in treeView.Nodes)
-            {
-                n.Expand();
-            }
+            //// Open them up a bit.
+            //foreach (TreeNode n in treeView.Nodes)
+            //{
+            //    n.Expand();
+            //}
         }
 
         /// <summary>
@@ -153,16 +163,19 @@ namespace NBagOfUis
         {
             foreach (DirectoryInfo dir in dirs)
             {
-                TreeNode subDirNode = new(dir.Name, 0, 0)
+                if (!IgnoreDirs.Contains(dir.Name))
                 {
-                    Tag = dir,
-                    ImageKey = "folder"
-                };
+                    TreeNode subDirNode = new(dir.Name, 0, 0)
+                    {
+                        Tag = dir,
+                        ImageKey = "folder"
+                    };
 
-                // Go a little lower now.
-                DirectoryInfo[] subDirs = dir.GetDirectories();
-                ShowDirectories(subDirs, subDirNode);
-                parentNode.Nodes.Add(subDirNode);
+                    // Go a little lower now.
+                    DirectoryInfo[] subDirs = dir.GetDirectories();
+                    ShowDirectories(subDirs, subDirNode);
+                    parentNode.Nodes.Add(subDirNode);
+                }
             }
         }
         #endregion
@@ -171,56 +184,76 @@ namespace NBagOfUis
         /// <summary>
         /// Populate the file selector.
         /// </summary>
-        /// <param name="node">Selected directory.</param>
+        /// <param name="node">Selected node.</param>
         void PopulateFiles(TreeNode node)
         {
-            TreeNode clickedNode = node;
+            lbFiles.Items.Clear();
 
-            lvFiles.Items.Clear();
-            var nodeDirInfo = clickedNode.Tag as DirectoryInfo;
-
-            if(nodeDirInfo is not null)
+            if (node.Tag is DirectoryInfo) // TODO1 refactor this
             {
+                var nodeDirInfo = node.Tag as DirectoryInfo;
+
                 EnumerationOptions opts = new() { };
-                foreach (var file in nodeDirInfo.EnumerateFiles("*", opts).OrderBy(f => char.IsLetterOrDigit(f.Name[0])))
+                foreach (var file in nodeDirInfo!.EnumerateFiles("*", opts).OrderBy(f => char.IsLetterOrDigit(f.Name[0])))
                 {
                     var ext = Path.GetExtension(file.Name).ToLower();
 
                     if (FilterExts.Contains(ext))
                     {
-                        var item = new ListViewItem(new[] { file.Name, (file.Length / 1024).ToString() })
+                        var item = new ListFileInfo()
                         {
-                            Tag = file.FullName
+                            FullName = file.FullName,
+                            VisibleName = $"{file.Name} ({file.Length / 1024})"
                         };
-                        lvFiles.Items.Add(item);
+
+                        lbFiles.Items.Add(item);
+                        RecentFiles.Remove(file.FullName);
+                        RecentFiles.Insert(0, file.FullName);
+                    }
+                }
+            }
+            else if (node.Text == "Recent")
+            {
+                foreach (var fn in RecentFiles)
+                {
+                    var ext = Path.GetExtension(fn).ToLower();
+
+                    if (FilterExts.Contains(ext))
+                    {
+                        var fi = new FileInfo(fn);
+                        if (fi.Exists)
+                        {
+                            var item = new ListFileInfo()
+                            {
+                                FullName = fn,
+                                VisibleName = $"{fn} ({fi.Length / 1024})"
+                            };
+
+                            lbFiles.Items.Add(item);
+                        }
+                        else
+                        {
+                            // TODO1 notify client?
+                            //RecentFiles.Remove(fn);
+                        }
                     }
                 }
             }
         }
 
         /// <summary>
-        /// Single click file selection.
+        /// 
         /// </summary>
-        /// <param name="sender"></param>
         /// <param name="e"></param>
-        void ListFiles_MouseClick(object? sender, MouseEventArgs e)
+        void SetClickSelection(MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && SingleClickSelect && FileSelectedEvent is not null)
+            if (e.Button == MouseButtons.Left)
             {
-                FileSelectedEvent.Invoke(this, lvFiles.SelectedItems[0].Tag.ToString()!);
-            }
-        }
-
-        /// <summary>
-        /// Double click file selection.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void ListFiles_MouseDoubleClick(object? sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left && !SingleClickSelect && FileSelectedEvent is not null)
-            {
-                FileSelectedEvent.Invoke(this, lvFiles.SelectedItems[0].Tag.ToString()!);
+                if ((SingleClickSelect && e.Clicks == 1) || (!SingleClickSelect && e.Clicks >= 2))
+                {
+                    ListFileInfo? fi = lbFiles.SelectedItem as ListFileInfo;
+                    FileSelectedEvent?.Invoke(this, fi!.FullName);
+                }
             }
         }
 
@@ -258,29 +291,7 @@ namespace NBagOfUis
         #endregion
 
         #region Misc privates
-        /// <summary>
-        /// See above.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void TreeView_DrawNode(object? sender, DrawTreeNodeEventArgs e)
-        {
-            e.DrawDefault = true;
-        }
 
-        /// <summary>
-        /// Resize.
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnResize(EventArgs e)
-        {
-            // TODO1 not quite right yet. It's a mystery.
-            lvFiles.Columns[0].Width = lvFiles.Width / 2;
-            lvFiles.Columns[1].Width = -2;
-
-            var v = lvFiles.Columns;
-            base.OnResize(e);
-        }
         #endregion
     }
 }
