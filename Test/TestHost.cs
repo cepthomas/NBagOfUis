@@ -39,6 +39,8 @@ namespace NBagOfUis.Test
             ///// Filter tree. Adjust to taste.
             ftree.RootDirs = new List<string>() { $@"..\..\..\" };
             ftree.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" };
+            ftree.IgnoreDirs = new List<string> { ".vs", ".git", ".bin", ".obj" };
+            ftree.RecentFiles = new List<string> { @"path1\file1.txt", @"path2\file2.txt", @"path3\file3.txt" };
             ftree.SingleClickSelect = false;
             ftree.Init();
 
@@ -57,7 +59,7 @@ namespace NBagOfUis.Test
             ///// PropertyGridEx and UiType editor host.
             for(int i = 0; i < 5; i++)
             {
-                _testClass.TestList.Add($"List{i}");
+                _testClass.TestList.Add($"ListItem{i}");
             }
 
             ///// Slider.
@@ -77,6 +79,7 @@ namespace NBagOfUis.Test
             propGrid.AddButton("", img, "Image is red", (_, __) => lbl!.Text = "->IRed");
             //propGrid.MoveSplitter(100);
             propGrid.ResizeDescriptionArea(6);
+            //propGrid.ExpandAllGridItems();
             //propGrid.ExpandGroup("Cat1", false);
             //propGrid.ShowProperty("TestString", false);
 
@@ -178,13 +181,21 @@ namespace NBagOfUis.Test
         [Editor(typeof(StringListEditor), typeof(UITypeEditor))]
         public List<string> TestList { get; set; } = new();
 
-        [DisplayName("Test Font")]
-        [Description("Describe Test Font.")]
+        [DisplayName("Plain Font")]
+        [Description("Describe Plain Font.")]
+        [Category("Cat1")]
+        [Browsable(true)]
+        [JsonConverter(typeof(JsonFontConverter))]
+        [Editor(typeof(FontEditor), typeof(UITypeEditor))]
+        public Font? PlainFont { get; set; }
+
+        [DisplayName("Monospace Font")]
+        [Description("Describe Monospace Font.")]
         [Category("Cat1")]
         [Browsable(true)]
         [JsonConverter(typeof(JsonFontConverter))]
         [Editor(typeof(MonospaceFontEditor), typeof(UITypeEditor))]
-        public Font? TestFont { get; set; }
+        public Font? MonospaceFont { get; set; }
 
         [DisplayName("Test Color")]
         [Description("Describe Test Color.")]

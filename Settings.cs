@@ -12,7 +12,7 @@ using System.Windows.Forms;
 using NBagOfTricks;
 
 
-// TODO separate settings edit from settings?
+// TODO1 separate settings edit from settings?
 
 namespace NBagOfUis
 {
@@ -115,7 +115,7 @@ namespace NBagOfUis
             // Detect changes of interest.
             List<(string name, string cat)> changes = new();
             pg.PropertyValueChanged += (sdr, args) => { changes.Add((args.ChangedItem!.PropertyDescriptor!.Name, args.ChangedItem.PropertyDescriptor.Category)); };
-            pg.ExpandAllGridItems();
+            // Not: pg.ExpandAllGridItems();
 
             f.Controls.Add(pg);
 

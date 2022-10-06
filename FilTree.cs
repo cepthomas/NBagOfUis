@@ -12,11 +12,10 @@ using System.Diagnostics;
 
 
 // TODO1 new features:
-// - hide subdirs (.git ...).
-// - add/remove filter
-// - add/remove userdir
+// ? ui add/remove filter
+// ? ui add/remove userdir
 // - recent files section.
-// - add/remove/clear recentfile
+// - ui add/remove/clear recentfile
 // ? copy file name/path
 // - info/hover: filters, fullpath, size, thumbnail
 
@@ -28,6 +27,16 @@ namespace NBagOfUis
     /// </summary>
     public partial class FilTree : UserControl
     {
+        // - hide subdirs (.git, .obj, .bin, .vs, ...).
+        public List<string> IgnoreDirs { get; set; } = new();
+
+
+        public List<string> RecentFiles { get; set; } = new();
+
+
+
+
+
         #region Properties
         /// <summary>Base path(s) for the tree.</summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -71,6 +80,7 @@ namespace NBagOfUis
             lblActiveFilters.Text = "Filters: " + (FilterExts.Count == 0 ? "None" : string.Join(" ", FilterExts));
 
             PopulateTreeView();
+
             if(treeView.Nodes.Count > 0)
             {
                 treeView.SelectedNode = treeView.Nodes[0];
@@ -104,20 +114,22 @@ namespace NBagOfUis
         {
             treeView.Nodes.Clear();
 
+            // Recent files.
+
             foreach (string path in RootDirs)
             {
-                TreeNode rootNode;
+                TreeNode node;
 
                 DirectoryInfo info = new(path);
                 if (info.Exists)
                 {
-                    rootNode = new TreeNode(info.Name)
+                    node = new TreeNode(info.Name)
                     {
                         Tag = info
                     };
 
-                    ShowDirectories(info.GetDirectories(), rootNode);
-                    treeView.Nodes.Add(rootNode);
+                    ShowDirectories(info.GetDirectories(), node);
+                    treeView.Nodes.Add(node);
                 }
                 else
                 {
