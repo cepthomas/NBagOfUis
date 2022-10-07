@@ -9,6 +9,7 @@ namespace NBagOfUis.Test
 {
     class Program
     {
+        [STAThread]
         static void Main(string[] _)
         {
             // Use test host for debugging UI components.

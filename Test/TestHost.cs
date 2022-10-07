@@ -37,11 +37,16 @@ namespace NBagOfUis.Test
             txtInfo.Prompt = ">>> ";
 
             ///// Filter tree. Adjust to taste.
-            ftree.RootDirs = new List<string>() { $@"..\..\..\" };
-            ftree.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" };
-            ftree.IgnoreDirs = new List<string> { ".vs", ".git", "bin", "obj", "lib" };
-            ftree.RecentFiles = new List<string> { @"C:\Dev\repos\TestAudioFiles\one-sec.txt", @"C:\Dev\repos\repos_common\audio_file_info.txt" };
-            ftree.SingleClickSelect = false;
+            FilTreeSettings set = new()
+            {
+                RootDirs = new List<string>() { $@"..\..\..\" },
+                FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" },
+                IgnoreDirs = new List<string> { ".vs", ".git", "bin", "obj", "lib" },
+                RecentFiles = new List<string> { @"C:\Dev\repos\TestAudioFiles\one-sec.txt", @"C:\Dev\repos\repos_common\audio_file_info.txt" },
+                SingleClickSelect = false
+            };
+
+            ftree.Settings = set;
             ftree.Init();
 
             ///// Click grid.
@@ -107,9 +112,7 @@ namespace NBagOfUis.Test
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             // Inspect.
-            //var at = ftree.AllTags;
-            //var tp = ftree.TaggedPaths;
-            //var po = _testClass;
+            //var at = ftree.Settings;
             base.OnFormClosing(e);
         }
 
