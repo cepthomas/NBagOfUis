@@ -11,7 +11,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Drawing.Design;
 using NBagOfTricks;
-using static System.Net.WebRequestMethods;
+
 
 
 namespace NBagOfUis
@@ -23,6 +23,7 @@ namespace NBagOfUis
     {
         #region Properties
         /// <summary>Stuff of interest to the user.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public FilTreeSettings Settings { get; set; } = new();
         #endregion
