@@ -148,7 +148,7 @@ namespace NBagOfUis
 
         /// <summary>Alter the bottom description area.</summary>
         /// <param name="x">Number of lines to show.</param>
-        public void ResizeDescriptionArea(int x) //TODO1 stopped working...
+        public void ResizeDescriptionArea(int x) //TODO stopped working...
         {
             //if(_docComment is not null)
             //{

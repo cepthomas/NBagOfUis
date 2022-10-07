@@ -72,7 +72,7 @@ namespace NBagOfUis
         public void Init()
         {
             // Show what we have.
-            lblActiveFilters.Text = "Filters: " + (Settings.FilterExts.Count == 0 ? "None" : string.Join(" ", Settings.FilterExts));
+            UpdateFromSettings();
 
             lbFiles.MouseClick += (object? sender, MouseEventArgs e) => FileSelected(e);
             lbFiles.MouseDoubleClick += (object? sender, MouseEventArgs e) => FileSelected(e);
@@ -269,6 +269,16 @@ namespace NBagOfUis
         {
             var changes = SettingsEditor.Edit(Settings, "Edit me!!!", 400);
             //changes.ForEach(ch => Debug.WriteLine($"change name:{ch.name} cat:{ch.cat}"));
+            UpdateFromSettings();
+        }
+
+        /// <summary>
+        /// Update from settings.
+        /// </summary>
+        void UpdateFromSettings()
+        {
+            lblActiveFilters.Text = "Filters: " + (Settings.FilterExts.Count == 0 ? "None" : string.Join(" ", Settings.FilterExts));
+            splitContainer.SplitterDistance = Settings.SplitterPosition * Width / 100;
         }
         #endregion
     }
@@ -300,6 +310,11 @@ namespace NBagOfUis
         [Browsable(true)]
         [Editor(typeof(StringListEditor), typeof(UITypeEditor))]
         public List<string> RecentFilesEdit { get { return base.RecentFiles; } set { base.RecentFiles = value; } }
+
+        [DisplayName("Splitter Position")]
+        [Description("Percent of width.")]
+        [Browsable(true)]
+        public int SplitterPosition { get; set; } = 30;
 
         [DisplayName("File Select")]
         [Description("Generate event with single or double click.")]
