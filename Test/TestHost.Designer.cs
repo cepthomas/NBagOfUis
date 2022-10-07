@@ -97,7 +97,6 @@
             this.ftree.Location = new System.Drawing.Point(1, 51);
             this.ftree.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.ftree.Name = "ftree";
-            this.ftree.SingleClickSelect = false;
             this.ftree.Size = new System.Drawing.Size(483, 521);
             this.ftree.TabIndex = 11;
             this.ftree.FileSelectedEvent += new System.EventHandler<string>(this.FilTree_FileSelectedEvent);
@@ -357,9 +356,7 @@
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
-
         #endregion
 
         private TextViewer txtInfo;
@@ -367,8 +364,17 @@
         private ClickGrid clickGrid1;
         private FilTree ftree;
         private CpuMeter cpuMeter1;
-        private System.Windows.Forms.Timer timer1;
+        private Meter meterDots;
+        private Meter meterLog;
+        private Meter meterLinear;
         private Slider slider1;
+        private Slider slider2;
+        private Pan pan1;
+        private Pot pot1;
+        private ToolStripSlider toolStripSlider1;
+        private ToolStripMeter toolStripMeter1;
+
+        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btnGfx;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -376,15 +382,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton btnCpu;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private Meter meterDots;
-        private Meter meterLog;
-        private Meter meterLinear;
-        private Slider slider2;
-        private Pan pan1;
-        private Pot pot1;
-        private ToolStripSlider toolStripSlider1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private ToolStripMeter toolStripMeter1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton btnChoice;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;

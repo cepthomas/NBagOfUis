@@ -116,10 +116,11 @@ namespace NBagOfUis.Test
         void DoSettings()
         {
             // Get the settings.
-            TestSettings set = (TestSettings)Settings.Load(@".\Files", typeof(TestSettings), "test-settings.json");
+            TestSettings set = (TestSettings)SettingsCore.Load(@".\Files", typeof(TestSettings), "test-settings.json");
 
             // Edit them.
-            set.Edit("Edit me!!!", 400);
+            var changes = SettingsEditor.Edit(set, "Edit me!!!", 400);
+            changes.ForEach(ch => Tell($"change name:{ch.name} cat:{ch.cat}"));
 
             // Mod and save.
             //_settings.Abool = chk1.Checked;
@@ -172,7 +173,7 @@ namespace NBagOfUis.Test
     }
 
 
-    public class TestSettings : Settings
+    public class TestSettings : SettingsCore
     {
         [DisplayName("Test List")]
         [Description("Describe Test List.")]
