@@ -183,7 +183,7 @@ namespace NBagOfUis
                 {
                     int kb = (int)(finfo.Length / 1024); // size not size on disk
                     int mb = kb / 1024;
-                    string slen = kb > 1000 ? $"{mb}M" : $"{kb}K";
+                    string slen = kb > 9999 ? $"{mb}M" : $"{kb}K";
 
                     var item = new ListFileInfo()
                     {
@@ -327,7 +327,7 @@ namespace NBagOfUis
         [Browsable(true)]
         public int SplitterPosition { get; set; } = 30;
 
-        [DisplayName("File Select")]
+        [DisplayName("Single Click Select")]
         [Description("Generate event with single or double click.")]
         [Browsable(true)]
         public bool SingleClickSelect { get; set; } = false;
