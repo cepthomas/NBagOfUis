@@ -146,22 +146,20 @@ namespace NBagOfUis
             }
         }
 
-        /// <summary>Alter the bottom description area.</summary>
-        /// <param name="x">Number of lines to show.</param>
-        public void ResizeDescriptionArea(int x) //TODO stopped working...
+        /// <summary>Alter the bottom description area. Must be in OnLoad()!</summary>
+        /// <param name="numl">Number of lines to show.</param>
+        public void ResizeDescriptionArea(int numl)
         {
-            //if(_docComment is not null)
-            //{
-            //    var field = _docComment.GetType().BaseType!.GetField("userSized", BindingFlags.Instance | BindingFlags.NonPublic);
-            //    field!.SetValue(_docComment, true);
-
-            //    var info = _docComment.GetType().GetProperty("Lines");
-            //    info!.SetValue(_docComment, x, null);
-
-            //    HelpVisible = true;
-            //}
+            if (_docComment is not null)
+            {
+                var field = _docComment.GetType().BaseType!.GetField("<UserSized>k__BackingField", BindingFlags.Instance | BindingFlags.NonPublic);
+                field!.SetValue(_docComment, true);
+                var prop = _docComment.GetType().GetProperty("Lines");
+                prop!.SetValue(_docComment, numl, null);
+                HelpVisible = true;
+            }
         }
-        
+
         /// <summary>Expand or collapse the group.</summary>
         /// <param name="groupName">Name of the group to act on.</param>
         /// <param name="expand">Expand or collapse.</param>

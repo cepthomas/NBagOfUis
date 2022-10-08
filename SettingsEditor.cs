@@ -17,7 +17,7 @@ namespace NBagOfUis
     public class SettingsEditor
     {
         /// <summary>
-        /// Edit the properties in a dialog.
+        /// Edit the properties in a dialog. Works with SettingsCore from nbot.
         /// </summary>
         /// <param name="settings">To edit.</param>
         /// <param name="title">To show.</param>

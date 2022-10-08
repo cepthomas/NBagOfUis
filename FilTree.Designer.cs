@@ -147,13 +147,12 @@
 
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripLabel lblActiveFilters;
-
+        private System.Windows.Forms.ToolStripButton btnEdit;
         private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.ListBox lbFiles;
 
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton btnEdit;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }

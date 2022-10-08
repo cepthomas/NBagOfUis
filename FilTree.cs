@@ -63,6 +63,9 @@ namespace NBagOfUis
             lbFiles.ContextMenuStrip.Items.Add("Copy Name", null, (_, __0) => { GetInfo(lbFiles, "Name"); });
             lbFiles.ContextMenuStrip.Items.Add("Copy Path", null, (_, __0) => { GetInfo(lbFiles, "Path"); });
 
+            lbFiles.MouseClick += (object? sender, MouseEventArgs e) => FileSelected(e);
+            lbFiles.MouseDoubleClick += (object? sender, MouseEventArgs e) => FileSelected(e);
+
             // TODO? hover: filters, fullpath, size, thumbnail
         }
 
@@ -73,9 +76,6 @@ namespace NBagOfUis
         {
             // Show what we have.
             UpdateFromSettings();
-
-            lbFiles.MouseClick += (object? sender, MouseEventArgs e) => FileSelected(e);
-            lbFiles.MouseDoubleClick += (object? sender, MouseEventArgs e) => FileSelected(e);
 
             PopulateTreeView();
 
@@ -97,26 +97,16 @@ namespace NBagOfUis
 
             // Recent files first.
             treeView.Nodes.Add(new TreeNode("Recent"));
+            Settings.RootDirs.RemoveAll(d => !Directory.Exists(d));
+            Settings.RootDirs = Settings.RootDirs.Distinct().ToList();
 
             foreach (string path in Settings.RootDirs)
             {
-                TreeNode node;
-
                 DirectoryInfo info = new(path);
-                if (info.Exists)
-                {
-                    node = new TreeNode(info.Name)
-                    {
-                        Tag = info
-                    };
+                TreeNode node = new(info.Name) { Tag = info };
 
-                    ShowDirectories(info.GetDirectories(), node);
-                    treeView.Nodes.Add(node);
-                }
-                else
-                {
-                    throw new DirectoryNotFoundException($"Invalid root directory: {path}");
-                }
+                ShowDirectories(info.GetDirectories(), node);
+                treeView.Nodes.Add(node);
             }
 
             //// Open them up a bit.
@@ -184,16 +174,16 @@ namespace NBagOfUis
                 Settings.RecentFiles.ForEach(fn => DoOne(new FileInfo(fn), true));
             }
 
-            // Local common function.
+            ///// Local common function.
             void DoOne(FileInfo finfo, bool full)
             {
                 var ext = Path.GetExtension(finfo.Name).ToLower();
 
                 if (Settings.FilterExts.Contains(ext))
                 {
-                    int kb = (int)(finfo.Length / 1024);
+                    int kb = (int)(finfo.Length / 1024); // size not size on disk
                     int mb = kb / 1024;
-                    string slen = kb > 1000 ? $"{mb}Mb" : $"{kb}Kb";
+                    string slen = kb > 1000 ? $"{mb}M" : $"{kb}K";
 
                     var item = new ListFileInfo()
                     {
@@ -269,6 +259,33 @@ namespace NBagOfUis
         {
             var changes = SettingsEditor.Edit(Settings, "Edit me!!!", 400);
             //changes.ForEach(ch => Debug.WriteLine($"change name:{ch.name} cat:{ch.cat}"));
+
+            // Detect changes of interest.
+            bool navChange = false;
+            bool restart = false;
+
+            foreach (var (name, cat) in changes)
+            {
+                switch (name)
+                {
+                    case "RootDirs":
+                    case "FilterExts":
+                    case "IgnoreDirs":
+                        navChange = true;
+                        break;
+                }
+            }
+
+            if (restart)
+            {
+                MessageBox.Show("Restart required for device changes to take effect");
+            }
+
+            if (navChange)
+            {
+                Init();
+            }
+
             UpdateFromSettings();
         }
 
@@ -304,12 +321,6 @@ namespace NBagOfUis
         [Browsable(true)]
         [Editor(typeof(StringListEditor), typeof(UITypeEditor))]
         public List<string> IgnoreDirs { get; set; } = new();
-
-        [DisplayName("Recent Files")]
-        [Description("Your favorite things.")]
-        [Browsable(true)]
-        [Editor(typeof(StringListEditor), typeof(UITypeEditor))]
-        public List<string> RecentFilesEdit { get { return base.RecentFiles; } set { base.RecentFiles = value; } }
 
         [DisplayName("Splitter Position")]
         [Description("Percent of width.")]

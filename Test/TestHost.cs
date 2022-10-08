@@ -21,14 +21,19 @@ namespace NBagOfUis.Test
 {
     public partial class TestHost : Form
     {
-        readonly TestSettings _settings = new();
+        TestSettings _settings = new();
 
         public TestHost()
         {
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
             InitializeComponent();
 
-            Location = new(20, 20);
+            // Must do this first before initializing.
+            string appDir = MiscUtils.GetAppDataDir("Test", "Ephemera");
+            _settings = (TestSettings)SettingsCore.Load(appDir, typeof(TestSettings), "nbui-test-settings.json");
+
+            Location = new Point(_settings.FormGeometry.X, _settings.FormGeometry.Y);
+            Size = new Size(_settings.FormGeometry.Width, _settings.FormGeometry.Height);
 
             ///// Text control.
             txtInfo.MatchColors.Add("50", Color.Purple);
@@ -36,17 +41,14 @@ namespace NBagOfUis.Test
             txtInfo.BackColor = Color.Cornsilk;
             txtInfo.Prompt = ">>> ";
 
-            ///// Filter tree. Adjust to taste.
-            FilTreeSettings set = new()
-            {
-                RootDirs = new List<string>() { $@"..\..\..\" },
-                FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" },
-                IgnoreDirs = new List<string> { ".vs", ".git", "bin", "obj", "lib" },
-                RecentFiles = new List<string> { @"C:\Dev\repos\TestAudioFiles\one-sec.txt", @"C:\Dev\repos\repos_common\audio_file_info.txt" },
-                SingleClickSelect = false
-            };
-
-            ftree.Settings = set;
+            ///// Filter tree. Adjust to taste. Settings can be in TestSettings or standalone file.
+            var fset = (FilTreeSettings)SettingsCore.Load(appDir, typeof(FilTreeSettings), "nbui-filtree-settings.json");
+            //fset.RootDirs = new List<string>() { $@"..\..\..\" };
+            //fset.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" };
+            //fset.IgnoreDirs = new List<string> { ".vs", ".git", "bin", "obj", "lib" };
+            //fset.RecentFiles = new List<string> { @"C:\Dev\repos\TestAudioFiles\one-sec.txt", @"C:\Dev\repos\repos_common\audio_file_info.txt" };
+            //fset.SingleClickSelect = false;
+            ftree.Settings = fset;
             ftree.Init();
 
             ///// Click grid.
@@ -62,7 +64,8 @@ namespace NBagOfUis.Test
             clickGrid1.Show(4, 60, 20);
 
             ///// PropertyGridEx and UiType editor host.
-            for(int i = 0; i < 5; i++)
+            _settings.TestList.Clear();
+            for (int i = 0; i < 5; i++)
             {
                 _settings.TestList.Add($"ListItem{i}");
             }
@@ -83,13 +86,12 @@ namespace NBagOfUis.Test
             propGrid.AddButton("Red", null, "Blood is red", (_, __) => lbl!.Text = "->Red");
             propGrid.AddButton("", img, "Image is red", (_, __) => lbl!.Text = "->IRed");
             //propGrid.MoveSplitter(100);
-            propGrid.ResizeDescriptionArea(6);
             //propGrid.ExpandAllGridItems();
             //propGrid.ExpandGroup("Cat1", false);
             //propGrid.ShowProperty("TestString", false);
 
             ///// Other stuff.
-            btnSettings.Click += (_, __) => DoSettings();
+            btnSettings.Click += (_, __) => EditSettings();
             btnGfx.Click += (_, __) => { new GraphicsForm().ShowDialog(); };
             btnCpu.CheckedChanged += (_, __) => cpuMeter1.Enable = btnCpu.Checked;
             // pot1 0 -> 100
@@ -109,30 +111,33 @@ namespace NBagOfUis.Test
             timer1.Enabled = true;
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            propGrid.ResizeDescriptionArea(6); // This doesn't work in constructor.
+
+            base.OnLoad(e);
+        }
+
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            // Inspect.
-            //var at = ftree.Settings;
+            SaveSettings();
             base.OnFormClosing(e);
         }
 
-        void DoSettings()
+        void EditSettings()
         {
-            // Get the settings.
-            TestSettings set = (TestSettings)SettingsCore.Load(@".\Files", typeof(TestSettings), "test-settings.json");
-
             // Edit them.
-            var changes = SettingsEditor.Edit(set, "Edit me!!!", 400);
+            var changes = SettingsEditor.Edit(_settings, "Edit me!!!", 400);
             changes.ForEach(ch => Tell($"change name:{ch.name} cat:{ch.cat}"));
 
             // Mod and save.
             //_settings.Abool = chk1.Checked;
-            set.FormGeometry = new Rectangle(Location.X, Location.Y, Size.Width, Size.Height);
+            _settings.FormGeometry = new Rectangle(Location.X, Location.Y, Size.Width, Size.Height);
 
-            set.RecentFiles.Add(Path.GetFullPath("NBagOfUis.xml"));
-            set.RecentFiles.Add(@"C:\bad\path\file.xyz");
+            _settings.RecentFiles.Add(Path.GetFullPath("NBagOfUis.xml"));
+            _settings.RecentFiles.Add(@"C:\bad\path\file.xyz");
 
-            set.Save();
+            _settings.Save();
 
             // Check recent file list. Should be just one.
         }
@@ -172,6 +177,13 @@ namespace NBagOfUis.Test
         void Tell(string msg)
         {
             txtInfo.AppendLine(msg);
+        }
+
+        void SaveSettings()
+        {
+            _settings.FormGeometry = new Rectangle(Location.X, Location.Y, Width, Height);
+            _settings.Save();
+            ftree.Settings.Save();
         }
     }
 

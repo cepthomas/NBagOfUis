@@ -20,9 +20,17 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Remove="lib\**" />
         <Compile Remove="Test\**" />
+        <EmbeddedResource Remove="lib\**" />
         <EmbeddedResource Remove="Test\**" />
+        <None Remove="lib\**" />
         <None Remove="Test\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove=".gitignore" />
+      <None Remove="LICENSE" />
     </ItemGroup>
 
     <ItemGroup>
