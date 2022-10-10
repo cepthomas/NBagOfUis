@@ -38,6 +38,11 @@ namespace NBagOfUis
                 SelectedObject = settings
             };
 
+            if (settings is SettingsCore)
+            {
+                pg.AddButton("Clear recent", null, "Clear recent file list", (_, __) => (settings as SettingsCore)!.RecentFiles.Clear());
+            }
+
             using Form f = new()
             {
                 Text = title,

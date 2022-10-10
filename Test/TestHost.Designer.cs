@@ -65,18 +65,18 @@
             // 
             this.txtInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtInfo.Location = new System.Drawing.Point(1, 582);
+            this.txtInfo.Location = new System.Drawing.Point(1, 573);
             this.txtInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtInfo.MaxText = 5000;
             this.txtInfo.Name = "txtInfo";
             this.txtInfo.Prompt = "** ";
-            this.txtInfo.Size = new System.Drawing.Size(483, 124);
+            this.txtInfo.Size = new System.Drawing.Size(981, 189);
             this.txtInfo.TabIndex = 5;
             this.txtInfo.WordWrap = true;
             // 
             // propGrid
             // 
-            this.propGrid.Location = new System.Drawing.Point(489, 294);
+            this.propGrid.Location = new System.Drawing.Point(490, 203);
             this.propGrid.Name = "propGrid";
             this.propGrid.Size = new System.Drawing.Size(274, 358);
             this.propGrid.TabIndex = 20;
@@ -92,12 +92,11 @@
             // 
             // ftree
             // 
-            this.ftree.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.ftree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ftree.Location = new System.Drawing.Point(1, 51);
             this.ftree.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.ftree.Name = "ftree";
-            this.ftree.Size = new System.Drawing.Size(483, 521);
+            this.ftree.Size = new System.Drawing.Size(483, 512);
             this.ftree.TabIndex = 11;
             this.ftree.FileSelectedEvent += new System.EventHandler<string>(this.FilTree_FileSelectedEvent);
             // 
@@ -108,10 +107,10 @@
             this.cpuMeter1.DrawColor = System.Drawing.Color.DarkOrange;
             this.cpuMeter1.Enable = false;
             this.cpuMeter1.Label = "cpu";
-            this.cpuMeter1.Location = new System.Drawing.Point(491, 207);
+            this.cpuMeter1.Location = new System.Drawing.Point(785, 485);
             this.cpuMeter1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cpuMeter1.Name = "cpuMeter1";
-            this.cpuMeter1.Size = new System.Drawing.Size(274, 71);
+            this.cpuMeter1.Size = new System.Drawing.Size(197, 76);
             this.cpuMeter1.TabIndex = 7;
             // 
             // slider1
@@ -148,7 +147,7 @@
             this.toolStripSeparator6});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1026, 43);
+            this.toolStrip1.Size = new System.Drawing.Size(998, 43);
             this.toolStrip1.TabIndex = 25;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -249,7 +248,7 @@
             this.meterDots.BackColor = System.Drawing.Color.Gainsboro;
             this.meterDots.DrawColor = System.Drawing.Color.White;
             this.meterDots.Label = "meterDots";
-            this.meterDots.Location = new System.Drawing.Point(785, 302);
+            this.meterDots.Location = new System.Drawing.Point(785, 285);
             this.meterDots.Maximum = 10D;
             this.meterDots.MeterType = NBagOfUis.MeterType.ContinuousDots;
             this.meterDots.Minimum = 0D;
@@ -263,7 +262,7 @@
             this.meterLog.BackColor = System.Drawing.Color.Gainsboro;
             this.meterLog.DrawColor = System.Drawing.Color.Azure;
             this.meterLog.Label = "meter log";
-            this.meterLog.Location = new System.Drawing.Point(785, 382);
+            this.meterLog.Location = new System.Drawing.Point(785, 354);
             this.meterLog.Maximum = 3D;
             this.meterLog.MeterType = NBagOfUis.MeterType.Log;
             this.meterLog.Minimum = -60D;
@@ -277,7 +276,7 @@
             this.meterLinear.BackColor = System.Drawing.Color.Gainsboro;
             this.meterLinear.DrawColor = System.Drawing.Color.White;
             this.meterLinear.Label = "meterLinear";
-            this.meterLinear.Location = new System.Drawing.Point(785, 458);
+            this.meterLinear.Location = new System.Drawing.Point(785, 420);
             this.meterLinear.Maximum = 100D;
             this.meterLinear.MeterType = NBagOfUis.MeterType.Linear;
             this.meterLinear.Minimum = 0D;
@@ -335,7 +334,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1026, 709);
+            this.ClientSize = new System.Drawing.Size(998, 765);
             this.Controls.Add(this.pot1);
             this.Controls.Add(this.pan1);
             this.Controls.Add(this.slider2);
@@ -356,6 +355,7 @@
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
         #endregion
 

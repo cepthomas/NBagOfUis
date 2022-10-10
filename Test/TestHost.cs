@@ -42,14 +42,9 @@ namespace NBagOfUis.Test
             txtInfo.Prompt = ">>> ";
 
             ///// Filter tree. Adjust to taste. Settings can be in TestSettings or standalone file.
-            //var fset = (FilTreeSettings)SettingsCore.Load(appDir, typeof(FilTreeSettings), "nbui-filtree-settings.json");
-            //fset.RootDirs = new List<string>() { $@"..\..\..\" };
-            //fset.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" };
-            //fset.IgnoreDirs = new List<string> { ".vs", ".git", "bin", "obj", "lib" };
-            //fset.RecentFiles = new List<string> { @"C:\Dev\repos\TestAudioFiles\one-sec.txt", @"C:\Dev\repos\repos_common\audio_file_info.txt" };
-            //fset.SingleClickSelect = false;
             ftree.Settings = _settings.FilTreeSettings; // bind
             ftree.RecentFiles = _settings.RecentFiles;
+            //ftree.Settings.RootDirs = paths;
             ftree.Init();
             ftree.FileSelectedEvent += Ftree_FileSelectedEvent;
 

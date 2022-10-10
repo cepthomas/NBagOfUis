@@ -132,16 +132,19 @@ namespace NBagOfUis
             {
                 if (!Settings.IgnoreDirs.Contains(dir.Name))
                 {
-                    TreeNode subDirNode = new(dir.Name, 0, 0)
+                    if (dir.Attributes == FileAttributes.Directory) // ignore system and hidden etc.
                     {
-                        Tag = dir,
-                        ImageKey = "folder"
-                    };
+                        TreeNode subDirNode = new(dir.Name, 0, 0)
+                        {
+                            Tag = dir,
+                            ImageKey = "folder"
+                        };
 
-                    // Go a little lower now.
-                    DirectoryInfo[] subDirs = dir.GetDirectories();
-                    ShowDirectories(subDirs, subDirNode);
-                    parentNode.Nodes.Add(subDirNode);
+                        // Go a little lower now.
+                        DirectoryInfo[] subDirs = dir.GetDirectories();
+                        ShowDirectories(subDirs, subDirNode);
+                        parentNode.Nodes.Add(subDirNode);
+                    }
                 }
             }
         }
@@ -295,7 +298,7 @@ namespace NBagOfUis
         /// </summary>
         void UpdateFromSettings()
         {
-            lblActiveFilters.Text = "Filters: " + (Settings.FilterExts.Count == 0 ? "None" : string.Join(" ", Settings.FilterExts));
+            lblActiveFilters.Text = "TODO1?";// "Filters: " + (Settings.FilterExts.Count == 0 ? "None" : string.Join(" ", Settings.FilterExts));
             splitContainer.SplitterDistance = Settings.SplitterPosition * Width / 100;
         }
         #endregion

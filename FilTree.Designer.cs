@@ -32,10 +32,10 @@
             this.lbFiles = new System.Windows.Forms.ListBox();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.lblActiveFilters = new System.Windows.Forms.ToolStripLabel();
-            this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -50,7 +50,7 @@
             this.treeView.Location = new System.Drawing.Point(0, 0);
             this.treeView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(262, 402);
+            this.treeView.Size = new System.Drawing.Size(262, 471);
             this.treeView.TabIndex = 0;
             this.treeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.TreeView_NodeMouseClick);
             // 
@@ -62,7 +62,7 @@
             this.lbFiles.Location = new System.Drawing.Point(0, 0);
             this.lbFiles.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lbFiles.Name = "lbFiles";
-            this.lbFiles.Size = new System.Drawing.Size(334, 402);
+            this.lbFiles.Size = new System.Drawing.Size(334, 471);
             this.lbFiles.TabIndex = 1;
             // 
             // toolStrip
@@ -85,24 +85,6 @@
             this.lblActiveFilters.Size = new System.Drawing.Size(93, 24);
             this.lblActiveFilters.Text = "Active Filters";
             // 
-            // splitContainer
-            // 
-            this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer.Location = new System.Drawing.Point(0, 27);
-            this.splitContainer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.splitContainer.Name = "splitContainer";
-            // 
-            // splitContainer.Panel1
-            // 
-            this.splitContainer.Panel1.Controls.Add(this.treeView);
-            // 
-            // splitContainer.Panel2
-            // 
-            this.splitContainer.Panel2.Controls.Add(this.lbFiles);
-            this.splitContainer.Size = new System.Drawing.Size(600, 402);
-            this.splitContainer.SplitterDistance = 262;
-            this.splitContainer.TabIndex = 4;
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -123,6 +105,24 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
             // 
+            // splitContainer
+            // 
+            this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer.Location = new System.Drawing.Point(0, 27);
+            this.splitContainer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.splitContainer.Name = "splitContainer";
+            // 
+            // splitContainer.Panel1
+            // 
+            this.splitContainer.Panel1.Controls.Add(this.treeView);
+            // 
+            // splitContainer.Panel2
+            // 
+            this.splitContainer.Panel2.Controls.Add(this.lbFiles);
+            this.splitContainer.Size = new System.Drawing.Size(600, 471);
+            this.splitContainer.SplitterDistance = 262;
+            this.splitContainer.TabIndex = 4;
+            // 
             // FilTree
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -131,7 +131,7 @@
             this.Controls.Add(this.toolStrip);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FilTree";
-            this.Size = new System.Drawing.Size(600, 429);
+            this.Size = new System.Drawing.Size(600, 498);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.splitContainer.Panel1.ResumeLayout(false);
