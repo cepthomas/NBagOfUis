@@ -24,7 +24,7 @@ namespace NBagOfUis
         /// <param name="height">Adjustable.</param>
         /// <param name="expand">Default expansion.</param>
         /// <returns>List of tuples of name, category.</returns>
-        public static List<(string name, string cat)> Edit(SettingsCore settings, string title, int height, bool expand = true)
+        public static List<(string name, string cat)> Edit(object settings, string title, int height, bool expand = false)
         {
             // Make a copy for possible restoration.
             Type t = settings.GetType();

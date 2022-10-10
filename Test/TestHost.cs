@@ -42,14 +42,16 @@ namespace NBagOfUis.Test
             txtInfo.Prompt = ">>> ";
 
             ///// Filter tree. Adjust to taste. Settings can be in TestSettings or standalone file.
-            var fset = (FilTreeSettings)SettingsCore.Load(appDir, typeof(FilTreeSettings), "nbui-filtree-settings.json");
+            //var fset = (FilTreeSettings)SettingsCore.Load(appDir, typeof(FilTreeSettings), "nbui-filtree-settings.json");
             //fset.RootDirs = new List<string>() { $@"..\..\..\" };
             //fset.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" };
             //fset.IgnoreDirs = new List<string> { ".vs", ".git", "bin", "obj", "lib" };
             //fset.RecentFiles = new List<string> { @"C:\Dev\repos\TestAudioFiles\one-sec.txt", @"C:\Dev\repos\repos_common\audio_file_info.txt" };
             //fset.SingleClickSelect = false;
-            ftree.Settings = fset;
+            ftree.Settings = _settings.FilTreeSettings; // bind
+            ftree.RecentFiles = _settings.RecentFiles;
             ftree.Init();
+            ftree.FileSelectedEvent += Ftree_FileSelectedEvent;
 
             ///// Click grid.
             clickGrid1.AddStateType(0, Color.Blue, Color.AliceBlue);
@@ -109,6 +111,11 @@ namespace NBagOfUis.Test
 
             // Go-go-go.
             timer1.Enabled = true;
+        }
+
+        void Ftree_FileSelectedEvent(object? sender, string fn)
+        {
+            _settings.RecentFiles.UpdateMru(fn);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -183,7 +190,7 @@ namespace NBagOfUis.Test
         {
             _settings.FormGeometry = new Rectangle(Location.X, Location.Y, Width, Height);
             _settings.Save();
-            ftree.Settings.Save();
+            //ftree.Settings.Save();
         }
     }
 
@@ -226,5 +233,8 @@ namespace NBagOfUis.Test
         [Category("Cat2")]
         [Browsable(true)]
         public string TestString { get; set; } = "";
+
+        [Browsable(false)]
+        public FilTreeSettings FilTreeSettings { get; set; } = new();
     }
 }

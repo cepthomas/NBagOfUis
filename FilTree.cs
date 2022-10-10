@@ -26,6 +26,11 @@ namespace NBagOfUis
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public FilTreeSettings Settings { get; set; } = new();
+
+        /// <summary>Client supplies these.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [Browsable(false)]
+        public List<string> RecentFiles { get; set; } = new();
         #endregion
 
         #region Events
@@ -171,7 +176,7 @@ namespace NBagOfUis
             }
             else if (node.Text == "Recent")
             {
-                Settings.RecentFiles.ForEach(fn => DoOne(new FileInfo(fn), true));
+                RecentFiles.ForEach(fn => DoOne(new FileInfo(fn), true));
             }
 
             ///// Local common function.
@@ -211,10 +216,6 @@ namespace NBagOfUis
                     if (fi is not null)
                     {
                         FileSelectedEvent?.Invoke(this, fi.FullName);
-
-                        // Put at front of list.
-                        Settings.RecentFiles.Remove(fi.FullName);
-                        Settings.RecentFiles.Insert(0, fi.FullName);
                     }
                 }
             }
@@ -255,7 +256,7 @@ namespace NBagOfUis
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void Edit_Click(object sender, EventArgs e)
+        void Edit_Click(object? sender, EventArgs e)
         {
             var changes = SettingsEditor.Edit(Settings, "Edit me!!!", 400);
             //changes.ForEach(ch => Debug.WriteLine($"change name:{ch.name} cat:{ch.cat}"));
@@ -300,7 +301,7 @@ namespace NBagOfUis
         #endregion
     }
 
-    public class FilTreeSettings : SettingsCore
+    public class FilTreeSettings
     {
         #region Properties
         [DisplayName("Root Paths")]
