@@ -13,11 +13,10 @@ using System.Drawing.Design;
 using System.Text.Json.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Drawing.Imaging;
-using NBagOfTricks;
-using System.Buffers.Text;
+using Ephemera.NBagOfTricks;
 
 
-namespace NBagOfUis.Test
+namespace Ephemera.NBagOfUis.Test
 {
     public partial class TestHost : Form
     {
@@ -221,13 +220,13 @@ namespace NBagOfUis.Test
         [Browsable(true)]
         [JsonConverter(typeof(JsonColorConverter))]
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
-        public Color? TestColor { get; set; }
+        public Color? TestColor { get; set; } = Color.Salmon;
 
         [DisplayName("Test String")]
         [Description("Describe Test String.")]
         [Category("Cat2")]
         [Browsable(true)]
-        public string TestString { get; set; } = "";
+        public string TestString { get; set; } = "Just a test";
 
         [Browsable(false)]
         public FilTreeSettings FilTreeSettings { get; set; } = new();

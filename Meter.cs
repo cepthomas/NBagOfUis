@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-using NBagOfTricks;
+using Ephemera.NBagOfTricks;
 
 
-namespace NBagOfUis
+namespace Ephemera.NBagOfUis
 {
     /// <summary>Display types.</summary>
     public enum MeterType { Linear, Log, ContinuousLine, ContinuousDots }  // FUTURE Add damped/vu, peak/hold

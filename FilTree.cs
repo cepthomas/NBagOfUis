@@ -10,11 +10,13 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 using System.Drawing.Design;
-using NBagOfTricks;
+using Ephemera.NBagOfTricks;
 
 
+// TODO maybe delete/copy/move, hover: filters, fullpath, size, thumbnail.
 
-namespace NBagOfUis
+
+namespace Ephemera.NBagOfUis
 {
     /// <summary>
     /// Tree control with file type filters.
@@ -298,7 +300,7 @@ namespace NBagOfUis
         /// </summary>
         void UpdateFromSettings()
         {
-            lblActiveFilters.Text = "TODO1?";// "Filters: " + (Settings.FilterExts.Count == 0 ? "None" : string.Join(" ", Settings.FilterExts));
+            lblActiveFilters.Text = "TODO - what?";// "Filters: " + (Settings.FilterExts.Count == 0 ? "None" : string.Join(" ", Settings.FilterExts));
             splitContainer.SplitterDistance = Settings.SplitterPosition * Width / 100;
         }
         #endregion

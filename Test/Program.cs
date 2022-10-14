@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using NBagOfUis;
+using Ephemera.NBagOfUis;
 
 
-namespace NBagOfUis.Test
+namespace Ephemera.NBagOfUis.Test
 {
     class Program
     {

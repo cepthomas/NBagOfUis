@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using NBagOfTricks;
+using Ephemera.NBagOfTricks;
 
 
-namespace NBagOfUis
+namespace Ephemera.NBagOfUis
 {
     /// <summary>
     /// ClickGrid control.

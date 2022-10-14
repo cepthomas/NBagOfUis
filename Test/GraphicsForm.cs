@@ -1,5 +1,4 @@
-﻿using NBagOfTricks;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,9 +9,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Ephemera.NBagOfTricks;
 
 
-namespace NBagOfUis.Test
+namespace Ephemera.NBagOfUis.Test
 {
     public partial class GraphicsForm : Form
     {

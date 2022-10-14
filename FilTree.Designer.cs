@@ -1,4 +1,4 @@
-﻿namespace NBagOfUis
+﻿namespace Ephemera.NBagOfUis
 {
     partial class FilTree
     {

@@ -9,10 +9,10 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows.Forms;
-using NBagOfTricks;
+using Ephemera.NBagOfTricks;
 
 
-namespace NBagOfUis
+namespace Ephemera.NBagOfUis
 {
     public class SettingsEditor
     {

@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 
 
-namespace NBagOfUis
+namespace Ephemera.NBagOfUis
 {
     /// <summary>Class that provides a better wait cursor. Clients should use it with using (new WaitCursor()) { slow code }</summary>
     public sealed class WaitCursor : IDisposable

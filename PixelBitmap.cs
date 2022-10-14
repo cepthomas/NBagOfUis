@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace NBagOfUis
+namespace Ephemera.NBagOfUis
 {
     /// <summary>
     /// Fast pixel read/write. Borrowed from https://stackoverflow.com/a/34801225.

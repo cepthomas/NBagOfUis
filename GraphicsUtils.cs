@@ -6,7 +6,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 
 
-namespace NBagOfUis
+namespace Ephemera.NBagOfUis
 {
     // Bits and pieces borrowed from:
     // https://gist.github.com/darkfall/1656050?permalink_comment_id=2989435#gistcomment-2989435

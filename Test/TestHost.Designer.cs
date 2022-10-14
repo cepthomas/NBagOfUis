@@ -1,4 +1,4 @@
-﻿namespace NBagOfUis.Test
+﻿namespace Ephemera.NBagOfUis.Test
 {
     partial class TestHost
     {

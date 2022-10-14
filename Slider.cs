@@ -4,10 +4,10 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-using NBagOfTricks;
+using Ephemera.NBagOfTricks;
 
 
-namespace NBagOfUis
+namespace Ephemera.NBagOfUis
 {
     /// <summary>
     /// Slider control.

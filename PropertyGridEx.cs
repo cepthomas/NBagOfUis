@@ -9,7 +9,7 @@ using System.Drawing.Design;
 using System.Diagnostics;
 
 
-namespace NBagOfUis
+namespace Ephemera.NBagOfUis
 {
     /// <summary>Extends the PropertyGrid to add some features.</summary>
     public class PropertyGridEx : PropertyGrid

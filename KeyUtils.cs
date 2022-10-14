@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
 
-namespace NBagOfUis
+namespace Ephemera.NBagOfUis
 {
     /// <summary>
     /// Static keyboard processing functions.

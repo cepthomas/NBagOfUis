@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
 
-namespace NBagOfUis
+namespace Ephemera.NBagOfUis
 {
     /// <summary>Custom renderer for toolstrip checkbox color.</summary>
     public class CheckBoxRenderer : ToolStripSystemRenderer

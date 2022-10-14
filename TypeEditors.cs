@@ -8,10 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-using NBagOfTricks;
+using Ephemera.NBagOfTricks;
 
 
-namespace NBagOfUis
+namespace Ephemera.NBagOfUis
 {
     /// <summary>Generic property editor for lists of strings.</summary>
     public class StringListEditor : UITypeEditor
