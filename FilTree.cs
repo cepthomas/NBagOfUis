@@ -24,15 +24,31 @@ namespace Ephemera.NBagOfUis
     public partial class FilTree : UserControl
     {
         #region Properties
-        /// <summary>Stuff of interest to the user.</summary>
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        public FilTreeSettings Settings { get; set; } = new();
-
-        /// <summary>Client supplies these.</summary>
+        /// <summary>Client may supply these.</summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
-        public List<string> RecentFiles { get; set; } = new();
+        public List<string>? RecentFiles { get; set; } = null;
+
+        /// <summary>Your favorite places.</summary>
+        public List<string> RootDirs { get; set; } = new();
+
+        /// <summary>Show only these file types. Empty is valid for files without extensions..</summary>
+        public List<string> FilterExts { get; set; } = new();
+
+        /// <summary>Ignore these noisy directories</summary>
+        public List<string> IgnoreDirs { get; set; } = new();
+
+        /// <summary>Splitter Position as Percent of width..</summary>
+        public int SplitterPosition
+        {
+            get { return splitContainer.SplitterDistance * 100 / Width; }
+            set { splitContainer.SplitterDistance = value * Width / 100; }
+        }
+
+        /// <summary>Generate event with single or double click..</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [Browsable(false)]
+        public bool SingleClickSelect { get; set; } = false;
         #endregion
 
         #region Events
@@ -63,17 +79,18 @@ namespace Ephemera.NBagOfUis
 
             // Populate the context menus.
             treeView.ContextMenuStrip = new();
-            treeView.ContextMenuStrip.Items.Add("Copy Name", null, (_, __0) => { GetInfo(treeView, "Name"); });
-            treeView.ContextMenuStrip.Items.Add("Copy Path", null, (_, __0) => { GetInfo(treeView, "Path"); });
+            treeView.ContextMenuStrip.Items.Add("Copy Name", null, (_, __) => { GetInfo(treeView, "Name"); });
+            treeView.ContextMenuStrip.Items.Add("Copy Path", null, (_, __) => { GetInfo(treeView, "Path"); });
 
             lbFiles.ContextMenuStrip = new();
-            lbFiles.ContextMenuStrip.Items.Add("Copy Name", null, (_, __0) => { GetInfo(lbFiles, "Name"); });
-            lbFiles.ContextMenuStrip.Items.Add("Copy Path", null, (_, __0) => { GetInfo(lbFiles, "Path"); });
+            lbFiles.ContextMenuStrip.Items.Add("Copy Name", null, (_, __) => { GetInfo(lbFiles, "Name"); });
+            lbFiles.ContextMenuStrip.Items.Add("Copy Path", null, (_, __) => { GetInfo(lbFiles, "Path"); });
 
             lbFiles.MouseClick += (object? sender, MouseEventArgs e) => FileSelected(e);
             lbFiles.MouseDoubleClick += (object? sender, MouseEventArgs e) => FileSelected(e);
 
-            // TODO? hover: filters, fullpath, size, thumbnail
+            btnEdit.Click += (_, __) => {  }; //TODO1 something
+            //lblActiveFilters.Text = "Filters: " + (FilterExts.Count == 0 ? "None" : string.Join(" ", FilterExts));
         }
 
         /// <summary>
@@ -81,9 +98,6 @@ namespace Ephemera.NBagOfUis
         /// </summary>
         public void Init()
         {
-            // Show what we have.
-            UpdateFromSettings();
-
             PopulateTreeView();
 
             if(treeView.Nodes.Count > 0)
@@ -104,17 +118,14 @@ namespace Ephemera.NBagOfUis
 
             // Recent files first.
             treeView.Nodes.Add(new TreeNode("Recent"));
-            Settings.RootDirs.RemoveAll(d => !Directory.Exists(d));
-            Settings.RootDirs = Settings.RootDirs.Distinct().ToList();
-
-            foreach (string path in Settings.RootDirs)
+            RootDirs.RemoveAll(d => !Directory.Exists(d));
+            RootDirs.Distinct().ForEach(d =>
             {
-                DirectoryInfo info = new(path);
+                DirectoryInfo info = new(d);
                 TreeNode node = new(info.Name) { Tag = info };
-
                 ShowDirectories(info.GetDirectories(), node);
                 treeView.Nodes.Add(node);
-            }
+            });
 
             //// Open them up a bit.
             //foreach (TreeNode n in treeView.Nodes)
@@ -132,9 +143,13 @@ namespace Ephemera.NBagOfUis
         {
             foreach (DirectoryInfo dir in dirs)
             {
-                if (!Settings.IgnoreDirs.Contains(dir.Name))
+                if (!IgnoreDirs.Contains(dir.Name))
                 {
-                    if (dir.Attributes == FileAttributes.Directory) // ignore system and hidden etc.
+                    // Ignore system and hidden etc.
+                    bool ignore = (dir.Attributes & FileAttributes.System) > 0;
+                    ignore |= (dir.Attributes & FileAttributes.Hidden) > 0;
+
+                    if (!ignore)
                     {
                         TreeNode subDirNode = new(dir.Name, 0, 0)
                         {
@@ -181,7 +196,7 @@ namespace Ephemera.NBagOfUis
             }
             else if (node.Text == "Recent")
             {
-                RecentFiles.ForEach(fn => DoOne(new FileInfo(fn), true));
+                RecentFiles?.ForEach(fn => DoOne(new FileInfo(fn), true));
             }
 
             ///// Local common function.
@@ -189,7 +204,7 @@ namespace Ephemera.NBagOfUis
             {
                 var ext = Path.GetExtension(finfo.Name).ToLower();
 
-                if (Settings.FilterExts.Contains(ext))
+                if (FilterExts.Contains(ext))
                 {
                     int kb = (int)(finfo.Length / 1024); // size not size on disk
                     int mb = kb / 1024;
@@ -215,7 +230,7 @@ namespace Ephemera.NBagOfUis
         {
             if (e.Button == MouseButtons.Left)
             {
-                if ((Settings.SingleClickSelect && e.Clicks == 1) || (!Settings.SingleClickSelect && e.Clicks >= 2))
+                if ((SingleClickSelect && e.Clicks == 1) || (!SingleClickSelect && e.Clicks >= 2))
                 {
                     ListFileInfo? fi = lbFiles.SelectedItem as ListFileInfo;
                     if (fi is not null)
@@ -255,88 +270,6 @@ namespace Ephemera.NBagOfUis
                 }
             }
         }
-
-        /// <summary>
-        /// Edit the settings.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void Edit_Click(object? sender, EventArgs e)
-        {
-            var changes = SettingsEditor.Edit(Settings, "Edit me!!!", 400);
-            //changes.ForEach(ch => Debug.WriteLine($"change name:{ch.name} cat:{ch.cat}"));
-
-            // Detect changes of interest.
-            bool navChange = false;
-            bool restart = false;
-
-            foreach (var (name, cat) in changes)
-            {
-                switch (name)
-                {
-                    case "RootDirs":
-                    case "FilterExts":
-                    case "IgnoreDirs":
-                        navChange = true;
-                        break;
-                }
-            }
-
-            if (restart)
-            {
-                MessageBox.Show("Restart required for device changes to take effect");
-            }
-
-            if (navChange)
-            {
-                Init();
-            }
-
-            UpdateFromSettings();
-        }
-
-        /// <summary>
-        /// Update from settings.
-        /// </summary>
-        void UpdateFromSettings()
-        {
-            lblActiveFilters.Text = "TODO - what?";// "Filters: " + (Settings.FilterExts.Count == 0 ? "None" : string.Join(" ", Settings.FilterExts));
-            splitContainer.SplitterDistance = Settings.SplitterPosition * Width / 100;
-        }
-        #endregion
-    }
-
-    public class FilTreeSettings
-    {
-        #region Properties
-        [DisplayName("Root Paths")]
-        [Description("Your favorite places.")]
-        [Browsable(true)]
-        [Editor(typeof(StringListEditor), typeof(UITypeEditor))]
-        public List<string> RootDirs { get; set; } = new();
-
-        [DisplayName("Filters")]
-        [Description("Show only these file types. Empty is valid for files without extensions.")]
-        [Browsable(true)]
-        [Editor(typeof(StringListEditor), typeof(UITypeEditor))]
-        public List<string> FilterExts { get; set; } = new();
-
-        /// <summary></summary>
-        [DisplayName("Ignore Paths")]
-        [Description("Ignore these noisy directories.")]
-        [Browsable(true)]
-        [Editor(typeof(StringListEditor), typeof(UITypeEditor))]
-        public List<string> IgnoreDirs { get; set; } = new();
-
-        [DisplayName("Splitter Position")]
-        [Description("Percent of width.")]
-        [Browsable(true)]
-        public int SplitterPosition { get; set; } = 30;
-
-        [DisplayName("Single Click Select")]
-        [Description("Generate event with single or double click.")]
-        [Browsable(true)]
-        public bool SingleClickSelect { get; set; } = false;
         #endregion
     }
 }

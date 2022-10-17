@@ -31,8 +31,6 @@
             this.treeView = new System.Windows.Forms.TreeView();
             this.lbFiles = new System.Windows.Forms.ListBox();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.lblActiveFilters = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
@@ -69,8 +67,6 @@
             // 
             this.toolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblActiveFilters,
-            this.toolStripSeparator1,
             this.btnEdit,
             this.toolStripSeparator2});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
@@ -78,17 +74,6 @@
             this.toolStrip.Size = new System.Drawing.Size(600, 27);
             this.toolStrip.TabIndex = 3;
             this.toolStrip.Text = "toolStrip";
-            // 
-            // lblActiveFilters
-            // 
-            this.lblActiveFilters.Name = "lblActiveFilters";
-            this.lblActiveFilters.Size = new System.Drawing.Size(93, 24);
-            this.lblActiveFilters.Text = "Active Filters";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
             // btnEdit
             // 
@@ -98,7 +83,6 @@
             this.btnEdit.Size = new System.Drawing.Size(39, 24);
             this.btnEdit.Text = "Edit";
             this.btnEdit.ToolTipText = "Edit filters and more";
-            this.btnEdit.Click += new System.EventHandler(this.Edit_Click);
             // 
             // toolStripSeparator2
             // 
@@ -146,13 +130,11 @@
         #endregion
 
         private System.Windows.Forms.ToolStrip toolStrip;
-        private System.Windows.Forms.ToolStripLabel lblActiveFilters;
         private System.Windows.Forms.ToolStripButton btnEdit;
         private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.ListBox lbFiles;
 
         private System.Windows.Forms.SplitContainer splitContainer;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }

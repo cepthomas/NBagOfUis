@@ -40,10 +40,13 @@ namespace Ephemera.NBagOfUis.Test
             txtInfo.BackColor = Color.Cornsilk;
             txtInfo.Prompt = ">>> ";
 
-            ///// Filter tree. Adjust to taste. Settings can be in TestSettings or standalone file.
-            ftree.Settings = _settings.FilTreeSettings; // bind
+            ///// Filter tree. Adjust/persist to taste.
+            ftree.RootDirs = new List<string> { @"C:\Dev", @"C:\Users\cepth\AppData\Local\Ephemera", @"C:\Users\cepth\AppData\Roaming\Sublime Text\Packages" };
+            ftree.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" };
+            ftree.IgnoreDirs = new List<string> { ".vs", ".git", "bin", "obj", "lib" };
+            ftree.SplitterPosition = 30;
+            ftree.SingleClickSelect = true;
             ftree.RecentFiles = _settings.RecentFiles;
-            //ftree.Settings.RootDirs = paths;
             ftree.Init();
             ftree.FileSelectedEvent += Ftree_FileSelectedEvent;
 
@@ -109,7 +112,7 @@ namespace Ephemera.NBagOfUis.Test
 
         void Ftree_FileSelectedEvent(object? sender, string fn)
         {
-            _settings.RecentFiles.UpdateMru(fn);
+            _settings.UpdateMru(fn);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -135,12 +138,9 @@ namespace Ephemera.NBagOfUis.Test
             //_settings.Abool = chk1.Checked;
             _settings.FormGeometry = new Rectangle(Location.X, Location.Y, Size.Width, Size.Height);
 
-            _settings.RecentFiles.Add(Path.GetFullPath("NBagOfUis.xml"));
-            _settings.RecentFiles.Add(@"C:\bad\path\file.xyz");
-
             _settings.Save();
 
-            // Check recent file list. Should be just one.
+            File.ReadAllLines("settings.json").ForEach(l => Debug.WriteLine(l));
         }
 
         void Timer1_Tick(object? sender, EventArgs e)
@@ -227,8 +227,5 @@ namespace Ephemera.NBagOfUis.Test
         [Category("Cat2")]
         [Browsable(true)]
         public string TestString { get; set; } = "Just a test";
-
-        [Browsable(false)]
-        public FilTreeSettings FilTreeSettings { get; set; } = new();
     }
 }
