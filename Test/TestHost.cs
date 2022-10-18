@@ -41,15 +41,6 @@ namespace Ephemera.NBagOfUis.Test
             txtInfo.BackColor = Color.Cornsilk;
             txtInfo.Prompt = ">>> ";
 
-            ///// Filter tree. Adjust/persist to taste.
-            filTree.RootDirs = new List<string> { @"C:\Dev", @"C:\Users\cepth\AppData\Local\Ephemera", @"C:\Users\cepth\AppData\Roaming\Sublime Text\Packages" };
-            filTree.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" };
-            filTree.IgnoreDirs = new List<string> { ".vs", ".git", "bin", "obj", "lib" };
-            filTree.SplitterPosition = 30;
-            filTree.SingleClickSelect = true;
-            filTree.RecentFiles = _settings.RecentFiles;
-            filTree.Init();
-            filTree.FileSelectedEvent += Ftree_FileSelectedEvent;
 
             ///// Click grid.
             clickGrid1.AddStateType(0, Color.Blue, Color.AliceBlue);
@@ -145,13 +136,13 @@ namespace Ephemera.NBagOfUis.Test
                         restart = true;
                         break;
 
-                    case "SingleClickSelect":
-                        filTree.SingleClickSelect = _settings.SingleClickSelect;
-                        break;
+                    //case "SingleClickSelect":
+                    //    filTree.SingleClickSelect = _settings.SingleClickSelect;
+                    //    break;
 
-                    case "SplitterPosition":
-                        filTree.SplitterPosition = _settings.SplitterPosition;
-                        break;
+                    //case "SplitterPosition":
+                    //    filTree.SplitterPosition = _settings.SplitterPosition;
+                    //    break;
                 }
             }
 
@@ -164,11 +155,30 @@ namespace Ephemera.NBagOfUis.Test
             _settings.Save();
 
             // Update
-            filTree.Init();
+            //filTree.Init();
         }
 
         void Timer1_Tick(object? sender, EventArgs e)
         {
+        }
+
+        void Options_Click(object sender, EventArgs e)
+        {
+            OptionsEditor oped = new()
+            {
+                AllowEdit = true,
+                Values = new() { { "Apple", true }, { "Orange", false }, { "Peach", true } }
+            };
+
+            var dlgres = oped.ShowDialog();
+            if (dlgres == DialogResult.OK)
+            {
+                oped.Values.ForEach(v => Tell($"{v.Key} is {v.Value}"));
+            }
+            else
+            {
+                Tell($"You canceled");
+            }
         }
 
         void Choice_Click(object sender, EventArgs e)

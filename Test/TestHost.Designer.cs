@@ -32,13 +32,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.txtInfo = new NBagOfUis.TextViewer();
-            this.propGrid = new NBagOfUis.PropertyGridEx();
-            this.clickGrid1 = new NBagOfUis.ClickGrid();
-            this.filTree = new NBagOfUis.FilTree();
-            this.cpuMeter1 = new NBagOfUis.CpuMeter();
+            this.txtInfo = new Ephemera.NBagOfUis.TextViewer();
+            this.propGrid = new Ephemera.NBagOfUis.PropertyGridEx();
+            this.clickGrid1 = new Ephemera.NBagOfUis.ClickGrid();
+            this.cpuMeter1 = new Ephemera.NBagOfUis.CpuMeter();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.slider1 = new NBagOfUis.Slider();
+            this.slider1 = new Ephemera.NBagOfUis.Slider();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnGfx = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -46,18 +45,20 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnCpu = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSlider1 = new NBagOfUis.ToolStripSlider();
+            this.toolStripSlider1 = new Ephemera.NBagOfUis.ToolStripSlider();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMeter1 = new NBagOfUis.ToolStripMeter();
+            this.toolStripMeter1 = new Ephemera.NBagOfUis.ToolStripMeter();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.btnChoice = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.meterDots = new NBagOfUis.Meter();
-            this.meterLog = new NBagOfUis.Meter();
-            this.meterLinear = new NBagOfUis.Meter();
-            this.slider2 = new NBagOfUis.Slider();
-            this.pan1 = new NBagOfUis.Pan();
-            this.pot1 = new NBagOfUis.Pot();
+            this.meterDots = new Ephemera.NBagOfUis.Meter();
+            this.meterLog = new Ephemera.NBagOfUis.Meter();
+            this.meterLinear = new Ephemera.NBagOfUis.Meter();
+            this.slider2 = new Ephemera.NBagOfUis.Slider();
+            this.pan1 = new Ephemera.NBagOfUis.Pan();
+            this.pot1 = new Ephemera.NBagOfUis.Pot();
+            this.btnOptions = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,12 +66,12 @@
             // 
             this.txtInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtInfo.Location = new System.Drawing.Point(1, 573);
+            this.txtInfo.Location = new System.Drawing.Point(14, 53);
             this.txtInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtInfo.MaxText = 5000;
             this.txtInfo.Name = "txtInfo";
             this.txtInfo.Prompt = "** ";
-            this.txtInfo.Size = new System.Drawing.Size(981, 189);
+            this.txtInfo.Size = new System.Drawing.Size(470, 508);
             this.txtInfo.TabIndex = 5;
             this.txtInfo.WordWrap = true;
             // 
@@ -89,16 +90,6 @@
             this.clickGrid1.Name = "clickGrid1";
             this.clickGrid1.Size = new System.Drawing.Size(274, 143);
             this.clickGrid1.TabIndex = 1;
-            // 
-            // filTree
-            // 
-            this.filTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.filTree.Location = new System.Drawing.Point(1, 51);
-            this.filTree.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.filTree.Name = "filTree";
-            this.filTree.Size = new System.Drawing.Size(483, 512);
-            this.filTree.TabIndex = 11;
-            this.filTree.FileSelectedEvent += new System.EventHandler<string>(this.FilTree_FileSelectedEvent);
             // 
             // cpuMeter1
             // 
@@ -144,7 +135,9 @@
             this.toolStripMeter1,
             this.toolStripSeparator5,
             this.btnChoice,
-            this.toolStripSeparator6});
+            this.toolStripSeparator6,
+            this.btnOptions,
+            this.toolStripSeparator7});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(998, 43);
@@ -218,7 +211,7 @@
             this.toolStripMeter1.DrawColor = System.Drawing.Color.GreenYellow;
             this.toolStripMeter1.Label = "dotty";
             this.toolStripMeter1.Maximum = 100D;
-            this.toolStripMeter1.MeterType = NBagOfUis.MeterType.ContinuousDots;
+            this.toolStripMeter1.MeterType = Ephemera.NBagOfUis.MeterType.ContinuousDots;
             this.toolStripMeter1.Minimum = 0D;
             this.toolStripMeter1.Name = "toolStripMeter1";
             this.toolStripMeter1.Size = new System.Drawing.Size(150, 40);
@@ -250,7 +243,7 @@
             this.meterDots.Label = "meterDots";
             this.meterDots.Location = new System.Drawing.Point(785, 285);
             this.meterDots.Maximum = 10D;
-            this.meterDots.MeterType = NBagOfUis.MeterType.ContinuousDots;
+            this.meterDots.MeterType = Ephemera.NBagOfUis.MeterType.ContinuousDots;
             this.meterDots.Minimum = 0D;
             this.meterDots.Name = "meterDots";
             this.meterDots.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -264,7 +257,7 @@
             this.meterLog.Label = "meter log";
             this.meterLog.Location = new System.Drawing.Point(785, 354);
             this.meterLog.Maximum = 3D;
-            this.meterLog.MeterType = NBagOfUis.MeterType.Log;
+            this.meterLog.MeterType = Ephemera.NBagOfUis.MeterType.Log;
             this.meterLog.Minimum = -60D;
             this.meterLog.Name = "meterLog";
             this.meterLog.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -278,7 +271,7 @@
             this.meterLinear.Label = "meterLinear";
             this.meterLinear.Location = new System.Drawing.Point(785, 420);
             this.meterLinear.Maximum = 100D;
-            this.meterLinear.MeterType = NBagOfUis.MeterType.Linear;
+            this.meterLinear.MeterType = Ephemera.NBagOfUis.MeterType.Linear;
             this.meterLinear.Minimum = 0D;
             this.meterLinear.Name = "meterLinear";
             this.meterLinear.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -327,14 +320,28 @@
             this.pot1.Resolution = 5D;
             this.pot1.Size = new System.Drawing.Size(122, 107);
             this.pot1.TabIndex = 31;
-            this.pot1.Taper = NBagOfUis.Taper.Linear;
+            this.pot1.Taper = Ephemera.NBagOfUis.Taper.Linear;
             this.pot1.Value = 50D;
+            // 
+            // btnOptions
+            // 
+            this.btnOptions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnOptions.Name = "btnOptions";
+            this.btnOptions.Size = new System.Drawing.Size(63, 40);
+            this.btnOptions.Text = "options";
+            this.btnOptions.Click += new System.EventHandler(this.Options_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 43);
             // 
             // TestHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(998, 765);
+            this.ClientSize = new System.Drawing.Size(998, 571);
             this.Controls.Add(this.pot1);
             this.Controls.Add(this.pan1);
             this.Controls.Add(this.slider2);
@@ -347,7 +354,6 @@
             this.Controls.Add(this.txtInfo);
             this.Controls.Add(this.cpuMeter1);
             this.Controls.Add(this.propGrid);
-            this.Controls.Add(this.filTree);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "TestHost";
             this.Text = "TestHost";
@@ -362,7 +368,6 @@
         private TextViewer txtInfo;
         private PropertyGridEx propGrid;
         private ClickGrid clickGrid1;
-        private FilTree filTree;
         private CpuMeter cpuMeter1;
         private Meter meterDots;
         private Meter meterLog;
@@ -386,5 +391,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton btnChoice;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripButton btnOptions;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
     }
 }
