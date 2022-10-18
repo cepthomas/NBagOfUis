@@ -32,7 +32,7 @@
             this.lbFiles = new System.Windows.Forms.ListBox();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.btnEdit = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.lblInfo = new System.Windows.Forms.ToolStripLabel();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
@@ -68,7 +68,7 @@
             this.toolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnEdit,
-            this.toolStripSeparator2});
+            this.lblInfo});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(600, 27);
@@ -84,10 +84,11 @@
             this.btnEdit.Text = "Edit";
             this.btnEdit.ToolTipText = "Edit filters and more";
             // 
-            // toolStripSeparator2
+            // lblInfo
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
+            this.lblInfo.Name = "lblInfo";
+            this.lblInfo.Size = new System.Drawing.Size(30, 24);
+            this.lblInfo.Text = "???";
             // 
             // splitContainer
             // 
@@ -135,6 +136,6 @@
         private System.Windows.Forms.ListBox lbFiles;
 
         private System.Windows.Forms.SplitContainer splitContainer;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripLabel lblInfo;
     }
 }

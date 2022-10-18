@@ -13,6 +13,7 @@ using System.Drawing.Design;
 using System.Text.Json.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Drawing.Imaging;
+using System.ComponentModel.DataAnnotations;
 using Ephemera.NBagOfTricks;
 
 
@@ -41,14 +42,14 @@ namespace Ephemera.NBagOfUis.Test
             txtInfo.Prompt = ">>> ";
 
             ///// Filter tree. Adjust/persist to taste.
-            ftree.RootDirs = new List<string> { @"C:\Dev", @"C:\Users\cepth\AppData\Local\Ephemera", @"C:\Users\cepth\AppData\Roaming\Sublime Text\Packages" };
-            ftree.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" };
-            ftree.IgnoreDirs = new List<string> { ".vs", ".git", "bin", "obj", "lib" };
-            ftree.SplitterPosition = 30;
-            ftree.SingleClickSelect = true;
-            ftree.RecentFiles = _settings.RecentFiles;
-            ftree.Init();
-            ftree.FileSelectedEvent += Ftree_FileSelectedEvent;
+            filTree.RootDirs = new List<string> { @"C:\Dev", @"C:\Users\cepth\AppData\Local\Ephemera", @"C:\Users\cepth\AppData\Roaming\Sublime Text\Packages" };
+            filTree.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs" };
+            filTree.IgnoreDirs = new List<string> { ".vs", ".git", "bin", "obj", "lib" };
+            filTree.SplitterPosition = 30;
+            filTree.SingleClickSelect = true;
+            filTree.RecentFiles = _settings.RecentFiles;
+            filTree.Init();
+            filTree.FileSelectedEvent += Ftree_FileSelectedEvent;
 
             ///// Click grid.
             clickGrid1.AddStateType(0, Color.Blue, Color.AliceBlue);
@@ -131,16 +132,39 @@ namespace Ephemera.NBagOfUis.Test
         void EditSettings()
         {
             // Edit them.
+            bool restart = false;
             var changes = SettingsEditor.Edit(_settings, "Edit me!!!", 400);
-            changes.ForEach(ch => Tell($"change name:{ch.name} cat:{ch.cat}"));
 
-            // Mod and save.
-            //_settings.Abool = chk1.Checked;
+            foreach (var (name, cat) in changes)
+            {
+                switch (name)
+                {
+                    case "ControlColor":
+                    case "FileLogLevel":
+                    case "NotifLogLevel":
+                        restart = true;
+                        break;
+
+                    case "SingleClickSelect":
+                        filTree.SingleClickSelect = _settings.SingleClickSelect;
+                        break;
+
+                    case "SplitterPosition":
+                        filTree.SplitterPosition = _settings.SplitterPosition;
+                        break;
+                }
+            }
+
+            if (restart)
+            {
+                MessageBox.Show("Restart required for device changes to take effect");
+            }
+
             _settings.FormGeometry = new Rectangle(Location.X, Location.Y, Size.Width, Size.Height);
-
             _settings.Save();
 
-            File.ReadAllLines("settings.json").ForEach(l => Debug.WriteLine(l));
+            // Update
+            filTree.Init();
         }
 
         void Timer1_Tick(object? sender, EventArgs e)
@@ -184,10 +208,8 @@ namespace Ephemera.NBagOfUis.Test
         {
             _settings.FormGeometry = new Rectangle(Location.X, Location.Y, Width, Height);
             _settings.Save();
-            //ftree.Settings.Save();
         }
     }
-
 
     public class TestSettings : SettingsCore
     {
@@ -227,5 +249,16 @@ namespace Ephemera.NBagOfUis.Test
         [Category("Cat2")]
         [Browsable(true)]
         public string TestString { get; set; } = "Just a test";
+
+        [DisplayName("Single Click Select")]
+        [Description("Generate event with single or double click.")]
+        [Browsable(true)]
+        public bool SingleClickSelect { get; set; } = false;
+
+        [DisplayName("Splitter Position")]
+        [Description("As percentage.")]
+        [Range(10, 80)]
+        [Browsable(true)]
+        public int SplitterPosition { get; set; } = 30;
     }
 }

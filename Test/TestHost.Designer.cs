@@ -35,7 +35,7 @@
             this.txtInfo = new NBagOfUis.TextViewer();
             this.propGrid = new NBagOfUis.PropertyGridEx();
             this.clickGrid1 = new NBagOfUis.ClickGrid();
-            this.ftree = new NBagOfUis.FilTree();
+            this.filTree = new NBagOfUis.FilTree();
             this.cpuMeter1 = new NBagOfUis.CpuMeter();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.slider1 = new NBagOfUis.Slider();
@@ -90,15 +90,15 @@
             this.clickGrid1.Size = new System.Drawing.Size(274, 143);
             this.clickGrid1.TabIndex = 1;
             // 
-            // ftree
+            // filTree
             // 
-            this.ftree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ftree.Location = new System.Drawing.Point(1, 51);
-            this.ftree.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.ftree.Name = "ftree";
-            this.ftree.Size = new System.Drawing.Size(483, 512);
-            this.ftree.TabIndex = 11;
-            this.ftree.FileSelectedEvent += new System.EventHandler<string>(this.FilTree_FileSelectedEvent);
+            this.filTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.filTree.Location = new System.Drawing.Point(1, 51);
+            this.filTree.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.filTree.Name = "filTree";
+            this.filTree.Size = new System.Drawing.Size(483, 512);
+            this.filTree.TabIndex = 11;
+            this.filTree.FileSelectedEvent += new System.EventHandler<string>(this.FilTree_FileSelectedEvent);
             // 
             // cpuMeter1
             // 
@@ -347,7 +347,7 @@
             this.Controls.Add(this.txtInfo);
             this.Controls.Add(this.cpuMeter1);
             this.Controls.Add(this.propGrid);
-            this.Controls.Add(this.ftree);
+            this.Controls.Add(this.filTree);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "TestHost";
             this.Text = "TestHost";
@@ -362,7 +362,7 @@
         private TextViewer txtInfo;
         private PropertyGridEx propGrid;
         private ClickGrid clickGrid1;
-        private FilTree ftree;
+        private FilTree filTree;
         private CpuMeter cpuMeter1;
         private Meter meterDots;
         private Meter meterLog;

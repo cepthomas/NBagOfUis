@@ -13,9 +13,6 @@ using System.Drawing.Design;
 using Ephemera.NBagOfTricks;
 
 
-// TODO maybe delete/copy/move, hover: filters, fullpath, size, thumbnail.
-
-
 namespace Ephemera.NBagOfUis
 {
     /// <summary>
@@ -89,8 +86,10 @@ namespace Ephemera.NBagOfUis
             lbFiles.MouseClick += (object? sender, MouseEventArgs e) => FileSelected(e);
             lbFiles.MouseDoubleClick += (object? sender, MouseEventArgs e) => FileSelected(e);
 
-            btnEdit.Click += (_, __) => {  }; //TODO1 something
-            //lblActiveFilters.Text = "Filters: " + (FilterExts.Count == 0 ? "None" : string.Join(" ", FilterExts));
+            //btnEdit.Click += (_, __) => { }; Client responsible for editing tags etc.
+            btnEdit.Visible = false;
+
+            lblInfo.Text = "Hello!";
         }
 
         /// <summary>
@@ -243,6 +242,29 @@ namespace Ephemera.NBagOfUis
         #endregion
 
         #region Misc privates
+
+        void Edit()
+        {
+            // TODO edit: filters, tags, ...
+            // public List<string> RootDirs { get; set; } = new();
+            // public List<string> FilterExts { get; set; } = new();
+            // public List<string> IgnoreDirs { get; set; } = new();
+            // XX public int SplitterPosition
+            // public bool SingleClickSelect { get; set; } = false;
+        }
+
+
+        protected override void OnMouseHover(EventArgs e)
+        {
+            // TODO hover: fullpath, tags, size, thumbnail.
+
+
+
+            base.OnMouseHover(e);
+        }
+
+
+
         /// <summary>
         /// Context menu handler.
         /// </summary>
