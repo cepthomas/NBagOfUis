@@ -32,6 +32,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestHost));
             this.txtInfo = new Ephemera.NBagOfUis.TextViewer();
             this.propGrid = new Ephemera.NBagOfUis.PropertyGridEx();
             this.clickGrid1 = new Ephemera.NBagOfUis.ClickGrid();
@@ -51,14 +52,15 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.btnChoice = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnOptions = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.meterDots = new Ephemera.NBagOfUis.Meter();
             this.meterLog = new Ephemera.NBagOfUis.Meter();
             this.meterLinear = new Ephemera.NBagOfUis.Meter();
             this.slider2 = new Ephemera.NBagOfUis.Slider();
             this.pan1 = new Ephemera.NBagOfUis.Pan();
             this.pot1 = new Ephemera.NBagOfUis.Pot();
-            this.btnOptions = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.filTree = new Ephemera.NBagOfUis.FilTree();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,12 +68,12 @@
             // 
             this.txtInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtInfo.Location = new System.Drawing.Point(14, 53);
+            this.txtInfo.Location = new System.Drawing.Point(14, 424);
             this.txtInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtInfo.MaxText = 5000;
             this.txtInfo.Name = "txtInfo";
             this.txtInfo.Prompt = "** ";
-            this.txtInfo.Size = new System.Drawing.Size(470, 508);
+            this.txtInfo.Size = new System.Drawing.Size(470, 137);
             this.txtInfo.TabIndex = 5;
             this.txtInfo.WordWrap = true;
             // 
@@ -236,6 +238,20 @@
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(6, 43);
             // 
+            // btnOptions
+            // 
+            this.btnOptions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnOptions.Name = "btnOptions";
+            this.btnOptions.Size = new System.Drawing.Size(63, 40);
+            this.btnOptions.Text = "options";
+            this.btnOptions.Click += new System.EventHandler(this.Options_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 43);
+            // 
             // meterDots
             // 
             this.meterDots.BackColor = System.Drawing.Color.Gainsboro;
@@ -323,25 +339,21 @@
             this.pot1.Taper = Ephemera.NBagOfUis.Taper.Linear;
             this.pot1.Value = 50D;
             // 
-            // btnOptions
+            // filTree
             // 
-            this.btnOptions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnOptions.Name = "btnOptions";
-            this.btnOptions.Size = new System.Drawing.Size(63, 40);
-            this.btnOptions.Text = "options";
-            this.btnOptions.Click += new System.EventHandler(this.Options_Click);
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 43);
+            this.filTree.Location = new System.Drawing.Point(12, 53);
+            this.filTree.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.filTree.Name = "filTree";
+            this.filTree.Size = new System.Drawing.Size(472, 362);
+            this.filTree.SplitterPosition = 42;
+            this.filTree.TabIndex = 32;
             // 
             // TestHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(998, 571);
+            this.Controls.Add(this.filTree);
             this.Controls.Add(this.pot1);
             this.Controls.Add(this.pan1);
             this.Controls.Add(this.slider2);
@@ -393,5 +405,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripButton btnOptions;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private FilTree filTree;
     }
 }

@@ -41,7 +41,6 @@ namespace Ephemera.NBagOfUis.Test
             txtInfo.BackColor = Color.Cornsilk;
             txtInfo.Prompt = ">>> ";
 
-
             ///// Click grid.
             clickGrid1.AddStateType(0, Color.Blue, Color.AliceBlue);
             clickGrid1.AddStateType(1, Color.AliceBlue, Color.Blue);
@@ -81,6 +80,25 @@ namespace Ephemera.NBagOfUis.Test
             //propGrid.ExpandGroup("Cat1", false);
             //propGrid.ShowProperty("TestString", false);
 
+            ///// FilTree.
+            filTree.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs", ".py" };
+            filTree.IgnoreDirs = new List<string> { ".vs", ".git", "bin", "obj", "lib" };
+            filTree.RootDirs = new List<string>
+            {
+                @"C:\Users\cepth\AppData\Local\Ephemera\Notr",
+                @"C:\Users\cepth\AppData\Roaming\Sublime Text\Packages\Notr",
+                @"C:\Users\cepth\OneDrive\OneDrive Documents\_notes"
+            };
+            //filTree.RecentFiles = new()
+            //{
+            //    @"C:\Dev\repos\repos_common\audio_file_info.txt",
+            //    @"C:\Dev\repos\repos_common\build.txt"
+            //};
+            filTree.SplitterPosition = 40;
+            filTree.SingleClickSelect = false;
+            filTree.InitTree();
+            filTree.FileSelectedEvent += (object? sender, string fn) => { Tell($"Selected file: {fn}"); _settings.UpdateMru(fn); };
+
             ///// Other stuff.
             btnSettings.Click += (_, __) => EditSettings();
             btnGfx.Click += (_, __) => { new GraphicsForm().ShowDialog(); };
@@ -100,11 +118,6 @@ namespace Ephemera.NBagOfUis.Test
 
             // Go-go-go.
             timer1.Enabled = true;
-        }
-
-        void Ftree_FileSelectedEvent(object? sender, string fn)
-        {
-            _settings.UpdateMru(fn);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -202,11 +215,6 @@ namespace Ephemera.NBagOfUis.Test
         {
             int state = ++e.State % 3;
             clickGrid1.SetIndicator(e.Id, state);
-        }
-
-        void FilTree_FileSelectedEvent(object? sender, string fn)
-        {
-            Tell($"Selected file: {fn}");
         }
 
         void Tell(string msg)
