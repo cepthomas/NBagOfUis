@@ -11,6 +11,9 @@ using System.IO;
 using System.Diagnostics;
 using System.Drawing.Design;
 using Ephemera.NBagOfTricks;
+using System.Reflection;
+using static System.Net.Mime.MediaTypeNames;
+using System.Security.Policy;
 
 
 namespace Ephemera.NBagOfUis
@@ -109,12 +112,11 @@ namespace Ephemera.NBagOfUis
             InitializeComponent();
 
             treeView.HideSelection = false;
-
             treeView.MouseMove += TreeView_MouseMove;
+            treeView.NodeMouseClick += TreeView_NodeMouseClick;
 
             treeView.ContextMenuStrip = new();
             treeView.ContextMenuStrip.Items.Add("Copy Path", null, (_, __) => { GetInfo(treeView); });
-            // edit tags, hide
 
             lbFiles.MouseClick += (object? sender, MouseEventArgs e) => FileSelected(e);
             lbFiles.MouseDoubleClick += (object? sender, MouseEventArgs e) => FileSelected(e);
@@ -364,55 +366,34 @@ namespace Ephemera.NBagOfUis
         readonly StatusStrip statusStrip = new();
         readonly ToolStripStatusLabel lblInfo = new();
 
-        /// <summary>Required method for Designer support - do not modify the contents of this method with the code editor.</summary>
+        /// <summary>Required method for Designer support - do not modify the contents of this method with the code editor. (haha)</summary>
         void InitializeComponent()
         {
             treeView.BorderStyle = BorderStyle.None;
             treeView.Dock = DockStyle.Fill;
-            treeView.Location = new System.Drawing.Point(0, 0);
-            treeView.Margin = new Padding(3, 4, 3, 4);
             treeView.Name = "treeView";
-            treeView.Size = new System.Drawing.Size(262, 471);
             treeView.TabIndex = 0;
-            treeView.NodeMouseClick += new TreeNodeMouseClickEventHandler(TreeView_NodeMouseClick);
 
             lbFiles.BorderStyle = BorderStyle.None;
             lbFiles.Dock = DockStyle.Fill;
             lbFiles.ItemHeight = 20;
-            lbFiles.Location = new System.Drawing.Point(0, 0);
-            lbFiles.Margin = new Padding(3, 4, 3, 4);
             lbFiles.Name = "lbFiles";
-            lbFiles.Size = new System.Drawing.Size(334, 471);
             lbFiles.TabIndex = 1;
 
             splitContainer.Dock = DockStyle.Fill;
-            splitContainer.Location = new System.Drawing.Point(0, 27);
-            splitContainer.Margin = new Padding(3, 4, 3, 4);
             splitContainer.Name = "splitContainer";
+            splitContainer.SplitterDistance = 262;
             splitContainer.Panel1.Controls.Add(treeView);
             splitContainer.Panel2.Controls.Add(lbFiles);
-            splitContainer.Size = new System.Drawing.Size(600, 471);
-            splitContainer.SplitterDistance = 262;
-            splitContainer.TabIndex = 4;
             Controls.Add(splitContainer);
 
-            statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             statusStrip.Items.AddRange(new ToolStripItem[] { lblInfo });
-            statusStrip.Location = new System.Drawing.Point(0, 472);
             statusStrip.Name = "statusStrip";
-            statusStrip.Size = new System.Drawing.Size(600, 26);
-            statusStrip.TabIndex = 5;
+            statusStrip.Size = new(600, 26);
+            statusStrip.LayoutStyle = ToolStripLayoutStyle.Flow;
             Controls.Add(statusStrip);
 
             lblInfo.Name = "lblInfo";
-            lblInfo.Size = new System.Drawing.Size(151, 20);
-            lblInfo.Text = "";
-
-            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            Margin = new Padding(3, 4, 3, 4);
-            Name = "FilTree";
-            Size = new System.Drawing.Size(600, 498);
         }
         #endregion
     }

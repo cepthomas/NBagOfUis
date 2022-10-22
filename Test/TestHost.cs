@@ -89,11 +89,11 @@ namespace Ephemera.NBagOfUis.Test
                 @"C:\Users\cepth\AppData\Roaming\Sublime Text\Packages\Notr",
                 @"C:\Users\cepth\OneDrive\OneDrive Documents\_notes"
             };
-            //filTree.RecentFiles = new()
-            //{
-            //    @"C:\Dev\repos\repos_common\audio_file_info.txt",
-            //    @"C:\Dev\repos\repos_common\build.txt"
-            //};
+            filTree.RecentFiles = new()
+            {
+                @"C:\Dev\repos\repos_common\audio_file_info.txt",
+                @"C:\Dev\repos\repos_common\build.txt"
+            };
             filTree.SplitterPosition = 40;
             filTree.SingleClickSelect = false;
             filTree.InitTree();
