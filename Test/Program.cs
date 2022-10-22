@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Windows.Forms;
 using Ephemera.NBagOfUis;
 
 
@@ -13,8 +14,10 @@ namespace Ephemera.NBagOfUis.Test
         static void Main(string[] _)
         {
             // Use test host for debugging UI components.
-            TestHost w = new();
-            w.ShowDialog();
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new TestHost());
         }
     }
 }

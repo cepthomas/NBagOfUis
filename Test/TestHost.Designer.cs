@@ -32,7 +32,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestHost));
             this.txtInfo = new Ephemera.NBagOfUis.TextViewer();
             this.propGrid = new Ephemera.NBagOfUis.PropertyGridEx();
             this.clickGrid1 = new Ephemera.NBagOfUis.ClickGrid();
@@ -66,7 +65,6 @@
             // 
             // txtInfo
             // 
-            this.txtInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtInfo.Location = new System.Drawing.Point(14, 424);
             this.txtInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -345,7 +343,6 @@
             this.filTree.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.filTree.Name = "filTree";
             this.filTree.Size = new System.Drawing.Size(472, 362);
-            this.filTree.SplitterPosition = 42;
             this.filTree.TabIndex = 32;
             // 
             // TestHost
