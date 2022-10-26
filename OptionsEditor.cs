@@ -64,11 +64,22 @@ namespace Ephemera.NBagOfUis
         {
             txtAdd = new()
             {
-                Location = new(82, 204),
+                Location = new(82, 208),
                 Name = "txtAdd",
                 Size = new(89, 22)
             };
             Controls.Add(txtAdd);
+
+            btnAdd = new()
+            {
+                Location = new(15, 207),
+                Name = "btnAdd",
+                Size = new(61, 27),
+                Text = "Add:",
+                UseVisualStyleBackColor = true
+            };
+            btnAdd.Click += Add_Click;
+            Controls.Add(btnAdd);
 
             lbValues = new()
             {
@@ -83,7 +94,7 @@ namespace Ephemera.NBagOfUis
             btnCancel = new()
             {
                 DialogResult = DialogResult.Cancel,
-                Location = new(96, 238),
+                Location = new(96, 242),
                 Name = "btnCancel",
                 Size = new(75, 30),
                 Text = "Cancel",
@@ -94,31 +105,19 @@ namespace Ephemera.NBagOfUis
             btnOk = new()
             {
                 DialogResult = DialogResult.OK,
-                Location = new(15, 238),
+                Location = new(15, 242),
                 Name = "btnOk",
                 Size = new(75, 29),
                 Text = "OK",
                 UseVisualStyleBackColor = true
             };
             Controls.Add(btnOk);
-
-            btnAdd = new()
-            {
-                Location = new(15, 203),
-                Name = "btnAdd",
-                Size = new(61, 23),
-                Text = "Add:",
-                UseVisualStyleBackColor = true
-            };
-            btnAdd.Click += Add_Click;
-            Controls.Add(btnAdd);
-
             Adjust();
 
             // Form stuff.
             AcceptButton = btnOk;
             CancelButton = btnCancel;
-            ClientSize = new(182, 275);
+            ClientSize = new(182, 280);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "OptionsEditor";
             Text = "Option Editor";
@@ -178,7 +177,7 @@ namespace Ephemera.NBagOfUis
         {
             btnAdd.Visible = _allowEdit;
             txtAdd.Visible = _allowEdit;
-            lbValues.Height = _allowEdit ? btnAdd.Top - 2 : btnAdd.Bottom + 1;
+            lbValues.Height = _allowEdit ? btnAdd.Top - 1 : btnAdd.Bottom + 1;
         }
     }
 }
