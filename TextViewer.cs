@@ -68,17 +68,17 @@ namespace Ephemera.NBagOfUis
             base.OnLoad(e);
         }
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _rtb.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        ///// <summary>
+        ///// Clean up any resources being used.
+        ///// </summary>
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        _rtb.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
 
        /// <summary></summary>
         public void Clear()
