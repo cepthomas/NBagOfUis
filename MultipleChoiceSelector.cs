@@ -10,23 +10,17 @@ using System.Windows.Forms;
 
 namespace Ephemera.NBagOfUis
 {
-    public partial class MultipleChoiceSelector : Form
+    public partial class MultipleChoiceSelector : UserControl
     {
         /// <summary>What the user picked.</summary>
         public string SelectedOption { get; private set; } = "???";
 
         /// <summary>
-        /// Coonstructor.
+        /// Constructor.
         /// </summary>
         public MultipleChoiceSelector()
         {
-            Name = "MultipleChoiceSelector";
-            Text = "Pick One";
-            StartPosition = FormStartPosition.Manual;
-            Location = Cursor.Position;
-            FormBorderStyle = FormBorderStyle.SizableToolWindow;
-            ShowIcon = false;
-            ShowInTaskbar = false;
+            
         }
 
         /// <summary>

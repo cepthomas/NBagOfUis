@@ -49,10 +49,6 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMeter1 = new Ephemera.NBagOfUis.ToolStripMeter();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnChoice = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnOptions = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.meterDots = new Ephemera.NBagOfUis.Meter();
             this.meterLog = new Ephemera.NBagOfUis.Meter();
             this.meterLinear = new Ephemera.NBagOfUis.Meter();
@@ -60,18 +56,21 @@
             this.pan1 = new Ephemera.NBagOfUis.Pan();
             this.pot1 = new Ephemera.NBagOfUis.Pot();
             this.filTree = new Ephemera.NBagOfUis.FilTree();
+            this.choicer = new Ephemera.NBagOfUis.MultipleChoiceSelector();
+            this.options = new Ephemera.NBagOfUis.OptionsEditor();
+            this.btnDump = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtInfo
             // 
             this.txtInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtInfo.Location = new System.Drawing.Point(14, 424);
+            this.txtInfo.Location = new System.Drawing.Point(14, 402);
             this.txtInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtInfo.MaxText = 5000;
             this.txtInfo.Name = "txtInfo";
             this.txtInfo.Prompt = "** ";
-            this.txtInfo.Size = new System.Drawing.Size(470, 137);
+            this.txtInfo.Size = new System.Drawing.Size(470, 159);
             this.txtInfo.TabIndex = 5;
             this.txtInfo.WordWrap = true;
             // 
@@ -98,7 +97,7 @@
             this.cpuMeter1.DrawColor = System.Drawing.Color.DarkOrange;
             this.cpuMeter1.Enable = false;
             this.cpuMeter1.Label = "cpu";
-            this.cpuMeter1.Location = new System.Drawing.Point(785, 485);
+            this.cpuMeter1.Location = new System.Drawing.Point(1017, 485);
             this.cpuMeter1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cpuMeter1.Name = "cpuMeter1";
             this.cpuMeter1.Size = new System.Drawing.Size(197, 76);
@@ -110,7 +109,7 @@
             this.slider1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.slider1.DrawColor = System.Drawing.Color.Orange;
             this.slider1.Label = "slider1";
-            this.slider1.Location = new System.Drawing.Point(785, 53);
+            this.slider1.Location = new System.Drawing.Point(1017, 53);
             this.slider1.Maximum = 1D;
             this.slider1.Minimum = 0D;
             this.slider1.Name = "slider1";
@@ -133,14 +132,10 @@
             this.toolStripSlider1,
             this.toolStripSeparator4,
             this.toolStripMeter1,
-            this.toolStripSeparator5,
-            this.btnChoice,
-            this.toolStripSeparator6,
-            this.btnOptions,
-            this.toolStripSeparator7});
+            this.toolStripSeparator5});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(998, 43);
+            this.toolStrip1.Size = new System.Drawing.Size(1225, 43);
             this.toolStrip1.TabIndex = 25;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -222,40 +217,12 @@
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 43);
             // 
-            // btnChoice
-            // 
-            this.btnChoice.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnChoice.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnChoice.Name = "btnChoice";
-            this.btnChoice.Size = new System.Drawing.Size(56, 40);
-            this.btnChoice.Text = "choice";
-            this.btnChoice.Click += new System.EventHandler(this.Choice_Click);
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 43);
-            // 
-            // btnOptions
-            // 
-            this.btnOptions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnOptions.Name = "btnOptions";
-            this.btnOptions.Size = new System.Drawing.Size(63, 40);
-            this.btnOptions.Text = "options";
-            this.btnOptions.Click += new System.EventHandler(this.Options_Click);
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 43);
-            // 
             // meterDots
             // 
             this.meterDots.BackColor = System.Drawing.Color.Gainsboro;
             this.meterDots.DrawColor = System.Drawing.Color.White;
             this.meterDots.Label = "meterDots";
-            this.meterDots.Location = new System.Drawing.Point(785, 285);
+            this.meterDots.Location = new System.Drawing.Point(1017, 285);
             this.meterDots.Maximum = 10D;
             this.meterDots.MeterType = Ephemera.NBagOfUis.MeterType.ContinuousDots;
             this.meterDots.Minimum = 0D;
@@ -269,7 +236,7 @@
             this.meterLog.BackColor = System.Drawing.Color.Gainsboro;
             this.meterLog.DrawColor = System.Drawing.Color.Azure;
             this.meterLog.Label = "meter log";
-            this.meterLog.Location = new System.Drawing.Point(785, 354);
+            this.meterLog.Location = new System.Drawing.Point(1017, 354);
             this.meterLog.Maximum = 3D;
             this.meterLog.MeterType = Ephemera.NBagOfUis.MeterType.Log;
             this.meterLog.Minimum = -60D;
@@ -283,7 +250,7 @@
             this.meterLinear.BackColor = System.Drawing.Color.Gainsboro;
             this.meterLinear.DrawColor = System.Drawing.Color.White;
             this.meterLinear.Label = "meterLinear";
-            this.meterLinear.Location = new System.Drawing.Point(785, 420);
+            this.meterLinear.Location = new System.Drawing.Point(1017, 420);
             this.meterLinear.Maximum = 100D;
             this.meterLinear.MeterType = Ephemera.NBagOfUis.MeterType.Linear;
             this.meterLinear.Minimum = 0D;
@@ -298,7 +265,7 @@
             this.slider2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.slider2.DrawColor = System.Drawing.Color.SlateBlue;
             this.slider2.Label = "SL2";
-            this.slider2.Location = new System.Drawing.Point(785, 112);
+            this.slider2.Location = new System.Drawing.Point(1017, 112);
             this.slider2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.slider2.Maximum = 19D;
             this.slider2.Minimum = 2D;
@@ -313,7 +280,7 @@
             // 
             this.pan1.BackColor = System.Drawing.Color.Gainsboro;
             this.pan1.DrawColor = System.Drawing.Color.Crimson;
-            this.pan1.Location = new System.Drawing.Point(860, 229);
+            this.pan1.Location = new System.Drawing.Point(1092, 229);
             this.pan1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pan1.Name = "pan1";
             this.pan1.Size = new System.Drawing.Size(122, 46);
@@ -326,7 +293,7 @@
             this.pot1.DrawColor = System.Drawing.Color.Green;
             this.pot1.ForeColor = System.Drawing.Color.Black;
             this.pot1.Label = "p99";
-            this.pot1.Location = new System.Drawing.Point(860, 112);
+            this.pot1.Location = new System.Drawing.Point(1092, 112);
             this.pot1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pot1.Maximum = 100D;
             this.pot1.Minimum = 0D;
@@ -342,14 +309,43 @@
             this.filTree.Location = new System.Drawing.Point(12, 53);
             this.filTree.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.filTree.Name = "filTree";
-            this.filTree.Size = new System.Drawing.Size(472, 362);
+            this.filTree.Size = new System.Drawing.Size(472, 340);
             this.filTree.TabIndex = 32;
+            // 
+            // choicer
+            // 
+            this.choicer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.choicer.Location = new System.Drawing.Point(771, 285);
+            this.choicer.Name = "choicer";
+            this.choicer.Size = new System.Drawing.Size(211, 196);
+            this.choicer.TabIndex = 33;
+            // 
+            // options
+            // 
+            this.options.AllowEdit = false;
+            this.options.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.options.Location = new System.Drawing.Point(771, 93);
+            this.options.Name = "options";
+            this.options.Size = new System.Drawing.Size(211, 182);
+            this.options.TabIndex = 34;
+            // 
+            // btnDump
+            // 
+            this.btnDump.Location = new System.Drawing.Point(771, 53);
+            this.btnDump.Name = "btnDump";
+            this.btnDump.Size = new System.Drawing.Size(211, 29);
+            this.btnDump.TabIndex = 35;
+            this.btnDump.Text = "Dump these";
+            this.btnDump.UseVisualStyleBackColor = true;
             // 
             // TestHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(998, 571);
+            this.ClientSize = new System.Drawing.Size(1225, 571);
+            this.Controls.Add(this.btnDump);
+            this.Controls.Add(this.options);
+            this.Controls.Add(this.choicer);
             this.Controls.Add(this.filTree);
             this.Controls.Add(this.pot1);
             this.Controls.Add(this.pan1);
@@ -398,10 +394,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripButton btnChoice;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-        private System.Windows.Forms.ToolStripButton btnOptions;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private FilTree filTree;
+        private MultipleChoiceSelector choicer;
+        private OptionsEditor options;
+        private System.Windows.Forms.Button btnDump;
     }
 }

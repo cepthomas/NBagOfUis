@@ -96,6 +96,18 @@ namespace Ephemera.NBagOfUis.Test
             filTree.InitTree();
             filTree.FileSelectedEvent += (object? sender, string fn) => { Tell($"Selected file: {fn}"); _settings.UpdateMru(fn); };
 
+            ///// OptionsEditor and MultipleChoiceSelector
+            options.AllowEdit = true;
+            options.Values = new() { { "Apple", true }, { "Orange", false }, { "Peach", true }, { "Bird", false }, { "Cow", true } };
+            choicer.Text = "Test choice";
+            choicer.SetOptions(new() { "Apple", "Orange", "Peach", "Bird", "Cow" });
+            btnDump.Click += (_, __) =>
+            {
+                Tell($"MultipleChoiceSelector: {choicer.SelectedOption}");
+                Tell($"OptionsEditor:");
+                options.Values.ForEach(v => Tell($"{v.Key} is {v.Value}"));
+            };
+
             ///// Other stuff.
             btnSettings.Click += (_, __) => EditSettings();
             btnGfx.Click += (_, __) => { new GraphicsForm().ShowDialog(); };
@@ -108,9 +120,9 @@ namespace Ephemera.NBagOfUis.Test
             slider1.ValueChanged += (_, __) => meterLinear.AddValue(slider1.Value);
             // sl2 2 -> 19
             slider2.ValueChanged += (_, __) => meterDots.AddValue(slider2.Value);
-
+            //
             toolStripSlider1.ValueChanged += (_, __) => Tell($"toolStripSlider1:{toolStripSlider1.Value}");
-            
+            //
             pan1.ValueChanged += (_, __) => toolStripMeter1.AddValue(pan1.Value * 50.0 + 50.0);
 
             // Go-go-go.
@@ -170,42 +182,6 @@ namespace Ephemera.NBagOfUis.Test
 
         void Timer1_Tick(object? sender, EventArgs e)
         {
-        }
-
-        void Options_Click(object sender, EventArgs e)
-        {
-            OptionsEditor oped = new()
-            {
-                AllowEdit = true,
-                Values = new() { { "Apple", true }, { "Orange", false }, { "Peach", true } }
-            };
-
-            var dlgres = oped.ShowDialog();
-            if (dlgres == DialogResult.OK)
-            {
-                oped.Values.ForEach(v => Tell($"{v.Key} is {v.Value}"));
-            }
-            else
-            {
-                Tell($"You canceled");
-            }
-        }
-
-        void Choice_Click(object sender, EventArgs e)
-        {
-            MultipleChoiceSelector sel = new() { Text = "Test choice" };
-            sel.SetOptions(new() { "Apple", "Orange", "Peach" });
-            var dlgres = sel.ShowDialog();
-            if (dlgres == DialogResult.OK)
-            {
-                var selopt = sel.SelectedOption;
-
-                Tell($"You choosed {selopt}");
-            }
-            else
-            {
-                Tell($"You canceled");
-            }
         }
 
         void ClickGrid_IndicatorEvent(object? sender, IndicatorEventArgs e)

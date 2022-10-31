@@ -12,7 +12,7 @@ using Ephemera.NBagOfTricks;
 
 namespace Ephemera.NBagOfUis
 {
-    public partial class OptionsEditor : Form
+    public partial class OptionsEditor : UserControl
     {
         #region Fields
         /// <summary>Working values so we don't destroy originals.</summary>
@@ -23,12 +23,6 @@ namespace Ephemera.NBagOfUis
 
         /// <summary>Control.</summary>
         readonly CheckedListBox lbValues;
-
-        /// <summary>Control.</summary>
-        readonly Button btnCancel;
-
-        /// <summary>Control.</summary>
-        readonly Button btnOk;
 
         /// <summary>Control.</summary>
         readonly Button btnAdd;
@@ -42,12 +36,21 @@ namespace Ephemera.NBagOfUis
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), Browsable(false)]
         public Dictionary<string, bool> Values
         { 
-            get { return _values; }
-            set { _values = new Dictionary<string, bool>(value); _values.ForEach(kv => lbValues.Items.Add(kv.Key, kv.Value)); }
+            get
+            {
+                _values.Clear();
+                for (int i = 0; i < lbValues.Items.Count; i++)
+                {
+                    _values[lbValues.Items[i].ToString()!] = lbValues.GetItemChecked(i);
+                }
+                return _values;
+            }
+            set
+            {
+                _values = new Dictionary<string, bool>(value);
+                _values.ForEach(kv => lbValues.Items.Add(kv.Key, kv.Value));
+            }
         }
-
-        /// <summary>Custom label.</summary>
-        public string Title { get; set; } = "Options Editor";
 
         /// <summary>If true, user can add and delete values, otherwise just select.</summary>
         public bool AllowEdit
@@ -64,17 +67,15 @@ namespace Ephemera.NBagOfUis
         {
             txtAdd = new()
             {
-                Location = new(82, 208),
                 Name = "txtAdd",
-                Size = new(89, 22)
+                Size = new(90, 22)
             };
             Controls.Add(txtAdd);
 
             btnAdd = new()
             {
-                Location = new(15, 207),
                 Name = "btnAdd",
-                Size = new(61, 27),
+                Size = new(60, 27),
                 Text = "Add:",
                 UseVisualStyleBackColor = true
             };
@@ -83,46 +84,27 @@ namespace Ephemera.NBagOfUis
 
             lbValues = new()
             {
-                CheckOnClick = true,
-                Location = new(1, 1),
+                //CheckOnClick = true,
                 Name = "lbValues",
-                Size = new(182, 191)
             };
             lbValues.KeyDown += Values_KeyDown;
             Controls.Add(lbValues);
+        }
 
-            btnCancel = new()
-            {
-                DialogResult = DialogResult.Cancel,
-                Location = new(96, 242),
-                Name = "btnCancel",
-                Size = new(75, 30),
-                Text = "Cancel",
-                UseVisualStyleBackColor = true
-            };
-            Controls.Add(btnCancel);
+        /// <summary>
+        /// Create everything.
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnLoad(EventArgs e)
+        {
+            txtAdd.Location = new(82, 208);
+            btnAdd.Location = new(15, 207);
+            lbValues.Location = new(1, 1);
+            lbValues.Size = new(Width, Height - btnAdd.Top);
 
-            btnOk = new()
-            {
-                DialogResult = DialogResult.OK,
-                Location = new(15, 242),
-                Name = "btnOk",
-                Size = new(75, 29),
-                Text = "OK",
-                UseVisualStyleBackColor = true
-            };
-            Controls.Add(btnOk);
             Adjust();
 
-            // Form stuff.
-            AcceptButton = btnOk;
-            CancelButton = btnCancel;
-            ClientSize = new(182, 280);
-            FormBorderStyle = FormBorderStyle.FixedToolWindow;
-            Name = "OptionsEditor";
-            Text = "Option Editor";
-            ShowInTaskbar = false;
-            ShowIcon = false;
+            base.OnLoad(e);
         }
 
         /// <summary>
@@ -138,6 +120,7 @@ namespace Ephemera.NBagOfUis
             {
                 lbValues.Items.Add(s, true);
             }
+            Adjust();
         }
 
         /// <summary>
@@ -152,22 +135,6 @@ namespace Ephemera.NBagOfUis
                 lbValues.Items.RemoveAt(lbValues.SelectedIndex);
                 e.Handled = true;
             }
-        }
-
-        /// <summary>
-        /// Collect list contents.
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            _values.Clear();
-
-            for(int i = 0; i < lbValues.Items.Count; i++)
-            {
-                _values[lbValues.Items[i].ToString()!] = lbValues.GetItemChecked(i);
-            }
-
-            base.OnFormClosing(e);
         }
 
         /// <summary>
