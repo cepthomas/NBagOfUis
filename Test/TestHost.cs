@@ -99,6 +99,7 @@ namespace Ephemera.NBagOfUis.Test
             ///// OptionsEditor and ChoiceSelector
             optionsEd.AllowEdit = true;
             optionsEd.Options = new() { { "Apple", true }, { "Orange", false }, { "Peach", true }, { "Bird", false }, { "Cow", true } };
+            optionsEd.BackColor = Color.LightCoral;
             choicer.Text = "Test choice";
             choicer.SetOptions(new() { "Apple", "Orange", "Peach", "Bird", "Cow" });
             btnDump.Click += (_, __) =>

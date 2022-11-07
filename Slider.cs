@@ -252,7 +252,7 @@ namespace Ephemera.NBagOfUis
     {
         #region Fields
         /// <summary>Contained control.</summary>
-        Slider _slider;
+        readonly Slider _slider;
         #endregion
 
         #region Properties mapped to contained control

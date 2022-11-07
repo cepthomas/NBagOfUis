@@ -69,10 +69,11 @@ namespace Ephemera.NBagOfUis
         {
             List<string> ls = value is null ? new() : (List<string>)value;
 
-            ListBox lb = new();
-            lb.DataSource = ls;
-
-            lb.ContextMenuStrip = new();
+            ListBox lb = new()
+            {
+                DataSource = ls,
+                ContextMenuStrip = new()
+            };
 
             lb.ContextMenuStrip.Opening += (sender, _) =>
             {

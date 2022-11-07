@@ -215,7 +215,7 @@ namespace Ephemera.NBagOfUis
     {
         #region Fields
         /// <summary>Contained control.</summary>
-        Meter _meter;
+        readonly Meter _meter;
         #endregion
 
         #region Properties mapped to contained control

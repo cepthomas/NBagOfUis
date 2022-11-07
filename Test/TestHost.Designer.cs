@@ -326,10 +326,9 @@
             this.optionsEd.AllowEdit = true;
             this.optionsEd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.optionsEd.DrawColor = System.Drawing.Color.PaleGreen;
             this.optionsEd.Location = new System.Drawing.Point(771, 93);
             this.optionsEd.Name = "optionsEd";
-            this.optionsEd.Size = new System.Drawing.Size(211, 263);
+            this.optionsEd.Size = new System.Drawing.Size(211, 255);
             this.optionsEd.TabIndex = 34;
             // 
             // btnDump

@@ -14,6 +14,12 @@ namespace Ephemera.NBagOfUis
 {
     public partial class OptionsEditor : UserControl
     {
+        #region Component Designer generated code
+        CheckedListBox lbOptions;
+        TextBox txtEdit;
+        ContextMenuStrip cms;
+        #endregion
+
         #region Properties
         /// <summary>The values to edit. Key is text, value is bool enable.</summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), Browsable(false)]
@@ -37,13 +43,6 @@ namespace Ephemera.NBagOfUis
 
         /// <summary>If true, user can add and delete values, otherwise just select.</summary>
         public bool AllowEdit { get; set; }
-
-        /// <summary>Cosmetics.</summary>
-        public Color DrawColor
-        {
-            get { return lbOptions.BackColor; }
-            set { lbOptions.BackColor = value; }
-        }
         #endregion
 
         /// <summary>
@@ -51,131 +50,17 @@ namespace Ephemera.NBagOfUis
         /// </summary>
         public OptionsEditor()
         {
-            InitializeComponent();
-
-            lbOptions.Dock = DockStyle.Fill;
-            lbOptions.ContextMenuStrip = cms;
-
-            txtEdit.Visible = false;
-            txtEdit.KeyDown += TxtEdit_KeyDown;
-            txtEdit.Leave += TxtEdit_Leave;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void All_Click(object? sender, EventArgs e)
-        {
-            for (int i = 0; i < lbOptions.Items.Count; i++)
-            {
-                lbOptions.SetItemChecked(i, true);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void None_Click(object? sender, EventArgs e)
-        {
-            for (int i = 0; i < lbOptions.Items.Count; i++)
-            {
-                lbOptions.SetItemChecked(i, false);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void Delete_Click(object? sender, EventArgs e)
-        {
-            if (lbOptions.SelectedIndex >= 0)
-            {
-                lbOptions.Items.RemoveAt(lbOptions.SelectedIndex);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void Add_Click(object? sender, EventArgs e)
-        {
-            txtEdit.Text = "";
-            txtEdit.Location = PointToClient(MousePosition);
-            txtEdit.Visible = true;
-            txtEdit.Focus();
-            txtEdit.Select(0, 0);
-        }
-
-        /// <summary>
-        /// Process return and escape keys.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void TxtEdit_KeyDown(object? sender, KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
-                case Keys.Return:
-                    // Indicates validate and save.
-                    lbOptions.Focus();
-                    break;
-
-                case Keys.Escape:
-                    // Indicates cancel.
-                    txtEdit.Text = "";
-                    lbOptions.Focus();
-                    break;
-
-                default:
-                    // Normal op.
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Validate and save edit.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void TxtEdit_Leave(object? sender, EventArgs e)
-        {
-            if (txtEdit.Text != "")
-            {
-                // If textbox is not empty, add to collection.
-                string s = txtEdit.Text.Trim().Replace(" ", "_");
-                lbOptions.Items.Add(s, true);
-            }
-
-            txtEdit.Visible = false;
-        }
-
-
-        #region Component Designer generated code
-        CheckedListBox lbOptions;
-        TextBox txtEdit;
-        ContextMenuStrip cms;
-
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
-        /// the contents of this method with the code editor.
-        /// </summary>
-        void InitializeComponent()
-        {
             lbOptions = new()
             {
                 FormattingEnabled = true,
                 Location = new(17, 12),
                 Name = "lbOptions",
                 Size = new(107, 92),
-                TabIndex = 0
+                TabIndex = 0,
+
+                BorderStyle = BorderStyle.None,
+                Dock = DockStyle.Fill,
+                ContextMenuStrip = cms
             };
 
             txtEdit = new()
@@ -183,8 +68,12 @@ namespace Ephemera.NBagOfUis
                 Location = new(8, 156),
                 Name = "txtEdit",
                 Size = new(125, 27),
-                TabIndex = 2
+                TabIndex = 2,
+
+                Visible = false
             };
+            txtEdit.KeyDown += TxtEdit_KeyDown;
+            txtEdit.Leave += TxtEdit_Leave;
 
             cms = new()
             {
@@ -235,7 +124,103 @@ namespace Ephemera.NBagOfUis
             Controls.Add(lbOptions);
             Name = "OptionsEditor";
             Size = new(171, 276);
+            BackColorChanged += (_, __) => lbOptions.BackColor = BackColor;
         }
-        #endregion
+
+        /// <summary>
+        /// Select all.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void All_Click(object? sender, EventArgs e)
+        {
+            for (int i = 0; i < lbOptions.Items.Count; i++)
+            {
+                lbOptions.SetItemChecked(i, true);
+            }
+        }
+
+        /// <summary>
+        /// Select none.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void None_Click(object? sender, EventArgs e)
+        {
+            for (int i = 0; i < lbOptions.Items.Count; i++)
+            {
+                lbOptions.SetItemChecked(i, false);
+            }
+        }
+
+        /// <summary>
+        /// Delete selection.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void Delete_Click(object? sender, EventArgs e)
+        {
+            if (lbOptions.SelectedIndex >= 0)
+            {
+                lbOptions.Items.RemoveAt(lbOptions.SelectedIndex);
+            }
+        }
+
+        /// <summary>
+        /// Add new one.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void Add_Click(object? sender, EventArgs e)
+        {
+            txtEdit.Text = "";
+            txtEdit.Location = new(5, PointToClient(MousePosition).Y);
+            txtEdit.Visible = true;
+            txtEdit.Focus();
+            txtEdit.Select(0, 0);
+        }
+
+        /// <summary>
+        /// Process return and escape keys.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void TxtEdit_KeyDown(object? sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Return:
+                    // Indicates validate and save.
+                    lbOptions.Focus();
+                    break;
+
+                case Keys.Escape:
+                    // Indicates cancel.
+                    txtEdit.Text = "";
+                    lbOptions.Focus();
+                    break;
+
+                default:
+                    // Normal op.
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Validate and save edit.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void TxtEdit_Leave(object? sender, EventArgs e)
+        {
+            if (txtEdit.Text != "")
+            {
+                // If textbox is not empty, add to collection.
+                string s = txtEdit.Text.Trim().Replace(" ", "_");
+                lbOptions.Items.Add(s, true);
+            }
+
+            txtEdit.Visible = false;
+        }
     }
 }
