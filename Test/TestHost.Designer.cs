@@ -56,8 +56,8 @@
             this.pan1 = new Ephemera.NBagOfUis.Pan();
             this.pot1 = new Ephemera.NBagOfUis.Pot();
             this.filTree = new Ephemera.NBagOfUis.FilTree();
-            this.choicer = new Ephemera.NBagOfUis.MultipleChoiceSelector();
-            this.options = new Ephemera.NBagOfUis.OptionsEditor();
+            this.choicer = new Ephemera.NBagOfUis.ChoiceSelector();
+            this.optionsEd = new Ephemera.NBagOfUis.OptionsEditor();
             this.btnDump = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -70,7 +70,7 @@
             this.txtInfo.MaxText = 5000;
             this.txtInfo.Name = "txtInfo";
             this.txtInfo.Prompt = "** ";
-            this.txtInfo.Size = new System.Drawing.Size(470, 159);
+            this.txtInfo.Size = new System.Drawing.Size(470, 221);
             this.txtInfo.TabIndex = 5;
             this.txtInfo.WordWrap = true;
             // 
@@ -78,11 +78,12 @@
             // 
             this.propGrid.Location = new System.Drawing.Point(490, 203);
             this.propGrid.Name = "propGrid";
-            this.propGrid.Size = new System.Drawing.Size(274, 358);
+            this.propGrid.Size = new System.Drawing.Size(274, 420);
             this.propGrid.TabIndex = 20;
             // 
             // clickGrid1
             // 
+            this.clickGrid1.BackColor = System.Drawing.Color.LightPink;
             this.clickGrid1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.clickGrid1.Location = new System.Drawing.Point(491, 53);
             this.clickGrid1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -314,20 +315,22 @@
             // 
             // choicer
             // 
-            this.choicer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.choicer.Location = new System.Drawing.Point(771, 285);
+            this.choicer.BackColor = System.Drawing.Color.PowderBlue;
+            this.choicer.Location = new System.Drawing.Point(771, 362);
             this.choicer.Name = "choicer";
-            this.choicer.Size = new System.Drawing.Size(211, 196);
+            this.choicer.Size = new System.Drawing.Size(211, 261);
             this.choicer.TabIndex = 33;
             // 
-            // options
+            // optionsEd
             // 
-            this.options.AllowEdit = false;
-            this.options.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.options.Location = new System.Drawing.Point(771, 93);
-            this.options.Name = "options";
-            this.options.Size = new System.Drawing.Size(211, 182);
-            this.options.TabIndex = 34;
+            this.optionsEd.AllowEdit = true;
+            this.optionsEd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.optionsEd.DrawColor = System.Drawing.Color.PaleGreen;
+            this.optionsEd.Location = new System.Drawing.Point(771, 93);
+            this.optionsEd.Name = "optionsEd";
+            this.optionsEd.Size = new System.Drawing.Size(211, 263);
+            this.optionsEd.TabIndex = 34;
             // 
             // btnDump
             // 
@@ -342,9 +345,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1225, 571);
+            this.ClientSize = new System.Drawing.Size(1225, 635);
             this.Controls.Add(this.btnDump);
-            this.Controls.Add(this.options);
+            this.Controls.Add(this.optionsEd);
             this.Controls.Add(this.choicer);
             this.Controls.Add(this.filTree);
             this.Controls.Add(this.pot1);
@@ -395,8 +398,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private FilTree filTree;
-        private MultipleChoiceSelector choicer;
-        private OptionsEditor options;
+        private ChoiceSelector choicer;
+        private OptionsEditor optionsEd;
         private System.Windows.Forms.Button btnDump;
     }
 }

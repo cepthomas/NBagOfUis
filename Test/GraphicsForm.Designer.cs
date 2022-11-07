@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtInfo = new NBagOfUis.TextViewer();
+            this.txtInfo = new Ephemera.NBagOfUis.TextViewer();
             this.SuspendLayout();
             // 
             // txtInfo

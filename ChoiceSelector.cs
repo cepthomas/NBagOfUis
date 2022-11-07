@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Ephemera.NBagOfUis
 {
-    public partial class MultipleChoiceSelector : UserControl
+    public partial class ChoiceSelector : UserControl
     {
         /// <summary>What the user picked.</summary>
         public string SelectedOption { get; private set; } = "???";
@@ -18,7 +18,7 @@ namespace Ephemera.NBagOfUis
         /// <summary>
         /// Constructor.
         /// </summary>
-        public MultipleChoiceSelector()
+        public ChoiceSelector()
         {
             
         }

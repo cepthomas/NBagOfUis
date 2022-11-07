@@ -30,7 +30,7 @@ namespace Ephemera.NBagOfUis.Test
             _settings = (TestSettings)SettingsCore.Load(appDir, typeof(TestSettings), "nbui-test-settings.json");
 
             Location = new Point(_settings.FormGeometry.X, _settings.FormGeometry.Y);
-            Size = new Size(_settings.FormGeometry.Width, _settings.FormGeometry.Height);
+            //Size = new Size(_settings.FormGeometry.Width, _settings.FormGeometry.Height);
 
             ///// Text control.
             txtInfo.MatchColors.Add("50", Color.Purple);
@@ -42,7 +42,7 @@ namespace Ephemera.NBagOfUis.Test
             clickGrid1.AddStateType(0, Color.Blue, Color.AliceBlue);
             clickGrid1.AddStateType(1, Color.AliceBlue, Color.Blue);
             clickGrid1.AddStateType(2, Color.Red, Color.Salmon);
-            string[] names = { "dignissim", "cras", "tincidunt", "lobortis", "feugiat", "vivamus", "at", "augue", "eget" };
+            string[] names = { "dignis", "cras", "tincidu", "loborti", "feugiat", "vivamus", "at", "augue", "eget" };
             for (int i = 0; i < names.Length; i++)
             {
                 clickGrid1.AddIndicator(names[i], i);
@@ -96,16 +96,16 @@ namespace Ephemera.NBagOfUis.Test
             filTree.InitTree();
             filTree.FileSelectedEvent += (object? sender, string fn) => { Tell($"Selected file: {fn}"); _settings.UpdateMru(fn); };
 
-            ///// OptionsEditor and MultipleChoiceSelector
-            options.AllowEdit = true;
-            options.Values = new() { { "Apple", true }, { "Orange", false }, { "Peach", true }, { "Bird", false }, { "Cow", true } };
+            ///// OptionsEditor and ChoiceSelector
+            optionsEd.AllowEdit = true;
+            optionsEd.Options = new() { { "Apple", true }, { "Orange", false }, { "Peach", true }, { "Bird", false }, { "Cow", true } };
             choicer.Text = "Test choice";
             choicer.SetOptions(new() { "Apple", "Orange", "Peach", "Bird", "Cow" });
             btnDump.Click += (_, __) =>
             {
-                Tell($"MultipleChoiceSelector: {choicer.SelectedOption}");
+                Tell($"ChoiceSelector: {choicer.SelectedOption}");
                 Tell($"OptionsEditor:");
-                options.Values.ForEach(v => Tell($"{v.Key} is {v.Value}"));
+                optionsEd.Options.ForEach(v => Tell($"{v.Key} is {v.Value}"));
             };
 
             ///// Other stuff.
@@ -188,6 +188,7 @@ namespace Ephemera.NBagOfUis.Test
         {
             int state = ++e.State % 3;
             clickGrid1.SetIndicator(e.Id, state);
+            txtInfo.AppendLine($"ClickGrid:{e.Id}->{state}");
         }
 
         void Tell(string msg)
