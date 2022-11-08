@@ -72,7 +72,7 @@ namespace Ephemera.NBagOfUis
 
         #region Events
         /// <summary>User has selected a file.</summary>
-        public event EventHandler<string>? FileSelectedEvent = null;
+        public event EventHandler<string>? FileSelected = null;
         #endregion
 
         #region Types
@@ -118,8 +118,8 @@ namespace Ephemera.NBagOfUis
             treeView.ContextMenuStrip = new();
             treeView.ContextMenuStrip.Items.Add("Copy Path", null, (_, __) => { GetInfo(treeView); });
 
-            lbFiles.MouseClick += (object? sender, MouseEventArgs e) => FileSelected(e);
-            lbFiles.MouseDoubleClick += (object? sender, MouseEventArgs e) => FileSelected(e);
+            lbFiles.MouseClick += (object? sender, MouseEventArgs e) => UserFileSelected(e);
+            lbFiles.MouseDoubleClick += (object? sender, MouseEventArgs e) => UserFileSelected(e);
             lbFiles.MouseMove += ListFiles_MouseMove;
 
             lbFiles.ContextMenuStrip = new();
@@ -285,7 +285,7 @@ namespace Ephemera.NBagOfUis
         /// Handler for single or double mouse clicks.
         /// </summary>
         /// <param name="e"></param>
-        void FileSelected(MouseEventArgs e)
+        void UserFileSelected(MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -296,7 +296,7 @@ namespace Ephemera.NBagOfUis
                         var fi = lbFiles.SelectedItem as ListFileInfo;
                         if (fi is not null)
                         {
-                            FileSelectedEvent?.Invoke(this, fi.FullPath);
+                            FileSelected?.Invoke(this, fi.FullPath);
                         }
                     }
                 }

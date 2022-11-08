@@ -20,7 +20,6 @@ namespace Ephemera.NBagOfUis
         /// </summary>
         public ChoiceSelector()
         {
-            
         }
 
         /// <summary>
@@ -49,7 +48,7 @@ namespace Ephemera.NBagOfUis
                 yPos += yHeight + ySpacing;
             }
 
-            // Cancel.
+            // Add cancel button.
             Button cancel = new()
             {
                 Text = "Cancel",

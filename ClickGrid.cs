@@ -40,7 +40,7 @@ namespace Ephemera.NBagOfUis
 
         #region Events
         /// <summary>ClickGrid value changed event.</summary>
-        public event EventHandler<IndicatorEventArgs>? IndicatorEvent;
+        public event EventHandler<IndicatorEventArgs>? IndicatorChanged;
         #endregion
 
         #region Lifecycle
@@ -209,7 +209,7 @@ namespace Ephemera.NBagOfUis
 
             if (ind < _indicators.Count)
             {
-                IndicatorEvent?.Invoke(this, new IndicatorEventArgs()
+                IndicatorChanged?.Invoke(this, new IndicatorEventArgs()
                 {
                     Id = _indicators[ind].Id,
                     State = _indicators[ind].State

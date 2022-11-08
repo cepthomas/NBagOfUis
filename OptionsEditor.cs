@@ -14,10 +14,11 @@ namespace Ephemera.NBagOfUis
 {
     public partial class OptionsEditor : UserControl
     {
-        #region Component Designer generated code
-        CheckedListBox lbOptions;
-        TextBox txtEdit;
-        ContextMenuStrip cms;
+        #region Fields
+        // Component Designer generated code
+        readonly CheckedListBox lbOptions;
+        readonly TextBox txtEdit;
+        readonly ContextMenuStrip cms;
         #endregion
 
         #region Properties
@@ -45,6 +46,11 @@ namespace Ephemera.NBagOfUis
         public bool AllowEdit { get; set; }
         #endregion
 
+        #region Events
+        /// <summary>ClickGrid value changed event.</summary>
+        public event EventHandler? OptionsChanged;
+        #endregion
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -57,11 +63,10 @@ namespace Ephemera.NBagOfUis
                 Name = "lbOptions",
                 Size = new(107, 92),
                 TabIndex = 0,
-
                 BorderStyle = BorderStyle.None,
                 Dock = DockStyle.Fill,
-                ContextMenuStrip = cms
             };
+            lbOptions.ItemCheck += (_, __) => OptionsChanged?.Invoke(this, EventArgs.Empty);
 
             txtEdit = new()
             {
@@ -69,7 +74,6 @@ namespace Ephemera.NBagOfUis
                 Name = "txtEdit",
                 Size = new(125, 27),
                 TabIndex = 2,
-
                 Visible = false
             };
             txtEdit.KeyDown += TxtEdit_KeyDown;
@@ -81,6 +85,7 @@ namespace Ephemera.NBagOfUis
                 Name = "cms",
                 Size = new(123, 100)
             };
+            lbOptions.ContextMenuStrip = cms;
 
             ToolStripMenuItem allToolStripMenuItem = new()
             {
@@ -138,6 +143,7 @@ namespace Ephemera.NBagOfUis
             {
                 lbOptions.SetItemChecked(i, true);
             }
+            OptionsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -151,6 +157,7 @@ namespace Ephemera.NBagOfUis
             {
                 lbOptions.SetItemChecked(i, false);
             }
+            OptionsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -164,6 +171,7 @@ namespace Ephemera.NBagOfUis
             {
                 lbOptions.Items.RemoveAt(lbOptions.SelectedIndex);
             }
+            OptionsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -218,6 +226,7 @@ namespace Ephemera.NBagOfUis
                 // If textbox is not empty, add to collection.
                 string s = txtEdit.Text.Trim().Replace(" ", "_");
                 lbOptions.Items.Add(s, true);
+                OptionsChanged?.Invoke(this, EventArgs.Empty);
             }
 
             txtEdit.Visible = false;

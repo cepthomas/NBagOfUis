@@ -47,7 +47,7 @@ namespace Ephemera.NBagOfUis.Test
             {
                 clickGrid1.AddIndicator(names[i], i);
             }
-            clickGrid1.IndicatorEvent += ClickGrid_IndicatorEvent;
+            clickGrid1.IndicatorChanged += ClickGrid_IndicatorChanged;
             clickGrid1.Show(4, 60, 20);
 
             ///// PropertyGridEx and UiType editor host.
@@ -94,12 +94,13 @@ namespace Ephemera.NBagOfUis.Test
             filTree.SplitterPosition = 40;
             filTree.SingleClickSelect = false;
             filTree.InitTree();
-            filTree.FileSelectedEvent += (object? sender, string fn) => { Tell($"Selected file: {fn}"); _settings.UpdateMru(fn); };
+            filTree.FileSelected += (object? sender, string fn) => { Tell($"Selected file: {fn}"); _settings.UpdateMru(fn); };
 
             ///// OptionsEditor and ChoiceSelector
             optionsEd.AllowEdit = true;
-            optionsEd.Options = new() { { "Apple", true }, { "Orange", false }, { "Peach", true }, { "Bird", false }, { "Cow", true } };
             optionsEd.BackColor = Color.LightCoral;
+            optionsEd.Options = new() { { "Apple", true }, { "Orange", false }, { "Peach", true }, { "Bird", false }, { "Cow", true } };
+            optionsEd.OptionsChanged += (_, __) => Tell("Options changed!");
             choicer.Text = "Test choice";
             choicer.SetOptions(new() { "Apple", "Orange", "Peach", "Bird", "Cow" });
             btnDump.Click += (_, __) =>
@@ -185,7 +186,7 @@ namespace Ephemera.NBagOfUis.Test
         {
         }
 
-        void ClickGrid_IndicatorEvent(object? sender, IndicatorEventArgs e)
+        void ClickGrid_IndicatorChanged(object? sender, IndicatorEventArgs e)
         {
             int state = ++e.State % 3;
             clickGrid1.SetIndicator(e.Id, state);

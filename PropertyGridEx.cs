@@ -28,7 +28,7 @@ namespace Ephemera.NBagOfUis
 
         #region Events
         /// <summary>The property grid is reporting something.</summary>
-        public event EventHandler<PropertyGridExEventArgs>? PropertyGridExEvent;
+        public event EventHandler<PropertyGridExEventArgs>? PropertyGridExChange;
 
         /// <summary>General event for raising events not natively supported by the property grid.</summary>
         public class PropertyGridExEventArgs : EventArgs
@@ -43,7 +43,7 @@ namespace Ephemera.NBagOfUis
         /// <summary>Children can call this to send something back to the host.</summary>
         public void RaisePropertyGridExEvent(string eventType, object? ps = null)
         {
-            PropertyGridExEvent?.Invoke(this, new PropertyGridExEventArgs() { EventType = eventType, EventData = ps });
+            PropertyGridExChange?.Invoke(this, new PropertyGridExEventArgs() { EventType = eventType, EventData = ps });
         }
         #endregion
 
