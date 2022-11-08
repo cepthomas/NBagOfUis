@@ -19,6 +19,7 @@ namespace Ephemera.NBagOfUis
         readonly CheckedListBox lbOptions;
         readonly TextBox txtEdit;
         readonly ContextMenuStrip cms;
+        bool _bulkChanging = false;
         #endregion
 
         #region Properties
@@ -66,7 +67,7 @@ namespace Ephemera.NBagOfUis
                 BorderStyle = BorderStyle.None,
                 Dock = DockStyle.Fill,
             };
-            lbOptions.ItemCheck += (_, __) => OptionsChanged?.Invoke(this, EventArgs.Empty);
+            lbOptions.ItemCheck += (_, __) => { if (!_bulkChanging) OptionsChanged?.Invoke(this, EventArgs.Empty); };
 
             txtEdit = new()
             {
@@ -139,10 +140,12 @@ namespace Ephemera.NBagOfUis
         /// <param name="e"></param>
         void All_Click(object? sender, EventArgs e)
         {
+            _bulkChanging = true;
             for (int i = 0; i < lbOptions.Items.Count; i++)
             {
                 lbOptions.SetItemChecked(i, true);
             }
+            _bulkChanging = false;
             OptionsChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -153,10 +156,12 @@ namespace Ephemera.NBagOfUis
         /// <param name="e"></param>
         void None_Click(object? sender, EventArgs e)
         {
+            _bulkChanging = true;
             for (int i = 0; i < lbOptions.Items.Count; i++)
             {
                 lbOptions.SetItemChecked(i, false);
             }
+            _bulkChanging = false;
             OptionsChanged?.Invoke(this, EventArgs.Empty);
         }
 
