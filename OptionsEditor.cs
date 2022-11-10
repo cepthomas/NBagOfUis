@@ -67,7 +67,14 @@ namespace Ephemera.NBagOfUis
                 BorderStyle = BorderStyle.None,
                 Dock = DockStyle.Fill,
             };
-            lbOptions.ItemCheck += (_, __) => { if (!_bulkChanging) OptionsChanged?.Invoke(this, EventArgs.Empty); };
+            lbOptions.ItemCheck += (_, __) =>
+            {
+                if (!_bulkChanging && IsHandleCreated)
+                {
+                    // Delayed execution on ItemCheck.
+                    BeginInvoke((MethodInvoker)(() => OptionsChanged?.Invoke(this, EventArgs.Empty)));
+                }
+            };
 
             txtEdit = new()
             {
