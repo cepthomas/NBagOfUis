@@ -13,7 +13,10 @@ namespace Ephemera.NBagOfUis
     public partial class ChoiceSelector : UserControl
     {
         /// <summary>What the user picked.</summary>
-        public string SelectedOption { get; private set; } = "???";
+        public string SelectedChoice { get; private set; } = "???";
+
+        /// <summary>Value changed event.</summary>
+        public event EventHandler? ChoiceChanged;
 
         /// <summary>
         /// Constructor.
@@ -34,30 +37,26 @@ namespace Ephemera.NBagOfUis
             int xSpacing = 10;
             int xWidth = 130;
 
-            foreach (var opt in options)
+            //Clone options and add Cancel.
+            var opts = options.ToList();
+            opts.Add("Cancel");
+
+            foreach (var opt in opts)
             {
                 Button button = new()
                 {
                     Text = opt,
                     Size = new(xWidth, yHeight),
                     Location = new(xSpacing, yPos),
-                    DialogResult = DialogResult.OK
                 };
-                button.Click += (object? sender, EventArgs e) => SelectedOption = (sender! as Button)!.Text;
+                button.Click += (object? sender, EventArgs e) =>
+                {
+                    SelectedChoice = (sender! as Button)!.Text;
+                    ChoiceChanged?.Invoke(this, EventArgs.Empty);
+                };
                 Controls.Add(button);
                 yPos += yHeight + ySpacing;
             }
-
-            // Add cancel button.
-            Button cancel = new()
-            {
-                Text = "Cancel",
-                Size = new(xWidth, yHeight),
-                Location = new(xSpacing, yPos),
-                DialogResult = DialogResult.Cancel
-            };
-            Controls.Add(cancel);
-            yPos += yHeight + ySpacing;
 
             ClientSize = new(xSpacing + xWidth + xSpacing, yPos + ySpacing);
         }

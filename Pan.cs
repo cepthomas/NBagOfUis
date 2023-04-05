@@ -77,9 +77,6 @@ namespace Ephemera.NBagOfUis
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
-            // Pan
-            // 
             this.Name = "Pan";
             this.Size = new System.Drawing.Size(150, 30);
             this.ResumeLayout(false);

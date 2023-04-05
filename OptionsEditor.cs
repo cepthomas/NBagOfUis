@@ -48,7 +48,7 @@ namespace Ephemera.NBagOfUis
         #endregion
 
         #region Events
-        /// <summary>ClickGrid value changed event.</summary>
+        /// <summary>Value changed event.</summary>
         public event EventHandler? OptionsChanged;
         #endregion
 

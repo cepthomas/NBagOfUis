@@ -46,7 +46,6 @@ namespace Ephemera.NBagOfUis
             using Form f = new()
             {
                 Text = title,
-                ClientSize = new(450, height),
                 AutoScaleMode = AutoScaleMode.None,
                 Location = Cursor.Position,
                 StartPosition = FormStartPosition.Manual,
@@ -54,6 +53,7 @@ namespace Ephemera.NBagOfUis
                 ShowIcon = false,
                 ShowInTaskbar = false
             };
+            f.ClientSize = new(450, height); // do after construction
 
             // Detect changes of interest.
             List<(string name, string cat)> changes = new();

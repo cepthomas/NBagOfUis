@@ -103,9 +103,11 @@ namespace Ephemera.NBagOfUis.Test
             optionsEd.OptionsChanged += (_, __) => Tell($"Options changed:{optionsEd.Options.Where(o => o.Value == true).Count()}");
             choicer.Text = "Test choice";
             choicer.SetOptions(new() { "Apple", "Orange", "Peach", "Bird", "Cow" });
+            choicer.ChoiceChanged += (_, __) => Tell($"Choicer changed:{choicer.SelectedChoice}");
+
             btnDump.Click += (_, __) =>
             {
-                Tell($"ChoiceSelector: {choicer.SelectedOption}");
+                Tell($"ChoiceSelector: {choicer.SelectedChoice}");
                 Tell($"OptionsEditor:");
                 optionsEd.Options.ForEach(v => Tell($"{v.Key} is {v.Value}"));
             };
@@ -190,7 +192,7 @@ namespace Ephemera.NBagOfUis.Test
         {
             int state = ++e.State % 3;
             clickGrid1.SetIndicator(e.Id, state);
-            txtInfo.AppendLine($"ClickGrid:{e.Id}->{state}");
+            txtInfo.AppendLine($"ClickGrid:{e.Id}->{state}", Color.Aqua);
         }
 
         void Tell(string msg)

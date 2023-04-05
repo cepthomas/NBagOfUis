@@ -80,7 +80,7 @@ namespace Ephemera.NBagOfUis
         //    base.Dispose(disposing);
         //}
 
-       /// <summary></summary>
+        /// <summary></summary>
         public void Clear()
         {
             _rtb.Clear();
@@ -90,17 +90,20 @@ namespace Ephemera.NBagOfUis
         /// A message to display to the user. Adds EOL.
         /// </summary>
         /// <param name="text">The message.</param>
-        public void AppendLine(string text)
+        /// <param name="color">Specific color to use.</param>
+        public void AppendLine(string text, Color? color = null)
         {
-            AppendText($"{Prompt}{text}{Environment.NewLine}");
+            AppendText($"{Prompt}{text}{Environment.NewLine}", color);
         }
 
         /// <summary>
         /// A message to display to the user. Doesn't add EOL.
         /// </summary>
         /// <param name="text">The message.</param>
-        public void AppendText(string text)
+        /// <param name="color">Specific color to use.</param>
+        public void AppendText(string text, Color? color = null)
         {
+            // Trim buffer.
             if (MaxText > 0 && _rtb.TextLength > MaxText)
             {
                 _rtb.Select(0, MaxText / 5);
@@ -109,12 +112,19 @@ namespace Ephemera.NBagOfUis
 
             _rtb.SelectionBackColor = BackColor; // default
 
-            foreach (string s in MatchColors.Keys)
+            if (color is not null)
             {
-                if (text.Contains(s))
+                _rtb.SelectionBackColor = (Color)color;
+            }
+            else // check matches
+            {
+                foreach (string s in MatchColors.Keys)
                 {
-                    _rtb.SelectionBackColor = MatchColors[s];
-                    break;
+                    if (text.Contains(s))
+                    {
+                        _rtb.SelectionBackColor = MatchColors[s];
+                        break;
+                    }
                 }
             }
 
