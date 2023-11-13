@@ -78,19 +78,18 @@ namespace Ephemera.NBagOfUis.Test
             //propGrid.ShowProperty("TestString", false);
 
             ///// FilTree.
-            filTree.FilterExts = new List<string> { ".txt", ".md", ".xml", ".cs", ".py" };
+            filTree.FilterExts = new List<string> { ".txt", ".ntr", ".md", ".xml", ".cs", ".py" };
             filTree.IgnoreDirs = new List<string> { ".vs", ".git", "bin", "obj", "lib" };
             filTree.RootDirs = new List<string>
             {
-                @"C:\Users\cepth\AppData\Local\Ephemera\Notr",
                 @"C:\Users\cepth\AppData\Roaming\Sublime Text\Packages\Notr",
-                @"C:\Users\cepth\OneDrive\OneDrive Documents\_notes"
+                @"C:\Users\cepth\OneDrive\OneDriveDocuments\notes"
             };
-            filTree.RecentFiles = new()
-            {
-                @"C:\Dev\repos\repos_common\audio_file_info.txt",
-                @"C:\Dev\repos\repos_common\build.txt"
-            };
+            //filTree.RecentFiles = new()
+            //{
+            //    @"C:\Dev\repos\repos_common\audio_file_info.txt",
+            //    @"C:\Dev\repos\repos_common\build.txt"
+            //};
             filTree.SplitterPosition = 40;
             filTree.SingleClickSelect = false;
             filTree.InitTree();
@@ -162,13 +161,13 @@ namespace Ephemera.NBagOfUis.Test
                         restart = true;
                         break;
 
-                    //case "SingleClickSelect":
-                    //    filTree.SingleClickSelect = _settings.SingleClickSelect;
-                    //    break;
+                        //case "SingleClickSelect":
+                        //    filTree.SingleClickSelect = _settings.SingleClickSelect;
+                        //    break;
 
-                    //case "SplitterPosition":
-                    //    filTree.SplitterPosition = _settings.SplitterPosition;
-                    //    break;
+                        //case "SplitterPosition":
+                        //    filTree.SplitterPosition = _settings.SplitterPosition;
+                        //    break;
                 }
             }
 
