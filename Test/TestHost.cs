@@ -204,6 +204,16 @@ namespace Ephemera.NBagOfUis.Test
             _settings.FormGeometry = new Rectangle(Location.X, Location.Y, Width, Height);
             _settings.Save();
         }
+
+        public void MakeIcon(string fn)
+        {
+            string outfn = fn + ".ico";
+            // Read bmp and convert to icon.
+            var bmp = (Bitmap)Image.FromFile(fn);
+            // Save icon.
+            var ico = GraphicsUtils.CreateIcon(bmp);//, 32);
+            GraphicsUtils.SaveIcon(ico, outfn);
+        }
     }
 
     public class TestSettings : SettingsCore
