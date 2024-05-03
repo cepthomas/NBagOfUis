@@ -103,33 +103,36 @@ namespace Ephemera.NBagOfUis
         /// <param name="color">Specific color to use.</param>
         public void AppendText(string text, Color? color = null)
         {
-            // Trim buffer.
-            if (MaxText > 0 && _rtb.TextLength > MaxText)
+            this.InvokeIfRequired(_ =>
             {
-                _rtb.Select(0, MaxText / 5);
-                _rtb.SelectedText = "";
-            }
-
-            _rtb.SelectionBackColor = BackColor; // default
-
-            if (color is not null)
-            {
-                _rtb.SelectionBackColor = (Color)color;
-            }
-            else // check matches
-            {
-                foreach (string s in MatchColors.Keys)
+                // Trim buffer.
+                if (MaxText > 0 && _rtb.TextLength > MaxText)
                 {
-                    if (text.Contains(s))
+                    _rtb.Select(0, MaxText / 5);
+                    _rtb.SelectedText = "";
+                }
+
+                _rtb.SelectionBackColor = BackColor; // default
+
+                if (color is not null)
+                {
+                    _rtb.SelectionBackColor = (Color)color;
+                }
+                else // check matches
+                {
+                    foreach (string s in MatchColors.Keys)
                     {
-                        _rtb.SelectionBackColor = MatchColors[s];
-                        break;
+                        if (text.Contains(s))
+                        {
+                            _rtb.SelectionBackColor = MatchColors[s];
+                            break;
+                        }
                     }
                 }
-            }
 
-            _rtb.AppendText(text);
-            _rtb.ScrollToCaret();
+                _rtb.AppendText(text);
+                _rtb.ScrollToCaret();
+            });
         }
 
         /// <summary>

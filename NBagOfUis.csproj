@@ -39,6 +39,9 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Compile Update="CliInput.cs">
+            <SubType>UserControl</SubType>
+        </Compile>
         <Compile Update="ClickGrid.cs">
             <SubType>UserControl</SubType>
         </Compile>
