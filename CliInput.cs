@@ -62,7 +62,7 @@ namespace Ephemera.NBagOfUis
         readonly InReader _in = new();
 
         /// <summary>Most recent at beginning.</summary>
-        List<string> _history = [];
+        List<string> _history = new();
 
         /// <summary>Current location in list.</summary>
         int _historyIndex = 0;
