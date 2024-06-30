@@ -18,7 +18,7 @@ namespace Ephemera.NBagOfUis.Test
 {
     public partial class TestHost : Form
     {
-        TestSettings _settings = new();
+        readonly TestSettings _settings = new();
 
         public TestHost()
         {
@@ -32,11 +32,11 @@ namespace Ephemera.NBagOfUis.Test
             Location = new Point(_settings.FormGeometry.X, _settings.FormGeometry.Y);
             //Size = new Size(_settings.FormGeometry.Width, _settings.FormGeometry.Height);
 
-            ///// Text control.
-            txtInfo.MatchColors.Add("50", Color.Purple);
-            txtInfo.MatchColors.Add("55", Color.Green);
-            txtInfo.BackColor = Color.Cornsilk;
-            txtInfo.Prompt = ">>> ";
+            ///// Text viewer.
+            txtInfo.MatchColors.Add("50", Color.LightPink);
+            txtInfo.MatchColors.Add("55", Color.LightYellow);
+            txtInfo.BackColor = Color.LightCyan;
+            txtInfo.Prompt = ">";
 
             ///// Click grid.
             clickGrid1.AddStateType(0, Color.Blue, Color.AliceBlue);

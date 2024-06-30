@@ -23,7 +23,7 @@ namespace Ephemera.NBagOfUis
         /// <summary>Limit the size. Set to 0 to disable.</summary>
         public int MaxText { get; set; } = 50000;
 
-        /// <summary>Cosmetics.</summary>
+        /// <summary>Cosmetics. Note this needs to be set in client constructor not OnLoad(). Unknown reason.</summary>
         public override Color BackColor { get { return _rtb.BackColor; } set { _rtb.BackColor = value; } }
 
         /// <summary>Cosmetics.</summary>
@@ -68,18 +68,6 @@ namespace Ephemera.NBagOfUis
             AppendLine("Hello. C clears the display and W toggles word wrap");
             base.OnLoad(e);
         }
-
-        ///// <summary>
-        ///// Clean up any resources being used.
-        ///// </summary>
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        _rtb.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
 
         /// <summary></summary>
         public void Clear()
