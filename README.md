@@ -25,7 +25,7 @@ Probably I should make this into a nuget package at some point.
 - Meter: Linear or log.
 - Pot: Just like on your guitar.
 - Pan: Just like on your hifi.
-
+- ClickClack: Generates X/Y mouse clicks.
 
 ## Utilities
 - KeyUtils: Keyboard input.

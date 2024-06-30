@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFrameworks>net6.0-windows</TargetFrameworks>
         <UseWindowsForms>true</UseWindowsForms>
-        <Version>$([System.DateTime]::UtcNow.ToString(yy.MM.dd))</Version>
+        <Version>1.1.0</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <Description>NBagOfTricks UI components</Description>
         <Copyright>MIT License</Copyright>

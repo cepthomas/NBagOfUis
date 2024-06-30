@@ -32,6 +32,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestHost));
             txtInfo = new TextViewer();
             propGrid = new PropertyGridEx();
             clickGrid1 = new ClickGrid();
@@ -59,18 +60,19 @@
             choicer = new ChoiceSelector();
             optionsEd = new OptionsEditor();
             btnDump = new System.Windows.Forms.Button();
+            clickClack1 = new ClickClack();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // txtInfo
             // 
             txtInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            txtInfo.Location = new System.Drawing.Point(14, 402);
+            txtInfo.Location = new System.Drawing.Point(14, 638);
             txtInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             txtInfo.MaxText = 5000;
             txtInfo.Name = "txtInfo";
             txtInfo.Prompt = "** ";
-            txtInfo.Size = new System.Drawing.Size(470, 221);
+            txtInfo.Size = new System.Drawing.Size(968, 155);
             txtInfo.TabIndex = 5;
             txtInfo.WordWrap = true;
             // 
@@ -328,11 +330,25 @@
             btnDump.Text = "Dump these";
             btnDump.UseVisualStyleBackColor = true;
             // 
+            // clickClack1
+            // 
+            clickClack1.GridX = (System.Collections.Generic.List<int>)resources.GetObject("clickClack1.GridX");
+            clickClack1.GridY = (System.Collections.Generic.List<int>)resources.GetObject("clickClack1.GridY");
+            clickClack1.Location = new System.Drawing.Point(17, 405);
+            clickClack1.MaxX = 100;
+            clickClack1.MaxY = 100;
+            clickClack1.MinX = 0;
+            clickClack1.MinY = 0;
+            clickClack1.Name = "clickClack1";
+            clickClack1.Size = new System.Drawing.Size(467, 225);
+            clickClack1.TabIndex = 36;
+            // 
             // TestHost
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1225, 635);
+            ClientSize = new System.Drawing.Size(1225, 807);
+            Controls.Add(clickClack1);
             Controls.Add(btnDump);
             Controls.Add(optionsEd);
             Controls.Add(choicer);
@@ -387,5 +403,6 @@
         private ChoiceSelector choicer;
         private OptionsEditor optionsEd;
         private System.Windows.Forms.Button btnDump;
+        private ClickClack clickClack1;
     }
 }
