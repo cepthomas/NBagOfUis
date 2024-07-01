@@ -23,11 +23,11 @@ namespace Ephemera.NBagOfUis
         /// <summary>Last key down position in client coordinates.</summary>
         int? _lastClickX = null;
 
-        /// <summary>Tool tip.</summary>
-        readonly ToolTip _toolTip = new();
-
         /// <summary>The grid pen.</summary>
         readonly Pen _pen = new(Color.WhiteSmoke, 1);
+
+        /// <summary>Tool tip.</summary>
+        readonly ToolTip _toolTip = new();
         #endregion
 
         #region Properties
@@ -51,8 +51,11 @@ namespace Ephemera.NBagOfUis
         #endregion
 
         #region Events
-        /// <summary>Click/move info.</summary>
-        public event EventHandler<UserEventArgs>? UserEvent;
+        /// <summary>Click (including drag) info.</summary>
+        public event EventHandler<UserEventArgs>? MouseClickEvent;
+
+        /// <summary>Mouse move info for client tooltip.</summary>
+        public event EventHandler<UserEventArgs>? MouseMoveEvent;
 
         public class UserEventArgs : EventArgs
         {
@@ -62,6 +65,9 @@ namespace Ephemera.NBagOfUis
             /// <summary>The Y value in user coordinates. -1 means unclicked. null means invalid.</summary>
             public int? Y { get; set; } = null;
 
+            /// <summary>For tooltip provided by the owner.</summary>
+            public string Text { get; set; } = "";
+
             /// <summary>Read me.</summary>
             public override string ToString()
             {
@@ -69,16 +75,6 @@ namespace Ephemera.NBagOfUis
                 string sy = Y is null ? "null" : Y.ToString()!;
                 return $"ClickClack X:{sx} Y:{sy}";
             }
-        }
-
-        /// <summary>
-        /// Event raiser. Probably not needed.
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        void RaiseUserEvent(int? x, int? y)
-        {
-            UserEvent?.Invoke(this, new() { X = x, Y = y });
         }
         #endregion
 
@@ -116,25 +112,6 @@ namespace Ephemera.NBagOfUis
         #endregion
 
         #region Event handlers
-        /// <summary>
-        /// Disable control
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnMouseLeave(EventArgs e)
-        {
-            // Turn off last click.
-            if (_lastClickX is not null)
-            {
-                RaiseUserEvent(_lastClickX, 0);
-            }
-
-            // Reset and tell client.
-            _lastClickX = null;
-            RaiseUserEvent(null, null);
-
-            base.OnMouseLeave(e);
-        }
-
         /// <summary>
         /// Paint the surface.
         /// </summary>
@@ -176,7 +153,13 @@ namespace Ephemera.NBagOfUis
         protected override void OnMouseMove(MouseEventArgs e)
         {
             var (ux, uy) = MouseToUser();
-            _toolTip.SetToolTip(this, $"ux:{ux} uy:{uy}");
+
+            if (MouseMoveEvent is not null)
+            {
+                UserEventArgs args = new() { X = ux, Y = uy };
+                MouseMoveEvent?.Invoke(this, args);
+                _toolTip.SetToolTip(this, args.Text);
+            }
 
             if (e.Button == MouseButtons.Left)
             {
@@ -186,12 +169,12 @@ namespace Ephemera.NBagOfUis
                     if (_lastClickX is not null)
                     {
                         // Turn off last click.
-                        RaiseUserEvent(_lastClickX, 0);
+                        MouseClickEvent?.Invoke(this, new() { X = _lastClickX, Y = 0 });
                     }
 
                     // Start the new click.
                     _lastClickX = ux;
-                    RaiseUserEvent(ux, uy);
+                    MouseClickEvent?.Invoke(this, new() { X = ux, Y = uy });
                 }
             }
 
@@ -206,7 +189,7 @@ namespace Ephemera.NBagOfUis
         {
             var (ux, uy) = MouseToUser();
             _lastClickX = ux;
-            RaiseUserEvent(ux, uy);
+            MouseClickEvent?.Invoke(this, new() { X = ux, Y = uy });
 
             base.OnMouseDown(e);
         }
@@ -219,11 +202,32 @@ namespace Ephemera.NBagOfUis
         {
             if (_lastClickX is not null)
             {
-                RaiseUserEvent(_lastClickX, 0);
+                MouseClickEvent?.Invoke(this, new() { X = _lastClickX, Y = 0 });
             }
             _lastClickX = null;
 
             base.OnMouseUp(e);
+        }
+
+        /// <summary>
+        /// Disable control
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            // Turn off last click.
+            if (_lastClickX is not null)
+            {
+                MouseClickEvent?.Invoke(this, new() { X = _lastClickX, Y = 0 });
+            }
+
+            // Reset and tell client.
+            _lastClickX = null;
+            MouseClickEvent?.Invoke(this, new() { X = null, Y = null });
+
+            _toolTip.SetToolTip(this, "");
+
+            base.OnMouseLeave(e);
         }
 
         /// <summary>

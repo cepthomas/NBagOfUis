@@ -340,7 +340,7 @@
             clickClack1.MinX = 0;
             clickClack1.MinY = 0;
             clickClack1.Name = "clickClack1";
-            clickClack1.Size = new System.Drawing.Size(467, 225);
+            clickClack1.Size = new System.Drawing.Size(453, 209);
             clickClack1.TabIndex = 36;
             // 
             // TestHost

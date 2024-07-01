@@ -19,6 +19,7 @@ namespace Ephemera.NBagOfUis.Test
     public partial class TestHost : Form
     {
         readonly TestSettings _settings = new();
+        readonly ToolTip _toolTip = new();
 
         public TestHost()
         {
@@ -118,7 +119,8 @@ namespace Ephemera.NBagOfUis.Test
             clickClack1.MinY = 0; // min velocity == note off
             clickClack1.MaxY = 127; // max velocity
             clickClack1.GridY = new() { 32, 64, 96 };
-            clickClack1.UserEvent += (object? _, ClickClack.UserEventArgs e) => Tell(e.ToString());
+            clickClack1.MouseClickEvent += (object? _, ClickClack.UserEventArgs e) => Tell(e.ToString());
+            clickClack1.MouseMoveEvent += (object? _, ClickClack.UserEventArgs e) => e.Text = $">>>{e}";
 
             ///// Other stuff.
             btnSettings.Click += (_, __) => EditSettings();
