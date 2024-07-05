@@ -32,7 +32,6 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestHost));
             txtInfo = new TextViewer();
             propGrid = new PropertyGridEx();
             clickGrid1 = new ClickGrid();
@@ -61,6 +60,7 @@
             optionsEd = new OptionsEditor();
             btnDump = new System.Windows.Forms.Button();
             clickClack1 = new ClickClack();
+            dropDownButton1 = new DropDownButton();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -332,8 +332,6 @@
             // 
             // clickClack1
             // 
-            clickClack1.GridX = (System.Collections.Generic.List<int>)resources.GetObject("clickClack1.GridX");
-            clickClack1.GridY = (System.Collections.Generic.List<int>)resources.GetObject("clickClack1.GridY");
             clickClack1.Location = new System.Drawing.Point(17, 405);
             clickClack1.MaxX = 100;
             clickClack1.MaxY = 100;
@@ -343,11 +341,21 @@
             clickClack1.Size = new System.Drawing.Size(453, 209);
             clickClack1.TabIndex = 36;
             // 
+            // dropDownButton1
+            // 
+            dropDownButton1.Location = new System.Drawing.Point(1025, 601);
+            dropDownButton1.Name = "dropDownButton1";
+            dropDownButton1.Size = new System.Drawing.Size(156, 29);
+            dropDownButton1.TabIndex = 37;
+            dropDownButton1.Text = "Drop Down Button";
+            dropDownButton1.UseVisualStyleBackColor = true;
+            // 
             // TestHost
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1225, 807);
+            Controls.Add(dropDownButton1);
             Controls.Add(clickClack1);
             Controls.Add(btnDump);
             Controls.Add(optionsEd);
@@ -404,5 +412,6 @@
         private OptionsEditor optionsEd;
         private System.Windows.Forms.Button btnDump;
         private ClickClack clickClack1;
+        private DropDownButton dropDownButton1;
     }
 }

@@ -122,6 +122,18 @@ namespace Ephemera.NBagOfUis.Test
             clickClack1.MouseClickEvent += (object? _, ClickClack.UserEventArgs e) => Tell(e.ToString());
             clickClack1.MouseMoveEvent += (object? _, ClickClack.UserEventArgs e) => e.Text = $">>>{e}";
 
+            ///// Drop down
+
+            List<string> options = new()
+            {
+                "Open...",
+                "Reload",
+                "",
+                "Die Die"
+            };
+            dropDownButton1.SetOptions(options);
+            dropDownButton1.Selected += (object? sender, string sel) => { Tell($"Selected: {sel}"); };
+
             ///// Other stuff.
             btnSettings.Click += (_, __) => EditSettings();
             btnGfx.Click += (_, __) => { new GraphicsForm().ShowDialog(); };

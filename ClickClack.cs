@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -44,9 +45,13 @@ namespace Ephemera.NBagOfUis
         public int MaxY { get; set; } = 100;
 
         /// <summary>Visibility.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [Browsable(false)]
         public List<int> GridX { get; set; } = new();
 
         /// <summary>Visibility.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [Browsable(false)]
         public List<int> GridY { get; set; } = new();
         #endregion
 
