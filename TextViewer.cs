@@ -36,6 +36,20 @@ namespace Ephemera.NBagOfUis
         public string Prompt { get; set; } = "";
         #endregion
 
+
+        ///////// NEW //////
+        // addressable area, standard scrolling, 
+        public enum ModeT { Static, Buffer };
+
+        public ModeT Mode { get; set; } = ModeT.Static;
+        public bool Ansi { get; set; } = false;
+
+
+        // height in lines
+        public int BufferSize { get; set; } = 120;
+
+
+
         #region Fields
         /// <summary>Contained control.</summary>
         readonly RichTextBox _rtb;

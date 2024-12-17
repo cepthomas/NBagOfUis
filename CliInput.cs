@@ -12,6 +12,18 @@ using Ephemera.NBagOfTricks;
 
 namespace Ephemera.NBagOfUis
 {
+    public class TermInputEventArgs : EventArgs
+    {
+        /// <summary>Test for key press on empty line.</summary>
+        public char? HotKey { get; set; }
+
+        /// <summary>Full line, no eol.</summary>
+        public string? Line { get; set; } = null;
+
+        /// <summary>Client has taken ownership of the data.</summary>
+        public bool Handled { get; set; } = false;
+    }
+
     public class CliInput : UserControl
     {
         #region Properties
@@ -23,43 +35,16 @@ namespace Ephemera.NBagOfUis
 
         /// <summary>Optional prompt.</summary>
         public string Prompt { get; set; } = "???";
-
-        /// <summary>Support for TextReader.</summary>
-        public TextReader In { get { return _in; } }
         #endregion
 
-        #region Internal class
-        /// <summary>
-        /// Give this component TextReader interface.
-        /// </summary>
-        class InReader : TextReader
-        {
-            public string NextLine { get; set; } = "";
-
-            // ReadLine() calls Read() repeatedly.
-            public override int Read()
-            {
-                // Return the next char or -1 if none.
-                if (NextLine.Length > 0)
-                {
-                    int c = NextLine[0];
-                    NextLine = NextLine.Remove(0, 1);
-                    return c;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-        }
+        #region Fields
+        /// <summary>User has entered something.</summary>
+        public event EventHandler<TermInputEventArgs>? InputEvent;
         #endregion
 
         #region Fields
         /// <summary>Contained control.</summary>
         readonly RichTextBox _rtb;
-
-        /// <summary>Support for TextReader.</summary>
-        readonly InReader _in = new();
 
         /// <summary>Most recent at beginning.</summary>
         List<string> _history = new();
@@ -119,15 +104,19 @@ namespace Ephemera.NBagOfUis
         /// <param name="e"></param>
         void Rtb_KeyDown(object? sender, KeyEventArgs e)
         {
-            // esc clears entry
-
             switch (e.KeyCode)
             {
                 case Keys.Enter:
-                    // Add to history and seed for client.
-                    var t = _rtb.Text.Remove(0, Prompt.Length);
-                    AddToHistory(t);
-                    _in.NextLine = t;
+                    if (_rtb.Text.Length > 0)
+                    {
+                        // Add to history and notify client.
+                        var t = _rtb.Text;
+                        AddToHistory(t);
+                        TermInputEventArgs la = new() { Line = t };
+                        InputEvent?.Invoke(this, la);
+                        // Clear line.
+                        _rtb.Text = $"{Prompt}";
+                    }
                     break;
 
                 case Keys.Escape:
@@ -153,13 +142,14 @@ namespace Ephemera.NBagOfUis
                     }
                     break;
 
-                case Keys.Space:
-                   // Use for start stop.
-                   break;
-
                 default:
-                    //e.SuppressKeyPress = true;
-                    //e.Handled = true;
+                    if (_rtb.Text.Length == 0) // check hotkey?
+                    {
+                        var ch = (char)e.KeyValue;
+                        TermInputEventArgs ca = new() { HotKey = ch };
+                        InputEvent?.Invoke(this, ca);
+                        e.Handled = ca.Handled;
+                    }
                     break;
             }
         }
