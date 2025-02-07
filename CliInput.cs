@@ -12,16 +12,28 @@ using Ephemera.NBagOfTricks;
 
 namespace Ephemera.NBagOfUis
 {
-    public class TermInputEventArgs : EventArgs
+    /// <summary>For hotkeys.</summary>
+    public enum Modifier { None, Ctrl, Alt }
+
+    /// <summary>Internal cli entry data container.</summary>
+    //internal record CliEntry(string s, Modifier mod);
+
+
+
+    //        HashSet<(char, Modifier)> _modifiers = new();
+
+
+
+    public class CliInputEventArgs : EventArgs
     {
-        /// <summary>Test for key press on empty line.</summary>
-        public char? HotKey { get; set; }
+        /// <summary>Test for hotkey press.</summary>
+        public Modifier Mod { get; set; } = Modifier.None;
 
-        /// <summary>Full line, no eol.</summary>
-        public string? Line { get; set; } = null;
+        /// <summary>User text, no eol.</summary>
+        public string Text { get; set; } = "";
 
-        /// <summary>Client has taken ownership of the data.</summary>
-        public bool Handled { get; set; } = false;
+        ///// <summary>Client has taken ownership of the data.</summary>
+        //public bool Handled { get; set; } = false;
     }
 
     public class CliInput : UserControl
@@ -37,9 +49,9 @@ namespace Ephemera.NBagOfUis
         public string Prompt { get; set; } = "???";
         #endregion
 
-        #region Fields
+        #region Events
         /// <summary>User has entered something.</summary>
-        public event EventHandler<TermInputEventArgs>? InputEvent;
+        public event EventHandler<CliInputEventArgs>? InputEvent;
         #endregion
 
         #region Fields
@@ -47,7 +59,7 @@ namespace Ephemera.NBagOfUis
         readonly RichTextBox _rtb;
 
         /// <summary>Most recent at beginning.</summary>
-        List<string> _history = new();
+        List<string> _history = [];
 
         /// <summary>Current location in list.</summary>
         int _historyIndex = 0;
@@ -104,27 +116,29 @@ namespace Ephemera.NBagOfUis
         /// <param name="e"></param>
         void Rtb_KeyDown(object? sender, KeyEventArgs e)
         {
-            switch (e.KeyCode)
+
+            switch (e.Control, e.Alt, e.KeyCode)
             {
-                case Keys.Enter:
+                case (false, false, Keys.Enter):
                     if (_rtb.Text.Length > 0)
                     {
                         // Add to history and notify client.
                         var t = _rtb.Text;
                         AddToHistory(t);
-                        TermInputEventArgs la = new() { Line = t };
+
+                        CliInputEventArgs la = new() { Text = t };
                         InputEvent?.Invoke(this, la);
                         // Clear line.
                         _rtb.Text = $"{Prompt}";
                     }
                     break;
 
-                case Keys.Escape:
+                case (false, false, Keys.Escape):
                     // Throw away current.
                     _rtb.Text = $"{Prompt}";
                     break;
 
-                case Keys.Up:
+                case (false, false, Keys.Up):
                     // Go through history older.
                     if (_historyIndex < _history.Count - 1)
                     {
@@ -133,7 +147,7 @@ namespace Ephemera.NBagOfUis
                     }
                     break;
 
-                case Keys.Down:
+                case (false, false, Keys.Down):
                     // Go through history newer.
                     if (_historyIndex > 0)
                     {
@@ -142,16 +156,66 @@ namespace Ephemera.NBagOfUis
                     }
                     break;
 
-                default:
-                    if (_rtb.Text.Length == 0) // check hotkey?
-                    {
-                        var ch = (char)e.KeyValue;
-                        TermInputEventArgs ca = new() { HotKey = ch };
-                        InputEvent?.Invoke(this, ca);
-                        e.Handled = ca.Handled;
-                    }
+                case (true, false, _):
+                    // Hot key?
+                    InputEvent?.Invoke(this, new() { Mod = Modifier.Ctrl, Text = e.KeyCode.ToString() });
+                    break;
+
+                case (false, true, _):
+                    // Hot key?
+                    InputEvent?.Invoke(this, new() { Mod = Modifier.Alt, Text = e.KeyCode.ToString() });
                     break;
             }
+
+            //switch (e.KeyCode)
+            //{
+            //    case Keys.Enter:
+            //        if (_rtb.Text.Length > 0)
+            //        {
+            //            // Add to history and notify client.
+            //            var t = _rtb.Text;
+            //            AddToHistory(t);
+
+            //            CliInputEventArgs la = new() { Text = t };
+            //            InputEvent?.Invoke(this, la);
+            //            // Clear line.
+            //            _rtb.Text = $"{Prompt}";
+            //        }
+            //        break;
+
+            //    case Keys.Escape:
+            //        // Throw away current.
+            //        _rtb.Text = $"{Prompt}";
+            //        break;
+
+            //    case Keys.Up:
+            //        // Go through history older.
+            //        if (_historyIndex < _history.Count - 1)
+            //        {
+            //            _historyIndex++;
+            //            _rtb.Text = $"{Prompt}{_history[_historyIndex]}";
+            //        }
+            //        break;
+
+            //    case Keys.Down:
+            //        // Go through history newer.
+            //        if (_historyIndex > 0)
+            //        {
+            //            _historyIndex--;
+            //            _rtb.Text = $"{Prompt}{_history[_historyIndex]}";
+            //        }
+            //        break;
+
+            //    default:
+            //        if (_rtb.Text.Length == 0) // check hotkey?
+            //        {
+            //            var ch = (char)e.KeyValue;
+            //            CliInputEventArgs ca = new() { Mod_X = Modifier.None };
+            //            InputEvent?.Invoke(this, ca);
+            //            e.Handled = ca.Handled;
+            //        }
+            //        break;
+            //}
         }
         #endregion
     }
