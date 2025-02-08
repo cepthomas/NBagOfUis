@@ -34,8 +34,8 @@ namespace Ephemera.NBagOfUis.Test
             //Size = new Size(_settings.FormGeometry.Width, _settings.FormGeometry.Height);
 
             ///// Text viewer.
-            txtInfo.MatchColors.Add("50", Color.LightPink);
-            txtInfo.MatchColors.Add("55", Color.LightYellow);
+            txtInfo.MatchText.Add("50", Color.LightPink);
+            txtInfo.MatchText.Add("55", Color.LightYellow);
             txtInfo.BackColor = Color.LightCyan;
             txtInfo.Prompt = ">";
 
@@ -214,12 +214,12 @@ namespace Ephemera.NBagOfUis.Test
         {
             int state = ++e.State % 3;
             clickGrid1.SetIndicator(e.Id, state);
-            txtInfo.AppendLine($"ClickGrid:{e.Id}->{state}", Color.Aqua);
+            txtInfo.Append($"ClickGrid:{e.Id}->{state}", Color.Green);
         }
 
         void Tell(string msg)
         {
-            txtInfo.AppendLine(msg);
+            txtInfo.AppendMatch(msg);
         }
 
         void SaveSettings()

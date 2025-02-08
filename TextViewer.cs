@@ -18,10 +18,7 @@ namespace Ephemera.NBagOfUis
         /// <summary>The colors to display when text is matched. TODO option for word or whole line.</summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Dictionary<string, Color> MatchText { get; set; } = new Dictionary<string, Color>();
-
-        /// <summary>Limit the size. Set to 0 to disable.</summary>
-        public int MaxText { get; set; } = 50000;
+        public Dictionary<string, Color> MatchText { get; set; } = [];
 
         /// <summary>Cosmetics. Note this needs to be set in client constructor not OnLoad(). Unknown reason.</summary>
         public override Color BackColor { get { return _rtb.BackColor; } set { _rtb.BackColor = value; } }
@@ -34,23 +31,38 @@ namespace Ephemera.NBagOfUis
 
         /// <summary>Optional prompt.</summary>
         public string Prompt { get; set; } = "";
+
+        /// <summary>Limit the size.</summary>
+        public int MaxText { get; set; } = 10000;
         #endregion
-
-
-
-        /// <summary>Use ansi escape sequences, otherwise use MatchText.</summary>
-        public bool AnsiColor { get; set; } = false;
-
-        /// <summary>Buffer height in lines.</summary>
-        public int BufferSize { get; set; } = 120;
-
-
 
         #region Fields
         /// <summary>Contained control.</summary>
         readonly RichTextBox _rtb;
+
+        /// <summary>Ansi parse state.</summary>
+        ParseState _state = ParseState.Idle;
+        enum ParseState
+        {
+            Idle,       /// Plain text
+            Look,       /// Looking for '[' in sequence
+            Collect     /// Collect sequence arrgs
+        }
+
+        /// <summary>Accumulated ansi arguments.</summary>
+        string _ansiArgs = "";
+
+        // Keys.
+        const char CANCEL = (char)0x03;
+        const char BACKSPACE = (char)0x08;
+        const char TAB = (char)0x09; // horizontal tab
+        const char LINEFEED = (char)0x0A; // Line feed
+        const char CLEAR = (char)0x0C; // Form feed
+        const char RETURN = (char)0x0D; // Carriage return
+        const char ESCAPE = (char)0x1B;
         #endregion
 
+        #region Lifecycle
         /// <summary>
         /// Constructor sets some defaults.
         /// </summary>
@@ -80,219 +92,154 @@ namespace Ephemera.NBagOfUis
             //AppendLine("Hello. C clears the display and W toggles word wrap");
         }
 
-        /// <summary></summary>
-        public void Clear()
-        {
-            _rtb.Clear();
-        }
-
-        // Name dec oct  hex   C   key Description
-        // BS   8   010  0x08  \b  ^H  Backspace
-        // HT   9   011  0x09  \t  ^I  Horizontal TAB
-        // LF   10  012  0x0A  \n  ^J  Linefeed (newline)
-        // FF   12  014  0x0C  \f  ^L  Formfeed (new page)
-        // CR   13  015  0x0D  \r  ^M  Carriage return
-        // ESC  27  033  0x1B  \e* ^[  Escape character
-
-        // Keys.
-        const char CANCEL = (char)0x03;
-        const char BACKSPACE = (char)0x08;
-        const char TAB = (char)0x09; // horizontal tab
-        const char LINEFEED = (char)0x0A; // Line feed
-        const char CLEAR = (char)0x0C; // Form feed
-        const char RETURN = (char)0x0D; // Carriage return
-        const char ESCAPE = (char)0x1B;
-
-        // Cancel = 0x03,
-        // Back = 0x08,
-        // Tab = 0x09,
-        // LineFeed = 0x0A,
-        // Clear = 0x0C,
-        // Return = 0x0D,
-        // Escape = 0x1B,
-
-        // standard colors
-        // ESC[30–37m
-
-        // ESC[38;2;R;G;Bm   Set foreground color as RGB.
-        // ESC[48;2;R;G;Bm   Set background color as RGB.
-        // 
-        // ESC[38;5;IDm   Set foreground color.
-        // ESC[48;5;IDm   Set background color.
-        // 
-        // # Ex: Set style to bold, red foreground.
-        // ESC[1;31mHello
-        // # Set style to dimmed white foreground with red background.
-        // ESC[2;37;41mWorld
-
-
-        public enum ParseState { Idle, Look, Collect }
-
         /// <summary>
-        /// 
+        ///  Clean up any resources being used.
         /// </summary>
-        /// <param name="s"></param>
-        void Parse(string s)
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
         {
-            ParseState state = ParseState.Idle;
-
-            string args = "";
-            Color fgCurrent = Color.Empty;
-            Color bgCurrent = Color.Empty;
-
-
-            for (int i = 0; i < s.Length; i++)
-            {
-                char c = s[i];
-
-                switch (c)
-                {
-                    case ESCAPE:
-                        state = ParseState.Look;
-                        break;
-
-                    case RETURN:
-                        // Reset.
-                        fgCurrent = Color.Empty;
-                        bgCurrent = Color.Empty;
-                        args = "";
-                        break;
-
-                    default:
-                        switch (state)
-                        {
-                            case ParseState.Look:
-                                if (c == '[')
-                                {
-                                    state = ParseState.Collect;
-                                }
-                                else
-                                {
-                                    // syntax error
-                                }
-                                break;
-
-                            case ParseState.Collect:
-                                if (c == 'm')
-                                {
-                                    var (fg, bg) = ColorFromAnsi(args);
-                                    fgCurrent = fg;
-                                    bgCurrent = bg;
-                                    state = ParseState.Idle;
-                                }
-                                else
-                                {
-                                    args += c;
-                                }
-                                break;
-
-                            case ParseState.Idle:
-
-                                break;
-                        }
-                        if (state == ParseState.Look && c == '[')
-                        {
-                            state = ParseState.Collect;
-                        }
-
-                        break;
-
-                    case CANCEL:
-                    case BACKSPACE:
-                    case TAB:
-                    case LINEFEED:
-                    case CLEAR:
-                        // TODO these useful?
-                        break;
-                }
-            }
+            base.Dispose(disposing);
         }
+        #endregion
 
+        #region Public appenders
         /// <summary>
-        /// append-explicit text, color, [eol]
+        /// Output text wwith explicit color.
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="fgColor"></param>
-        /// <param name="bgColor"></param>
-        /// <param name="eol"></param>
-        public void Append(string text, Color? fgColor = null, Color? bgColor = null, bool eol = true)
+        /// <param name="text">The text to show.</param>
+        /// <param name="fg"></param>
+        /// <param name="bg"></param>
+        /// <param name="nl">Add new line.</param>
+        public void Append(string text, Color? fg = null, Color? bg = null, bool nl = true)
         {
             this.InvokeIfRequired(_ =>
             {
-                _rtb.ForeColor = (Color)(fgColor == null ? _rtb.ForeColor : fgColor);
-                _rtb.SelectionBackColor = (Color)(bgColor == null ? _rtb.SelectionBackColor : bgColor);
+                _rtb.SelectionColor = (Color)(fg == null ? _rtb.ForeColor : fg);
+                _rtb.SelectionBackColor = (Color)(bg == null ? _rtb.SelectionBackColor : bg);
 
-                Write(text, eol);
+                Write(text, nl);
             });
         }
 
         /// <summary>
-        /// 
+        /// Output text wwith ansi encoding.    
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="eol"></param>
-        public void AppendAnsi(string text, bool eol = true)
+        /// <param name="text">The text to show.</param>
+        /// <param name="nl">Add new line.</param>
+        public void AppendAnsi(string text, bool nl = true)
         {
             this.InvokeIfRequired(_ =>
             {
-                Parse(text);
-
-                //text = Ansi.ColorFromAnsi(text, false);
-
-                // ESC = \033
-                // One of: ESC[IDm  ESC[38;5;IDm  ESC[48;5;IDm  ESC[38;2;R;G;Bm  ESC[48;2;R;G;Bm
-                //var (color, invert) = Ansi.ColorFromAnsi("bad string");
-                //UT_TRUE(color.IsEmpty);
-                //(color, invert) = Ansi.ColorFromAnsi("\033[34m");
-                //UT_FALSE(invert);
-                //UT_EQUAL(color.Name, "ff00007f");
-
-                //    if (_settings.AnsiColor)
-                //    {
-                //        _logColors.TryGetValue(e.Level, out int color);
-                //        Write($"\u001b[{color}m{e.Message}\u001b[0m");
-                //    }
-                //    else
-                //    {
-                //        Write(e.Message);
-                //    }
-
-                Write(text, eol);
-            });
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="eol"></param>
-        public void AppendMatch(string text, bool eol = true)
-        {
-            this.InvokeIfRequired(_ =>
-            {
-                // check matches  use regex 
-                foreach (string s in MatchText.Keys)
+                for (int i = 0; i < text.Length; i++)
                 {
-                    if (text.Contains(s))
+                    char c = text[i];
+
+                    switch (_state, c)
                     {
-                        _rtb.SelectionBackColor = MatchText[s];
-                        break;
+                        case (ParseState.Idle, ESCAPE):
+                            _state = ParseState.Look;
+                            break;
+
+                        case (ParseState.Idle, RETURN): // Line complete - reset.
+                            //_fgCurrent = Color.Empty;
+                            //_bgCurrent = Color.Empty;
+                            _ansiArgs = "";
+                            Write("");
+                            break;
+
+                        case (ParseState.Look, '['):
+                            _state = ParseState.Collect;
+                            break;
+
+                        case (ParseState.Collect, 'm'):
+                            var (fg, bg) = ColorFromAnsi(_ansiArgs);
+                            _rtb.SelectionColor = fg;
+                            _rtb.SelectionBackColor = bg;
+                            _state = ParseState.Idle;
+                            break;
+
+                        case (ParseState.Collect, _):
+                            _ansiArgs += c;
+                            break;
+
+                        // TODO these useful?
+                        //case (ParseState.Idle, CANCEL):
+                        //case (ParseState.Idle, BACKSPACE):
+                        //case (ParseState.Idle, TAB):
+                        //case (ParseState.Idle, LINEFEED):
+                        //case (ParseState.Idle, CLEAR):
+                        //    break;
+
+                        case (ParseState.Idle, _):
+                            Write(c.ToString());
+                            break;
+
+                        case (_, _):
+                            // Anything else is a syntax error.
+                            Write($"ERROR<{_ansiArgs}", false);
+                            _state = ParseState.Idle;
+                            break;
                     }
                 }
 
-                Write(text, eol);
+                Write(text, nl);
             });
         }
 
         /// <summary>
-        /// 
+        /// Output text using text matching color.
         /// </summary>
-        void Write(string text, bool eol)
+        /// <param name="text">The text to show.</param>
+        /// <param name="line">Light up whole line otherwise just the word.</param>
+        /// <param name="nl">Add new line.</param>
+        public void AppendMatch(string text, bool line = true, bool nl = true)
+        {
+            this.InvokeIfRequired(_ =>
+            {
+                //TODO use regex?
+                if (line)
+                {
+                    foreach (string s in MatchText.Keys)
+                    {
+                        if (text.Contains(s))
+                        {
+                            _rtb.SelectionBackColor = MatchText[s];
+                            break;
+                        }
+                    }
+
+                    Write(text, nl);
+                }
+                else
+                {
+                    foreach (string s in MatchText.Keys)
+                    {
+                        int ind = 0;
+                        var pos = text.IndexOf(s);
+                        if (pos == -1)
+                        {
+                            continue;
+                        }
+                    }
+
+                    Write(text, nl);
+                }
+            });
+        }
+        #endregion
+
+        #region Private functions
+        /// <summary>
+        /// Low level output. Assumes caller has taken care of cross-thread issues.
+        /// </summary>
+        void Write(string text, bool eol = true)
         {
             // Trim buffer.
-            if (MaxText > 0 && _rtb.TextLength > MaxText)
+            if (_rtb.TextLength > MaxText)
             {
-                _rtb.Select(0, MaxText / 5); // TODO by full lines.
+                int end = MaxText / 5;
+                while (_rtb.Text[end] != LINEFEED) end++;
+                _rtb.Select(0, end);
                 _rtb.SelectedText = "";
             }
 
@@ -304,94 +251,17 @@ namespace Ephemera.NBagOfUis
             _rtb.ScrollToCaret();
         }
 
-        ///// <summary>
-        ///// A message to display to the user. Doesn't add EOL.
-        ///// </summary>
-        ///// <param name="text">The message.</param>
-        ///// <param name="color">Explicit color to use.</param>
-        //public void AppendText(string text, Color? color = null)
-        //{
-        //    if (AnsiColor)
-        //    {
-        //    }
-        //    else
-        //    {
-        //    }
-            
-        //    this.InvokeIfRequired(_ =>
-        //    {
-        //        _rtb.SelectionBackColor = BackColor; // default
-        //        if (color is not null)
-        //        {
-        //            _rtb.SelectionBackColor = (Color)color;
-        //        }
-        //        else if (AnsiColor)
-        //        {
-        //        }
-        //        else 
-        //        {
-        //        }
-        //        _rtb.AppendText(text);
-        //        _rtb.ScrollToCaret();
-        //    });
-        //}
-
-        ///// <summary>
-        ///// A message to display to the user. Adds EOL.
-        ///// </summary>
-        ///// <param name="text">The message.</param>
-        ///// <param name="color">Specific selection color to use.</param>
-        //public void AppendLine(string text, Color? color = null)
-        //{
-        //    AppendText($"{Prompt}{text}{Environment.NewLine}", color);
-        //}
-
         /// <summary>
-        /// Catch a few keys.
+        /// Decode ansi escape sequence arguments.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void Rtb_KeyDown(object? sender, KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
-                case Keys.C:
-                    if (e.Modifiers == 0)
-                    {
-                        Clear();
-                        e.Handled = true;
-                    }
-                    break;
-
-                case Keys.W:
-                    if (e.Modifiers == 0)
-                    {
-                        WordWrap = !WordWrap;
-                        e.Handled = true;
-                    }
-                    break;
-            }
-        }
-
-
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
-
-        /// <summary>
-        /// Convert ansi specs like: ESC[IDm  ESC[38;5;IDm ESC[38;2;R;G;Bm to Color.
-        /// </summary>
-        /// <param name="ansi">Ansi string</param>
-        /// <returns>Color and whether it's fg or bg. Color is Empty if invalid ansi string.</returns>
-        //public (Color color, bool invert) ColorFromAnsi(string ansi)
-        public (Color fg, Color bg) ColorFromAnsi(string ansi)
+        /// <param name="ansi">Ansi args string</param>
+        /// <returns>Foreground and background colors. Color is Empty if invalid ansi string.</returns>
+        (Color fg, Color bg) ColorFromAnsi(string ansi)
         {
             Color fg = Color.Empty;
             Color bg = Color.Empty;
-            //bool invert = false;
 
-            var shansi = ansi.Replace("\033[", "").Replace("m", "");
-            var parts = shansi.SplitByToken(";").Select(i => int.Parse(i)).ToList();
+            var parts = ansi.SplitByToken(";").Select(i => int.Parse(i)).ToList();
 
             var p0 = parts.Count >= 1 ? parts[0] : 0;
             var p1 = parts.Count >= 2 ? parts[1] : 0;
@@ -464,5 +334,100 @@ namespace Ephemera.NBagOfUis
                 return Color.FromArgb(std_colors[id].r, std_colors[id].g, std_colors[id].b);
             }
         }
+
+        /// <summary>
+        /// Catch a few keys.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void Rtb_KeyDown(object? sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.C:
+                    if (e.Modifiers == 0)
+                    {
+                        _rtb.Clear();
+                        e.Handled = true;
+                    }
+                    break;
+
+                case Keys.W:
+                    if (e.Modifiers == 0)
+                    {
+                        WordWrap = !WordWrap;
+                        e.Handled = true;
+                    }
+                    break;
+            }
+        }
+        #endregion
     }
 }
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="s"></param>
+//void ParseXXX(string s)
+//{
+
+
+
+    //for (int i = 0; i < s.Length; i++)
+    //{
+    //    char c = s[i];
+    //    switch (c, _state)
+    //    {
+    //        case ESCAPE:
+    //            _state = ParseState.Look;
+    //            break;
+    //        case RETURN:
+    //            // Line complete - reset.
+    //            _fgCurrent = Color.Empty;
+    //            _bgCurrent = Color.Empty;
+    //            _ansiArgs = "";
+    //            break;
+    //        default:
+    //            switch (_state)
+    //            {
+    //                case ParseState.Look:
+    //                    if (c == '[')
+    //                    {
+    //                        _state = ParseState.Collect;
+    //                    }
+    //                    else
+    //                    {
+    //                        // syntax error
+    //                    }
+    //                    break;
+    //                case ParseState.Collect:
+    //                    if (c == 'm')
+    //                    {
+    //                        var (fg, bg) = ColorFromAnsi(_ansiArgs);
+    //                        _fgCurrent = fg;
+    //                        _bgCurrent = bg;
+    //                        _state = ParseState.Idle;
+    //                    }
+    //                    else
+    //                    {
+    //                        _ansiArgs += c;
+    //                    }
+    //                    break;
+    //                case ParseState.Idle:
+    //                    Write(c);
+    //                    break;
+    //            }
+    //            break;
+    //        case CANCEL:
+    //        case BACKSPACE:
+    //        case TAB:
+    //        case LINEFEED:
+    //        case CLEAR:
+    //            // TODO these useful?
+    //            break;
+    //    }
+    //}
+//}
+
