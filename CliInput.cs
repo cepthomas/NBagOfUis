@@ -116,6 +116,7 @@ namespace Ephemera.NBagOfUis
         /// <param name="e"></param>
         void Rtb_KeyDown(object? sender, KeyEventArgs e)
         {
+            char c = char.ToLower((char)e.KeyData);
 
             switch (e.Control, e.Alt, e.KeyCode)
             {
@@ -156,14 +157,14 @@ namespace Ephemera.NBagOfUis
                     }
                     break;
 
-                case (true, false, _):
+                case (true, false, _) when char.IsAsciiLetterOrDigit(c):
                     // Hot key?
-                    InputEvent?.Invoke(this, new() { Mod = Modifier.Ctrl, Text = e.KeyCode.ToString() });
+                    InputEvent?.Invoke(this, new() { Mod = Modifier.Ctrl, Text = c.ToString() });
                     break;
 
-                case (false, true, _):
+                case (false, true, _) when char.IsAsciiLetterOrDigit(c):
                     // Hot key?
-                    InputEvent?.Invoke(this, new() { Mod = Modifier.Alt, Text = e.KeyCode.ToString() });
+                    InputEvent?.Invoke(this, new() { Mod = Modifier.Alt, Text = c.ToString() });
                     break;
             }
 

@@ -140,14 +140,13 @@ namespace Ephemera.NBagOfUis
                             _state = ParseState.Look;
                             break;
 
-                        case (ParseState.Idle, RETURN): // Line complete - reset.
-                            //_fgCurrent = Color.Empty;
-                            //_bgCurrent = Color.Empty;
+                        case (ParseState.Idle, RETURN):
                             _ansiArgs = "";
                             Write("");
                             break;
 
                         case (ParseState.Look, '['):
+                            _ansiArgs = "";
                             _state = ParseState.Collect;
                             break;
 
@@ -156,6 +155,7 @@ namespace Ephemera.NBagOfUis
                             _rtb.SelectionColor = fg;
                             _rtb.SelectionBackColor = bg;
                             _state = ParseState.Idle;
+                            _ansiArgs = "";
                             break;
 
                         case (ParseState.Collect, _):
@@ -171,7 +171,7 @@ namespace Ephemera.NBagOfUis
                         //    break;
 
                         case (ParseState.Idle, _):
-                            Write(c.ToString());
+                            Write(c.ToString(), false);
                             break;
 
                         case (_, _):
@@ -182,7 +182,7 @@ namespace Ephemera.NBagOfUis
                     }
                 }
 
-                Write(text, nl);
+                Write("", nl);
             });
         }
 
