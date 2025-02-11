@@ -24,7 +24,7 @@ namespace Ephemera.NBagOfUis
         public override Color BackColor { get { return _rtb.BackColor; } set { _rtb.BackColor = value; } }
 
         /// <summary>Cosmetics.</summary>
-        public override Font? Font { get { return _rtb.Font; } set { _rtb.Font = value; } }
+        public override Font Font { get { return _rtb.Font; } set { _rtb.Font = value; } }
 
         /// <summary>Word wrap toggle.</summary>
         public bool WordWrap { get { return _rtb.WordWrap; } set { _rtb.WordWrap = value; } }
@@ -78,9 +78,10 @@ namespace Ephemera.NBagOfUis
                 ScrollBars = RichTextBoxScrollBars.Both,
             };
 
-            
+            Font? font = _rtb.Font;
 
-            _rtb.KeyDown += Rtb_KeyDown;
+
+        _rtb.KeyDown += Rtb_KeyDown;
             Controls.Add(_rtb);
         }
 

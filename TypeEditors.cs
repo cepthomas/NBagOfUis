@@ -51,10 +51,10 @@ namespace Ephemera.NBagOfUis
             FontDialog dlg = new()
             {
                 FixedPitchOnly = true,
-                Font = value as Font
+                Font = (value as Font)!
             };
 
-            return dlg.ShowDialog() == DialogResult.OK ? dlg.Font! : value;
+            return dlg.ShowDialog() == DialogResult.OK ? dlg.Font : (value as Font)!;
         }
 
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext? context) { return UITypeEditorEditStyle.Modal; }
@@ -97,7 +97,7 @@ namespace Ephemera.NBagOfUis
 
             lb.ContextMenuStrip.ItemClicked += (sender, args) =>
             {
-                switch (args.ClickedItem.Text)
+                switch (args.ClickedItem!.Text)
                 {
                     case "Add":
                         FolderBrowserDialog dlg = new()
