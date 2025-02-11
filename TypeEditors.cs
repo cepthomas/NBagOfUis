@@ -18,7 +18,7 @@ namespace Ephemera.NBagOfUis
     {
         IWindowsFormsEditorService? _service = null;
 
-        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
+        public override object EditValue(ITypeDescriptorContext? context, IServiceProvider provider, object? value)
         {
             List<string> ls = value is null ? new() : (List<string>)value;
 
@@ -40,13 +40,13 @@ namespace Ephemera.NBagOfUis
             return ls;
         }
 
-        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context) { return UITypeEditorEditStyle.DropDown; }
+        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext? context) { return UITypeEditorEditStyle.DropDown; }
     }
 
     /// <summary>Selector for monospaced fonts.</summary>
     public class MonospaceFontEditor : UITypeEditor
     {
-        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
+        public override object EditValue(ITypeDescriptorContext? context, IServiceProvider provider, object? value)
         {
             FontDialog dlg = new()
             {
@@ -57,7 +57,7 @@ namespace Ephemera.NBagOfUis
             return dlg.ShowDialog() == DialogResult.OK ? dlg.Font! : value;
         }
 
-        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context) { return UITypeEditorEditStyle.Modal; }
+        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext? context) { return UITypeEditorEditStyle.Modal; }
     }
 
     /// <summary>Broken - don't use.</summary>
@@ -65,7 +65,7 @@ namespace Ephemera.NBagOfUis
     {
         IWindowsFormsEditorService? _service = null;
 
-        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
+        public override object EditValue(ITypeDescriptorContext? context, IServiceProvider provider, object? value)
         {
             List<string> ls = value is null ? new() : (List<string>)value;
 
@@ -131,6 +131,6 @@ namespace Ephemera.NBagOfUis
             return ls;
         }
 
-        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context) { return UITypeEditorEditStyle.DropDown; }
+        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext? context) { return UITypeEditorEditStyle.DropDown; }
     }
 }

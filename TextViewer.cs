@@ -15,7 +15,7 @@ namespace Ephemera.NBagOfUis
     public class TextViewer : UserControl
     {
         #region Properties
-        /// <summary>The colors to display when text is matched. TODO option for word or whole line.</summary>
+        /// <summary>The colors to display when text is matched. TODO option for coloring word or line.</summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Dictionary<string, Color> MatchText { get; set; } = [];
@@ -24,7 +24,7 @@ namespace Ephemera.NBagOfUis
         public override Color BackColor { get { return _rtb.BackColor; } set { _rtb.BackColor = value; } }
 
         /// <summary>Cosmetics.</summary>
-        public override Font Font { get { return _rtb.Font; } set { _rtb.Font = value; } }
+        public override Font? Font { get { return _rtb.Font; } set { _rtb.Font = value; } }
 
         /// <summary>Word wrap toggle.</summary>
         public bool WordWrap { get { return _rtb.WordWrap; } set { _rtb.WordWrap = value; } }
@@ -44,9 +44,9 @@ namespace Ephemera.NBagOfUis
         ParseState _state = ParseState.Idle;
         enum ParseState
         {
-            Idle,       /// Plain text
-            Look,       /// Looking for '[' in sequence
-            Collect     /// Collect sequence arrgs
+            Idle,       // Plain text
+            Look,       // Looking for '[' in sequence
+            Collect     // Collect sequence args
         }
 
         /// <summary>Accumulated ansi arguments.</summary>
@@ -75,8 +75,10 @@ namespace Ephemera.NBagOfUis
                 BorderStyle = BorderStyle.None,
                 ForeColor = Color.Black,
                 ReadOnly = true,
-                ScrollBars = RichTextBoxScrollBars.Both
+                ScrollBars = RichTextBoxScrollBars.Both,
             };
+
+            
 
             _rtb.KeyDown += Rtb_KeyDown;
             Controls.Add(_rtb);
@@ -214,7 +216,6 @@ namespace Ephemera.NBagOfUis
                 {
                     foreach (string s in MatchText.Keys)
                     {
-                        int ind = 0;
                         var pos = text.IndexOf(s);
                         if (pos == -1)
                         {

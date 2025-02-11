@@ -15,15 +15,6 @@ namespace Ephemera.NBagOfUis
     /// <summary>For hotkeys.</summary>
     public enum Modifier { None, Ctrl, Alt }
 
-    /// <summary>Internal cli entry data container.</summary>
-    //internal record CliEntry(string s, Modifier mod);
-
-
-
-    //        HashSet<(char, Modifier)> _modifiers = new();
-
-
-
     public class CliInputEventArgs : EventArgs
     {
         /// <summary>Test for hotkey press.</summary>
@@ -43,7 +34,7 @@ namespace Ephemera.NBagOfUis
         public override Color BackColor { get { return _rtb.BackColor; } set { _rtb.BackColor = value; } }
 
         /// <summary>Cosmetics.</summary>
-        public override Font Font { get { return _rtb.Font; } set { _rtb.Font = value; } }
+        public override Font? Font { get { return _rtb.Font; } set { _rtb.Font = value; } }
 
         /// <summary>Optional prompt.</summary>
         public string Prompt { get; set; } = "???";
@@ -167,56 +158,6 @@ namespace Ephemera.NBagOfUis
                     InputEvent?.Invoke(this, new() { Mod = Modifier.Alt, Text = c.ToString() });
                     break;
             }
-
-            //switch (e.KeyCode)
-            //{
-            //    case Keys.Enter:
-            //        if (_rtb.Text.Length > 0)
-            //        {
-            //            // Add to history and notify client.
-            //            var t = _rtb.Text;
-            //            AddToHistory(t);
-
-            //            CliInputEventArgs la = new() { Text = t };
-            //            InputEvent?.Invoke(this, la);
-            //            // Clear line.
-            //            _rtb.Text = $"{Prompt}";
-            //        }
-            //        break;
-
-            //    case Keys.Escape:
-            //        // Throw away current.
-            //        _rtb.Text = $"{Prompt}";
-            //        break;
-
-            //    case Keys.Up:
-            //        // Go through history older.
-            //        if (_historyIndex < _history.Count - 1)
-            //        {
-            //            _historyIndex++;
-            //            _rtb.Text = $"{Prompt}{_history[_historyIndex]}";
-            //        }
-            //        break;
-
-            //    case Keys.Down:
-            //        // Go through history newer.
-            //        if (_historyIndex > 0)
-            //        {
-            //            _historyIndex--;
-            //            _rtb.Text = $"{Prompt}{_history[_historyIndex]}";
-            //        }
-            //        break;
-
-            //    default:
-            //        if (_rtb.Text.Length == 0) // check hotkey?
-            //        {
-            //            var ch = (char)e.KeyValue;
-            //            CliInputEventArgs ca = new() { Mod_X = Modifier.None };
-            //            InputEvent?.Invoke(this, ca);
-            //            e.Handled = ca.Handled;
-            //        }
-            //        break;
-            //}
         }
         #endregion
     }
