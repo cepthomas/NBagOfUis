@@ -65,7 +65,7 @@ namespace Ephemera.NBagOfUis
             _rtb = new()
             {
                 Dock = DockStyle.Fill,
-                Font = new Font("Consolas", 10),
+                Font = new Font("Consolas", 10), // TODO from settings
                 BorderStyle = BorderStyle.None,
                 ForeColor = Color.Black,
                 Multiline = false,

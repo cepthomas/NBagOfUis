@@ -228,6 +228,14 @@ namespace Ephemera.NBagOfUis
                 }
             });
         }
+
+        /// <summary>
+        /// Clean up.
+        /// </summary>
+        public void Clear()
+        {
+            _rtb.Clear();
+        }
         #endregion
 
         #region Private functions
