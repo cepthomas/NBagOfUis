@@ -19,7 +19,6 @@ namespace Ephemera.NBagOfUis.Test
     public partial class TestHost : Form
     {
         readonly TestSettings _settings = new();
-        readonly ToolTip _toolTip = new();
 
         public TestHost()
         {
@@ -43,7 +42,7 @@ namespace Ephemera.NBagOfUis.Test
             clickGrid1.AddStateType(0, Color.Blue, Color.AliceBlue);
             clickGrid1.AddStateType(1, Color.AliceBlue, Color.Blue);
             clickGrid1.AddStateType(2, Color.Red, Color.Salmon);
-            string[] names = { "dignis", "cras", "tincidu", "loborti", "feugiat", "vivamus", "at", "augue", "eget" };
+            string[] names = ["dignis", "cras", "tincidu", "loborti", "feugiat", "vivamus", "at", "augue", "eget"];
             for (int i = 0; i < names.Length; i++)
             {
                 clickGrid1.AddIndicator(names[i], i);
@@ -79,13 +78,13 @@ namespace Ephemera.NBagOfUis.Test
             //propGrid.ShowProperty("TestString", false);
 
             ///// FilTree.
-            filTree.FilterExts = new List<string> { ".txt", ".ntr", ".md", ".xml", ".cs", ".py" };
-            filTree.IgnoreDirs = new List<string> { ".vs", ".git", "bin", "obj", "lib" };
-            filTree.RootDirs = new List<string>
-            {
+            filTree.FilterExts = [".txt", ".ntr", ".md", ".xml", ".cs", ".py"];
+            filTree.IgnoreDirs = [".vs", ".git", "bin", "obj", "lib"];
+            filTree.RootDirs =
+            [
                 @"C:\Users\cepth\AppData\Roaming\Sublime Text\Packages\Notr",
                 @"C:\Users\cepth\OneDrive\OneDriveDocuments\notes"
-            };
+            ];
             //filTree.RecentFiles = new()
             //{
             //    @"C:\Dev\repos\repos_common\audio_file_info.txt",
@@ -102,7 +101,7 @@ namespace Ephemera.NBagOfUis.Test
             optionsEd.Options = new() { { "Apple", true }, { "Orange", false }, { "Peach", true }, { "Bird", false }, { "Cow", true } };
             optionsEd.OptionsChanged += (_, __) => Tell($"Options changed:{optionsEd.Options.Where(o => o.Value == true).Count()}");
             choicer.Text = "Test choice";
-            choicer.SetOptions(new() { "Apple", "Orange", "Peach", "Bird", "Cow" });
+            choicer.SetOptions(["Apple", "Orange", "Peach", "Bird", "Cow"]);
             choicer.ChoiceChanged += (_, __) => Tell($"Choicer changed:{choicer.SelectedChoice}");
 
             btnDump.Click += (_, __) =>
@@ -115,22 +114,22 @@ namespace Ephemera.NBagOfUis.Test
             ///// ClickClack.
             clickClack1.MinX = 24; // C0
             clickClack1.MaxX = 96; // C6
-            clickClack1.GridX = new() { 12, 24, 36, 48, 60, 72, 84 };
+            clickClack1.GridX = [12, 24, 36, 48, 60, 72, 84];
             clickClack1.MinY = 0; // min velocity == note off
             clickClack1.MaxY = 127; // max velocity
-            clickClack1.GridY = new() { 32, 64, 96 };
+            clickClack1.GridY = [32, 64, 96];
             clickClack1.MouseClickEvent += (object? _, ClickClack.UserEventArgs e) => Tell(e.ToString());
             clickClack1.MouseMoveEvent += (object? _, ClickClack.UserEventArgs e) => e.Text = $">>>{e}";
 
             ///// Drop down
 
-            List<string> options = new()
-            {
+            List<string> options =
+            [
                 "Open...",
                 "Reload",
                 "",
                 "Die Die"
-            };
+            ];
             dropDownButton1.SetOptions(options);
             dropDownButton1.Selected += (object? sender, string sel) => { Tell($"Selected: {sel}"); };
 
@@ -214,7 +213,7 @@ namespace Ephemera.NBagOfUis.Test
         {
             int state = ++e.State % 3;
             clickGrid1.SetIndicator(e.Id, state);
-            txtInfo.Append($"ClickGrid:{e.Id}->{state}", Color.Green);
+            txtInfo.AppendColor($"ClickGrid:{e.Id}->{state}", Color.Green);
         }
 
         void Tell(string msg)
@@ -246,7 +245,7 @@ namespace Ephemera.NBagOfUis.Test
         [Category("Cat1")]
         [Browsable(true)]
         [Editor(typeof(StringListEditor), typeof(UITypeEditor))]
-        public List<string> TestList { get; set; } = new();
+        public List<string> TestList { get; set; } = [];
 
         [DisplayName("Plain Font")]
         [Description("Describe Plain Font.")]

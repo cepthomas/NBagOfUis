@@ -8,6 +8,8 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.Drawing;
 using Ephemera.NBagOfTricks;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 
 namespace Ephemera.NBagOfUis
@@ -22,9 +24,6 @@ namespace Ephemera.NBagOfUis
 
         /// <summary>User text, no eol.</summary>
         public string Text { get; set; } = "";
-
-        ///// <summary>Client has taken ownership of the data.</summary>
-        //public bool Handled { get; set; } = false;
     }
 
     public class CliInput : UserControl
@@ -65,7 +64,7 @@ namespace Ephemera.NBagOfUis
             _rtb = new()
             {
                 Dock = DockStyle.Fill,
-                Font = new Font("Consolas", 10), // TODO from settings
+                Font = new Font("Consolas", 10),
                 BorderStyle = BorderStyle.None,
                 ForeColor = Color.Black,
                 Multiline = false,
@@ -76,26 +75,8 @@ namespace Ephemera.NBagOfUis
                 Text = ""
             };
 
-            _rtb.KeyDown += Rtb_KeyDown;
+           // _rtb.KeyDown += Rtb_KeyDown;
             Controls.Add(_rtb);
-        }
-        #endregion
-
-        #region Misc functions
-        /// <summary>
-        /// Update the history with the new entry.
-        /// </summary>
-        /// <param name="s"></param>
-        void AddToHistory(string s)
-        {
-            if (s.Length > 0)
-            {
-                var newlist = new List<string> { s };
-                // Check for dupes and max size.
-                _history.ForEach(v => { if (!newlist.Contains(v) && newlist.Count <= 20) newlist.Add(v); });
-                _history = newlist;
-                _historyIndex = 0;
-            }
         }
         #endregion
 
@@ -107,8 +88,6 @@ namespace Ephemera.NBagOfUis
         /// <param name="e"></param>
         void Rtb_KeyDown(object? sender, KeyEventArgs e)
         {
-            char c = char.ToLower((char)e.KeyData);
-
             switch (e.Control, e.Alt, e.KeyCode)
             {
                 case (false, false, Keys.Enter):
@@ -148,15 +127,38 @@ namespace Ephemera.NBagOfUis
                     }
                     break;
 
-                case (true, false, _) when char.IsAsciiLetterOrDigit(c):
+                case (true, false, _) when IsAlNum(e.KeyCode):
                     // Hot key?
-                    InputEvent?.Invoke(this, new() { Mod = Modifier.Ctrl, Text = c.ToString() });
+                    InputEvent?.Invoke(this, new() { Mod = Modifier.Ctrl, Text = e.KeyCode.ToString() });
                     break;
 
-                case (false, true, _) when char.IsAsciiLetterOrDigit(c):
+                case (false, true, _) when IsAlNum(e.KeyCode):
                     // Hot key?
-                    InputEvent?.Invoke(this, new() { Mod = Modifier.Alt, Text = c.ToString() });
+                    InputEvent?.Invoke(this, new() { Mod = Modifier.Alt, Text = e.KeyCode.ToString() });
                     break;
+            }
+
+            bool IsAlNum(Keys key)
+            {
+                return (e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9) || (e.KeyCode >= Keys.A && e.KeyCode <= Keys.Z);
+            }
+        }
+        #endregion
+
+        #region Misc functions
+        /// <summary>
+        /// Update the history with the new entry.
+        /// </summary>
+        /// <param name="s"></param>
+        void AddToHistory(string s)
+        {
+            if (s.Length > 0)
+            {
+                var newlist = new List<string> { s };
+                // Check for dupes and max size.
+                _history.ForEach(v => { if (!newlist.Contains(v) && newlist.Count <= 20) newlist.Add(v); });
+                _history = newlist;
+                _historyIndex = 0;
             }
         }
         #endregion

@@ -153,7 +153,7 @@ namespace Ephemera.NBagOfUis.Test
         /// <param name="msg"></param>
         void Tell(string msg)
         {
-            txtInfo.Append(msg);
+            txtInfo.AppendColor(msg);
         }
     }
 }
