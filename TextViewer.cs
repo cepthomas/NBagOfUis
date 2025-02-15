@@ -83,6 +83,62 @@ namespace Ephemera.NBagOfUis
         #endregion
 
         #region Public appenders
+
+
+
+
+        /// <summary>
+        /// A message to display to the user. Adds EOL.
+        /// </summary>
+        /// <param name="text">The message.</param>
+        /// <param name="color">Specific color to use.</param>
+        public void AppendLine(string text, Color? color = null)
+        {
+            AppendText($"{Prompt}{text}{Environment.NewLine}", color);
+        }
+
+        /// <summary>
+        /// A message to display to the user. Doesn't add EOL.
+        /// </summary>
+        /// <param name="text">The message.</param>
+        /// <param name="color">Specific color to use.</param>
+        public void AppendText(string text, Color? color = null)
+        {
+            this.InvokeIfRequired(_ =>
+            {
+                // Trim buffer.
+                if (MaxText > 0 && _rtb.TextLength > MaxText)
+                {
+                    _rtb.Select(0, MaxText / 5);
+                    _rtb.SelectedText = "";
+                }
+
+                _rtb.SelectionBackColor = BackColor; // default
+
+                if (color is not null)
+                {
+                    _rtb.SelectionBackColor = (Color)color;
+                }
+                else // check matches
+                {
+                    foreach (string s in MatchColors.Keys)
+                    {
+                        if (text.Contains(s))
+                        {
+                            _rtb.SelectionBackColor = MatchColors[s];
+                            break;
+                        }
+                    }
+                }
+
+                _rtb.AppendText(text);
+                _rtb.ScrollToCaret();
+            });
+        }
+
+
+
+        
         /// <summary>
         /// Output text wwith explicit color.
         /// </summary>
