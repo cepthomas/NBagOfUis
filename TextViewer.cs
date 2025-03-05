@@ -83,10 +83,6 @@ namespace Ephemera.NBagOfUis
         #endregion
 
         #region Public appenders
-
-
-
-
         /// <summary>
         /// A message to display to the user. Adds EOL.
         /// </summary>
@@ -121,11 +117,11 @@ namespace Ephemera.NBagOfUis
                 }
                 else // check matches
                 {
-                    foreach (string s in MatchColors.Keys)
+                    foreach (string s in MatchText.Keys)
                     {
                         if (text.Contains(s))
                         {
-                            _rtb.SelectionBackColor = MatchColors[s];
+                            _rtb.SelectionBackColor = MatchText[s];
                             break;
                         }
                     }
@@ -135,9 +131,6 @@ namespace Ephemera.NBagOfUis
                 _rtb.ScrollToCaret();
             });
         }
-
-
-
         
         /// <summary>
         /// Output text wwith explicit color.
