@@ -15,7 +15,7 @@ namespace Ephemera.NBagOfUis
     public class TextViewer : UserControl
     {
         #region Properties
-        /// <summary>The colors to display when text is matched. TODO option for coloring just word or whole line.</summary>
+        /// <summary>The colors to display when text is matched. TODO1 option for coloring just word or whole line.</summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Dictionary<string, Color> MatchText { get; set; } = [];
@@ -160,7 +160,7 @@ namespace Ephemera.NBagOfUis
         {
             this.InvokeIfRequired(_ =>
             {
-                // TODO use regex?
+                // TODO1 use regex?
                 if (line)
                 {
                     foreach (string s in MatchText.Keys)
