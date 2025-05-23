@@ -1,11 +1,29 @@
 {
   "TestList": [
-    "111",
-    "222",
-    "333"
+    "ListItem0",
+    "ListItem1",
+    "ListItem2",
+    "ListItem3",
+    "ListItem4"
   ],
-  "TestFont": "SimSun-ExtB,12",
-  "TestColor": "RosyBrown",
-  "TestString": "aaaa bbbb cccc",
-  "FormGeometry": "20,20,1272,673",
+  "PlainFont": null,
+  "MonospaceFont": null,
+  "TestColor": "Salmon",
+  "TestString": "Just a test",
+  "SingleClickSelect": false,
+  "SplitterPosition": 30,
+  "SubSettings": [
+    {
+      "AAA": 1,
+      "CCC": 1,
+      "BBB": 1
+    },
+    {
+      "AAA": 2,
+      "CCC": 2,
+      "BBB": 2
+    }
+  ],
+  "FormGeometry": "174,174,1243,811",
+  "RecentFiles": []
 }

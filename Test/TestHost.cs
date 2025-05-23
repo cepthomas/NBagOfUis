@@ -287,5 +287,32 @@ namespace Ephemera.NBagOfUis.Test
         [Range(10, 80)]
         [Browsable(true)]
         public int SplitterPosition { get; set; } = 30;
+
+        [DisplayName("Sub Settings")]
+        [Description("Sorting?")]
+        [Category("Cat3")]
+        [Browsable(true)]
+        public List<SubSettings> SubSettings { get; set; } = [];
+    }
+
+    public class SubSettings
+    {
+        [DisplayName("AAA")]
+        [Description("AAA")]
+        [Category("CatX")]
+        [Browsable(true)]
+        public int AAA { get; set; } = 1;
+
+        [DisplayName("CCC")]
+        [Description("CCC")]
+        [Category("CatX")]
+        [Browsable(true)]
+        public int CCC { get; set; } = 1;
+
+        [DisplayName("BBB")]
+        [Description("BBB")]
+        [Category("CatX")]
+        [Browsable(true)]
+        public int BBB { get; set; } = 1;
     }
 }
