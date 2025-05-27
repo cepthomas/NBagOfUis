@@ -26,8 +26,7 @@ namespace Ephemera.NBagOfUis.Test
             InitializeComponent();
 
             // Must do this first before initializing.
-            string appDir = MiscUtils.GetAppDataDir("Test", "Ephemera");
-            _settings = (TestSettings)SettingsCore.Load(appDir, typeof(TestSettings), "nbui-test-settings.json");
+            _settings = (TestSettings)SettingsCore.Load("Files", typeof(TestSettings), "test-settings.json");
 
             Location = new Point(_settings.FormGeometry.X, _settings.FormGeometry.Y);
             //Size = new Size(_settings.FormGeometry.Width, _settings.FormGeometry.Height);
