@@ -35,7 +35,6 @@
             txtInfo = new TextViewer();
             propGrid = new PropertyGridEx();
             clickGrid1 = new ClickGrid();
-            cpuMeter1 = new CpuMeter();
             timer1 = new System.Windows.Forms.Timer(components);
             slider1 = new Slider();
             toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -43,7 +42,6 @@
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             btnSettings = new System.Windows.Forms.ToolStripButton();
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            btnCpu = new System.Windows.Forms.ToolStripButton();
             toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSlider1 = new ToolStripSlider();
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -93,19 +91,6 @@
             clickGrid1.Size = new System.Drawing.Size(274, 143);
             clickGrid1.TabIndex = 1;
             // 
-            // cpuMeter1
-            // 
-            cpuMeter1.BackColor = System.Drawing.Color.Gainsboro;
-            cpuMeter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            cpuMeter1.DrawColor = System.Drawing.Color.DarkOrange;
-            cpuMeter1.Enable = false;
-            cpuMeter1.Label = "cpu";
-            cpuMeter1.Location = new System.Drawing.Point(1017, 485);
-            cpuMeter1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            cpuMeter1.Name = "cpuMeter1";
-            cpuMeter1.Size = new System.Drawing.Size(197, 76);
-            cpuMeter1.TabIndex = 7;
-            // 
             // slider1
             // 
             slider1.BackColor = System.Drawing.Color.Gainsboro;
@@ -125,7 +110,7 @@
             // toolStrip1
             // 
             toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { btnGfx, toolStripSeparator1, btnSettings, toolStripSeparator2, btnCpu, toolStripSeparator3, toolStripSlider1, toolStripSeparator4, toolStripMeter1, toolStripSeparator5 });
+            toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { btnGfx, toolStripSeparator1, btnSettings, toolStripSeparator2, toolStripSeparator3, toolStripSlider1, toolStripSeparator4, toolStripMeter1, toolStripSeparator5 });
             toolStrip1.Location = new System.Drawing.Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new System.Drawing.Size(1225, 43);
@@ -157,15 +142,6 @@
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
             toolStripSeparator2.Size = new System.Drawing.Size(6, 43);
-            // 
-            // btnCpu
-            // 
-            btnCpu.CheckOnClick = true;
-            btnCpu.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            btnCpu.ImageTransparentColor = System.Drawing.Color.Magenta;
-            btnCpu.Name = "btnCpu";
-            btnCpu.Size = new System.Drawing.Size(37, 40);
-            btnCpu.Text = "cpu";
             // 
             // toolStripSeparator3
             // 
@@ -371,7 +347,6 @@
             Controls.Add(slider1);
             Controls.Add(clickGrid1);
             Controls.Add(txtInfo);
-            Controls.Add(cpuMeter1);
             Controls.Add(propGrid);
             Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             Name = "TestHost";
@@ -386,7 +361,6 @@
         private TextViewer txtInfo;
         private PropertyGridEx propGrid;
         private ClickGrid clickGrid1;
-        private CpuMeter cpuMeter1;
         private Meter meterDots;
         private Meter meterLog;
         private Meter meterLinear;
@@ -403,7 +377,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton btnSettings;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton btnCpu;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;

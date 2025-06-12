@@ -4,6 +4,7 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Windows.Forms;
 
 
 namespace Ephemera.NBagOfUis
@@ -34,22 +35,33 @@ namespace Ephemera.NBagOfUis
         /// <summary>
         /// Create icon from a bitmap.
         /// </summary>
-        /// <param name="bmp"></param>
+        /// <param name="bmpSource">Source image.</param>
         /// <param name="size">Specific size or 0 for all common windows sizes.</param>
         /// <returns></returns>
-        public static Icon CreateIcon(Bitmap bmp, int size = 0)
+        public static Icon CreateIcon(Bitmap bmpSource, int size = 0)
         {
             // The standards.
-            int[] sizes = size == 0 ? new int[] { 256, 48, 32, 16 } : new int[] { size };
+            int[] sizes = size == 0 ? [256, 48, 32, 16] : [size];
 
             // Generate bitmaps for all the sizes and toss them in streams
-            List<MemoryStream> mss = new();
+            List<MemoryStream> mss = [];
 
             foreach (int sz in sizes)
             {
-                Bitmap outbmp = ResizeBitmap(bmp, sz, sz);
+                Bitmap result = new(sz, sz);
+                result.SetResolution(bmpSource.HorizontalResolution, bmpSource.VerticalResolution);
+                using (Graphics graphics = Graphics.FromImage(result))
+                {
+                    // Set high quality.
+                    graphics.CompositingQuality = CompositingQuality.HighQuality;
+                    graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    graphics.SmoothingMode = SmoothingMode.HighQuality;
+                    // Draw the image.
+                    graphics.DrawImage(bmpSource, 0, 0, result.Width, result.Height);
+                }
+
                 MemoryStream ms = new();
-                outbmp.Save(ms, ImageFormat.Png);
+                result.Save(ms, ImageFormat.Png);
                 mss.Add(ms);
             }
 
@@ -116,145 +128,28 @@ namespace Ephemera.NBagOfUis
             ico.Save(stream);
         }
 
-        /// <summary>
-        /// De-colorize.
-        /// </summary>
-        /// <param name="bmp"></param>
-        /// <returns></returns>
-        public static Bitmap ConvertToGrayscale(Bitmap bmp)
+        public class CheckBoxRenderer : ToolStripSystemRenderer
         {
-            Bitmap result = new(bmp.Width, bmp.Height);
+            /// <summary>Color to use when check box is selected.</summary>
+            public Color SelectedColor { get; set; }
 
-            // Conversion algo (worst to best)
-            // - Simple averaging.
-            // - channel-dependent luminance perception
-            //   Y = R * 0.2126 + G * 0.7152 + B * 0.0722; // 0.0 to 255.0
-            // - gamma-compression-corrected approximation:
-            //   Y = 0.299 R + 0.587 G + 0.114 B
-            ColorMatrix mat = new(new float[][]
+            /// <summary>
+            /// Override for drawing.
+            /// </summary>
+            /// <param name="e"></param>
+            protected override void OnRenderButtonBackground(ToolStripItemRenderEventArgs e)
             {
-                new float[] {.30f, .30f, .30f,  0,  0},
-                new float[] {.59f, .59f, .59f,  0,  0},
-                new float[] {.11f, .11f, .11f,  0,  0},
-                new float[] {  0,    0,    0,   1,  0},
-                new float[] {  0,    0,    0,   0,  1}
-            });
-
-            // Identity matrix for dev.
-            //ColorMatrix mat = new(new float[][]
-            //{
-            //    new float[] {  1,  0,  0,  0,  0},
-            //    new float[] {  0,  1,  0,  0,  0},
-            //    new float[] {  0,  0,  1,  0,  0},
-            //    new float[] {  0,  0,  0,  1,  0},
-            //    new float[] {  0,  0,  0,  0,  1}
-            //});
-
-            using (Graphics g = Graphics.FromImage(result))
-            {
-                using ImageAttributes attributes = new();
-                attributes.SetColorMatrix(mat);
-                g.DrawImage(bmp, new Rectangle(0, 0, bmp.Width, bmp.Height), 0, 0, bmp.Width, bmp.Height, GraphicsUnit.Pixel, attributes);
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Resize the image to the specified width and height.
-        /// </summary>
-        /// <param name="bmp">The image to resize.</param>
-        /// <param name="width">The width to resize to.</param>
-        /// <param name="height">The height to resize to.</param>
-        /// <returns>The resized image.</returns>
-        public static Bitmap ResizeBitmap(Bitmap bmp, int width, int height)
-        {
-            Bitmap result = new(width, height);
-            result.SetResolution(bmp.HorizontalResolution, bmp.VerticalResolution);
-
-            using (Graphics graphics = Graphics.FromImage(result))
-            {
-                // Set high quality.
-                graphics.CompositingQuality = CompositingQuality.HighQuality;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphics.SmoothingMode = SmoothingMode.HighQuality;
-
-                // Draw the image.
-                graphics.DrawImage(bmp, 0, 0, result.Width, result.Height);
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Colorize a bitmap. Mainly for beautifying glyphicons.
-        /// </summary>
-        /// <param name="original"></param>
-        /// <param name="newcol"></param>
-        /// <param name="replace">Optional source color to replace. Defaults to black.</param>
-        /// <returns></returns>
-        public static Bitmap ColorizeBitmap(Bitmap original, Color newcol, Color replace = default)
-        {
-            Bitmap newbmp = new(original.Width, original.Height);
-
-            for (int y = 0; y < newbmp.Height; y++) // This is not very efficient. Use a matrix instead.
-            {
-                for (int x = 0; x < newbmp.Width; x++)
+                if (!(e.Item is not ToolStripButton btn) && btn.CheckOnClick && btn.Checked)
                 {
-                    // Get the pixel from the image.
-                    // 0 is fully transparent, and 255 is fully opaque
-                    Color acol = original.GetPixel(x, y);
-
-                    if(acol.R == replace.R && acol.G == replace.G && acol.B == replace.B)
-                    {
-                        acol = Color.FromArgb(acol.A, newcol.R, newcol.G, newcol.B);
-                    }
-                    newbmp.SetPixel(x, y, acol);
+                    Rectangle bounds = new(Point.Empty, e.Item.Size);
+                    e.Graphics.FillRectangle(new SolidBrush(SelectedColor), bounds);
+                }
+                else
+                {
+                    base.OnRenderButtonBackground(e);
                 }
             }
-
-            return newbmp;
         }
 
-        /// <summary>
-        /// Helper to get next contrast color in the sequence.
-        /// From http://colorbrewer2.org qualitative.
-        /// </summary>
-        /// <param name="i"></param>
-        /// <param name="dark">Dark or light series, usually dark.</param>
-        /// <returns></returns>
-        public static Color GetSequenceColor(int i, bool dark = true)
-        {
-            Color col = Color.Black;
-
-            switch (i % 8)
-            {
-                case 0: col = dark ? Color.FromArgb(27, 158, 119) : Color.FromArgb(141, 211, 199); break;
-                case 1: col = dark ? Color.FromArgb(217, 95, 2) : Color.FromArgb(255, 255, 179); break;
-                case 2: col = dark ? Color.FromArgb(117, 112, 179) : Color.FromArgb(190, 186, 218); break;
-                case 3: col = dark ? Color.FromArgb(231, 41, 138) : Color.FromArgb(251, 128, 114); break;
-                case 4: col = dark ? Color.FromArgb(102, 166, 30) : Color.FromArgb(128, 177, 211); break;
-                case 5: col = dark ? Color.FromArgb(230, 171, 2) : Color.FromArgb(253, 180, 98); break;
-                case 6: col = dark ? Color.FromArgb(166, 118, 29) : Color.FromArgb(179, 222, 105); break;
-                case 7: col = dark ? Color.FromArgb(102, 102, 102) : Color.FromArgb(252, 205, 229); break;
-            }
-
-            return col;
-        }
-
-        /// <summary>
-        /// Mix two colors.
-        /// </summary>
-        /// <param name="one"></param>
-        /// <param name="two"></param>
-        /// <returns></returns>
-        public static Color HalfMix(Color one, Color two)
-        {
-            return Color.FromArgb(
-                (one.A + two.A) >> 1,
-                (one.R + two.R) >> 1,
-                (one.G + two.G) >> 1,
-                (one.B + two.B) >> 1);
-        }
     }
 }

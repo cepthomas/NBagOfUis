@@ -58,21 +58,6 @@ namespace Ephemera.NBagOfUis.Test
             // Write it back.
             GraphicsUtils.SaveIcon(ico, Path.Join(outputDir, "copy_crabe.ico")); // all original resolutions.
 
-            // Convert grayscale.
-            bmp = (Bitmap)Image.FromFile(Path.Join(inputDir, "color-picker-small.png"));
-            bmp = GraphicsUtils.ConvertToGrayscale(bmp);
-            box = MakePicBox(bmp.Size, $"grayscale");
-            box.Image = bmp;
-
-            // Save bmp.
-            bmp.Save(Path.Join(outputDir, "grayscale.png"), ImageFormat.Png);
-
-            // Colorize.
-            bmp = (Bitmap)Image.FromFile(Path.Join(inputDir, "glyphicons-22-snowflake.png"));
-            bmp = GraphicsUtils.ColorizeBitmap(bmp, Color.DeepPink);
-            box = MakePicBox(bmp.Size, $"colorize");
-            box.Image = bmp;
-
             // Pixel bitmap.
             int size = 128;
             PixelBitmap pbmp = new(size, size);

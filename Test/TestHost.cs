@@ -135,7 +135,6 @@ namespace Ephemera.NBagOfUis.Test
             ///// Other stuff.
             btnSettings.Click += (_, __) => EditSettings();
             btnGfx.Click += (_, __) => { new GraphicsForm().ShowDialog(); };
-            btnCpu.CheckedChanged += (_, __) => cpuMeter1.Enable = btnCpu.Checked;
             // pot1 0 -> 100
             pot1.ValueChanged += (_, __) => Tell($"pot1:{pot1.Value}");
             //pan -1 -> 1

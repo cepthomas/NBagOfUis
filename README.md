@@ -18,7 +18,6 @@ Probably I should make this into a nuget package at some point.
 - OptionsEditor: User can select on/off options.
 - ChoiceSelector: User can pick one of the options.
 - ClickGrid: Essentially a grid array of buttons.
-- CpuMeter: Standalone display control.
 - TextViewer: With colorizing.
 - WaitCursor: Easy to use cursor.
 - Slider: Generic slider control.
@@ -26,9 +25,3 @@ Probably I should make this into a nuget package at some point.
 - Pot: Just like on your guitar.
 - Pan: Just like on your hifi.
 - ClickClack: Generates X/Y mouse clicks.
-
-## Utilities
-??? KeyUtils: Keyboard input.
-- UiUtils: Control helpers, formatters, etc.
-- GraphicsUtils: For manipulating images.
-??? PixelBitmap.cs
