@@ -86,8 +86,8 @@ namespace Ephemera.NBagOfUis.Test
             ];
             //filTree.RecentFiles = new()
             //{
-            //    @"C:\Dev\repos\repos_common\audio_file_info.txt",
-            //    @"C:\Dev\repos\repos_common\build.txt"
+            //    @"C:\Dev\Apps\repos_common\audio_file_info.txt",
+            //    @"C:\Dev\Apps\repos_common\build.txt"
             //};
             filTree.SplitterPosition = 40;
             filTree.SingleClickSelect = false;
