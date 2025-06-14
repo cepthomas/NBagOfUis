@@ -160,7 +160,7 @@ namespace Ephemera.NBagOfUis
         {
             this.InvokeIfRequired(_ =>
             {
-                if (ww) // TODO finish whole word
+                if (ww) // TODOX finish whole word
                 {
                     foreach (string s in MatchText.Keys)
                     {
