@@ -186,7 +186,7 @@ namespace Ephemera.NBagOfUis
             foreach (DirectoryInfo di in dis)
             {
                 // User list.
-                bool ignore = IgnoreDirs.Contains(di.Name);//TODO wildcards
+                bool ignore = IgnoreDirs.Contains(di.Name); // TODO wildcards
                 // Ignore system and hidden etc.
                 ignore |= (di.Attributes & FileAttributes.System) > 0;
                 ignore |= (di.Attributes & FileAttributes.Hidden) > 0;
@@ -267,7 +267,7 @@ namespace Ephemera.NBagOfUis
             {
                 var ext = Path.GetExtension(finfo.Name).ToLower();
 
-                if (FilterExts.Contains(ext))//TODO wildcards
+                if (FilterExts.Contains(ext)) // TODO wildcards
                 {
                     var item = new ListFileInfo()
                     {

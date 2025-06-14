@@ -15,7 +15,7 @@ namespace Ephemera.NBagOfUis
     public class TextViewer : UserControl
     {
         #region Properties
-        /// <summary>The colors to display when text is matched. TODO option for coloring just word or whole line.</summary>
+        /// <summary>The colors to display when text is matched.</summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Dictionary<string, Color> MatchText { get; set; } = [];
@@ -154,14 +154,26 @@ namespace Ephemera.NBagOfUis
         /// Output text using text matching color.
         /// </summary>
         /// <param name="text">The text to show.</param>
-        /// <param name="line">Light up whole line otherwise just the word.</param>
+        /// <param name="ww">Whole word or whole line.</param>
         /// <param name="nl">Add new line.</param>
-        public void AppendMatch(string text, bool line = true, bool nl = true)
+        public void AppendMatch(string text, bool ww = false, bool nl = true)
         {
             this.InvokeIfRequired(_ =>
             {
-                // TODO use regex?
-                if (line)
+                if (ww) // TODO finish whole word
+                {
+                    foreach (string s in MatchText.Keys)
+                    {
+                       var pos = text.IndexOf(s);
+                       if (pos == -1)
+                       {
+                           continue;
+                       }
+                    }
+
+                    Write(text, nl);
+                }
+                else
                 {
                     foreach (string s in MatchText.Keys)
                     {
@@ -171,19 +183,6 @@ namespace Ephemera.NBagOfUis
                             break;
                         }
                     }
-
-                    Write(text, nl);
-                }
-                else
-                {
-                    //foreach (string s in MatchText.Keys)
-                    //{
-                    //    var pos = text.IndexOf(s);
-                    //    if (pos == -1)
-                    //    {
-                    //        continue;
-                    //    }
-                    //}
 
                     Write(text, nl);
                 }

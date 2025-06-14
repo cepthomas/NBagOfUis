@@ -129,28 +129,22 @@ namespace Ephemera.NBagOfUis
                 pe.Graphics.DrawImage(_bmp.Bitmap, 0, 0, _bmp.Bitmap.Width, _bmp.Bitmap.Height);
             }
 
-            // Draw grid. TODO blows up in designer wwithout null checks.
-            if (GridX is not null)
+            // Draw grid.
+            foreach (var gl in GridX)
             {
-                foreach (var gl in GridX)
+                if (gl >= MinX && gl <= MaxX) // sanity - throw?
                 {
-                    if (gl >= MinX && gl <= MaxX) // sanity - throw?
-                    {
-                        int x = MathUtils.Map(gl, MinX, MaxX, 0, Width);
-                        pe.Graphics.DrawLine(_pen, x, 0, x, Height);
-                    }
+                    int x = MathUtils.Map(gl, MinX, MaxX, 0, Width);
+                    pe.Graphics.DrawLine(_pen, x, 0, x, Height);
                 }
             }
 
-            if (GridY is not null)
+            foreach (var gl in GridY)
             {
-                foreach (var gl in GridY)
+                if (gl >= MinY && gl <= MaxY)
                 {
-                    if (gl >= MinY && gl <= MaxY)
-                    {
-                        int y = MathUtils.Map(gl, MinY, MaxY, Height, 0);
-                        pe.Graphics.DrawLine(_pen, 0, y, Width, y);
-                    }
+                    int y = MathUtils.Map(gl, MinY, MaxY, Height, 0);
+                    pe.Graphics.DrawLine(_pen, 0, y, Width, y);
                 }
             }
 

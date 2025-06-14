@@ -57,19 +57,6 @@ namespace Ephemera.NBagOfUis.Test
             box.Image = bmp;
             // Write it back.
             GraphicsUtils.SaveIcon(ico, Path.Join(outputDir, "copy_crabe.ico")); // all original resolutions.
-
-            // Pixel bitmap.
-            int size = 128;
-            PixelBitmap pbmp = new(size, size);
-            foreach (var y in Enumerable.Range(0, size))
-            {
-                foreach (var x in Enumerable.Range(0, size))
-                {
-                    pbmp.SetPixel(x, y, 255, x * 2, y * 2, 150);
-                }
-            }
-            box = MakePicBox(pbmp.Bitmap.Size, $"pixels");
-            box.Image = pbmp.Bitmap;
         }
 
         /// <summary>
@@ -116,7 +103,7 @@ namespace Ephemera.NBagOfUis.Test
 
             if (firstRow >= 0 && firstRow < bmp.Height && numRows > 0)
             {
-                for (int y = firstRow; y < firstRow + numRows && y < bmp.Height; y++) // This is not very efficient.
+                for (int y = firstRow; y < firstRow + numRows && y < bmp.Height; y++) ---// This is not very efficient.
                 {
                     for (int x = 0; x < bmp.Width; x++)
                     {
