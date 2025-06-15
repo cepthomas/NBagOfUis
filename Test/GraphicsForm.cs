@@ -91,7 +91,7 @@ namespace Ephemera.NBagOfUis.Test
         }
 
         /// <summary>
-        /// For debug purposes.
+        /// For debug purposes. This is not very efficient, could be improved.
         /// </summary>
         /// <param name="bmp"></param>
         /// <param name="firstRow"></param>
@@ -103,7 +103,7 @@ namespace Ephemera.NBagOfUis.Test
 
             if (firstRow >= 0 && firstRow < bmp.Height && numRows > 0)
             {
-                for (int y = firstRow; y < firstRow + numRows && y < bmp.Height; y++) ---// This is not very efficient.
+                for (int y = firstRow; y < firstRow + numRows && y < bmp.Height; y++)
                 {
                     for (int x = 0; x < bmp.Width; x++)
                     {

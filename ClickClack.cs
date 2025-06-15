@@ -47,12 +47,12 @@ namespace Ephemera.NBagOfUis
         /// <summary>Visibility.</summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
-        public List<int> GridX { get; set; } = new();
+        public List<int> GridX { get; set; } = [];
 
         /// <summary>Visibility.</summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
-        public List<int> GridY { get; set; } = new();
+        public List<int> GridY { get; set; } = [];
         #endregion
 
         #region Events
@@ -126,7 +126,7 @@ namespace Ephemera.NBagOfUis
             // Background?
             if (_bmp is not null)
             {
-                pe.Graphics.DrawImage(_bmp.Bitmap, 0, 0, _bmp.Bitmap.Width, _bmp.Bitmap.Height);
+                pe.Graphics.DrawImage(_bmp.ClientBitmap, 0, 0, _bmp.ClientBitmap.Width, _bmp.ClientBitmap.Height);
             }
 
             // Draw grid.
@@ -262,7 +262,7 @@ namespace Ephemera.NBagOfUis
             {
                 for (var x = 0; x < Width; x++)
                 {
-                    _bmp!.SetPixel(x, y, 255, x * 256 / Width, y * 256 / Height, 150);
+                    _bmp!.SetPixel(x, y, Color.FromArgb(255, x * 256 / Width, y * 256 / Height, 150));
                 }
             }
         }

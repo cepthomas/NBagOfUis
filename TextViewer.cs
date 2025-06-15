@@ -160,20 +160,20 @@ namespace Ephemera.NBagOfUis
         {
             this.InvokeIfRequired(_ =>
             {
-                if (ww) // TODOX finish whole word
-                {
-                    foreach (string s in MatchText.Keys)
-                    {
-                       var pos = text.IndexOf(s);
-                       if (pos == -1)
-                       {
-                           continue;
-                       }
-                    }
+                // if (ww) // TODO finish whole word
+                // {
+                //     foreach (string s in MatchText.Keys)
+                //     {
+                //        var pos = text.IndexOf(s);
+                //        if (pos == -1)
+                //        {
+                //            continue;
+                //        }
+                //     }
 
-                    Write(text, nl);
-                }
-                else
+                //     Write(text, nl);
+                // }
+                // else
                 {
                     foreach (string s in MatchText.Keys)
                     {
