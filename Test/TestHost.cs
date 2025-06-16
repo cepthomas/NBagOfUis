@@ -92,7 +92,7 @@ namespace Ephemera.NBagOfUis.Test
             filTree.SplitterPosition = 40;
             filTree.SingleClickSelect = false;
             filTree.InitTree();
-            filTree.FileSelected += (object? sender, string fn) => { Tell($"Selected file: {fn}"); _settings.UpdateMru(fn); };
+            filTree.FileSelected += (sender, fn) => { Tell($"Selected file: {fn}"); _settings.UpdateMru(fn); };
 
             ///// OptionsEditor and ChoiceSelector
             optionsEd.AllowEdit = true;
@@ -117,8 +117,8 @@ namespace Ephemera.NBagOfUis.Test
             clickClack1.MinY = 0; // min velocity == note off
             clickClack1.MaxY = 127; // max velocity
             clickClack1.GridY = [32, 64, 96];
-            clickClack1.MouseClickEvent += (object? _, ClickClack.UserEventArgs e) => Tell(e.ToString());
-            clickClack1.MouseMoveEvent += (object? _, ClickClack.UserEventArgs e) => e.Text = $">>>{e}";
+            clickClack1.MouseClickEvent += (_, e) => Tell(e.ToString());
+            clickClack1.MouseMoveEvent += (_, e) => e.Text = $">>>{e}";
 
             ///// Drop down
 
@@ -130,11 +130,10 @@ namespace Ephemera.NBagOfUis.Test
                 "Die Die"
             ];
             dropDownButton1.SetOptions(options);
-            dropDownButton1.Selected += (object? sender, string sel) => { Tell($"Selected: {sel}"); };
+            dropDownButton1.Selected += (sender, sel) => { Tell($"Selected: {sel}"); };
 
             ///// Other stuff.
             btnSettings.Click += (_, __) => EditSettings();
-            btnGfx.Click += (_, __) => { new GraphicsForm().ShowDialog(); };
             // pot1 0 -> 100
             pot1.ValueChanged += (_, __) => Tell($"pot1:{pot1.Value}");
             //pan -1 -> 1
@@ -148,7 +147,10 @@ namespace Ephemera.NBagOfUis.Test
             //
             pan1.ValueChanged += (_, __) => toolStripMeter1.AddValue(pan1.Value * 50.0 + 50.0);
 
-            // Go-go-go.
+            ///// Graphics.
+            DoGraphics();
+
+            ///// Go-go-go.
             timer1.Enabled = true;
         }
 
@@ -225,14 +227,31 @@ namespace Ephemera.NBagOfUis.Test
             _settings.Save();
         }
 
-        public void MakeIcon(string fn)
+        void DoGraphics()
         {
-            string outfn = fn + ".ico";
-            // Read bmp and convert to icon.
-            var bmp = (Bitmap)Image.FromFile(fn);
-            // Save icon.
-            var ico = GraphicsUtils.CreateIcon(bmp);//, 32);
-            GraphicsUtils.SaveIcon(ico, outfn);
+            string inputDir;
+            string outputDir;
+
+            var dir = MiscUtils.GetSourcePath();
+            inputDir = Path.Join(dir, "files");
+            outputDir = Path.Join(dir, "out");
+            new DirectoryInfo(outputDir).Create();
+
+            ///// bmp => ico /////
+            var bmp = (Bitmap)Image.FromFile(Path.Join(inputDir, "glyphicons-22-snowflake.png")); // 26x26
+            // Save single icon.
+            var ico = GraphicsUtils.CreateIcon(bmp, 32);
+            GraphicsUtils.SaveIcon(ico, Path.Join(outputDir, "snowflake_32.ico")); // just 32.
+            // Save icon family.
+            ico = GraphicsUtils.CreateIcon(bmp);
+            GraphicsUtils.SaveIcon(ico, Path.Join(outputDir, "snowflake_all.ico")); // all sizes
+
+            ///// ico => bmp /////
+            ico = GraphicsUtils.CreateIcon(Path.Join(inputDir, "crabe.ico"));
+            bmp = ico.ToBitmap();
+            picGraphics.Image = bmp;
+            // Write it back.
+            GraphicsUtils.SaveIcon(ico, Path.Join(outputDir, "copy_crabe.ico")); // all original resolutions.
         }
     }
 

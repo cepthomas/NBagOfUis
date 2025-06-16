@@ -39,8 +39,6 @@ namespace Ephemera.NBagOfUis
         #region Fields
         /// <summary>Contained control.</summary>
         readonly RichTextBox _rtb;
-
-        const char LINEFEED = (char)0x0A; // Line feed
         #endregion
 
         #region Lifecycle
@@ -154,26 +152,13 @@ namespace Ephemera.NBagOfUis
         /// Output text using text matching color.
         /// </summary>
         /// <param name="text">The text to show.</param>
-        /// <param name="ww">Whole word or whole line.</param>
+        /// <param name="line">Color whole line.</param>
         /// <param name="nl">Add new line.</param>
-        public void AppendMatch(string text, bool ww = false, bool nl = true)
+        public void AppendMatch(string text, bool line = true, bool nl = true)
         {
             this.InvokeIfRequired(_ =>
             {
-                // if (ww) // TODO finish whole word
-                // {
-                //     foreach (string s in MatchText.Keys)
-                //     {
-                //        var pos = text.IndexOf(s);
-                //        if (pos == -1)
-                //        {
-                //            continue;
-                //        }
-                //     }
-
-                //     Write(text, nl);
-                // }
-                // else
+                if (line)
                 {
                     foreach (string s in MatchText.Keys)
                     {
@@ -185,6 +170,27 @@ namespace Ephemera.NBagOfUis
                     }
 
                     Write(text, nl);
+                }
+                else
+                {
+                    Write("TODO debug this??");
+                    return;
+
+                    foreach (string s in MatchText.Keys)
+                    {
+                        bool lineDone = false;
+                        while (!lineDone)
+                        {
+                            var pos = text.IndexOf(s);
+                            if (pos == -1)
+                            {
+                                lineDone = true;
+                            }
+                            else
+                            {
+                            }
+                        }
+                    }
                 }
             });
         }
@@ -208,7 +214,7 @@ namespace Ephemera.NBagOfUis
             if (_rtb.TextLength > MaxText)
             {
                 int end = MaxText / 5;
-                while (_rtb.Text[end] != LINEFEED) end++;
+                while (_rtb.Text[end] != (char)0x0A) end++;
                 _rtb.Select(0, end);
                 _rtb.SelectedText = "";
             }

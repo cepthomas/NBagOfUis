@@ -5,11 +5,13 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
+using System.ComponentModel;
+using Ephemera.NBagOfTricks;
 
 
 namespace Ephemera.NBagOfUis
 {
-    // Bits and pieces borrowed from:
+    // Icon manipulation. Bits and pieces borrowed from:
     // https://gist.github.com/darkfall/1656050?permalink_comment_id=2989435#gistcomment-2989435
     // https://gist.github.com/darkfall/1656050
     // https://en.wikipedia.org/wiki/Grayscale#Converting_colour_to_grayscale
@@ -19,7 +21,6 @@ namespace Ephemera.NBagOfUis
     /// </summary>
     public static class GraphicsUtils
     {
-
         /// <summary>
         /// Create icon from a file.
         /// </summary>
@@ -128,28 +129,49 @@ namespace Ephemera.NBagOfUis
             ico.Save(stream);
         }
 
-        public class CheckBoxRenderer : ToolStripSystemRenderer
+        /// <summary>
+        /// Recolor a control.
+        /// </summary>
+        /// <param name="comp"></param>
+        /// <param name="clr"></param>
+        public static void ColorizeControl(Component comp, Color clr)
         {
-            /// <summary>Color to use when check box is selected.</summary>
-            public Color SelectedColor { get; set; }
-
-            /// <summary>
-            /// Override for drawing.
-            /// </summary>
-            /// <param name="e"></param>
-            protected override void OnRenderButtonBackground(ToolStripItemRenderEventArgs e)
+            switch (comp)
             {
-                if (!(e.Item is not ToolStripButton btn) && btn.CheckOnClick && btn.Checked)
-                {
-                    Rectangle bounds = new(Point.Empty, e.Item.Size);
-                    e.Graphics.FillRectangle(new SolidBrush(SelectedColor), bounds);
-                }
-                else
-                {
-                    base.OnRenderButtonBackground(e);
-                }
+                case ButtonBase btn:
+                    btn.Image = ((Bitmap)btn.Image!).Colorize(clr);
+                    break;
+
+                case ToolStripItem btn:
+                    btn.Image = ((Bitmap)btn.Image!).Colorize(clr);
+                    break;
+
+                default:
+                    throw new Exception($"Colorize unkown type {comp.GetType()}");
             }
         }
+    }
 
+    public class ToolStripCheckBoxRenderer : ToolStripSystemRenderer
+    {
+        /// <summary>Color to use when check box is selected.</summary>
+        public Color SelectedColor { get; set; }
+
+        /// <summary>
+        /// Override for drawing.
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnRenderButtonBackground(ToolStripItemRenderEventArgs e)
+        {
+            if (!(e.Item is not ToolStripButton btn) && btn.CheckOnClick && btn.Checked)
+            {
+                Rectangle bounds = new(Point.Empty, e.Item.Size);
+                e.Graphics.FillRectangle(new SolidBrush(SelectedColor), bounds);
+            }
+            else
+            {
+                base.OnRenderButtonBackground(e);
+            }
+        }
     }
 }
