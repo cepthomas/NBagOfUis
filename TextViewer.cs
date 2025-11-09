@@ -173,8 +173,7 @@ namespace Ephemera.NBagOfUis
                 }
                 else
                 {
-                    Write("TODO debug this??");
-                    return;
+                    Write("TODO1 debug this or remove??");
 
                     foreach (string s in MatchText.Keys)
                     {

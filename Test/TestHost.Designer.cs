@@ -55,7 +55,6 @@
             choicer = new ChoiceSelector();
             optionsEd = new OptionsEditor();
             btnDump = new System.Windows.Forms.Button();
-            clickClack1 = new ClickClack();
             dropDownButton1 = new DropDownButton();
             picGraphics = new System.Windows.Forms.PictureBox();
             toolStrip1.SuspendLayout();
@@ -265,7 +264,7 @@
             filTree.Location = new System.Drawing.Point(12, 50);
             filTree.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             filTree.Name = "filTree";
-            filTree.Size = new System.Drawing.Size(472, 323);
+            filTree.Size = new System.Drawing.Size(472, 542);
             filTree.TabIndex = 32;
             // 
             // choicer
@@ -293,17 +292,6 @@
             btnDump.Text = "Dump these";
             btnDump.UseVisualStyleBackColor = true;
             // 
-            // clickClack1
-            // 
-            clickClack1.Location = new System.Drawing.Point(17, 385);
-            clickClack1.MaxX = 100;
-            clickClack1.MaxY = 100;
-            clickClack1.MinX = 0;
-            clickClack1.MinY = 0;
-            clickClack1.Name = "clickClack1";
-            clickClack1.Size = new System.Drawing.Size(453, 199);
-            clickClack1.TabIndex = 36;
-            // 
             // dropDownButton1
             // 
             dropDownButton1.Location = new System.Drawing.Point(771, 539);
@@ -329,7 +317,6 @@
             ClientSize = new System.Drawing.Size(1225, 767);
             Controls.Add(picGraphics);
             Controls.Add(dropDownButton1);
-            Controls.Add(clickClack1);
             Controls.Add(btnDump);
             Controls.Add(optionsEd);
             Controls.Add(choicer);
@@ -380,7 +367,6 @@
         private ChoiceSelector choicer;
         private OptionsEditor optionsEd;
         private System.Windows.Forms.Button btnDump;
-        private ClickClack clickClack1;
         private DropDownButton dropDownButton1;
         private System.Windows.Forms.PictureBox picGraphics;
     }

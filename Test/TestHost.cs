@@ -110,18 +110,7 @@ namespace Ephemera.NBagOfUis.Test
                 optionsEd.Options.ForEach(v => Tell($"{v.Key} is {v.Value}"));
             };
 
-            ///// ClickClack.
-            clickClack1.MinX = 24; // C0
-            clickClack1.MaxX = 96; // C6
-            clickClack1.GridX = [12, 24, 36, 48, 60, 72, 84];
-            clickClack1.MinY = 0; // min velocity == note off
-            clickClack1.MaxY = 127; // max velocity
-            clickClack1.GridY = [32, 64, 96];
-            clickClack1.MouseClickEvent += (_, e) => Tell(e.ToString());
-            clickClack1.MouseMoveEvent += (_, e) => e.Text = $">>>{e}";
-
             ///// Drop down
-
             List<string> options =
             [
                 "Open...",
