@@ -57,7 +57,7 @@ namespace Ephemera.NBagOfUis.Test
             }
 
             ///// Slider.
-            slider1.DrawColor = Color.Orange;
+            slider1.DrawColor = Color.Red;
             slider1.Minimum = 0;
             slider1.Maximum = 100;
             slider1.Resolution = 5;

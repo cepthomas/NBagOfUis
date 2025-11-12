@@ -64,7 +64,7 @@ namespace Ephemera.NBagOfUis
                     //var _docCommentTitle = _docComment.Controls[0] as Label;
                     //_docCommentTitle.BackColor = Color.Green;
                     //var _docCommentDescription = _docComment.Controls[1] as Label;
-                    //_docCommentDescription.BackColor = Color.Orange;
+                    //_docCommentDescription.BackColor = Color.Red;
                 }
                 else if (sc.Contains("PropertyGridInternal.PropertyGridView"))
                 {

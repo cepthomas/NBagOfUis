@@ -94,7 +94,7 @@
             // 
             slider1.BackColor = System.Drawing.Color.Gainsboro;
             slider1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            slider1.DrawColor = System.Drawing.Color.Orange;
+            slider1.DrawColor = System.Drawing.Color.Red;
             slider1.Label = "slider1";
             slider1.Location = new System.Drawing.Point(1017, 50);
             slider1.Maximum = 1D;
