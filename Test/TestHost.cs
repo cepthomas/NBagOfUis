@@ -166,7 +166,7 @@ namespace Ephemera.NBagOfUis.Test
             {
                 switch (name)
                 {
-                    case "ControlColor":
+                    case "DrawColor":
                     case "FileLogLevel":
                     case "NotifLogLevel":
                         restart = true;
