@@ -107,8 +107,8 @@ namespace Ephemera.NBagOfUis
 
             var ret = propType switch
             {
-                var t when t == typeof(int) || t == typeof(int?) => lb.SelectedIndex,
-                var t when t == typeof(string) => lb.SelectedItem,
+                var t when t == typeof(int) || t == typeof(int?) => lb.SelectedIndex, // TODO1 handle -1 case
+                var t when t == typeof(string) => lb.SelectedItem, // TODO1 handle -1 case
                 _ => throw new InvalidOperationException($"Property {propName} type must in or string")
             };
 
