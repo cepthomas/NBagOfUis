@@ -147,7 +147,7 @@ namespace Ephemera.NBagOfUis
                     break;
 
                 default:
-                    throw new Exception($"Colorize unkown type {comp.GetType()}");
+                    throw new ArgumentException($"Colorize unkown type {comp.GetType()}");
             }
         }
     }

@@ -142,7 +142,7 @@ namespace Ephemera.NBagOfUis
             RootDirs.RemoveAll(d => !Directory.Exists(d));
             if (RootDirs.Count == 0)
             {
-                throw new Exception("No root directories. Edit your settings.");
+                throw new InvalidOperationException("No root directories. Edit your settings.");
             }
 
             // Recent files first.
@@ -163,7 +163,7 @@ namespace Ephemera.NBagOfUis
 
             if (treeView.Nodes.Count == 0)
             {
-                throw new Exception("No tree entries.");
+                throw new InvalidOperationException("No tree entries.");
             }
 
             treeView.SelectedNode = treeView.Nodes[0];
