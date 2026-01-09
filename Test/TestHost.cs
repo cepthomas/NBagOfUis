@@ -289,7 +289,6 @@ namespace Ephemera.NBagOfUis.Test
 
         [DisplayName("Splitter Position")]
         [Description("As percentage.")]
-        [Range(10, 80)]
         [Browsable(true)]
         public int SplitterPosition { get; set; } = 30;
 
