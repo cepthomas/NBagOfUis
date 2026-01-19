@@ -1,7 +1,7 @@
 # NBagOfUis
 WinForms controls collected over the years.
 
-Requires VS2022 and .NET6.
+Requires VS2022 and .NET8.
 
 No dependencies on external components. Does use my NBagOfTricks.
 
