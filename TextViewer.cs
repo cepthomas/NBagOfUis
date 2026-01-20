@@ -180,7 +180,7 @@ namespace Ephemera.NBagOfUis
                         bool lineDone = false;
                         while (!lineDone)
                         {
-                            var pos = text.IndexOf(s);
+                            int pos = text.IndexOf(s);
                             if (pos == -1)
                             {
                                 lineDone = true;

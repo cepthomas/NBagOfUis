@@ -114,10 +114,10 @@ namespace Ephemera.NBagOfUis.Test
             [
                 "Open...",
                 "Reload",
-                "",
+                "", // separator
                 "Die Die"
             ];
-            dropDownButton1.SetOptions(options);
+            dropDownButton1.Opening += (sender, evt) => dropDownButton1.SetOptions(options);
             dropDownButton1.Selected += (sender, sel) => { Tell($"Selected: {sel}"); };
 
             ///// Other stuff.

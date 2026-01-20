@@ -16,6 +16,9 @@ namespace Ephemera.NBagOfUis
         #region Events
         /// <summary>Drop down selection event.</summary>
         public event EventHandler<string>? Selected;
+
+        /// <summary>Drop down opening event.</summary>
+        public event EventHandler<CancelEventArgs>? Opening;
         #endregion
 
         #region Fields
@@ -29,6 +32,7 @@ namespace Ephemera.NBagOfUis
         public DropDownButton()
         {
             ContextMenuStrip = _menu;
+            _menu.Opening += (sender, e) => Opening?.Invoke(this, e);
         }
 
         /// <summary>
@@ -72,7 +76,7 @@ namespace Ephemera.NBagOfUis
             int y = ClientRectangle.Height - 12;
 
             using var br = new SolidBrush(Color.Gray);
-            Point[] arrows = new[] { new Point(x, y), new Point(x + 10, y), new Point(x + 5, y + 10) };
+            Point[] arrows = [new Point(x, y), new Point(x + 10, y), new Point(x + 5, y + 10)];
             e.Graphics.FillPolygon(br, arrows);
         }
     }
