@@ -78,16 +78,8 @@ namespace Ephemera.NBagOfUis.Test
             ///// FilTree.
             filTree.FilterExts = [".txt", ".ntr", ".md", ".xml", ".cs", ".py"];
             filTree.IgnoreDirs = [".vs", ".git", "bin", "obj", "lib"];
-            filTree.RootDirs =
-            [
-                @"C:\Users\cepth\AppData\Roaming\Sublime Text\Packages\Notr",
-                @"C:\Users\cepth\OneDrive\OneDriveDocuments\notes"
-            ];
-            //filTree.RecentFiles = new()
-            //{
-            //    @"C:\Dev\Apps\repos_common\audio_file_info.txt",
-            //    @"C:\Dev\Apps\repos_common\build.txt"
-            //};
+            filTree.RootDirs = [];
+            filTree.RecentFiles = [];
             filTree.SplitterPosition = 40;
             filTree.SingleClickSelect = false;
             filTree.InitTree();
