@@ -31,6 +31,9 @@ namespace Ephemera.NBagOfUis.Test
             //Size = new Size(_settings.FormGeometry.Width, _settings.FormGeometry.Height);
 
             ///// Text viewer.
+            //txtInfo.MatchUseBackground = false;
+            //txtInfo.MatchText.Add("50", Color.Pink);
+            //txtInfo.MatchText.Add("55", Color.Yellow);
             txtInfo.MatchText.Add("50", Color.LightPink);
             txtInfo.MatchText.Add("55", Color.LightYellow);
             txtInfo.BackColor = Color.LightCyan;

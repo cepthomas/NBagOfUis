@@ -34,6 +34,9 @@ namespace Ephemera.NBagOfUis
 
         /// <summary>Limit the size.</summary>
         public int MaxText { get; set; } = 10000;
+
+        /// <summary>Colorize mathces fore or back.</summary>
+        public bool MatchUseBackground { get; set; } = true;
         #endregion
 
         #region Fields
@@ -107,24 +110,7 @@ namespace Ephemera.NBagOfUis
                     _rtb.SelectedText = "";
                 }
 
-                _rtb.SelectionBackColor = BackColor; // default
-
-                if (color is not null)
-                {
-                    _rtb.SelectionBackColor = (Color)color;
-                }
-                else // check matches
-                {
-                    foreach (string s in MatchText.Keys)
-                    {
-                        if (text.Contains(s))
-                        {
-                            _rtb.SelectionBackColor = MatchText[s];
-                            break;
-                        }
-                    }
-                }
-
+                _rtb.SelectionBackColor = color is not null ? (Color)color : BackColor;
                 _rtb.AppendText(text);
                 _rtb.ScrollToCaret();
             });
@@ -164,8 +150,14 @@ namespace Ephemera.NBagOfUis
                     {
                         if (text.Contains(s))
                         {
-                            _rtb.SelectionBackColor = MatchText[s];
-                            break;
+                            if (MatchUseBackground)
+                            {
+                                _rtb.SelectionBackColor = MatchText[s];
+                            }
+                            else
+                            {
+                                _rtb.SelectionColor = MatchText[s];
+                            }
                         }
                     }
 
