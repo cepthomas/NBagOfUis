@@ -32,7 +32,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            txtInfo = new TextViewer();
+            tvInfo = new TextViewer();
             propGrid = new PropertyGridEx();
             clickGrid1 = new ClickGrid();
             timer1 = new System.Windows.Forms.Timer(components);
@@ -63,15 +63,15 @@
             // 
             // txtInfo
             // 
-            txtInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            txtInfo.Location = new System.Drawing.Point(14, 606);
-            txtInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            txtInfo.MaxText = 5000;
-            txtInfo.Name = "txtInfo";
-            txtInfo.Prompt = "** ";
-            txtInfo.Size = new System.Drawing.Size(968, 147);
-            txtInfo.TabIndex = 5;
-            txtInfo.WordWrap = true;
+            tvInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            tvInfo.Location = new System.Drawing.Point(14, 606);
+            tvInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tvInfo.MaxText = 5000;
+            tvInfo.Name = "txtInfo";
+            tvInfo.Prompt = "** ";
+            tvInfo.Size = new System.Drawing.Size(968, 147);
+            tvInfo.TabIndex = 5;
+            tvInfo.WordWrap = true;
             // 
             // propGrid
             // 
@@ -330,7 +330,7 @@
             Controls.Add(toolStrip1);
             Controls.Add(slider1);
             Controls.Add(clickGrid1);
-            Controls.Add(txtInfo);
+            Controls.Add(tvInfo);
             Controls.Add(propGrid);
             Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             Name = "TestHost";
@@ -343,7 +343,7 @@
         }
         #endregion
 
-        private TextViewer txtInfo;
+        private TextViewer tvInfo;
         private PropertyGridEx propGrid;
         private ClickGrid clickGrid1;
         private Meter meterDots;

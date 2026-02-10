@@ -14,11 +14,18 @@ namespace Ephemera.NBagOfUis
 {
     public class TextViewer : UserControl
     {
+        /// <summary>Spec to identify and colorize line regions.</summary>
+        readonly public record struct Matcher (string Text, Color? FgColor = null, Color? BgColor = null);
+
         #region Properties
         /// <summary>The colors to display when text is matched.</summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Dictionary<string, Color> MatchText { get; set; } = [];
+        public List<Matcher> Matchers
+        {
+            set { _matchers.Clear(); value.ForEach(v => _matchers.Add(v.Text, v)); }
+        }
+        public Dictionary<string, Matcher> _matchers = [];
 
         /// <summary>Cosmetics. Note this needs to be set in client constructor not OnLoad(). Unknown reason.</summary>
         public override Color BackColor { get { return _rtb.BackColor; } set { _rtb.BackColor = value; } }
@@ -83,106 +90,31 @@ namespace Ephemera.NBagOfUis
         }
         #endregion
 
-        #region Public appenders
+        #region Public text appenders
         /// <summary>
         /// A message to display to the user. Adds EOL.
         /// </summary>
         /// <param name="text">The message.</param>
-        /// <param name="color">Specific color to use.</param>
-        public void AppendLine(string text, Color? color = null)
-        {
-            AppendText($"{Prompt}{text}{Environment.NewLine}", color);
-        }
-
-        /// <summary>
-        /// A message to display to the user. Doesn't add EOL.
-        /// </summary>
-        /// <param name="text">The message.</param>
-        /// <param name="color">Specific color to use.</param>
-        public void AppendText(string text, Color? color = null)
+        /// <param name="nl">Add NL.</param>
+        public void Append(string text, bool nl = true)
         {
             this.InvokeIfRequired(_ =>
             {
-                // Trim buffer.
-                if (MaxText > 0 && _rtb.TextLength > MaxText)
+                Color? fg = null;
+                Color? bg = null;
+
+                foreach (var s in _matchers.Keys)
                 {
-                    _rtb.Select(0, MaxText / 5);
-                    _rtb.SelectedText = "";
-                }
-
-                _rtb.SelectionBackColor = color is not null ? (Color)color : BackColor;
-                _rtb.AppendText(text);
-                _rtb.ScrollToCaret();
-            });
-        }
-        
-        /// <summary>
-        /// Output text wwith explicit color.
-        /// </summary>
-        /// <param name="text">The text to show.</param>
-        /// <param name="fg"></param>
-        /// <param name="bg"></param>
-        /// <param name="nl">Add new line.</param>
-        public void AppendColor(string text, Color? fg = null, Color? bg = null, bool nl = true)
-        {
-            this.InvokeIfRequired(_ =>
-            {
-                _rtb.SelectionColor = (Color)(fg == null ? _rtb.ForeColor : fg);
-                _rtb.SelectionBackColor = (Color)(bg == null ? _rtb.SelectionBackColor : bg);
-
-                Write(text, nl);
-            });
-        }
-
-        /// <summary>
-        /// Output text using text matching color.
-        /// </summary>
-        /// <param name="text">The text to show.</param>
-        /// <param name="line">Color whole line.</param>
-        /// <param name="nl">Add new line.</param>
-        public void AppendMatch(string text, bool line = true, bool nl = true)
-        {
-            this.InvokeIfRequired(_ =>
-            {
-                if (line)
-                {
-                    foreach (string s in MatchText.Keys)
+                    if (text.Contains(s))
                     {
-                        if (text.Contains(s))
-                        {
-                            if (MatchUseBackground)
-                            {
-                                _rtb.SelectionBackColor = MatchText[s];
-                            }
-                            else
-                            {
-                                _rtb.SelectionColor = MatchText[s];
-                            }
-                        }
-                    }
-
-                    Write(text, nl);
-                }
-                else
-                {
-                    Write("TODO debug this or remove??");
-
-                    foreach (string s in MatchText.Keys)
-                    {
-                        bool lineDone = false;
-                        while (!lineDone)
-                        {
-                            int pos = text.IndexOf(s);
-                            if (pos == -1)
-                            {
-                                lineDone = true;
-                            }
-                            else
-                            {
-                            }
-                        }
+                        var mm = _matchers[s];
+                        fg = mm.FgColor;
+                        bg = mm.BgColor;
+                        break;
                     }
                 }
+
+                AppendText(text, nl, fg, bg);
             });
         }
 
@@ -197,25 +129,33 @@ namespace Ephemera.NBagOfUis
 
         #region Private functions
         /// <summary>
-        /// Low level output. Assumes caller has taken care of cross-thread issues.
+        /// Low level appender with color.
         /// </summary>
-        void Write(string text, bool eol = true)
+        /// <param name="text">The message.</param>
+        /// <param name="nl">Full line.</param>
+        /// <param name="fgColor">Specific color to use.</param>
+        /// <param name="bgColor">Specific color to use.</param>
+        void AppendText(string text, bool nl, Color? fgColor = null, Color? bgColor = null)
         {
-            // Trim buffer.
-            if (_rtb.TextLength > MaxText)
+            this.InvokeIfRequired(_ =>
             {
-                int end = MaxText / 5;
-                while (_rtb.Text[end] != (char)0x0A) end++;
-                _rtb.Select(0, end);
-                _rtb.SelectedText = "";
-            }
+                // Trim buffer.
+                if (MaxText > 0 && _rtb.TextLength > MaxText)
+                {
+                    _rtb.Select(0, MaxText / 5);
+                    _rtb.SelectedText = "";
+                }
 
-            _rtb.AppendText(text);
-            if (eol)
-            {
-                _rtb.AppendText(Environment.NewLine);
-            }
-            _rtb.ScrollToCaret();
+                _rtb.SelectionColor = fgColor ?? ForeColor;
+                _rtb.SelectionBackColor = bgColor ?? BackColor;
+                _rtb.AppendText(text);
+
+                if (nl)
+                {
+                    _rtb.AppendText(Environment.NewLine);
+                    _rtb.ScrollToCaret();
+                }
+            });
         }
 
         /// <summary>

@@ -28,16 +28,19 @@ namespace Ephemera.NBagOfUis.Test
             _settings = (TestSettings)SettingsCore.Load("Files", typeof(TestSettings), "test-settings.json");
 
             Location = new Point(_settings.FormGeometry.X, _settings.FormGeometry.Y);
-            //Size = new Size(_settings.FormGeometry.Width, _settings.FormGeometry.Height);
 
             ///// Text viewer.
-            //txtInfo.MatchUseBackground = false;
-            //txtInfo.MatchText.Add("50", Color.Pink);
-            //txtInfo.MatchText.Add("55", Color.Yellow);
-            txtInfo.MatchText.Add("50", Color.LightPink);
-            txtInfo.MatchText.Add("55", Color.LightYellow);
-            txtInfo.BackColor = Color.LightCyan;
-            txtInfo.Prompt = ">";
+            List<TextViewer.Matcher> matchers =
+            [
+                new("50", FgColor: Color.Red),
+                new("55", FgColor: Color.Yellow, BgColor: Color.Aqua),
+                new("60", BgColor: Color.LightBlue),
+                new("ClickGrid", BgColor: Color.LightGreen),
+                //new("65", FgColor: Color.Green, WholeLine: false)
+            ];
+            tvInfo.Matchers = matchers;
+            tvInfo.BackColor = Color.Wheat;
+            tvInfo.Prompt = ">";
 
             ///// Click grid.
             clickGrid1.AddStateType(0, Color.Blue, Color.AliceBlue);
@@ -196,12 +199,12 @@ namespace Ephemera.NBagOfUis.Test
         {
             int state = ++e.State % 3;
             clickGrid1.SetIndicator(e.Id, state);
-            txtInfo.AppendColor($"ClickGrid:{e.Id}->{state}", Color.Green);
+            tvInfo.Append($"ClickGrid:{e.Id}->{state}");
         }
 
         void Tell(string msg)
         {
-            txtInfo.AppendMatch(msg);
+            tvInfo.Append(msg);
         }
 
         void SaveSettings()
