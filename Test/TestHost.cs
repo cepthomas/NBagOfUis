@@ -30,7 +30,9 @@ namespace Ephemera.NBagOfUis.Test
             Location = new Point(_settings.FormGeometry.X, _settings.FormGeometry.Y);
 
             ///// Text viewer.
-            List<TextViewer.Matcher> matchers =
+            tvInfo.BackColor = Color.Wheat;
+            tvInfo.Prompt = ">";
+            tvInfo.Matchers =
             [
                 new("50", FgColor: Color.Red),
                 new("55", FgColor: Color.Yellow, BgColor: Color.Aqua),
@@ -38,9 +40,6 @@ namespace Ephemera.NBagOfUis.Test
                 new("ClickGrid", BgColor: Color.LightGreen),
                 //new("65", FgColor: Color.Green, WholeLine: false)
             ];
-            tvInfo.Matchers = matchers;
-            tvInfo.BackColor = Color.Wheat;
-            tvInfo.Prompt = ">";
 
             ///// Click grid.
             clickGrid1.AddStateType(0, Color.Blue, Color.AliceBlue);

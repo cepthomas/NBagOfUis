@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Diagnostics.CodeAnalysis;
 using Ephemera.NBagOfTricks;
 
 
@@ -31,6 +32,7 @@ namespace Ephemera.NBagOfUis
         public override Color BackColor { get { return _rtb.BackColor; } set { _rtb.BackColor = value; } }
 
         /// <summary>Cosmetics.</summary>
+        [AllowNull]
         public override Font Font { get { return _rtb.Font; } set { _rtb.Font = value; } }
 
         /// <summary>Word wrap toggle.</summary>
