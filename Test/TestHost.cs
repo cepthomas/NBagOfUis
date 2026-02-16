@@ -219,7 +219,7 @@ namespace Ephemera.NBagOfUis.Test
 
             var dir = MiscUtils.GetSourcePath();
             inputDir = Path.Join(dir, "files");
-            outputDir = Path.Join(dir, "out");
+            outputDir = dir;
             new DirectoryInfo(outputDir).Create();
 
             ///// bmp => ico /////
