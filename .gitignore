@@ -349,3 +349,6 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 /Test/out
+/Test/copy_crabe.ico
+/Test/snowflake_32.ico
+/Test/snowflake_all.ico

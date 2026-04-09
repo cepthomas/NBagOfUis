@@ -220,7 +220,7 @@ namespace Ephemera.NBagOfUis.Test
             var dir = MiscUtils.GetSourcePath();
             inputDir = Path.Join(dir, "files");
             outputDir = dir;
-            new DirectoryInfo(outputDir).Create();
+            outputDir = Path.Join(dir, "out");
 
             ///// bmp => ico /////
             var bmp = (Bitmap)Image.FromFile(Path.Join(inputDir, "glyphicons-22-snowflake.png")); // 26x26
