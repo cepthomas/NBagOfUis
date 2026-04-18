@@ -83,8 +83,8 @@ namespace Ephemera.NBagOfUis.Test
             ///// FilTree.
             filTree.FilterExts = [".txt", ".ntr", ".md", ".xml", ".cs", ".py"];
             filTree.IgnoreDirs = [".vs", ".git", "bin", "obj", "lib"];
-            filTree.RootDirs = [];
-            filTree.RecentFiles = [];
+            filTree.RootDirs = [$"{MiscUtils.GetSourcePath()}\\.."];
+            filTree.RecentFiles = [$"{MiscUtils.GetSourcePath()}\\..\\LICENSE"];
             filTree.SplitterPosition = 40;
             filTree.SingleClickSelect = false;
             filTree.InitTree();
@@ -116,6 +116,35 @@ namespace Ephemera.NBagOfUis.Test
             ];
             dropDownButton1.Opening += (sender, evt) => dropDownButton1.SetOptions(options);
             dropDownButton1.Selected += (sender, sel) => { Tell($"Selected: {sel}"); };
+
+            ///// VisualSelector
+            selector.ImageSize = 32;
+            selector.Style = VisualSelector.SelectorStyle.Icon;
+            selector.AllowExternalDrop = true;
+
+            // Init the image list.
+            selector.AddImage("canard", new Bitmap(@"Files\color-picker-small.png"));
+            selector.AddImage("heart", new Icon(@"Files\crabe.ico"));
+            selector.AddImage("anguilla", new Bitmap(@"Files\glyphicons-22-snowflake.png"));
+
+            string[] images = ["canard", "heart", "anguilla"];
+            var rand = new Random();
+
+            // Add entries to selector
+            for (int i = 0; i < 15; i++)
+            {
+                selector.AddNewEntry($"name{i}", $"Item {i}", images[rand.Next(0, images.Length)], $"fullname{i}");
+            }
+
+            selector.Selection += (object? sender, VisualSelector.SelectionEventArgs e) =>
+            {
+                Tell($"Selection -> [{e.Entry.Text}] [{e.Entry.ImageName}] [{e.Entry.Tag}] [{e.Button}]"); 
+            };
+
+            selector.DroppedTarget += (object? sender, VisualSelector.DroppedTargetEventArgs e) =>
+            {
+                Tell($"Dropped -> [{e.Data.GetFormats(false)}]");
+            };
 
             ///// Other stuff.
             btnSettings.Click += (_, __) => EditSettings();

@@ -57,17 +57,19 @@
             btnDump = new System.Windows.Forms.Button();
             dropDownButton1 = new DropDownButton();
             picGraphics = new System.Windows.Forms.PictureBox();
+            selector = new VisualSelector();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picGraphics).BeginInit();
             SuspendLayout();
             // 
-            // txtInfo
+            // tvInfo
             // 
             tvInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             tvInfo.Location = new System.Drawing.Point(14, 606);
             tvInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tvInfo.MatchUseBackground = true;
             tvInfo.MaxText = 5000;
-            tvInfo.Name = "txtInfo";
+            tvInfo.Name = "tvInfo";
             tvInfo.Prompt = "** ";
             tvInfo.Size = new System.Drawing.Size(968, 147);
             tvInfo.TabIndex = 5;
@@ -261,10 +263,10 @@
             // 
             // filTree
             // 
-            filTree.Location = new System.Drawing.Point(12, 50);
+            filTree.Location = new System.Drawing.Point(12, 322);
             filTree.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             filTree.Name = "filTree";
-            filTree.Size = new System.Drawing.Size(472, 542);
+            filTree.Size = new System.Drawing.Size(472, 270);
             filTree.TabIndex = 32;
             // 
             // choicer
@@ -310,11 +312,26 @@
             picGraphics.TabIndex = 38;
             picGraphics.TabStop = false;
             // 
+            // selector
+            // 
+            selector.AllowDrop = true;
+            selector.AllowExternalDrop = false;
+            selector.ImageSize = 32;
+            selector.Location = new System.Drawing.Point(14, 50);
+            selector.MarkerColor = System.Drawing.Color.Orange;
+            selector.MultiSelect = false;
+            selector.Name = "selector";
+            selector.Size = new System.Drawing.Size(470, 265);
+            selector.Style = VisualSelector.SelectorStyle.Icon;
+            selector.TabIndex = 39;
+            selector.TileSize = 160;
+            // 
             // TestHost
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1225, 767);
+            Controls.Add(selector);
             Controls.Add(picGraphics);
             Controls.Add(dropDownButton1);
             Controls.Add(btnDump);
@@ -369,5 +386,6 @@
         private System.Windows.Forms.Button btnDump;
         private DropDownButton dropDownButton1;
         private System.Windows.Forms.PictureBox picGraphics;
+        private VisualSelector selector;
     }
 }
