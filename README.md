@@ -5,8 +5,6 @@ Requires VS2022 and .NET8.
 
 No dependencies on external components. Does use my NBagOfTricks.
 
-Probably I should make this into a nuget package at some point.
-
 ![logo](felixui.png)
 
 # Contents
@@ -25,3 +23,4 @@ Probably I should make this into a nuget package at some point.
 - Pot: Just like on your guitar.
 - Pan: Just like on your hifi.
 - ClickClack: Generates X/Y mouse clicks.
+- IconicSelector: Similar to Win11 Start menu.

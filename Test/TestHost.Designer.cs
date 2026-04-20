@@ -20,9 +20,6 @@
             base.Dispose(disposing);
         }
 
-
-
-
         #region Windows Form Designer generated code
 
         /// <summary>
@@ -57,7 +54,7 @@
             btnDump = new System.Windows.Forms.Button();
             dropDownButton1 = new DropDownButton();
             picGraphics = new System.Windows.Forms.PictureBox();
-            selector = new VisualSelector();
+            selector = new IconicSelector();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picGraphics).BeginInit();
             SuspendLayout();
@@ -322,7 +319,7 @@
             selector.MultiSelect = false;
             selector.Name = "selector";
             selector.Size = new System.Drawing.Size(470, 265);
-            selector.Style = VisualSelector.SelectorStyle.Icon;
+            selector.Style = IconicSelector.SelectorStyle.Icon;
             selector.TabIndex = 39;
             selector.TileSize = 160;
             // 
@@ -372,6 +369,11 @@
         private Pot pot1;
         private ToolStripSlider toolStripSlider1;
         private ToolStripMeter toolStripMeter1;
+        private FilTree filTree;
+        private ChoiceSelector choicer;
+        private OptionsEditor optionsEd;
+        private IconicSelector selector;
+        private DropDownButton dropDownButton1;
 
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStrip toolStrip1;
@@ -380,12 +382,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private FilTree filTree;
-        private ChoiceSelector choicer;
-        private OptionsEditor optionsEd;
         private System.Windows.Forms.Button btnDump;
-        private DropDownButton dropDownButton1;
         private System.Windows.Forms.PictureBox picGraphics;
-        private VisualSelector selector;
     }
 }

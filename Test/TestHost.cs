@@ -35,7 +35,7 @@ namespace Ephemera.NBagOfUis.Test
             tvInfo.Matchers =
             [
                 new("50", FgColor: Color.Red),
-                new("55", FgColor: Color.Yellow, BgColor: Color.Aqua),
+                new("55", FgColor: Color.Green, BgColor: Color.AliceBlue),
                 new("60", BgColor: Color.LightBlue),
                 new("ClickGrid", BgColor: Color.LightGreen),
                 //new("65", FgColor: Color.Green, WholeLine: false)
@@ -117,9 +117,9 @@ namespace Ephemera.NBagOfUis.Test
             dropDownButton1.Opening += (sender, evt) => dropDownButton1.SetOptions(options);
             dropDownButton1.Selected += (sender, sel) => { Tell($"Selected: {sel}"); };
 
-            ///// VisualSelector
+            ///// IconicSelector
             selector.ImageSize = 32;
-            selector.Style = VisualSelector.SelectorStyle.Icon;
+            selector.Style = IconicSelector.SelectorStyle.Icon;
             selector.AllowExternalDrop = true;
 
             // Init the image list.
@@ -133,15 +133,15 @@ namespace Ephemera.NBagOfUis.Test
             // Add entries to selector
             for (int i = 0; i < 15; i++)
             {
-                selector.AddNewEntry($"name{i}", $"Item {i}", images[rand.Next(0, images.Length)], $"fullname{i}");
+                selector.AddNewEntry($"name{i}", $"Item {i}{i}__012345678901234567890123456789", images[rand.Next(0, images.Length)], $"fullname{i}");
             }
 
-            selector.Selection += (object? sender, VisualSelector.SelectionEventArgs e) =>
+            selector.Selection += (object? sender, IconicSelector.SelectionEventArgs e) =>
             {
                 Tell($"Selection -> [{e.Entry.Text}] [{e.Entry.ImageName}] [{e.Entry.Tag}] [{e.Button}]"); 
             };
 
-            selector.DroppedTarget += (object? sender, VisualSelector.DroppedTargetEventArgs e) =>
+            selector.DroppedTarget += (object? sender, IconicSelector.DroppedTargetEventArgs e) =>
             {
                 Tell($"Dropped -> [{e.Data.GetFormats(false)}]");
             };

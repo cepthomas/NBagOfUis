@@ -15,7 +15,7 @@ using Ephemera.NBagOfTricks;
 namespace Ephemera.NBagOfUis
 {
     /// <summary>Master control.</summary>
-    public class VisualSelector : UserControl
+    public class IconicSelector : UserControl
     {
         #region Types
         /// <summary>Supported styles.</summary>
@@ -88,6 +88,9 @@ namespace Ephemera.NBagOfUis
 
         /// <summary>Default image.</summary>
         readonly Image _defaultImage;
+
+        ///// <summary>Limit text to available room.</summary>
+        //readonly int _maxText = 16;
         #endregion
 
         #region Events
@@ -114,9 +117,6 @@ namespace Ephemera.NBagOfUis
         }
         /// <summary></summary>
         public event EventHandler<DroppedTargetEventArgs>? DroppedTarget;
-
-        /// <summary></summary>
-        public event EventHandler<string>? Trace;
         #endregion
 
         #region Lifecycle
@@ -124,7 +124,7 @@ namespace Ephemera.NBagOfUis
         /// Constructor.
         /// For some reason ListView doesn't have an OnLoad() event so do everything here.
         /// </summary>
-        public VisualSelector()
+        public IconicSelector()
         {
             ///// Init the ListView defaults.
             _lv.LargeImageList = new() { ImageSize = new(32, 32) };
@@ -137,7 +137,7 @@ namespace Ephemera.NBagOfUis
             _lv.LabelWrap = true;
             _lv.LabelEdit = false;
             _lv.ListViewItemSorter = new ListViewIndexComparer();
-            _lv.OwnerDraw = true;
+            //_lv.OwnerDraw = true; TODO
 
             ///// ListView events.
             _lv.DrawItem += Lv_DrawItem;
@@ -157,6 +157,7 @@ namespace Ephemera.NBagOfUis
             ImageSize = 32;
 
             ///// Make a default image.
+
             // Rainbow.
             using PixelBitmap pbmp = new(ImageSize, ImageSize);
             int incr = 256 / ImageSize;
@@ -181,7 +182,6 @@ namespace Ephemera.NBagOfUis
             // }
             // _defaultImage = bmp;
         }
-
 
         /// <summary>
         ///  Clean up any resources being used.
@@ -243,17 +243,9 @@ namespace Ephemera.NBagOfUis
                 ImageKey = imgName,
                 Name = name,
                 Tag = tag,
+                Text = text,//.Left(_maxTextX),
+                ToolTipText = text
             };
-
-            if (text.Length > 20) // could be large...
-            {
-                lvi.ToolTipText = text;
-                lvi.Text = text.Left(20);
-            }
-            else
-            {
-                lvi.Text = text;
-            }
 
             if (index >= 0 && index < _lv.Items.Count)
             {
@@ -271,7 +263,6 @@ namespace Ephemera.NBagOfUis
         public void RemoveSelectedItems()
         {
             _lv.SelectedItems.Clear();
-            // foreach (var itm in _lv.SelectedItems) _lv.Remove(itm);
         }
 
         /// <summary>
@@ -315,7 +306,7 @@ namespace Ephemera.NBagOfUis
 
         #region Drawing
         /// <summary>
-        /// Custom draw the entries.
+        /// Custom draw the entries. TODO doesn't work as expected - system controls e.Bounds
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -338,7 +329,7 @@ namespace Ephemera.NBagOfUis
                     }
                     break;
 
-                case DrawStyle.Box:
+                case DrawStyle.Box: // DrawFocusRectangle()
                     {
                         Rectangle rect = e.Bounds;
                         rect.Inflate(-1, -1);
@@ -446,7 +437,7 @@ namespace Ephemera.NBagOfUis
 
             // Retrieve the index of the item closest to the mouse pointer. -1 means over drag item.
             int closestItem = _lv.InsertionMark.NearestIndex(targetPoint);
-            //Trace?.Invoke(this, $"closestItem:{closestItem}");
+            //Trace($"closestItem:{closestItem}");
 
             if (closestItem > -1)
             {
@@ -498,7 +489,7 @@ namespace Ephemera.NBagOfUis
                 {
                     targetIndex++;
                 }
-                // Trace?.Invoke(this, $"item:{draggedItem.Index}  targetIndex:{targetIndex}");
+                // Trace($"item:{draggedItem.Index}  targetIndex:{targetIndex}");
 
                 // Insert a copy of the dragged item at the target index. To preserve item index values.
                 var copy = (ListViewItem)draggedItem.Clone();
