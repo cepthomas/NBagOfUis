@@ -30,6 +30,7 @@ namespace Ephemera.NBagOfUis
             Type t = settings.GetType();
             JsonSerializerOptions opts = new();
             string original = JsonSerializer.Serialize(settings, t, opts);
+            int xposInit = Cursor.Position.X;
 
             PropertyGridEx pg = new()
             {
@@ -47,13 +48,15 @@ namespace Ephemera.NBagOfUis
             {
                 Text = title,
                 AutoScaleMode = AutoScaleMode.None,
-                Location = Cursor.Position,
                 StartPosition = FormStartPosition.Manual,
                 FormBorderStyle = FormBorderStyle.SizableToolWindow,
                 ShowIcon = false,
                 ShowInTaskbar = false
             };
-            f.ClientSize = new(450, height); // do after construction
+            // Do this after construction:
+            f.ClientSize = new(450, height);
+            int xpos = Math.Min(xposInit, Screen.PrimaryScreen!.Bounds.Width - f.Width);
+            f.Location = new Point(xpos, Cursor.Position.Y);
 
             // Detect changes of interest.
             List<(string name, string cat)> changes = new();
