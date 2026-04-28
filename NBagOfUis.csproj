@@ -16,6 +16,7 @@
         <Nullable>enable</Nullable>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <SatelliteResourceLanguages>none</SatelliteResourceLanguages>
+        <ApplicationIcon>Pico.ico</ApplicationIcon>
         <!-- en none -->
     </PropertyGroup>
 
@@ -26,6 +27,10 @@
         <EmbeddedResource Remove="Test\**" />
         <None Remove="lib\**" />
         <None Remove="Test\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="Pico.ico" />
     </ItemGroup>
 
     <ItemGroup>
