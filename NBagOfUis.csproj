@@ -16,7 +16,6 @@
         <Nullable>enable</Nullable>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <SatelliteResourceLanguages>none</SatelliteResourceLanguages>
-        <ApplicationIcon>Pico.ico</ApplicationIcon>
         <!-- en none -->
     </PropertyGroup>
 
