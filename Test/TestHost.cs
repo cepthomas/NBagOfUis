@@ -122,7 +122,7 @@ namespace Ephemera.NBagOfUis.Test
             selector.Style = IconicSelector.SelectorStyle.Icon;
             selector.AllowExternalDrop = true;
 
-            // Init the image list.
+            // Init the image list. TODO dispose
             selector.AddImage("canard", new Bitmap(@"Files\color-picker-small.png"));
             selector.AddImage("heart", new Icon(@"Files\crabe.ico"));
             selector.AddImage("anguilla", new Bitmap(@"Files\glyphicons-22-snowflake.png"));
