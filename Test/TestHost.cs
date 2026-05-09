@@ -117,34 +117,6 @@ namespace Ephemera.NBagOfUis.Test
             dropDownButton1.Opening += (sender, evt) => dropDownButton1.SetOptions(options);
             dropDownButton1.Selected += (sender, sel) => { Tell($"Selected: {sel}"); };
 
-            ///// IconicSelector
-            selector.ImageSize = 32;
-            selector.Style = IconicSelector.SelectorStyle.Icon;
-            selector.AllowExternalDrop = true;
-
-            // Init the image list. TODO dispose
-            selector.AddImage("canard", new Bitmap(@"Files\color-picker-small.png"));
-            selector.AddImage("heart", new Icon(@"Files\crabe.ico"));
-            selector.AddImage("anguilla", new Bitmap(@"Files\glyphicons-22-snowflake.png"));
-
-            string[] images = ["canard", "heart", "anguilla"];
-            var rand = new Random();
-
-            // Add entries to selector
-            for (int i = 0; i < 15; i++)
-            {
-                selector.AddNewEntry($"name{i}", $"Item {i}{i}__012345678901234567890123456789", images[rand.Next(0, images.Length)], $"fullname{i}");
-            }
-
-            selector.Selection += (object? sender, IconicSelector.SelectionEventArgs e) =>
-            {
-                Tell($"Selection -> [{e.Entry.Text}] [{e.Entry.ImageName}] [{e.Entry.Tag}] [{e.Button}]"); 
-            };
-
-            selector.DroppedTarget += (object? sender, IconicSelector.DroppedTargetEventArgs e) =>
-            {
-                Tell($"Dropped -> [{e.Data.GetFormats(false)}]");
-            };
 
             ///// Other stuff.
             btnSettings.Click += (_, __) => EditSettings();

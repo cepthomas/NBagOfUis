@@ -54,7 +54,6 @@
             btnDump = new System.Windows.Forms.Button();
             dropDownButton1 = new DropDownButton();
             picGraphics = new System.Windows.Forms.PictureBox();
-            selector = new IconicSelector();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picGraphics).BeginInit();
             SuspendLayout();
@@ -260,10 +259,10 @@
             // 
             // filTree
             // 
-            filTree.Location = new System.Drawing.Point(12, 322);
+            filTree.Location = new System.Drawing.Point(12, 50);
             filTree.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             filTree.Name = "filTree";
-            filTree.Size = new System.Drawing.Size(472, 270);
+            filTree.Size = new System.Drawing.Size(472, 542);
             filTree.TabIndex = 32;
             // 
             // choicer
@@ -309,26 +308,11 @@
             picGraphics.TabIndex = 38;
             picGraphics.TabStop = false;
             // 
-            // selector
-            // 
-            selector.AllowDrop = true;
-            selector.AllowExternalDrop = false;
-            selector.ImageSize = 32;
-            selector.Location = new System.Drawing.Point(14, 50);
-            selector.MarkerColor = System.Drawing.Color.Orange;
-            selector.MultiSelect = false;
-            selector.Name = "selector";
-            selector.Size = new System.Drawing.Size(470, 265);
-            selector.Style = IconicSelector.SelectorStyle.Icon;
-            selector.TabIndex = 39;
-            selector.TileSize = 160;
-            // 
             // TestHost
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1225, 767);
-            Controls.Add(selector);
             Controls.Add(picGraphics);
             Controls.Add(dropDownButton1);
             Controls.Add(btnDump);
@@ -372,7 +356,6 @@
         private FilTree filTree;
         private ChoiceSelector choicer;
         private OptionsEditor optionsEd;
-        private IconicSelector selector;
         private DropDownButton dropDownButton1;
 
         private System.Windows.Forms.Timer timer1;
