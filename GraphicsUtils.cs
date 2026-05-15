@@ -171,11 +171,19 @@ namespace Ephemera.NBagOfUis
             switch (comp)
             {
                 case ButtonBase btn:
-                    btn.Image = ((Bitmap)btn.Image!).Colorize(clr);
+                    {
+                        using PixelBitmap pbmp = new((Bitmap)btn.Image!);
+                        pbmp.Colorize(clr);
+                        btn.Image = pbmp.GetBitmap();
+                    }
                     break;
 
                 case ToolStripItem btn:
-                    btn.Image = ((Bitmap)btn.Image!).Colorize(clr);
+                    {
+                        using PixelBitmap pbmp = new((Bitmap)btn.Image!);
+                        pbmp.Colorize(clr);
+                        btn.Image = pbmp.GetBitmap();
+                    }
                     break;
 
                 default:

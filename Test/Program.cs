@@ -14,16 +14,35 @@ namespace Ephemera.NBagOfUis.Test
         [STAThread]
         static void Main(string[] _)
         {
+            // Handle unexpected esceptions.
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            Application.ThreadException += (sender, e) => { HandleException(e.Exception, "UI Thread Exception"); };
+            AppDomain.CurrentDomain.UnhandledException += (sender, e) => { HandleException((Exception)e.ExceptionObject, "Background Thread Exception"); };
+
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
             // Ensure paths.
             var outputDir = Path.Join(MiscUtils.GetSourcePath(), "out");
             Directory.CreateDirectory(outputDir);
 
-            // Use test host for debugging UI components.
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            var host = new TestHost();
-            Application.Run(host);
+            try
+            {
+                var host = new TestHost();
+                Application.Run(host);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "!!!");
+                Environment.Exit(1);
+            }
+        }
+
+        static void HandleException(Exception ex, string type)
+        {
+            MessageBox.Show(ex.ToString(), type);
+            Environment.Exit(1);
         }
     }
 }

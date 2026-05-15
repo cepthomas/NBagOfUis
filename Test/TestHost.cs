@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Drawing.Design;
 using System.Text.Json.Serialization;
 using Ephemera.NBagOfTricks;
+using Ephemera.NBagOfUis;
 
 
 namespace Ephemera.NBagOfUis.Test
@@ -133,11 +134,37 @@ namespace Ephemera.NBagOfUis.Test
             //
             pan1.ValueChanged += (_, __) => toolStripMeter1.AddValue(pan1.Value * 50.0 + 50.0);
 
-            ///// Graphics.
-            DoGraphics();
+            /////// Graphics.
+            string inputDir;
+            string outputDir;
+
+            var dir = MiscUtils.GetSourcePath();
+            inputDir = Path.Join(dir, "files");
+            outputDir = dir;
+            outputDir = Path.Join(dir, "out");
+
+            /////// bmp => ico /////
+            var bmp = (Bitmap)Image.FromFile(Path.Join(inputDir, "glyphicons-22-snowflake.png")); // 26x26
+            // Save single icon.
+            var ico = GraphicsUtils.CreateIcon(bmp, 32);
+            GraphicsUtils.SaveIcon(ico, Path.Join(outputDir, "snowflake_32.ico")); // just 32.
+            // Save icon family.
+            ico = GraphicsUtils.CreateIcon(bmp);
+            GraphicsUtils.SaveIcon(ico, Path.Join(outputDir, "snowflake_all.ico")); // all sizes
+
+            ///// ico => bmp /////
+            ico = GraphicsUtils.CreateIcon(Path.Join(inputDir, "crabe.ico"));
+            var bmp2 = ico.ToBitmap();
+            picGraphics.Image = bmp2;
+            // Write it back.
+            GraphicsUtils.SaveIcon(ico, Path.Join(outputDir, "copy_crabe.ico")); // all original resolutions.
+
+            ///// misc /////
+            btnYo.Image = bmp;
+            btnYo.Click += (_, _) => GraphicsUtils.ColorizeControl(btnYo, Color.Orange);
 
             ///// Go-go-go.
-            timer1.Enabled = true;
+            //timer1.Enabled = true;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -211,33 +238,6 @@ namespace Ephemera.NBagOfUis.Test
         {
             _settings.FormGeometry = new Rectangle(Location.X, Location.Y, Width, Height);
             _settings.Save();
-        }
-
-        void DoGraphics()
-        {
-            string inputDir;
-            string outputDir;
-
-            var dir = MiscUtils.GetSourcePath();
-            inputDir = Path.Join(dir, "files");
-            outputDir = dir;
-            outputDir = Path.Join(dir, "out");
-
-            ///// bmp => ico /////
-            var bmp = (Bitmap)Image.FromFile(Path.Join(inputDir, "glyphicons-22-snowflake.png")); // 26x26
-            // Save single icon.
-            var ico = GraphicsUtils.CreateIcon(bmp, 32);
-            GraphicsUtils.SaveIcon(ico, Path.Join(outputDir, "snowflake_32.ico")); // just 32.
-            // Save icon family.
-            ico = GraphicsUtils.CreateIcon(bmp);
-            GraphicsUtils.SaveIcon(ico, Path.Join(outputDir, "snowflake_all.ico")); // all sizes
-
-            ///// ico => bmp /////
-            ico = GraphicsUtils.CreateIcon(Path.Join(inputDir, "crabe.ico"));
-            bmp = ico.ToBitmap();
-            picGraphics.Image = bmp;
-            // Write it back.
-            GraphicsUtils.SaveIcon(ico, Path.Join(outputDir, "copy_crabe.ico")); // all original resolutions.
         }
     }
 

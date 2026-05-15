@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestHost));
             tvInfo = new TextViewer();
             propGrid = new PropertyGridEx();
             clickGrid1 = new ClickGrid();
@@ -54,6 +55,8 @@
             btnDump = new System.Windows.Forms.Button();
             dropDownButton1 = new DropDownButton();
             picGraphics = new System.Windows.Forms.PictureBox();
+            btnYo = new System.Windows.Forms.ToolStripButton();
+            toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picGraphics).BeginInit();
             SuspendLayout();
@@ -107,7 +110,7 @@
             // toolStrip1
             // 
             toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { btnSettings, toolStripSeparator2, toolStripSeparator3, toolStripSlider1, toolStripSeparator4, toolStripMeter1, toolStripSeparator5 });
+            toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { btnSettings, toolStripSeparator2, toolStripSeparator3, toolStripSlider1, toolStripSeparator4, toolStripMeter1, toolStripSeparator5, btnYo, toolStripSeparator1 });
             toolStrip1.Location = new System.Drawing.Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new System.Drawing.Size(1225, 41);
@@ -308,6 +311,19 @@
             picGraphics.TabIndex = 38;
             picGraphics.TabStop = false;
             // 
+            // btnYo
+            // 
+            btnYo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            btnYo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            btnYo.Name = "btnYo";
+            btnYo.Size = new System.Drawing.Size(26, 38);
+            btnYo.Text = "toolStripButton1";
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new System.Drawing.Size(6, 41);
+            // 
             // TestHost
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
@@ -367,5 +383,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.Button btnDump;
         private System.Windows.Forms.PictureBox picGraphics;
+        private System.Windows.Forms.ToolStripButton btnYo;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
