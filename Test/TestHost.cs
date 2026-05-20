@@ -138,10 +138,9 @@ namespace Ephemera.NBagOfUis.Test
             string inputDir;
             string outputDir;
 
-            var dir = MiscUtils.GetSourcePath();
-            inputDir = Path.Join(dir, "files");
-            outputDir = dir;
-            outputDir = Path.Join(dir, "out");
+            var sdir = MiscUtils.GetSourcePath();
+            inputDir = Path.Join(sdir, "files");
+            outputDir = Path.Join(sdir, "out");
 
             /////// bmp => ico /////
             var bmp = (Bitmap)Image.FromFile(Path.Join(inputDir, "glyphicons-22-snowflake.png")); // 26x26

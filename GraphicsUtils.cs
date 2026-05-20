@@ -131,37 +131,6 @@ namespace Ephemera.NBagOfUis
         }
 
         /// <summary>
-        /// Extract the icon from an executable file.
-        /// Every icon handle (HICON) returned by ExtractIconEx must be released
-        /// using the DestroyIcon function from user32.dll to prevent memory leaks.
-        /// </summary>
-        /// <param name="file"></param>
-        /// <param name="index"></param>
-        /// <param name="largeIcon"></param>
-        /// <returns></returns>
-        public static Icon? ExtractIconFromExecutable(string file, int index, bool largeIcon)
-        {
-            Icon? icon = null;
-
-            var hres = ExtractIconEx(file, index, out nint hlarge, out nint hsmall, 1);
-            if (hres != 0)
-            {
-                if (largeIcon && hlarge != 0)
-                {
-                    icon = Icon.FromHandle(hlarge);
-                    if (hsmall != 0) DestroyIcon(hsmall);
-                }
-                else if (!largeIcon && hsmall != 0)
-                {
-                    icon = Icon.FromHandle(hsmall);
-                    if (hlarge != 0) DestroyIcon(hlarge);
-                }
-            }
-
-            return icon;
-        }
-
-        /// <summary>
         /// Recolor a control.
         /// </summary>
         /// <param name="comp"></param>
