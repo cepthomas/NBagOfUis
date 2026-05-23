@@ -26,7 +26,7 @@ namespace Ephemera.NBagOfUis
         /// Create icon from a file.
         /// </summary>
         /// <param name="fn"></param>
-        /// <returns></returns>
+        /// <returns>The icon</returns>
         public static Icon CreateIcon(string fn)
         {
             using FileStream stream = new(fn, FileMode.Open);
@@ -39,7 +39,7 @@ namespace Ephemera.NBagOfUis
         /// </summary>
         /// <param name="bmpSource">Source image.</param>
         /// <param name="size">Specific size or 0 for all common windows sizes.</param>
-        /// <returns></returns>
+        /// <returns>The icon</returns>
         public static Icon CreateIcon(Bitmap bmpSource, int size = 0)
         {
             // The standards.
@@ -128,6 +128,24 @@ namespace Ephemera.NBagOfUis
         {
             using FileStream stream = new(fn, FileMode.OpenOrCreate);
             ico.Save(stream);
+        }
+
+        /// <summary>
+        /// Version that doesn't throw.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>The icon or null if it isn't available.</returns>
+        public static Icon? SafeExtractIcon(string name)
+        {
+            try
+            {
+                var icon = Icon.ExtractAssociatedIcon(name);
+                return icon;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         /// <summary>
