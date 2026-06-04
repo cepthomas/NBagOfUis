@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestHost));
             tvInfo = new TextViewer();
             propGrid = new PropertyGridEx();
             clickGrid1 = new ClickGrid();
@@ -43,6 +42,8 @@
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMeter1 = new ToolStripMeter();
             toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            btnYo = new System.Windows.Forms.ToolStripButton();
+            toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             meterDots = new Meter();
             meterLog = new Meter();
             meterLinear = new Meter();
@@ -55,8 +56,6 @@
             btnDump = new System.Windows.Forms.Button();
             dropDownButton1 = new DropDownButton();
             picGraphics = new System.Windows.Forms.PictureBox();
-            btnYo = new System.Windows.Forms.ToolStripButton();
-            toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picGraphics).BeginInit();
             SuspendLayout();
@@ -162,7 +161,7 @@
             toolStripMeter1.DrawColor = System.Drawing.Color.GreenYellow;
             toolStripMeter1.Label = "dotty";
             toolStripMeter1.Maximum = 100D;
-            toolStripMeter1.MeterType = MeterType.ContinuousDots;
+            toolStripMeter1.MeterType = MeterType.Linear;
             toolStripMeter1.Minimum = 0D;
             toolStripMeter1.Name = "toolStripMeter1";
             toolStripMeter1.Size = new System.Drawing.Size(150, 38);
@@ -172,6 +171,19 @@
             // 
             toolStripSeparator5.Name = "toolStripSeparator5";
             toolStripSeparator5.Size = new System.Drawing.Size(6, 41);
+            // 
+            // btnYo
+            // 
+            btnYo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            btnYo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            btnYo.Name = "btnYo";
+            btnYo.Size = new System.Drawing.Size(26, 38);
+            btnYo.Text = "toolStripButton1";
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new System.Drawing.Size(6, 41);
             // 
             // meterDots
             // 
@@ -310,19 +322,6 @@
             picGraphics.Size = new System.Drawing.Size(200, 200);
             picGraphics.TabIndex = 38;
             picGraphics.TabStop = false;
-            // 
-            // btnYo
-            // 
-            btnYo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            btnYo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            btnYo.Name = "btnYo";
-            btnYo.Size = new System.Drawing.Size(26, 38);
-            btnYo.Text = "toolStripButton1";
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(6, 41);
             // 
             // TestHost
             // 
