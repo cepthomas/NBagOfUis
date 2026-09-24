@@ -36,15 +36,19 @@ namespace Ephemera.NBagOfUis
 
         #region Properties
         /// <summary>Optional label.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Label { get; set; } = "";
 
         /// <summary>For styling.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Color DrawColor { get { return _brush.Color; } set { _brush.Color = value; } }
 
         /// <summary>Fader orientation</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Orientation Orientation { get; set; } = Orientation.Horizontal;
 
         /// <summary>Per step resolution of this slider.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Resolution
         {
             get { return _resolution; }
@@ -52,6 +56,7 @@ namespace Ephemera.NBagOfUis
         }
 
         /// <summary>Minimum Value of the slider.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Minimum
         {
             get { return _minimum; }
@@ -59,6 +64,7 @@ namespace Ephemera.NBagOfUis
         }
 
         /// <summary>Maximum Value of the slider.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Maximum
         {
             get { return _maximum; }
@@ -66,6 +72,7 @@ namespace Ephemera.NBagOfUis
         }
 
         /// <summary>The current value of the slider.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Value
         {
             get { return _value; }
@@ -257,24 +264,31 @@ namespace Ephemera.NBagOfUis
 
         #region Properties mapped to contained control
         /// <summary>Optional label.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Label { get { return _slider.Label; } set { _slider.Label = value; } }
 
         /// <summary>For styling.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Color DrawColor { get { return _slider.DrawColor; } set { _slider.DrawColor = value; } }
 
         /// <summary>Per step resolution of this slider.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Resolution { get { return _slider.Resolution; } set { _slider.Resolution = value; } }
 
         /// <summary>Minimum Value of the slider.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Minimum { get { return _slider.Minimum; } set { _slider.Minimum = value; } }
 
         /// <summary>Maximum Value of the slider.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Maximum { get { return _slider.Maximum; } set { _slider.Maximum = value; } }
 
         /// <summary>The current value of the slider.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Value { get { return _slider.Value; } set { _slider.Value = value; } }
 
         /// <summary>Optional border.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public BorderStyle BorderStyle { get { return _slider.BorderStyle; } set { _slider.BorderStyle = value; } }
         #endregion
 

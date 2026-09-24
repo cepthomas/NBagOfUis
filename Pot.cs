@@ -49,15 +49,19 @@ namespace Ephemera.NBagOfUis
 
         #region Properties
         /// <summary>For styling.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Color DrawColor { get { return _pen.Color; } set { _pen.Color = value; } }
 
         /// <summary>Name etc.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Label { get; set; } = "???";
 
         /// <summary>Taper.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Taper Taper { get; set; } = Taper.Linear;
 
         /// <summary>Per step resolution of this pot.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Resolution
         {
             get { return _resolution; }
@@ -65,6 +69,7 @@ namespace Ephemera.NBagOfUis
         }
 
         /// <summary>Minimum Value of the pot.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Minimum
         {
             get { return _minimum; }
@@ -72,6 +77,7 @@ namespace Ephemera.NBagOfUis
         }
 
         /// <summary>Maximum Value of the pot.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Maximum
         {
             get { return _maximum; }
@@ -79,6 +85,7 @@ namespace Ephemera.NBagOfUis
         }
 
         /// <summary>The current value of the pot.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Value
         {
             get { return _value; }

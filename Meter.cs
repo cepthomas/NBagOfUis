@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using Ephemera.NBagOfTricks;
+using System.ComponentModel;
 
 
 namespace Ephemera.NBagOfUis
@@ -35,21 +36,27 @@ namespace Ephemera.NBagOfUis
 
         #region Properties
         /// <summary>Optional label.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Label { get; set; } = "";
 
         /// <summary>For styling.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Color DrawColor { get { return _brush.Color; } set { _brush.Color = value; } }
 
         /// <summary>How the meter responds.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public MeterType MeterType { get; set; } = MeterType.Linear;
 
         /// <summary>Minimum value. If Log type, this is in db - usually -60;</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Minimum { get; set; } = 0;
 
         /// <summary>Maximum value. If Log type, this is in db - usually +18.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Maximum { get; set; } = 100;
 
         /// <summary>Meter orientation.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Orientation Orientation { get; set; } = Orientation.Horizontal;
         #endregion
 
@@ -220,21 +227,27 @@ namespace Ephemera.NBagOfUis
 
         #region Properties mapped to contained control
         /// <summary>Optional label.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Label { get { return _meter.Label; } set { _meter.Label = value; } }
 
         /// <summary>For styling.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Color DrawColor { get { return _meter.DrawColor; } set { _meter.DrawColor = value; } }
 
         /// <summary>How the meter responds.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public MeterType MeterType { get { return _meter.MeterType; } set { _meter.MeterType = value; } }
 
         /// <summary>Minimum Value of the slider.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Minimum { get { return _meter.Minimum; } set { _meter.Minimum = value; } }
 
         /// <summary>Maximum Value of the slider.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Maximum { get { return _meter.Maximum; } set { _meter.Maximum = value; } }
 
         /// <summary>Optional border.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public BorderStyle BorderStyle { get { return _meter.BorderStyle; } set { _meter.BorderStyle = value; } }
         #endregion
 

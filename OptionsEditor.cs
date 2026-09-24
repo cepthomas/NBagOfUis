@@ -44,6 +44,7 @@ namespace Ephemera.NBagOfUis
         }
 
         /// <summary>If true, user can add and delete values, otherwise just select.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool AllowEdit { get; set; }
         #endregion
 

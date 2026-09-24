@@ -32,17 +32,17 @@ namespace Ephemera.NBagOfUis
         /// <summary>Your favorite places.</summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
-        public List<string> RootDirs { get; set; } = new();
+        public List<string> RootDirs { get; set; } = [];
 
         /// <summary>Show only these file types. Empty is valid for files without extensions.</summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
-        public List<string> FilterExts { get; set; } = new();
+        public List<string> FilterExts { get; set; } = [];
 
         /// <summary>Ignore these noisy directories.</summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
-        public List<string> IgnoreDirs { get; set; } = new();
+        public List<string> IgnoreDirs { get; set; } = [];
 
         /// <summary>Splitter Position as Percent of width.</summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -118,8 +118,8 @@ namespace Ephemera.NBagOfUis
             treeView.ContextMenuStrip = new();
             treeView.ContextMenuStrip.Items.Add("Copy Path", null, (_, __) => { GetInfo(treeView); });
 
-            lbFiles.MouseClick += (object? sender, MouseEventArgs e) => UserFileSelected(e);
-            lbFiles.MouseDoubleClick += (object? sender, MouseEventArgs e) => UserFileSelected(e);
+            lbFiles.MouseClick += (sender, e) => UserFileSelected(e);
+            lbFiles.MouseDoubleClick += (sender, e) => UserFileSelected(e);
             lbFiles.MouseMove += ListFiles_MouseMove;
 
             lbFiles.ContextMenuStrip = new();
@@ -211,7 +211,7 @@ namespace Ephemera.NBagOfUis
         /// <param name="e"></param>
         void TreeView_NodeMouseClick(object? sender, TreeNodeMouseClickEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left && e.Node is not null)
             {
                 PopulateFileList(e.Node);
             }
@@ -389,7 +389,7 @@ namespace Ephemera.NBagOfUis
             splitContainer.Panel2.Controls.Add(lbFiles);
             Controls.Add(splitContainer);
 
-            statusStrip.Items.AddRange(new ToolStripItem[] { lblInfo });
+            statusStrip.Items.AddRange([lblInfo]);
             statusStrip.Name = "statusStrip";
             statusStrip.Size = new(600, 26);
             statusStrip.LayoutStyle = ToolStripLayoutStyle.Flow;

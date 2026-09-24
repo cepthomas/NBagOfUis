@@ -36,15 +36,19 @@ namespace Ephemera.NBagOfUis
         public override Font Font { get { return _rtb.Font; } set { _rtb.Font = value; } }
 
         /// <summary>Word wrap toggle.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool WordWrap { get { return _rtb.WordWrap; } set { _rtb.WordWrap = value; } }
 
         /// <summary>Optional prompt.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Prompt { get; set; } = "";
 
         /// <summary>Limit the size.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int MaxText { get; set; } = 10000;
 
         /// <summary>Colorize mathces fore or back.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool MatchUseBackground { get; set; } = true;
         #endregion
 

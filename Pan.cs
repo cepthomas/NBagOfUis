@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Ephemera.NBagOfTricks;
+using System.ComponentModel;
 
 
 namespace Ephemera.NBagOfUis
@@ -24,6 +25,7 @@ namespace Ephemera.NBagOfUis
 
         #region Properties
         /// <summary>The current Pan setting.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Value
         {
             get
@@ -39,6 +41,7 @@ namespace Ephemera.NBagOfUis
         }
 
         /// <summary>For styling.</summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Color DrawColor { get { return _brush.Color; } set { _brush.Color = value; } }
         #endregion
 

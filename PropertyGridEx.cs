@@ -142,7 +142,7 @@ namespace Ephemera.NBagOfUis
             {
                 var mtf = _propertyGridView.GetType().GetMethod("MoveSplitterTo",
                     BindingFlags.NonPublic | BindingFlags.InvokeMethod | BindingFlags.Instance);
-                mtf!.Invoke(_propertyGridView, new object[] { (int)x });
+                mtf!.Invoke(_propertyGridView, [x]);
             }
         }
 
@@ -192,6 +192,7 @@ namespace Ephemera.NBagOfUis
         public void ShowProperty(string which, bool visible)
         {
             // Manipulate the browsable attribute.
+            if (SelectedObject is null) return;
             PropertyDescriptorCollection pdc = TypeDescriptor.GetProperties(SelectedObject);
             PropertyDescriptor descriptor = pdc[which]!;
 

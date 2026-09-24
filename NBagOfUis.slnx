@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="NBagOfUis.csproj" />
+  <Project Path="Test/Test.csproj" />
+</Solution>
