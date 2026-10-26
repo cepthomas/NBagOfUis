@@ -22,5 +22,3 @@ No dependencies on external components. Does use my NBagOfTricks.
 - Meter: Linear or log.
 - Pot: Just like on your guitar.
 - Pan: Just like on your hifi.
-- ClickClack: Generates X/Y mouse clicks.
-- IconicSelector: Similar to Win11 Start menu.
