@@ -15,7 +15,7 @@ namespace Ephemera.NBagOfUis
     /// <summary>
     /// Implements a rudimentary volume meter.
     /// </summary>
-    public partial class Meter : UserControl
+    public class Meter : UserControl
     {
         #region Fields
         /// <summary>Storage.</summary>
