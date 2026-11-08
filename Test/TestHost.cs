@@ -163,6 +163,9 @@ namespace Ephemera.NBagOfUis.Test
             btnYo.Image = bmp;
             btnYo.Click += (_, _) => GraphicsUtils.ColorizeControl(btnYo, Color.Orange);
 
+            btnYo2.Image = bmp;
+            btnYo2.Click += (_, _) => GraphicsUtils.ColorizeControl(btnYo2, Color.Orange);
+
             ///// Go-go-go.
             //timer1.Enabled = true;
         }

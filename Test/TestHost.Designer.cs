@@ -56,6 +56,7 @@
             btnDump = new System.Windows.Forms.Button();
             dropDownButton1 = new DropDownButton();
             picGraphics = new System.Windows.Forms.PictureBox();
+            btnYo2 = new System.Windows.Forms.Button();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picGraphics).BeginInit();
             SuspendLayout();
@@ -65,16 +66,13 @@
             tvInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             tvInfo.Location = new System.Drawing.Point(14, 606);
             tvInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            tvInfo.MatchUseBackground = true;
-            tvInfo.MaxText = 5000;
             tvInfo.Name = "tvInfo";
-            tvInfo.Prompt = "** ";
             tvInfo.Size = new System.Drawing.Size(968, 147);
             tvInfo.TabIndex = 5;
-            tvInfo.WordWrap = true;
             // 
             // propGrid
             // 
+            propGrid.BackColor = System.Drawing.SystemColors.Control;
             propGrid.Location = new System.Drawing.Point(490, 193);
             propGrid.Name = "propGrid";
             propGrid.Size = new System.Drawing.Size(274, 399);
@@ -94,17 +92,10 @@
             // 
             slider1.BackColor = System.Drawing.Color.Gainsboro;
             slider1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            slider1.DrawColor = System.Drawing.Color.Red;
-            slider1.Label = "slider1";
             slider1.Location = new System.Drawing.Point(1017, 50);
-            slider1.Maximum = 1D;
-            slider1.Minimum = 0D;
             slider1.Name = "slider1";
-            slider1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            slider1.Resolution = 0.1D;
             slider1.Size = new System.Drawing.Size(197, 49);
             slider1.TabIndex = 23;
-            slider1.Value = 0.30000000000000004D;
             // 
             // toolStrip1
             // 
@@ -138,16 +129,9 @@
             // 
             toolStripSlider1.AccessibleName = "toolStripSlider1";
             toolStripSlider1.AutoSize = false;
-            toolStripSlider1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            toolStripSlider1.DrawColor = System.Drawing.Color.LightSeaGreen;
-            toolStripSlider1.Label = "HOOHAA";
-            toolStripSlider1.Maximum = 10D;
-            toolStripSlider1.Minimum = 0D;
             toolStripSlider1.Name = "toolStripSlider1";
-            toolStripSlider1.Resolution = 0.1D;
             toolStripSlider1.Size = new System.Drawing.Size(150, 38);
             toolStripSlider1.Text = "toolStripSlider1";
-            toolStripSlider1.Value = 5D;
             // 
             // toolStripSeparator4
             // 
@@ -157,12 +141,6 @@
             // toolStripMeter1
             // 
             toolStripMeter1.AutoSize = false;
-            toolStripMeter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            toolStripMeter1.DrawColor = System.Drawing.Color.GreenYellow;
-            toolStripMeter1.Label = "dotty";
-            toolStripMeter1.Maximum = 100D;
-            toolStripMeter1.MeterType = MeterType.Linear;
-            toolStripMeter1.Minimum = 0D;
             toolStripMeter1.Name = "toolStripMeter1";
             toolStripMeter1.Size = new System.Drawing.Size(150, 38);
             toolStripMeter1.Text = "toolStripMeter1";
@@ -188,42 +166,24 @@
             // meterDots
             // 
             meterDots.BackColor = System.Drawing.Color.Gainsboro;
-            meterDots.DrawColor = System.Drawing.Color.White;
-            meterDots.Label = "meterDots";
             meterDots.Location = new System.Drawing.Point(1017, 271);
-            meterDots.Maximum = 10D;
-            meterDots.MeterType = MeterType.ContinuousDots;
-            meterDots.Minimum = 0D;
             meterDots.Name = "meterDots";
-            meterDots.Orientation = System.Windows.Forms.Orientation.Horizontal;
             meterDots.Size = new System.Drawing.Size(197, 60);
             meterDots.TabIndex = 26;
             // 
             // meterLog
             // 
             meterLog.BackColor = System.Drawing.Color.Gainsboro;
-            meterLog.DrawColor = System.Drawing.Color.Azure;
-            meterLog.Label = "meter log";
             meterLog.Location = new System.Drawing.Point(1017, 336);
-            meterLog.Maximum = 3D;
-            meterLog.MeterType = MeterType.Log;
-            meterLog.Minimum = -60D;
             meterLog.Name = "meterLog";
-            meterLog.Orientation = System.Windows.Forms.Orientation.Horizontal;
             meterLog.Size = new System.Drawing.Size(197, 56);
             meterLog.TabIndex = 27;
             // 
             // meterLinear
             // 
             meterLinear.BackColor = System.Drawing.Color.Gainsboro;
-            meterLinear.DrawColor = System.Drawing.Color.White;
-            meterLinear.Label = "meterLinear";
             meterLinear.Location = new System.Drawing.Point(1017, 399);
-            meterLinear.Maximum = 100D;
-            meterLinear.MeterType = MeterType.Linear;
-            meterLinear.Minimum = 0D;
             meterLinear.Name = "meterLinear";
-            meterLinear.Orientation = System.Windows.Forms.Orientation.Horizontal;
             meterLinear.Size = new System.Drawing.Size(197, 56);
             meterLinear.TabIndex = 28;
             // 
@@ -231,46 +191,30 @@
             // 
             slider2.BackColor = System.Drawing.Color.Gainsboro;
             slider2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            slider2.DrawColor = System.Drawing.Color.SlateBlue;
-            slider2.Label = "SL2";
             slider2.Location = new System.Drawing.Point(1017, 106);
             slider2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            slider2.Maximum = 19D;
-            slider2.Minimum = 2D;
             slider2.Name = "slider2";
-            slider2.Orientation = System.Windows.Forms.Orientation.Vertical;
-            slider2.Resolution = 0.1D;
             slider2.Size = new System.Drawing.Size(67, 155);
             slider2.TabIndex = 29;
-            slider2.Value = 7D;
             // 
             // pan1
             // 
             pan1.BackColor = System.Drawing.Color.Gainsboro;
-            pan1.DrawColor = System.Drawing.Color.Crimson;
             pan1.Location = new System.Drawing.Point(1092, 218);
             pan1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             pan1.Name = "pan1";
             pan1.Size = new System.Drawing.Size(122, 44);
             pan1.TabIndex = 30;
-            pan1.Value = 0.1D;
             // 
             // pot1
             // 
             pot1.BackColor = System.Drawing.Color.Gainsboro;
-            pot1.DrawColor = System.Drawing.Color.Green;
             pot1.ForeColor = System.Drawing.Color.Black;
-            pot1.Label = "p99";
             pot1.Location = new System.Drawing.Point(1092, 106);
             pot1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            pot1.Maximum = 100D;
-            pot1.Minimum = 0D;
             pot1.Name = "pot1";
-            pot1.Resolution = 5D;
             pot1.Size = new System.Drawing.Size(122, 102);
             pot1.TabIndex = 31;
-            pot1.Taper = Taper.Linear;
-            pot1.Value = 50D;
             // 
             // filTree
             // 
@@ -290,7 +234,6 @@
             // 
             // optionsEd
             // 
-            optionsEd.AllowEdit = true;
             optionsEd.Location = new System.Drawing.Point(771, 88);
             optionsEd.Name = "optionsEd";
             optionsEd.Size = new System.Drawing.Size(211, 174);
@@ -317,17 +260,26 @@
             // picGraphics
             // 
             picGraphics.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            picGraphics.Location = new System.Drawing.Point(1013, 514);
+            picGraphics.Location = new System.Drawing.Point(1017, 470);
             picGraphics.Name = "picGraphics";
-            picGraphics.Size = new System.Drawing.Size(200, 200);
+            picGraphics.Size = new System.Drawing.Size(196, 200);
             picGraphics.TabIndex = 38;
             picGraphics.TabStop = false;
+            // 
+            // btnYo2
+            // 
+            btnYo2.Location = new System.Drawing.Point(1019, 683);
+            btnYo2.Name = "btnYo2";
+            btnYo2.Size = new System.Drawing.Size(46, 44);
+            btnYo2.TabIndex = 39;
+            btnYo2.UseVisualStyleBackColor = true;
             // 
             // TestHost
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1225, 767);
+            Controls.Add(btnYo2);
             Controls.Add(picGraphics);
             Controls.Add(dropDownButton1);
             Controls.Add(btnDump);
@@ -384,5 +336,6 @@
         private System.Windows.Forms.PictureBox picGraphics;
         private System.Windows.Forms.ToolStripButton btnYo;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.Button btnYo2;
     }
 }
