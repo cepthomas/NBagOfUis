@@ -12,10 +12,8 @@ namespace Ephemera.NBagOfUis
     /// <summary>
     /// Slider control.
     /// </summary>
-    public class Slider : UserControl
+    public class Slider : UserControl //  TODO-A log/db for volume use.  >>> NAudio3\src\NAudio.WinForms\Gui\VolumeSlider.cs
     {
-        // TODO log/db for volume use.
-
         #region Fields
         /// <summary>If user resets. This is the first value assigned to Value.</summary>
         double _resetVal = double.NaN;
