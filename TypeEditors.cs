@@ -13,6 +13,7 @@ using Ephemera.NBagOfTricks;
 // Shut up warnings in this file. Using manual checking where needed.
 #pragma warning disable CS8602
 
+
 namespace Ephemera.NBagOfUis
 {
     //----------------------------------------------------------------
@@ -64,6 +65,8 @@ namespace Ephemera.NBagOfUis
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext? context) { return UITypeEditorEditStyle.Modal; }
     }
 
+    #if _GRAVEYARD
+    // These have a bad smell but keep it around for a while
     //----------------------------------------------------------------
     /// <summary>Select from list supplied to cache. Value can be int or string.</summary>
     public class GenericListTypeEditor : UITypeEditor
@@ -142,7 +145,6 @@ namespace Ephemera.NBagOfUis
         }
     }
 
-    //----------------------------------------------------------------
     /// <summary>Broken - don't use.</summary>
     public class PathListEditor : UITypeEditor // TODO doesn't work yet.
     {
@@ -216,4 +218,5 @@ namespace Ephemera.NBagOfUis
 
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext? context) { return UITypeEditorEditStyle.DropDown; }
     }
+    #endif
 }
