@@ -9,7 +9,7 @@ using System.ComponentModel;
 
 namespace Ephemera.NBagOfUis
 {
-    /// <summary>Display types.</summary>  // TODO-A Add damped/vu, peak/hold  >>> NAudio3\src\NAudio.WinForms\Gui\VolumeMeter.cs
+    /// <summary>Display types.</summary>  // TODO2 Add damped/vu, peak/hold  >>> NAudio3\src\NAudio.WinForms\Gui\VolumeMeter.cs
     public enum MeterType { Linear, Log, ContinuousLine, ContinuousDots }
 
     /// <summary>
